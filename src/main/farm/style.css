@@ -1,0 +1,23 @@
+
+
+#topBar {
+    /*-fx-background-color: gray;*/
+    -fx-font-size: 14px;
+    -fx-top: 0px;
+    -fx-height: 50px;
+    -fx-border-top: 1px;
+    -fx-border-color: black;
+    -fx-border-style: solid;
+    -fx-text-align: center;
+}
+
+#farmPlots {
+    -fx-top: 50px;
+    -fx-font-size: 14px;
+}
+
+.quitButton {
+    -fx-font-size: 14px;
+    -fx-background-color: #00a5cf;
+    -fx-border-radius: 0px;
+}

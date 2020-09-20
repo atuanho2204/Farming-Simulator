@@ -1,0 +1,81 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<StackPane fx:controller="farm.Controller" xmlns:fx="http://javafx.com/fxml" alignment="center">
+    <HBox fx:id="topBar">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+        <!-- This is where the information about the farm, money, difficulty goes.-->
+        <Label>
+            <padding>
+                <Insets right="10"/>
+            </padding>
+            Sample data 1
+        </Label>
+        <Label>
+            <padding>
+                <Insets right="10"/>
+            </padding>
+            Sample data 2
+        </Label>
+        <Label>
+            <padding>
+                <Insets right="10"/>
+            </padding>
+            Sample data 3
+        </Label>
+        <Button styleClass="quitButton">Quit</Button>
+    </HBox>
+    <GridPane hgap="10" vgap="10" fx:id="farmPlots">
+        <!-- This is where the farm plots are-->
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40"/>
+        </padding>
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" fillWidth="true"/>
+            <ColumnConstraints hgrow="ALWAYS" fillWidth="true"/>
+            <ColumnConstraints hgrow="ALWAYS" fillWidth="true"/>
+            <ColumnConstraints hgrow="ALWAYS" fillWidth="true"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="ALWAYS" fillHeight="true"/>
+            <RowConstraints vgrow="ALWAYS" fillHeight="true"/>
+            <RowConstraints vgrow="ALWAYS" fillHeight="true"/>
+            <RowConstraints vgrow="ALWAYS" fillHeight="true"/>
+        </rowConstraints>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER">(0,0)
+        </Label>
+        <Label GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.halignment="CENTER">(1,0)
+        </Label>
+        <Label GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.halignment="CENTER">(2,0)
+        </Label>
+        <Label GridPane.columnIndex="3" GridPane.rowIndex="0" GridPane.halignment="CENTER">(3,0)
+        </Label>
+
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER">(0,1)
+        </Label>
+        <Label GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.halignment="CENTER">(1,1)
+        </Label>
+        <Label GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.halignment="CENTER">(2,1)
+        </Label>
+        <Label GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.halignment="CENTER">(3,1)
+        </Label>
+
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="CENTER">(0,2)
+        </Label>
+        <Label GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.halignment="CENTER">(1,2)
+        </Label>
+        <Label GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.halignment="CENTER">(2,2)
+        </Label>
+        <Label GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.halignment="CENTER">(3,2)
+        </Label>
+    </GridPane>
+
+</StackPane>
