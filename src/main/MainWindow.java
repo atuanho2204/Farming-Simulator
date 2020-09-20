@@ -36,19 +36,21 @@ public class MainWindow extends Application {
     public void start(Stage primaryStage) {
         VBox vBox = new VBox();
 
-        HBox hBox = new HBox();
+        VBox vboxForText = new VBox();
+        vboxForText.setMinHeight(500);
+
+        HBox hboxForButtons = new HBox();
         Button startButton = new Button("Start");
-        startButton.setStyle("-fx-background-color: green; -fx-text-fill: white;"
+        startButton.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font: 50 arial;"
                 + "-fx-border-radius: 20; -fx-background-radius: 20");
         Button quitButton = new Button("Quit");
-        quitButton.setStyle("-fx-background-color: green; -fx-text-fill: white;"
+        quitButton.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font: 50 arial;"
                 + "-fx-border-radius: 20; -fx-background-radius: 20");
-        hBox.getChildren().addAll(startButton, quitButton);
-        hBox.setPadding(new Insets(10, 20, 10, 20));
-        hBox.setSpacing(5);
-        hBox.setAlignment(Pos.CENTER);
+        hboxForButtons.getChildren().addAll(startButton, quitButton);
+        hboxForButtons.setSpacing(100);
+        hboxForButtons.setAlignment(Pos.CENTER);
 
-        vBox.getChildren().addAll(hBox);
+        vBox.getChildren().addAll(vboxForText, hboxForButtons);
 
         primaryStage.setTitle("Totally Accurate Farming Simulation");
         primaryStage.setScene(new Scene(vBox));
