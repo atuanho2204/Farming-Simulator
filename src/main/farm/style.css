@@ -5,10 +5,10 @@
     -fx-font-size: 14px;
     -fx-top: 0px;
     -fx-height: 50px;
-    -fx-border-top: 1px;
+    /*-fx-border-top: 1px;
     -fx-border-color: black;
     -fx-border-style: solid;
-    -fx-text-align: center;
+    -fx-text-align: center;*/
 }
 
 #farmPlots {
