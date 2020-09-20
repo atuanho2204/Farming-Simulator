@@ -1,53 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
-<StackPane alignment="center" prefHeight="302.0" prefWidth="313.0"
-           xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2"
+<StackPane alignment="center"
+           stylesheets="@style.css"
+           xmlns="http://javafx.com/javafx/11.0.1"
+           xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="farm.Controller">
     <HBox fx:id="topBar">
         <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
+            <Insets bottom="10" left="10" right="10" top="10"/>
         </padding>
         <!-- This is where the information about the farm, money, difficulty goes.-->
         <Label>
             <padding>
-                <Insets right="10" />
+                <Insets right="10"/>
             </padding>
             Sample data 1
         </Label>
         <Label>
             <padding>
-                <Insets right="10" />
+                <Insets right="10"/>
             </padding>
             Sample data 2
         </Label>
         <Label>
             <padding>
-                <Insets right="10" />
+                <Insets right="10"/>
             </padding>
             Sample data 3
         </Label>
-        <Button styleClass="quitButton">Quit</Button>
+        <Button styleClass="quitButton">
+            Quit
+        </Button>
     </HBox>
     <GridPane fx:id="farmPlots" hgap="10" vgap="10">
         <!-- This is where the farm plots are-->
         <padding>
-            <Insets bottom="40" left="40" right="40" top="40" />
+            <Insets bottom="40" left="40" right="40" top="40"/>
         </padding>
         <columnConstraints>
-            <ColumnConstraints fillWidth="true" hgrow="ALWAYS" />
-            <ColumnConstraints fillWidth="true" hgrow="ALWAYS" />
-            <ColumnConstraints fillWidth="true" hgrow="ALWAYS" />
-            <ColumnConstraints fillWidth="true" hgrow="ALWAYS" />
+            <ColumnConstraints fillWidth="true" hgrow="ALWAYS"/>
+            <ColumnConstraints fillWidth="true" hgrow="ALWAYS"/>
+            <ColumnConstraints fillWidth="true" hgrow="ALWAYS"/>
+            <ColumnConstraints fillWidth="true" hgrow="ALWAYS"/>
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints fillHeight="true" vgrow="ALWAYS" />
-            <RowConstraints fillHeight="true" vgrow="ALWAYS" />
-            <RowConstraints fillHeight="true" vgrow="ALWAYS" />
-            <RowConstraints fillHeight="true" vgrow="ALWAYS" />
+            <RowConstraints fillHeight="true" vgrow="ALWAYS"/>
+            <RowConstraints fillHeight="true" vgrow="ALWAYS"/>
+            <RowConstraints fillHeight="true" vgrow="ALWAYS"/>
+            <RowConstraints fillHeight="true" vgrow="ALWAYS"/>
         </rowConstraints>
         <Label GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">(0,0)
         </Label>
@@ -75,6 +85,7 @@
         </Label>
         <Label GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">(3,2)
         </Label>
+
     </GridPane>
 
 </StackPane>
