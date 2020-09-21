@@ -11,6 +11,8 @@ public class Main extends Application {
      * main method to help launch the program
      * @param args unused parameter
      * @throws java.lang.Exception throws exception
+     *
+     * Forwarded Initial change.
      */
     public static void main(String[] args) throws Exception {
         launch(args);
