@@ -1,12 +1,16 @@
 package main;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
 
 public class Main extends Application {
     private int sceneWidth = 1200;
@@ -28,8 +32,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //Parent root = FXMLLoader.load(getClass().getResource("farmUI.xml"));
+
         // Set up panes and add panes to scenes
-        VBox welcomePane = new VBox();
+        StackPane welcomePane = new StackPane();
         VBox configPane = new VBox();
         VBox gamePane = new VBox();
 
@@ -38,19 +43,25 @@ public class Main extends Application {
         Scene gameScene = new Scene(gamePane, sceneWidth, sceneHeight);
 
         // Welcome Scene = ws
+        Image image = new Image(new FileInputStream("src/main/images/welcome_background.jpg"));
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(sceneHeight);
+        imageView.setFitWidth(sceneWidth);
+
         Button startButton = new Button("Start");
         startButton.setStyle("-fx-background-color: green; -fx-text-fill: white;"
-                + "-fx-font: 50 arial; -fx-border-radius: 20; -fx-background-radius: 20");
-
+                + "-fx-font: 40 arial; -fx-border-radius: 20; -fx-background-radius: 20");
         Button quitButton1 = new Button("Quit");
         quitButton1.setStyle("-fx-background-color: green; -fx-text-fill: white;"
-                + "-fx-font: 50 arial; -fx-border-radius: 20; -fx-background-radius: 20");
+                + "-fx-font: 40 arial; -fx-border-radius: 20; -fx-background-radius: 20");
 
         HBox wsButtons = new HBox();
         wsButtons.getChildren().addAll(startButton, quitButton1);
         wsButtons.setAlignment(Pos.CENTER);
         wsButtons.setSpacing(30);
-        welcomePane.getChildren().add(wsButtons);
+        wsButtons.setPadding(new Insets(100, 0, 0, 0));
+
+        welcomePane.getChildren().addAll(imageView, wsButtons);
 
         startButton.setOnAction(e -> {
             primaryStage.setScene(configScene);
@@ -63,7 +74,6 @@ public class Main extends Application {
         Button continueButton = new Button("Continue");
         continueButton.setStyle("-fx-background-color: green; -fx-text-fill: white;"
                 + "-fx-font: 50 arial; -fx-border-radius: 20; -fx-background-radius: 20");
-
         Button quitButton2 = new Button("Quit");
         quitButton2.setStyle("-fx-background-color: green; -fx-text-fill: white;"
                 + "-fx-font: 50 arial; -fx-border-radius: 20; -fx-background-radius: 20");
@@ -97,8 +107,9 @@ public class Main extends Application {
             primaryStage.close();
         });
 
-        primaryStage.setTitle("Welcome");
+        primaryStage.setTitle("Totally Accurate Farming Simulator");
         primaryStage.setScene(welcomeScene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 }
