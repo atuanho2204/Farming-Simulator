@@ -1,4 +1,4 @@
-package main;
+package test.Quynh;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -53,7 +53,7 @@ public class MainWindow extends Application {
 
         vBox.getChildren().addAll(vBoxForText, hBoxForButtons);
 
-        primaryStage.setTitle("Totally Accurate Farming Simulation");
+        primaryStage.setTitle("Welcome!");
         primaryStage.setScene(new Scene(vBox));
         primaryStage.setMinHeight(800);
         primaryStage.setMinWidth(1200);
