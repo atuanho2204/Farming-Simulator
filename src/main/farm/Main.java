@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("farmUI.fxml"));
         Scene scene = new Scene(root, 400, 350);
-//        scene.getStylesheets().add("farm/style.css");
+        //scene.getStylesheets().add("farm/style.css");
         primaryStage.setTitle("FarmUI");
 
         primaryStage.setScene(scene);
