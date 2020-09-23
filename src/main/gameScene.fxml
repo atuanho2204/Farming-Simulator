@@ -29,14 +29,14 @@
             </VBox>
             <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                 <children>
-                    <Button fx:id="pauseButton" alignment="CENTER" mnemonicParsing="false" onAction="#handlePauseButton" prefHeight="30.0" prefWidth="60.0" style="-fx-background-color: #18a734;" text="Pause" textFill="WHITE">
+                    <Button fx:id="pauseButton" alignment="CENTER" mnemonicParsing="false" onAction="#handlePauseButton" prefHeight="30.0" prefWidth="70.0" style="-fx-background-color: #18a734;" text="Pause" textFill="WHITE">
                         <font>
-                            <Font size="10.0" />
+                            <Font name="Chalkduster" size="14.0" />
                         </font>
                     </Button>
-                    <Button fx:id="quitButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleQuitButton" prefHeight="30.0" prefWidth="60.0" style="-fx-background-color: #18a734;" text="Quit" textAlignment="CENTER" textFill="WHITE">
+                    <Button fx:id="quitButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleQuitButton" prefHeight="30.0" prefWidth="70.0" style="-fx-background-color: #18a734;" text="Quit" textAlignment="CENTER" textFill="WHITE">
                         <font>
-                            <Font size="10.0" />
+                            <Font name="Chalkduster" size="14.0" />
                         </font>
                     </Button>
                 </children>
