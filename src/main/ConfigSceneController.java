@@ -1,3 +1,4 @@
+
 package main;
 
 import javafx.event.ActionEvent;
@@ -9,15 +10,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-
 public class ConfigSceneController {
-    private int sceneWidth = 1200;
-    private int sceneHeight = 800;
+
+    @FXML
+    private Button continueButton;
+
+    @FXML
+    private Button quitButton;
 
     @FXML
     private TextField playerName;
+
     @FXML
     private ToggleGroup seasonGroup;
+
     @FXML
     private CheckBox wheat;
     @FXML
@@ -27,54 +33,64 @@ public class ConfigSceneController {
     @FXML
     private CheckBox lettuce;
 
-    @FXML
-    private void initialize() {
-    }
 
-    @FXML
-    public void getSeason() {
-        RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
-        String value = selectedRadioButton.getText();
-        System.out.println(value);
-    }
-
-    @FXML
-    public void getSeed() {
-        if (wheat.isSelected()) {
-            System.out.println(wheat.getText());
-        }
-        if (corn.isSelected()) {
-            System.out.println(corn.getText());
-        }
-        if (cotton.isSelected()) {
-            System.out.println(cotton.getText());
-        }
-        if (lettuce.isSelected()) {
-            System.out.println(lettuce.getText());
-        }
-    }
-
-    public void handleContinueAction(ActionEvent event) {
-        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    public void handleContinueButton(ActionEvent event) throws Exception {
+        Stage stage = null;
+        Parent root = FXMLLoader.load(getClass().getResource("configScene.fxml"));
         try {
-            Parent gamePane = FXMLLoader.load(getClass().getResource("gameScene.fxml"));
-            if (!playerName.getText().isEmpty()) {
-                Scene gameScene = new Scene(gamePane, sceneWidth, sceneHeight);
-                primaryStage.setScene(gameScene);
-                primaryStage.show();
-                Scene scene = new Scene(gamePane);
-                primaryStage.setScene(scene);
-                primaryStage.show();
-            } else {
-                throw new Exception();
+            boolean seasonCheck = seasonGroup.getSelectedToggle().isSelected();
+            boolean seedCheck = wheat.isSelected()
+                    || corn.isSelected() || cotton.isSelected() || lettuce.isSelected();
+            if (event.getSource() == continueButton && !playerName.getText().isEmpty()
+                    && seasonCheck && seedCheck) {
+                stage = (Stage) continueButton.getScene().getWindow();
+                root = FXMLLoader.load(getClass().getResource("gameScene.fxml"));
+            } else if (event.getSource() == quitButton) {
+                stage = (Stage) quitButton.getScene().getWindow();
+                root = FXMLLoader.load(getClass().getResource("gameScene.fxml"));
             }
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         } catch (Exception e) {
-            System.out.println("Name is required.");
+            getNameAlert();
         }
     }
 
-    public void handleQuitAction(ActionEvent event) {
+    private void getNameAlert() {
+        Alert a = new Alert(Alert.AlertType.NONE);
+        a.setAlertType(Alert.AlertType.INFORMATION);
+        a.setContentText("You need to enter your name and pick season and seeds before continue!");
+        // show the dialog
+        a.show();
+    }
+
+    public void handleConfigQuitButton(ActionEvent event) {
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         primaryStage.close();
     }
+
+    @FXML
+    public void getSeason() throws Exception {
+        RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
+        String value = selectedRadioButton.getText();
+        //System.out.println(value);
+    }
+    /*
+    @FXML
+    public void getSeed() throws Exception {
+        if (wheat.isSelected()) {
+            //System.out.println(wheat.getText());
+        }
+        if (corn.isSelected()) {
+            //System.out.println(corn.getText());
+        }
+        if (cotton.isSelected()) {
+            //System.out.println(cotton.getText());
+        }
+        if (lettuce.isSelected()) {
+            //System.out.println(lettuce.getText());
+        }
+    }*/
 }
