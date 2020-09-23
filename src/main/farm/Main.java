@@ -9,11 +9,13 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 public class Main extends Application {
+    private int sceneWidth = 1200;
+    private int sceneHeight = 800;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("farmUI.fxml"));
-        Scene scene = new Scene(root, 400, 350);
+        Scene scene = new Scene(root, sceneWidth, sceneHeight);
         //scene.getStylesheets().add("farm/style.css");
         primaryStage.setTitle("FarmUI");
 

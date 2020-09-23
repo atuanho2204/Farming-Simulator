@@ -1,10 +1,12 @@
 package farm;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+
+import javax.print.DocFlavor;
+import java.util.ResourceBundle;
 
 
 public class Controller {
@@ -13,9 +15,9 @@ public class Controller {
     private Button closeButton;
 
     @FXML
-    public void handleCloseButtonAction(ActionEvent event) {
+    public void closeAction(ActionEvent actionEvent) {
+        closeButton.setText("Quitting");
         Stage stage = (Stage)closeButton.getScene().getWindow();
         stage.close();
     }
-
 }
