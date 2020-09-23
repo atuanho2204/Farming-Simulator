@@ -1,15 +1,19 @@
 package main;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+//import javafx.scene.control.CheckBox;
+//import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+//import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
 import java.io.FileInputStream;
 
 public class Main extends Application {
@@ -31,11 +35,10 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("farmUI.xml"));
 
         // Set up panes and add panes to scenes
         StackPane welcomePane = new StackPane();
-        VBox configPane = new VBox();
+        Parent configPane = FXMLLoader.load(getClass().getResource("configScene.fxml"));
         VBox gamePane = new VBox();
 
         Scene welcomeScene = new Scene(welcomePane, sceneWidth, sceneHeight);
@@ -71,7 +74,7 @@ public class Main extends Application {
         });
 
         // Configuration Scene = cs
-        Button continueButton = new Button("Continue");
+        /*Button continueButton = new Button("Continue");
         continueButton.setStyle("-fx-background-color: green; -fx-text-fill: white;"
                 + "-fx-font: 50 arial; -fx-border-radius: 20; -fx-background-radius: 20");
         Button quitButton2 = new Button("Quit");
@@ -79,17 +82,21 @@ public class Main extends Application {
                 + "-fx-font: 50 arial; -fx-border-radius: 20; -fx-background-radius: 20");
 
         HBox csButtons = new HBox();
-        csButtons.getChildren().addAll(continueButton, quitButton2);
+        //csButtons.setMinSize(1200, 800);
+        //csButtons.setHgap(20);
+        //csButtons.add(continueButton, 0, 3);
+        //csButtons.add(quitButton2,1, 3);
         csButtons.setAlignment(Pos.CENTER);
         csButtons.setSpacing(30);
-        configPane.getChildren().add(csButtons);
+        csButtons.getChildren().addAll(continueButton,quitButton2);
+        configPane.add(csButtons,3,3);
 
         continueButton.setOnAction(e -> {
             primaryStage.setScene(gameScene);
         });
         quitButton2.setOnAction(e -> {
             primaryStage.close();
-        });
+        });*/
 
         // Game Scene = gs
         Button pauseButton = new Button("Pause");
@@ -107,9 +114,14 @@ public class Main extends Application {
             primaryStage.close();
         });
 
+
+
+
+
         primaryStage.setTitle("Totally Accurate Farming Simulator");
         primaryStage.setScene(welcomeScene);
         primaryStage.setResizable(false);
         primaryStage.show();
+
     }
 }
