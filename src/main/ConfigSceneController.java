@@ -37,21 +37,32 @@ public class ConfigSceneController {
         Stage stage = null;
         Parent root = FXMLLoader.load(getClass().getResource("configScene.fxml"));
         try {
-            if (event.getSource() == continueButton && !playerName.getText().isEmpty()) {
+            boolean seasonCheck = seasonGroup.getSelectedToggle().isSelected();
+            boolean seedCheck = wheat.isSelected()
+                    || corn.isSelected() || cotton.isSelected() || lettuce.isSelected();
+            if (event.getSource() == continueButton && !playerName.getText().isEmpty()
+                    && seasonCheck && seedCheck) {
                 stage = (Stage) continueButton.getScene().getWindow();
-                root = FXMLLoader.load(getClass().getResource("testscene.fxml"));
+                root = FXMLLoader.load(getClass().getResource("gameScene.fxml"));
             } else if (event.getSource() == quitButton) {
                 stage = (Stage) quitButton.getScene().getWindow();
-                root = FXMLLoader.load(getClass().getResource("testscene.fxml"));
+                root = FXMLLoader.load(getClass().getResource("gameScene.fxml"));
             }
-
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-            System.out.println("put your name");
+            getNameAlert();
         }
+    }
+
+    private void getNameAlert() {
+        Alert a = new Alert(Alert.AlertType.NONE);
+        a.setAlertType(Alert.AlertType.INFORMATION);
+        a.setContentText("You need to put your name and pick season and seed before continue!");
+        // show the dialog
+        a.show();
     }
 
     public void handleConfigQuitButton(ActionEvent event) throws Exception {
@@ -62,22 +73,22 @@ public class ConfigSceneController {
     public void getSeason() throws Exception {
         RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
         String value = selectedRadioButton.getText();
-        System.out.println(value);
+        //System.out.println(value);
     }
-
+    /*
     @FXML
     public void getSeed() throws Exception {
         if (wheat.isSelected()) {
-            System.out.println(wheat.getText());
+            //System.out.println(wheat.getText());
         }
         if (corn.isSelected()) {
-            System.out.println(corn.getText());
+            //System.out.println(corn.getText());
         }
         if (cotton.isSelected()) {
-            System.out.println(cotton.getText());
+            //System.out.println(cotton.getText());
         }
         if (lettuce.isSelected()) {
-            System.out.println(lettuce.getText());
+            //System.out.println(lettuce.getText());
         }
-    }
+    }*/
 }
