@@ -16,10 +16,10 @@
       stylesheets="@style.css"
       xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="farm.Controller">
+      fx:controller="farm.FarmController">
     <HBox fx:id="topBar">
         <!-- This is where the information about the farm, money, difficulty goes.-->
-        <Label>
+        <Label fx:id="difficultyLabel">
             <padding>
                 <Insets right="10"/>
             </padding>
@@ -57,33 +57,33 @@
             <RowConstraints fillHeight="true" vgrow="ALWAYS"/>
         </rowConstraints>
 
-        <Label GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">(0,0)
+        <Button GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">(0,0)
 
-        </Label>
-        <Label GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0">(1,0)
-        </Label>
-        <Label GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">(2,0)
-        </Label>
-        <Label GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0">(3,0)
-        </Label>
+        </Button>
+        <Button GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0">(1,0)
+        </Button>
+        <Button GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">(2,0)
+        </Button>
+        <Button GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0">(3,0)
+        </Button>
 
-        <Label GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1">(0,1)
-        </Label>
-        <Label GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">(1,1)
-        </Label>
-        <Label GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">(2,1)
-        </Label>
-        <Label GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">(3,1)
-        </Label>
+        <Button GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1">(0,1)
+        </Button>
+        <Button GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">(1,1)
+        </Button>
+        <Button GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">(2,1)
+        </Button>
+        <Button GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">(3,1)
+        </Button>
 
-        <Label GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2">(0,2)
-        </Label>
-        <Label GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">(1,2)
-        </Label>
-        <Label GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">(2,2)
-        </Label>
-        <Label GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">(3,2)
-        </Label>
+        <Button GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2">(0,2)
+        </Button>
+        <Button GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">(1,2)
+        </Button>
+        <Button GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">(2,2)
+        </Button>
+        <Button GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">(3,2)
+        </Button>
 
     </GridPane>
 
