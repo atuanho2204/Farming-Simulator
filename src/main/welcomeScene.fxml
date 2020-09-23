@@ -8,7 +8,7 @@
 
 <StackPane alignment="CENTER" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.WelcomeSceneController">
     <children>
-        <ImageView fx:id="image" fitHeight="800" fitWidth="1200">
+        <ImageView fx:id="image" fitHeight="800.0" fitWidth="1200.0">
          <image>
             <Image url="@images/welcome_background.jpg" />
          </image></ImageView>
@@ -16,7 +16,7 @@
             <children>
                 <Button fx:id="startButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleStartButton" prefHeight="75.0" prefWidth="150.0" style="-fx-background-color: #18a734;" text="Start" textFill="WHITE">
                     <font>
-                        <Font size="28.0" />
+                        <Font name="Chalkduster" size="36.0" />
                     </font>
                     <HBox.margin>
                         <Insets />
@@ -24,7 +24,7 @@
                 </Button>
                 <Button fx:id="quitButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleQuitButton" prefHeight="75.0" prefWidth="150.0" style="-fx-background-color: #18a734;" text="Quit" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font size="28.0" />
+                        <Font name="Chalkduster" size="36.0" />
                     </font>
                 </Button>
             </children>
