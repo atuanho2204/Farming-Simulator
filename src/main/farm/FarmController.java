@@ -23,7 +23,11 @@ public class FarmController {
     @FXML
     private Button closeButton;
     @FXML
-    private Label difficultyLabel;
+    private Label Low;
+    @FXML
+    private Label Medium;
+    @FXML
+    private Label High;
 
     private void setData() {
         closeButton.setText("");

@@ -19,23 +19,23 @@
       fx:controller="farm.FarmController">
     <HBox fx:id="topBar">
         <!-- This is where the information about the farm, money, difficulty goes.-->
-        <Label fx:id="difficultyLabel">
+        <Label fx:id ="Low">
             <padding>
                 <Insets right="10"/>
             </padding>
-            Sample data 1
+            1
         </Label>
-        <Label>
+        <Label fx:id = "Medium">
             <padding>
                 <Insets right="10"/>
             </padding>
-            Sample data 2
+            2
         </Label>
-        <Label>
+        <Label fx:id = "High">
             <padding>
                 <Insets right="10"/>
             </padding>
-            Sample data 3
+            3
         </Label>
         <Button fx:id="closeButton" onAction="#closeAction" text="Quit"/>
     </HBox>
