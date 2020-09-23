@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.event.ActionEvent?>
 
 <StackPane alignment="center"
            stylesheets="@style.css"
@@ -38,8 +39,8 @@
             </padding>
             Sample data 3
         </Label>
-        <Button styleClass="quitButton">
-            Quit
+        <Button fx:id="closeButton" cancelButton="true" layoutX="10" layoutY="10" mnemonicParsing="false" onAction="#handleCloseButtonAction" prefWidth="10" text="Close">
+            quit
         </Button>
     </HBox>
     <GridPane fx:id="farmPlots" hgap="10" vgap="10">
