@@ -31,7 +31,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("farmUI.xml"));
+        //Parent welcomePane = FXMLLoader.load(getClass().getResource("welcomeScene.xml"));
 
         // Set up panes and add panes to scenes
         StackPane welcomePane = new StackPane();
