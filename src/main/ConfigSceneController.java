@@ -10,7 +10,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ConfigSceneController {
+    public String farmerName;
+    public int level; // 1 = easy; 2 = medium; 3 = hard
+    List<String> seeds = new ArrayList<>();
+    String startingSeason;
 
     @FXML
     private Button continueButton;
@@ -43,6 +50,22 @@ public class ConfigSceneController {
                     || corn.isSelected() || cotton.isSelected() || lettuce.isSelected();
             if (event.getSource() == continueButton && !playerName.getText().isEmpty()
                     && seasonCheck && seedCheck) {
+                farmerName = playerName.getText();
+                if (wheat.isSelected()) {
+                    seeds.add("wheat");
+                }
+                if (corn.isSelected()) {
+                    seeds.add("corn");
+                }
+                if (cotton.isSelected()) {
+                    seeds.add("cotton");
+                }
+                if (lettuce.isSelected()) {
+                    seeds.add("lettuce");
+                }
+                RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
+                startingSeason = selectedRadioButton.getText().toLowerCase();
+                System.out.println(startingSeason);
                 stage = (Stage) continueButton.getScene().getWindow();
                 root = FXMLLoader.load(getClass().getResource("gameScene.fxml"));
             } else if (event.getSource() == quitButton) {
