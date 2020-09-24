@@ -65,7 +65,6 @@ public class ConfigSceneController {
                 }
                 RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
                 startingSeason = selectedRadioButton.getText().toLowerCase();
-                System.out.println(startingSeason);
                 stage = (Stage) continueButton.getScene().getWindow();
                 root = FXMLLoader.load(getClass().getResource("gameScene.fxml"));
             } else if (event.getSource() == quitButton) {
