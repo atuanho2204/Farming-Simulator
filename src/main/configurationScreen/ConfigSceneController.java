@@ -1,5 +1,4 @@
-
-package main;
+package main.configurationScreen;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,15 +8,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import main.farm.FarmController;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigSceneController {
     private String farmerName;
-    private int level; // 1 = easy; 2 = medium; 3 = hard
+    private int difficulty = 1; // 1 = easy; 2 = medium; 3 = hard
     private List<String> seeds = new ArrayList<>();
     private String startingSeason;
+    private Stage stage;
+    private final int day = 0;
 
     @FXML
     private Button continueButton;
@@ -40,10 +42,14 @@ public class ConfigSceneController {
     @FXML
     private CheckBox lettuce;
 
+    public void construct() {
+        //this is not going to do anything yet
+    }
+
 
     public void handleContinueButton(ActionEvent event) throws Exception {
-        Stage stage = null;
-        Parent root = FXMLLoader.load(getClass().getResource("configScene.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("configScene.fxml"));
+        stage = (Stage) continueButton.getScene().getWindow();
         try {
             boolean seasonCheck = seasonGroup.getSelectedToggle().isSelected();
             boolean seedCheck = wheat.isSelected()
@@ -65,19 +71,39 @@ public class ConfigSceneController {
                 }
                 RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
                 startingSeason = selectedRadioButton.getText().toLowerCase();
-                stage = (Stage) continueButton.getScene().getWindow();
-                root = FXMLLoader.load(getClass().getResource("gameScene.fxml"));
+                loadNextScene(difficulty, farmerName, seeds, startingSeason, 0);
             } else if (event.getSource() == quitButton) {
-                stage = (Stage) quitButton.getScene().getWindow();
-                root = FXMLLoader.load(getClass().getResource("gameScene.fxml"));
+                stage.close();
             }
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+//            Scene scene = new Scene(root);
+//            stage.setScene(scene);
+//            stage.show();
         } catch (Exception e) {
             getNameAlert();
         }
+    }
+
+    private void loadNextScene(int difficulty, String name, List<String> seeds, String season, int day) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                    "../farm/farmUI.fxml"
+                    )
+            );
+            Parent parent = loader.load();
+            FarmController controller = loader.getController();
+            controller.construct(difficulty, name, seeds, season, day);
+            stage.setTitle("FarmUI");
+            stage.setScene(new Scene(parent));
+        } catch (Exception e) {
+            Alert a = new Alert(Alert.AlertType.NONE);
+            a.setAlertType(Alert.AlertType.ERROR);
+            a.setContentText("FarmUI not found");
+            // show the dialog
+            a.show();
+        }
+
     }
 
     private void getNameAlert() {
@@ -99,6 +125,7 @@ public class ConfigSceneController {
         String value = selectedRadioButton.getText();
         //System.out.println(value);
     }
+
     /*
     @FXML
     public void getSeed() throws Exception {
