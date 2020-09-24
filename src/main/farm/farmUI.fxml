@@ -23,19 +23,19 @@
             <padding>
                 <Insets right="10"/>
             </padding>
-            1
+            Low
         </Label>
         <Label fx:id = "Medium">
             <padding>
                 <Insets right="10"/>
             </padding>
-            2
+            Medium
         </Label>
         <Label fx:id = "High">
             <padding>
                 <Insets right="10"/>
             </padding>
-            3
+            High
         </Label>
         <Button fx:id="closeButton" onAction="#closeAction" text="Quit"/>
     </HBox>

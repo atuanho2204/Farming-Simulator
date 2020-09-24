@@ -20,10 +20,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("farmUI.fxml"));
-        Scene scene = loader.load();
+        Parent parent = loader.load();
         FarmController controller = loader.getController();
         controller.construct(difficulty, name, seedType, season);
         primaryStage.setTitle("FarmUI");
+        Scene scene = new Scene(parent, sceneWidth, sceneHeight);
 
         primaryStage.setScene(scene);
         primaryStage.show();
