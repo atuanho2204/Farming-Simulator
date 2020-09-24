@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigSceneController {
-    public String farmerName;
-    public int level; // 1 = easy; 2 = medium; 3 = hard
-    List<String> seeds = new ArrayList<>();
-    String startingSeason;
+    private String farmerName;
+    private int level; // 1 = easy; 2 = medium; 3 = hard
+    private List<String> seeds = new ArrayList<>();
+    private String startingSeason;
 
     @FXML
     private Button continueButton;

@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
-    public int sceneWidth = 1200;
-    public int sceneHeight = 800;
+    private int sceneWidth = 1200;
+    private int sceneHeight = 800;
 
     /**
      * main method to help launch the program
