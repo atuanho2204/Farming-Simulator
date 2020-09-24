@@ -55,7 +55,9 @@ public class ConfigSceneController {
             boolean seedCheck = wheat.isSelected() || corn.isSelected()
                     || cotton.isSelected() || lettuce.isSelected();
             boolean difficultyCheck = difficultyGroup.getSelectedToggle().isSelected();
-            if (event.getSource() == continueButton && !playerName.getText().isEmpty()
+            boolean nameCheck = !playerName.getText().isEmpty();
+
+            if (event.getSource() == continueButton && nameCheck
                     && seasonCheck && seedCheck && difficultyCheck) {
                 farmerName = playerName.getText();
                 getDifficulty();
@@ -84,7 +86,7 @@ public class ConfigSceneController {
 //            stage.setScene(scene);
 //            stage.show();
         } catch (Exception e) {
-            getNameAlert();
+            getAlert("Please enter your name and select difficulty, season, seed before start!!!");
         }
     }
 
@@ -123,10 +125,10 @@ public class ConfigSceneController {
         }
     }
 
-    private void getNameAlert() {
+    private void getAlert(String message) {
         Alert a = new Alert(Alert.AlertType.NONE);
         a.setAlertType(Alert.AlertType.INFORMATION);
-        a.setContentText("You need to enter your name and pick season and seeds before continue!");
+        a.setContentText(message);
         // show the dialog
         a.show();
     }
