@@ -1,0 +1,25 @@
+
+#easy {
+    -fx-background-color: #0deb3d;
+    -fx-border-radius: 20;
+}
+#medium {
+    -fx-background-color: orange;
+    -fx-border-radius: 20;
+}
+#hard {
+    -fx-background-color: red;
+    -fx-border-radius: 20;
+}
+#easy: selected {
+    -fx-background-color: blue;
+}
+#medium: selected {
+    -fx-background-color: blue;
+}
+#hard:selected {
+    -fx-background-color: blue;
+}
+.ToggleButton:hover {
+    -fx-background-color: blue;
+}

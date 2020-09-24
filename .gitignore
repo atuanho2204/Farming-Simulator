@@ -27,5 +27,6 @@ out
 javafx-sdk-11.0.2
 cs2340_checks.xml
 *.py
+src/sample
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
