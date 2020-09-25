@@ -19,23 +19,23 @@
       prefHeight="800.0" prefWidth="1200.0">
     <HBox fx:id="topBar">
         <!-- This is where the information about the farm, money, difficulty goes.-->
-        <Label fx:id="Low">
+        <Label fx:id="difficultyLevel" text = "">
             <padding>
                 <Insets right="10"/>
             </padding>
-            Low
+            difficulty
         </Label>
-        <Label fx:id="Medium">
+        <Label fx:id="startingMoney" text ="">
             <padding>
                 <Insets right="10"/>
             </padding>
-            Medium
+            Money
         </Label>
-        <Label fx:id="High">
+        <Label fx:id="currentDate" text = "">
             <padding>
                 <Insets right="10"/>
             </padding>
-            High
+            Date
         </Label>
         <Button fx:id="pauseButtonGS" alignment="CENTER" mnemonicParsing="false"
                 onAction="#handlePauseButton" text="Pause">

@@ -26,15 +26,20 @@ public class FarmController {
         this.season = season;
         this.day = day;
     }
-
+    public void sampleController(int difficulty, int day) {
+       difficultyLevel.setText(difficulty);
+       currentDate.setText(day);
+       startingMoney.setText();
+      }
     @FXML
     private Button closeButton;
     @FXML
-    private Label Low;
+    private Label difficultyLevel;
     @FXML
-    private Label Medium;
+    private Label startingMoney;
     @FXML
-    private Label High;
+    private Label currentDate;
+
 
     private void setData() {
         closeButton.setText("");
