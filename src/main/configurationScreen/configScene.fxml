@@ -2,244 +2,151 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<StackPane alignment="CENTER" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1"
-           xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.configurationScreen.ConfigSceneController">
+<StackPane fx:id="csStackPane"
+           stylesheets="@../style.css"
+           xmlns="http://javafx.com/javafx/11.0.1"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="main.configurationScreen.ConfigSceneController">
     <children>
         <ImageView fx:id="image" fitHeight="800.0" fitWidth="1200.0">
             <image>
-                <Image url="@../images/config_background.png"/>
+                <Image url="@../images/config_background.png" />
             </image>
         </ImageView>
-        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                  prefHeight="800.0" prefWidth="1200.0">
+        <GridPane prefHeight="800.0" prefWidth="1200.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.0" minWidth="10.0" prefWidth="246.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="363.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="332.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="259.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.0" minWidth="10.0" prefWidth="246.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="363.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="332.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="259.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="254.0" minHeight="10.0" prefHeight="235.0" vgrow="SOMETIMES"/>
-                <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES"/>
-                <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES"/>
-                <RowConstraints maxHeight="253.0" minHeight="10.0" prefHeight="162.0" vgrow="SOMETIMES"/>
-                <RowConstraints maxHeight="216.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES"/>
-                <RowConstraints maxHeight="229.0" minHeight="10.0" prefHeight="203.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="254.0" minHeight="10.0" prefHeight="235.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="253.0" minHeight="10.0" prefHeight="162.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="216.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="229.0" minHeight="10.0" prefHeight="203.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="8.0"
-                      GridPane.columnIndex="2" GridPane.rowIndex="3">
+                <VBox fx:id="seedOptions" GridPane.columnIndex="2" GridPane.rowIndex="3">
                     <children>
-                        <Label text="Select starting seeds:" textFill="#469021">
-                            <font>
-                                <Font name="Comic Sans MS" size="22.0"/>
-                            </font>
+                        <Label fx:id="selectSeeds" text="Select starting seeds:">
                             <VBox.margin>
-                                <Insets left="150.0"/>
+                                <Insets left="150.0" />
                             </VBox.margin>
                         </Label>
-                        <CheckBox fx:id="wheat" mnemonicParsing="false" text="Wheat" textAlignment="CENTER">
-                            <font>
-                                <Font name="Comic Sans MS" size="15.0"/>
-                            </font>
-                            <opaqueInsets>
-                                <Insets/>
-                            </opaqueInsets>
+                        <CheckBox fx:id="wheat" mnemonicParsing="false" text="Wheat">
                             <VBox.margin>
-                                <Insets left="150.0"/>
+                                <Insets left="150.0" />
                             </VBox.margin>
                         </CheckBox>
-                        <CheckBox fx:id="corn" mnemonicParsing="false" text="Corn" textAlignment="CENTER">
-                            <font>
-                                <Font name="Comic Sans MS" size="15.0"/>
-                            </font>
-                            <opaqueInsets>
-                                <Insets/>
-                            </opaqueInsets>
+                        <CheckBox fx:id="corn" mnemonicParsing="false" text="Corn">
                             <VBox.margin>
-                                <Insets left="150.0"/>
+                                <Insets left="150.0" />
                             </VBox.margin>
                         </CheckBox>
-                        <CheckBox fx:id="cotton" mnemonicParsing="false" text="Cotton" textAlignment="CENTER">
-                            <font>
-                                <Font name="Comic Sans MS" size="15.0"/>
-                            </font>
-                            <opaqueInsets>
-                                <Insets/>
-                            </opaqueInsets>
+                        <CheckBox fx:id="cotton" mnemonicParsing="false" text="Cotton">
                             <VBox.margin>
-                                <Insets left="150.0"/>
+                                <Insets left="150.0" />
                             </VBox.margin>
                         </CheckBox>
-                        <CheckBox fx:id="lettuce" mnemonicParsing="false" text="Lettuce" textAlignment="CENTER">
-                            <font>
-                                <Font name="Comic Sans MS" size="15.0"/>
-                            </font>
-                            <opaqueInsets>
-                                <Insets/>
-                            </opaqueInsets>
+                        <CheckBox fx:id="lettuce" mnemonicParsing="false" text="Lettuce">
                             <VBox.margin>
-                                <Insets left="150.0"/>
+                                <Insets left="150.0" />
                             </VBox.margin>
                         </CheckBox>
                     </children>
-                    <GridPane.margin>
-                        <Insets/>
-                    </GridPane.margin>
-                    <padding>
-                        <Insets left="-90.0"/>
-                    </padding>
                 </VBox>
-                <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="8.0"
-                      GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <VBox fx:id="seasonSelection" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <children>
-                        <Label text="Select starting season:" textFill="#2894ae">
-                            <font>
-                                <Font name="Comic Sans MS" size="22.0"/>
-                            </font>
+                        <Label fx:id="selectSeason" text="Select starting season:">
                             <VBox.margin>
-                                <Insets left="100.0"/>
+                                <Insets left="100.0" />
                             </VBox.margin>
                         </Label>
                         <RadioButton fx:id="spring" mnemonicParsing="false" onAction="#getSeason" text="Spring">
-                            <font>
-                                <Font name="Comic Sans MS" size="15.0"/>
-                            </font>
                             <VBox.margin>
-                                <Insets left="100.0"/>
+                                <Insets left="100.0" />
                             </VBox.margin>
                             <toggleGroup>
-                                <ToggleGroup fx:id="seasonGroup"/>
+                                <ToggleGroup fx:id="seasonGroup" />
                             </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="summer" mnemonicParsing="false" onAction="#getSeason" text="Summer"
-                                     toggleGroup="$seasonGroup">
-                            <font>
-                                <Font name="Comic Sans MS" size="15.0"/>
-                            </font>
+                        <RadioButton fx:id="summer" mnemonicParsing="false" onAction="#getSeason"
+                                     text="Summer" toggleGroup="$seasonGroup">
                             <VBox.margin>
-                                <Insets left="100.0"/>
+                                <Insets left="100.0" />
                             </VBox.margin>
                         </RadioButton>
-                        <RadioButton fx:id="fall" mnemonicParsing="false" onAction="#getSeason" text="Fall"
-                                     toggleGroup="$seasonGroup">
-                            <font>
-                                <Font name="Comic Sans MS" size="15.0"/>
-                            </font>
+                        <RadioButton fx:id="fall" mnemonicParsing="false" onAction="#getSeason"
+                                     text="Fall" toggleGroup="$seasonGroup">
                             <VBox.margin>
-                                <Insets left="100.0"/>
+                                <Insets left="100.0" />
                             </VBox.margin>
                         </RadioButton>
-                        <RadioButton fx:id="winter" mnemonicParsing="false" onAction="#getSeason" text="Winter"
-                                     toggleGroup="$seasonGroup">
-                            <font>
-                                <Font name="Comic Sans MS" size="15.0"/>
-                            </font>
+                        <RadioButton fx:id="winter" mnemonicParsing="false" onAction="#getSeason"
+                                     text="Winter" toggleGroup="$seasonGroup">
                             <VBox.margin>
-                                <Insets left="100.0"/>
+                                <Insets left="100.0" />
                             </VBox.margin>
                         </RadioButton>
                     </children>
-                    <GridPane.margin>
-                        <Insets/>
-                    </GridPane.margin>
-                    <padding>
-                        <Insets left="-18.0"/>
-                    </padding>
                 </VBox>
-                <Label alignment="CENTER" prefHeight="65.0" prefWidth="264.0" text="Enter your name:"
-                       GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1"
-                       GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Comic Sans MS" size="22.0"/>
-                    </font>
+                <Label fx:id="enterName" text="Enter your name:" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                       GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <GridPane.margin>
-                        <Insets right="20.0"/>
+                        <Insets right="20.0" />
                     </GridPane.margin>
                     <padding>
-                        <Insets left="5.0"/>
+                        <Insets left="5.0" />
                     </padding>
                 </Label>
-                <TextField fx:id="playerName" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                           prefHeight="23.0" prefWidth="303.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                    <font>
-                        <Font name="Comic Sans MS Bold" size="22.0"/>
-                    </font>
+                <TextField fx:id="playerName" GridPane.columnIndex="2" GridPane.rowIndex="1">
                 </TextField>
-                <Label alignment="CENTER" prefHeight="49.0" prefWidth="295.0" text="Select difficulty:"
-                       GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2"
-                       GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Comic Sans MS" size="22.0"/>
-                    </font>
+                <Label fx:id="selectLevel" text="Select difficulty:" GridPane.columnIndex="1"
+                       GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                     <GridPane.margin>
-                        <Insets right="20.0"/>
+                        <Insets right="20.0" />
                     </GridPane.margin>
                 </Label>
-                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
-                      GridPane.rowIndex="4">
+                <HBox fx:id="levels" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <children>
-                        <Button fx:id="continueButton" alignment="CENTER" mnemonicParsing="false"
-                                onAction="#handleContinueButton" prefHeight="50.0" prefWidth="120.0"
-                                style="-fx-background-color: #18a734;" text="Continue" textFill="WHITE">
-                            <font>
-                                <Font name="Chalkduster" size="18.0"/>
-                            </font>
+                        <ToggleButton fx:id="easy" mnemonicParsing="false" text="Easy">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="difficultyGroup" />
+                            </toggleGroup>
+                            <effect>
+                                <Reflection fraction="0.25" topOpacity="0.25" />
+                            </effect></ToggleButton>
+                        <ToggleButton fx:id="medium" mnemonicParsing="false" text="Medium"
+                                      toggleGroup="$difficultyGroup">
+                            <effect>
+                                <Reflection fraction="0.25" topOpacity="0.25" />
+                            </effect></ToggleButton>
+                        <ToggleButton fx:id="hard" mnemonicParsing="false" text="Hard"
+                                      toggleGroup="$difficultyGroup">
+                            <effect>
+                                <Reflection fraction="0.25" topOpacity="0.25" />
+                            </effect>
+                        </ToggleButton>
+                    </children>
+                </HBox>
+                <HBox fx:id="configButton1" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <children>
+                        <Button fx:id="continueButtonCS" mnemonicParsing="false"
+                                onAction="#handleContinueButton" text="Continue">
                         </Button>
                     </children>
-                    <opaqueInsets>
-                        <Insets/>
-                    </opaqueInsets>
-                    <padding>
-                        <Insets right="10.0"/>
-                    </padding>
                 </HBox>
-                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2"
-                      GridPane.rowIndex="4">
+                <HBox fx:id="configButton2" GridPane.columnIndex="2" GridPane.rowIndex="4">
                     <children>
-                        <Button fx:id="quitButton" alignment="CENTER" mnemonicParsing="false"
-                                onAction="#handleConfigQuitButton" prefHeight="50.0" prefWidth="100.0"
-                                style="-fx-background-color: #18a734;" text="Quit" textAlignment="CENTER"
-                                textFill="WHITE">
-                            <font>
-                                <Font name="Chalkduster" size="18.0"/>
-                            </font>
-                        </Button>
-                    </children>
-                    <opaqueInsets>
-                        <Insets/>
-                    </opaqueInsets>
-                    <padding>
-                        <Insets left="10.0"/>
-                    </padding>
-                </HBox>
-                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0"
-                      GridPane.columnIndex="2" GridPane.rowIndex="2">
-                    <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="75.0"
-                                style="-fx-background-color: #04f434; -fx-border-radius: 20;" text="Easy"
-                                textFill="WHITE">
-                            <font>
-                                <Font name="Chalkduster" size="18.0"/>
-                            </font>
-                        </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="111.0"
-                                style="-fx-background-color: orange; -fx-border-radius: 20;" text="Medium"
-                                textFill="WHITE">
-                            <font>
-                                <Font name="Chalkduster" size="18.0"/>
-                            </font>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="75.0"
-                                style="-fx-background-color: red; -fx-border-radius: 20;" text="Hard"
-                                textAlignment="CENTER" textFill="WHITE">
-                            <font>
-                                <Font name="Chalkduster" size="18.0"/>
-                            </font>
+                        <Button fx:id="quitButtonCS" alignment="CENTER" mnemonicParsing="false"
+                                onAction="#handleConfigQuitButton" text="Quit">
                         </Button>
                     </children>
                 </HBox>
