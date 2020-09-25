@@ -275,6 +275,10 @@
     -fx-font-size: 14px;
 }
 
+.button {
+
+}
+
 #pauseButtonGS {
     -fx-width: 70;
     -fx-height: 30;
