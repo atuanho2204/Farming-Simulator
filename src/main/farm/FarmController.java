@@ -43,7 +43,7 @@ public class FarmController {
     @FXML
     public void closeAction(ActionEvent actionEvent) {
         closeButton.setText("Quitting");
-        Stage stage = (Stage)closeButton.getScene().getWindow();
+        Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
 
