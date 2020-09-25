@@ -1,0 +1,293 @@
+/* welcomeScreen */
+#wsStackPane {
+    -fx-pref-width: 1200;
+    -fx-pref-height: 800;
+    -fx-alignment: center;
+}
+
+#welcomeButtons { /*HBox*/
+    -fx-width: 200;
+    -fx-height: 100;
+    -fx-alignment: center;
+    -fx-spacing: 50;
+    -fx-padding: 75px 0px 0px 20px;
+}
+
+#startButtonWS {
+    -fx-width: 150;
+    -fx-height: 75;
+    -fx-background-color: #18a734;
+    -fx-text-align: center;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 36px;
+}
+
+#quitButtonWS {
+    -fx-width: 150;
+    -fx-height: 75;
+    -fx-background-color: #18a734;
+    -fx-text-align: center;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 36px;
+}
+
+/* configurationScreen */
+#csStackPane {
+    -fx-pref-width: 1200;
+    -fx-pref-height: 800;
+    -fx-alignment: center;
+}
+
+#seedOptions { /*VBox*/
+    -fx-alignment: center_left;
+    -fx-width: 100;
+    -fx-height: 200;
+    -fx-spacing: 8;
+    -fx-padding: 0px 0px 0px -90px;
+}
+
+#selectSeeds {
+    -fx-text-fill: #469021;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 22px;
+}
+
+#wheat {
+    -fx-text-align: center;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 15px;
+}
+
+#corn {
+    -fx-text-align: center;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 15px;
+}
+
+#cotton {
+    -fx-text-align: center;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 15px;
+}
+
+#lettuce {
+    -fx-text-align: center;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 15px;
+}
+
+#seasonSelection { /*VBox*/
+    -fx-alignment: center_left;
+    -fx-width: 100;
+    -fx-height: 200;
+    -fx-spacing: 8;
+    -fx-padding: 0px 0px 0px -18px;
+}
+
+#selectSeason {
+    -fx-text-fill: #2894ae;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 22px;
+}
+
+#spring {
+    -fx-text-align: center;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 15px;
+}
+
+#summer {
+    -fx-text-align: center;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 15px;
+}
+
+#fall {
+    -fx-text-align: center;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 15px;
+}
+
+#winter {
+    -fx-text-align: center;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 15px;
+}
+
+#enterName {
+    -fx-pref-width: 264;
+    -fx-pref-height: 65;
+    -fx-alignment: center;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 22px;
+}
+
+#playerName {
+    -fx-alignment: center;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 22px;
+    -fx-pref-width: 303;
+    -fx-pref-height: 23;
+}
+
+#selectLevel {
+    -fx-alignment: center;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 22px;
+    -fx-pref-width: 295;
+    -fx-pref-height: 49;
+}
+
+#levels { /*HBox*/
+    -fx-alignment: center_left;
+    -fx-pref-width: 200;
+    -fx-pref-height: 100;
+    -fx-spacing: 20;
+}
+
+#easy {
+    -fx-pref-height: 40;
+    -fx-background-color: gray;
+    -fx-border-radius: 20;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 18px;
+}
+
+#medium {
+    -fx-pref-height: 40;
+    -fx-pref-width: 111;
+    -fx-background-color: orange;
+    -fx-border-radius: 20;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 18px;
+}
+
+#hard {
+    -fx-pref-height: 40;
+    -fx-pref-width: 75;
+    -fx-background-color: red;
+    -fx-border-radius: 20;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 18px;
+}
+
+#easy: selected {
+    -fx-pref-height: 40;
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 18px;
+}
+
+#medium: selected {
+    -fx-pref-height: 40;
+    -fx-pref-width: 111;
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 18px;
+}
+
+#hard:selected {
+    -fx-pref-height: 40;
+    -fx-pref-width: 75;
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 18px;
+}
+
+.ToggleButton:hover {
+    -fx-background-color: green;
+}
+
+#configButton1 { /*HBox*/
+    -fx-pref-width: 200;
+    -fx-pref-height: 100;
+    -fx-alignment: center_right;
+    -fx-spacing: 50;
+    -fx-padding: 0px 10px 0px 0px;
+}
+
+#continueButtonCS {
+    -fx-pref-width: 120;
+    -fx-pref-height: 50;
+    -fx-background-color: #18a734;
+    -fx-text-align: center;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 18px;
+}
+
+#configButton2 { /*HBox*/
+    -fx-pref-width: 200;
+    -fx-pref-height: 100;
+    -fx-alignment: center_left;
+    -fx-spacing: 50;
+    -fx-padding: 0px 0px 0px 10px;
+}
+
+#quitButtonCS {
+    -fx-pref-width: 120;
+    -fx-pref-height: 50;
+    -fx-background-color: #18a734;
+    -fx-text-align: center;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 18px;
+}
+
+/* farm */
+#topBar {
+    /*-fx-background-color: gray;*/
+    -fx-font-size: 20px;
+    -fx-top: 0px;
+    -fx-padding: 0px 0px 0px 40px;
+    -fx-height: 50px;
+    /*-fx-border-top: 1px;
+    -fx-border-color: black;
+    -fx-border-style: solid;
+    -fx-text-align: center;*/
+}
+
+#farmPlots {
+    -fx-top: 50px;
+    -fx-font-size: 20px;
+}
+
+#closeButton {
+    -fx-font-size: 14px;
+    -fx-background-color: #00a5cf;
+    -fx-border-radius: 0px;
+    -fx-text-fill: black;
+}
+
+#closeButton:hover {
+    -fx-cursor: pointer;
+    -fx-text-fill: white
+}
+
+#pauseButtonGS {
+    -fx-width: 70;
+    -fx-height: 30;
+    -fx-background-color: #18a734;
+    -fx-text-align: center;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 14px;
+}
+
+#quitButtonGS {
+    -fx-width: 70;
+    -fx-height: 30;
+    -fx-background-color: #18a734;
+    -fx-text-align: center;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 14px;
+}
