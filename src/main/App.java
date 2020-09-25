@@ -6,14 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import main.configurationScreen.ConfigSceneController;
 import main.welcomeScreen.WelcomeSceneController;
 
-import java.io.File;
-
 public class App extends Application {
-    private int sceneWidth = 1200;
-    private int sceneHeight = 800;
 
     /**
      * main method to help launch the program
@@ -28,10 +23,9 @@ public class App extends Application {
      * start method to place UI controls in a scene and display the scene in a stage
      *
      * @param primaryStage primary stage of the JavaFX program
-     * @throws java.lang.Exception throws Exception if the fxml file is not found
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
