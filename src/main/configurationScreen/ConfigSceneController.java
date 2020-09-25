@@ -22,14 +22,14 @@ public class ConfigSceneController {
     private final int day = 0;
 
     @FXML
-    private Button continueButton;
-
+    private Button continueButtonCS;
     @FXML
-    private Button quitButton;
-
+    private Button quitButtonCS;
     @FXML
     private TextField playerName;
 
+    @FXML
+    private ToggleGroup difficultyGroup;
     @FXML
     private ToggleGroup seasonGroup;
 
@@ -47,16 +47,20 @@ public class ConfigSceneController {
     }
 
 
-    public void handleContinueButton(ActionEvent event) throws Exception {
-//        Parent root = FXMLLoader.load(getClass().getResource("configScene.fxml"));
-        stage = (Stage) continueButton.getScene().getWindow();
+    public void handleContinueButton(ActionEvent event) {
+        stage = (Stage) continueButtonCS.getScene().getWindow();
         try {
             boolean seasonCheck = seasonGroup.getSelectedToggle().isSelected();
-            boolean seedCheck = wheat.isSelected()
-                    || corn.isSelected() || cotton.isSelected() || lettuce.isSelected();
-            if (event.getSource() == continueButton && !playerName.getText().isEmpty()
-                    && seasonCheck && seedCheck) {
+            boolean seedCheck = wheat.isSelected() || corn.isSelected()
+                    || cotton.isSelected() || lettuce.isSelected();
+            boolean difficultyCheck = difficultyGroup.getSelectedToggle().isSelected();
+            boolean nameCheck = !playerName.getText().isEmpty();
+
+            if (event.getSource() == continueButtonCS && nameCheck && seasonCheck
+                    && seedCheck && difficultyCheck) {
                 farmerName = playerName.getText();
+                getDifficulty();
+
                 if (wheat.isSelected()) {
                     seeds.add("wheat");
                 }
@@ -72,25 +76,23 @@ public class ConfigSceneController {
                 RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
                 startingSeason = selectedRadioButton.getText().toLowerCase();
                 loadNextScene(difficulty, farmerName, seeds, startingSeason, 0);
-            } else if (event.getSource() == quitButton) {
+
+            } else if (event.getSource() == quitButtonCS) {
                 stage.close();
             }
 
-//            Scene scene = new Scene(root);
-//            stage.setScene(scene);
-//            stage.show();
+            //            Scene scene = new Scene(root);
+            //            stage.setScene(scene);
+            //            stage.show();
         } catch (Exception e) {
-            getNameAlert();
+            getAlert("Please enter your name and select difficulty, season, seed before start!!!");
         }
     }
 
-    private void loadNextScene(int difficulty, String name, List<String> seeds, String season, int day) {
+    private void loadNextScene(int difficulty, String name,
+                               List<String> seeds, String season, int day) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                    "../farm/farmUI.fxml"
-                    )
-            );
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../farm/farmUI.fxml"));
             Parent parent = loader.load();
             FarmController controller = loader.getController();
             controller.construct(difficulty, name, seeds, season, day);
@@ -106,10 +108,24 @@ public class ConfigSceneController {
 
     }
 
-    private void getNameAlert() {
+    private void getDifficulty() {
+        ToggleButton selectedDifficulty = (ToggleButton) difficultyGroup.getSelectedToggle();
+        char result = selectedDifficulty.getText().toLowerCase().charAt(0);
+        if (result == 'e') {
+            difficulty = 1;
+        }
+        if (result == 'm') {
+            difficulty = 2;
+        }
+        if (result == 'h') {
+            difficulty = 3;
+        }
+    }
+
+    private void getAlert(String message) {
         Alert a = new Alert(Alert.AlertType.NONE);
         a.setAlertType(Alert.AlertType.INFORMATION);
-        a.setContentText("You need to enter your name and pick season and seeds before continue!");
+        a.setContentText(message);
         // show the dialog
         a.show();
     }
