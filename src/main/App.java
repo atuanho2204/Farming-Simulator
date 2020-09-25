@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import main.welcomeScreen.WelcomeSceneController;
 
 public class App extends Application {
+    private final int prefHeight = 1200;
+    private final int prefWidth = 800;
 
     /**
      * main method to help launch the program
@@ -37,7 +39,7 @@ public class App extends Application {
             controller.construct();
 
             primaryStage.setTitle("Welcome");
-            primaryStage.setScene(new Scene(parent));
+            primaryStage.setScene(new Scene(parent, prefHeight, prefWidth));
             primaryStage.show();
         } catch (Exception e) {
             Alert a = new Alert(Alert.AlertType.NONE);

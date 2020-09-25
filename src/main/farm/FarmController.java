@@ -11,28 +11,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * The Controller for the FarmUI fxml screen
+ */
 public class FarmController {
     private Stage stage;
-    private int difficulty = 1;
+    private Integer difficulty = 1;
     private String name = "";
     private List<String> seeds = new ArrayList<>(0);
     private String season = "";
-    private int day = 0;
+    private Integer day = 0;
+    private Integer money = 0;
 
-    public void construct(int difficulty, String name, List<String> seeds, String season, int day) {
+    /**
+     * Constructs the Farm Scene.
+     *
+     * @param difficulty The difficulty of the game
+     * @param name       the name of the player
+     * @param seeds      the list of seeds
+     * @param season     the season name
+     * @param day        the current day
+     */
+    public void construct(
+            Integer difficulty, String name, List<String> seeds, String season, Integer day) {
         this.difficulty = difficulty;
         this.name = name;
         this.seeds = seeds;
         this.season = season;
         this.day = day;
+        this.money = difficulty * 10;
+
+        difficultyLevel.setText("Name: " + name);
+        currentDate.setText("Day: " + day.toString());
+        startingMoney.setText("Money: " + money.toString());
     }
-    public void sampleController(int difficulty, int day) {
-       difficultyLevel.setText(difficulty);
-       currentDate.setText(day);
-       startingMoney.setText();
-      }
+
     @FXML
-    private Button closeButton;
+    private Button quitButtonGS;
     @FXML
     private Label difficultyLevel;
     @FXML
@@ -42,13 +57,13 @@ public class FarmController {
 
 
     private void setData() {
-        closeButton.setText("");
+        quitButtonGS.setText("");
     }
 
     @FXML
     public void closeAction(ActionEvent actionEvent) {
-        closeButton.setText("Quitting");
-        Stage stage = (Stage) closeButton.getScene().getWindow();
+        quitButtonGS.setText("Quitting");
+        Stage stage = (Stage) quitButtonGS.getScene().getWindow();
         stage.close();
     }
 

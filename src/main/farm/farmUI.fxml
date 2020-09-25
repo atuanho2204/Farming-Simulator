@@ -11,55 +11,56 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.Pane?>
 <VBox alignment="center"
       stylesheets="@../style.css"
       xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="main.farm.FarmController"
-      prefHeight="800.0" prefWidth="1200.0">
-    <HBox fx:id="topBar">
-        <!-- This is where the information about the farm, money, difficulty goes.-->
-        <Label fx:id="difficultyLevel" text = "">
-            <padding>
-                <Insets right="10"/>
-            </padding>
-            difficulty
-        </Label>
-        <Label fx:id="startingMoney" text ="">
-            <padding>
-                <Insets right="10"/>
-            </padding>
-            Money
-        </Label>
-        <Label fx:id="currentDate" text = "">
-            <padding>
-                <Insets right="10"/>
-            </padding>
-            Date
-        </Label>
-        <Button fx:id="pauseButtonGS" alignment="CENTER" mnemonicParsing="false"
-                onAction="#handlePauseButton" text="Pause">
-        </Button>
-        <Button fx:id="quitButtonGS" alignment="CENTER" mnemonicParsing="false"
-                onAction="#handleQuitButton" text="Quit" textAlignment="CENTER">
-        </Button>
-    </HBox>
-    <GridPane fx:id="farmPlots" hgap="10" vgap="10">
-        <!-- This is where the farm plots are-->
-        <padding>
-            <Insets bottom="40" left="40" right="40" top="40"/>
-        </padding>
+      prefHeight="800.0" prefWidth="1200.0"
+      fx:id="FarmUIVBox">
+    <GridPane fx:id="topBar">
         <columnConstraints>
             <ColumnConstraints fillWidth="true" hgrow="ALWAYS"/>
             <ColumnConstraints fillWidth="true" hgrow="ALWAYS"/>
             <ColumnConstraints fillWidth="true" hgrow="ALWAYS"/>
             <ColumnConstraints fillWidth="true" hgrow="ALWAYS"/>
         </columnConstraints>
+        <!-- This is where the information about the farm, money, difficulty goes.-->
+        <Pane GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+            <Label fx:id="difficultyLevel" styleClass="dataLabel">
+            </Label>
+        </Pane>
+        <Label fx:id="startingMoney" styleClass="dataLabel"
+               GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        </Label>
+        <Label fx:id="currentDate" styleClass="dataLabel"
+               GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        </Label>
+        <Button fx:id="pauseButtonGS" mnemonicParsing="false"
+                onAction="#handlePauseButton" text="Pause"
+                GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        </Button>
+        <Button fx:id="quitButtonGS" mnemonicParsing="false"
+                onAction="#handleQuitButton" text="Quit" textAlignment="CENTER"
+                GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        </Button>
+    </GridPane>
+    <GridPane fx:id="farmPlots">
+        <!-- This is where the farm plots are-->
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
         <rowConstraints>
-            <RowConstraints fillHeight="true" vgrow="ALWAYS"/>
-            <RowConstraints fillHeight="true" vgrow="ALWAYS"/>
-            <RowConstraints fillHeight="true" vgrow="ALWAYS"/>
-            <RowConstraints fillHeight="true" vgrow="ALWAYS"/>
+            <RowConstraints vgrow="ALWAYS"/>
+            <RowConstraints vgrow="ALWAYS"/>
+            <RowConstraints vgrow="ALWAYS"/>
+            <RowConstraints vgrow="ALWAYS"/>
+            <RowConstraints vgrow="ALWAYS"/>
         </rowConstraints>
 
         <Button GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">(0,0)
