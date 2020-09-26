@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigSceneController {
+    private Stage stage;
     private String farmerName;
-    private int difficulty = 1; // 1 = easy; 2 = medium; 3 = hard
+    private Integer difficulty; // 1 = easy; 2 = medium; 3 = hard
     private List<String> seeds = new ArrayList<>();
     private String startingSeason;
-    private Stage stage;
     private final int day = 0;
 
     @FXML
@@ -41,23 +41,34 @@ public class ConfigSceneController {
     @FXML
     private CheckBox lettuce;
 
+    public ConfigSceneController() {}
+
+    public ConfigSceneController(Integer difficulty, String name,
+                                  List<String> seeds, String season) {
+        this.difficulty = difficulty;
+        this.farmerName = name;
+        this.startingSeason = season;
+        for (String seed : seeds) {
+            this.seeds.add(seed);
+        }
+    }
+
     public void construct() {
         //this doesn't need to do anything yet
     }
-
 
     public void handleContinueButton(ActionEvent event) {
         stage = (Stage) continueButtonCS.getScene().getWindow();
         boolean dataIsGood = validateData();
         if (dataIsGood) {
-            loadNextScene(difficulty, farmerName, seeds, startingSeason, 0);
+            loadNextScene("../farm/farmUI.fxml");
         } else {
             getAlert("Please enter your name and select difficulty, season, seed before start!!!");
         }
     }
 
     //SEAN ADDED THIS (You might need to modify it further)
-    private boolean validateData() {
+    public boolean validateData() {
         try {
             boolean seasonCheck = seasonGroup.getSelectedToggle().isSelected();
             boolean seedCheck = wheat.isSelected() || corn.isSelected()
@@ -90,13 +101,12 @@ public class ConfigSceneController {
         return false;
     }
 
-    private void loadNextScene(int difficulty, String name,
-                               List<String> seeds, String season, int day) {
+    public void loadNextScene(String path) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../farm/farmUI.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent parent = loader.load();
             FarmController controller = loader.getController();
-            controller.construct(difficulty, name, seeds, season, day);
+            controller.construct(difficulty, farmerName, seeds, startingSeason, day);
             stage.setTitle("FarmUI");
             stage.setScene(new Scene(parent));
         } catch (Exception e) {
@@ -106,10 +116,9 @@ public class ConfigSceneController {
             // show the dialog
             a.show();
         }
-
     }
 
-    private void getDifficulty() {
+    public void getDifficulty() {
         ToggleButton selectedDifficulty = (ToggleButton) difficultyGroup.getSelectedToggle();
         char result = selectedDifficulty.getText().toLowerCase().charAt(0);
         if (result == 'e') {
@@ -123,7 +132,7 @@ public class ConfigSceneController {
         }
     }
 
-    private void getAlert(String message) {
+    public void getAlert(String message) {
         Alert a = new Alert(Alert.AlertType.NONE);
         a.setAlertType(Alert.AlertType.INFORMATION);
         a.setContentText(message);
@@ -132,7 +141,7 @@ public class ConfigSceneController {
     }
 
     public void handleConfigQuitButton(ActionEvent event) {
-        stage = (Stage) continueButtonCS.getScene().getWindow();
+        stage = (Stage) quitButtonCS.getScene().getWindow();
         stage.close();
     }
 
@@ -159,4 +168,5 @@ public class ConfigSceneController {
             //System.out.println(lettuce.getText());
         }
     }*/
+    
 }
