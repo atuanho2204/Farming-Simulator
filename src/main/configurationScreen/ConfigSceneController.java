@@ -168,5 +168,5 @@ public class ConfigSceneController {
             //System.out.println(lettuce.getText());
         }
     }*/
-    
+
 }
