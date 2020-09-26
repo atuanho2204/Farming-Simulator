@@ -1,20 +1,20 @@
 package test.Quynh;
 
 import main.configurationScreen.ConfigSceneController;
-import org.junit.Before;
 import org.junit.Test;
 
 public class M2QuynhTests {
-    private ConfigSceneController configScene;
-
-    @Before
-    public void setUp() {
-        configScene = new ConfigSceneController();
-    }
 
     @Test (expected = ExceptionInInitializerError.class)
-    public void testPath() {
+    public void testFxmlPath() {
         String path = "farm/farmUI.fxml";
-        configScene.loadNextScene(path);
+        ConfigSceneController configScene1 = new ConfigSceneController();
+        configScene1.loadNextScene(path);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testGetSeasonWithNoSeasonSelected() {
+        ConfigSceneController configScene2 = new ConfigSceneController();
+        configScene2.getSeason();
     }
 }
