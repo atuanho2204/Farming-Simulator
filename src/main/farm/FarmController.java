@@ -1,20 +1,26 @@
 package main.farm;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import main.gameManager.GameManager;
+import main.gameManager.NewDayListener;
+import main.gameManager.NewDayEvent;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
 /**
  * The Controller for the FarmUI fxml screen
  */
-public class FarmController {
+public class FarmController implements NewDayListener, Initializable {
     private Stage stage;
     private Integer difficulty = 1;
     private String name = "";
@@ -22,6 +28,20 @@ public class FarmController {
     private String season = "";
     private Integer day = 0;
     private Integer money = 0;
+    private GameManager gameManager;
+
+    @FXML
+    private Label difficultyLevel;
+    @FXML
+    private Label startingMoney;
+    @FXML
+    private Label currentDate;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 
     /**
      * Constructs the Farm Scene.
@@ -32,8 +52,8 @@ public class FarmController {
      * @param season     the season name
      * @param day        the current day
      */
-    public void construct(
-            Integer difficulty, String name, List<String> seeds, String season, Integer day) {
+    public void construct(Integer difficulty, String name,
+                          List<String> seeds, String season, Integer day) {
         this.difficulty = difficulty;
         this.name = name;
         this.seeds = seeds;
@@ -41,39 +61,64 @@ public class FarmController {
         this.day = day;
         this.money = difficulty * 10;
 
-        difficultyLevel.setText("Name: " + name);
-        currentDate.setText("Day: " + day.toString());
-        startingMoney.setText("Money: " + money.toString());
+        setHeaderData();
+        gameManager = new GameManager(day);
+        gameManager.setListener(this);
+        gameManager.startTime();
+
     }
 
-    @FXML
-    private Button quitButtonGS;
-    @FXML
-    private Label difficultyLevel;
-    @FXML
-    private Label startingMoney;
-    @FXML
-    private Label currentDate;
-
-
-    private void setData() {
-        quitButtonGS.setText("");
+    public void handleNewDay(NewDayEvent e) {
+        this.day = e.getNewDay();
+        setHeaderData();
     }
 
-    @FXML
-    public void closeAction(ActionEvent actionEvent) {
-        quitButtonGS.setText("Quitting");
-        Stage stage = (Stage) quitButtonGS.getScene().getWindow();
-        stage.close();
+    /**
+     * Gets the money of the farm.
+     *
+     * @return the int with the money
+     */
+    public Integer getMoney() {
+        return this.money;
+    }
+
+    /**
+     * Gets the day of the farm.
+     *
+     * @return an int with the current day
+     */
+    public Integer getDay() {
+        return this.day;
+    }
+
+    /**
+     * Gets the difficulty of the farm.
+     *
+     * @return the int with the difficulty
+     */
+    public Integer getDifficulty() {
+        return this.difficulty;
+    }
+
+    private void setHeaderData() {
+        try {
+            Platform.runLater(() -> difficultyLevel.setText("Name: " + name));
+            Platform.runLater(() -> currentDate.setText("Day: " + day.toString()));
+            Platform.runLater(() -> startingMoney.setText("Money: " + money.toString()));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @FXML
     public void handlePauseButton(ActionEvent event) {
+        gameManager.pauseTime();
     }
 
     @FXML
     public void handleQuitButton(ActionEvent event) {
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         primaryStage.close();
+        gameManager.pauseTime();
     }
 }

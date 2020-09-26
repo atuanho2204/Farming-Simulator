@@ -263,8 +263,9 @@
 
 #farmPlots {
     -fx-font-size: 20px;
-    -fx-pref-height: 700px;
-    -fx-background-color: white;
+    -fx-pref-height: 500px;
+    -fx-pref-width: 880px
+    -fx-background-color: blue;
 }
 
 .farmPlot {
@@ -273,10 +274,12 @@
     -fx-text-fill: white;
     -fx-font-family: Chalkduster;
     -fx-font-size: 14px;
+    -fx-min-width: 100px;
 }
 
-.button {
-
+#marketPane {
+    -fx-background-color: #18a734;
+    -fx-min-width: 400px
 }
 
 #pauseButtonGS {
