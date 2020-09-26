@@ -1,6 +1,5 @@
 package main.configurationScreen;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,7 +40,8 @@ public class ConfigSceneController {
     @FXML
     private CheckBox lettuce;
 
-    public ConfigSceneController() {}
+    public ConfigSceneController() {
+    }
 
     public ConfigSceneController(Integer difficulty, String name,
                                   List<String> seeds, String season) {
@@ -57,7 +57,7 @@ public class ConfigSceneController {
         //this doesn't need to do anything yet
     }
 
-    public void handleContinueButton(ActionEvent event) {
+    public void handleContinueButton() {
         stage = (Stage) continueButtonCS.getScene().getWindow();
         boolean dataIsGood = validateData();
         if (dataIsGood) {
@@ -92,8 +92,7 @@ public class ConfigSceneController {
                 if (lettuce.isSelected()) {
                     seeds.add("lettuce");
                 }
-                RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
-                startingSeason = selectedRadioButton.getText().toLowerCase();
+                getSeason();
                 return true;
             }
         } catch (Exception e) {
@@ -140,16 +139,15 @@ public class ConfigSceneController {
         a.show();
     }
 
-    public void handleConfigQuitButton(ActionEvent event) {
+    public void handleConfigQuitButton() {
         stage = (Stage) quitButtonCS.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    public void getSeason() throws Exception {
+    public void getSeason() {
         RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
-        String value = selectedRadioButton.getText();
-        //System.out.println(value);
+        this.startingSeason = selectedRadioButton.getText();
     }
 
     /*
