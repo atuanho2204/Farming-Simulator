@@ -243,33 +243,43 @@
 }
 
 /* farm */
+#FarmUIVBox {
+    -fx-pref-height: 800px;
+}
+
 #topBar {
-    /*-fx-background-color: gray;*/
+    -fx-background-color: #545454;
     -fx-font-size: 20px;
-    -fx-top: 0px;
-    -fx-padding: 0px 0px 0px 40px;
-    -fx-height: 50px;
+    -fx-pref-height: 100px;
     /*-fx-border-top: 1px;
     -fx-border-color: black;
-    -fx-border-style: solid;
-    -fx-text-align: center;*/
+    -fx-border-style: solid;*/
+    -fx-text-align: center;
+}
+
+.dataLabel {
+    -fx-text-fill: white;
 }
 
 #farmPlots {
-    -fx-top: 50px;
     -fx-font-size: 20px;
+    -fx-pref-height: 500px;
+    -fx-pref-width: 880px
+    -fx-background-color: blue;
 }
 
-#closeButton {
+.farmPlot {
+    -fx-background-color: #18a734;
+    -fx-text-align: center;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
     -fx-font-size: 14px;
-    -fx-background-color: #00a5cf;
-    -fx-border-radius: 0px;
-    -fx-text-fill: black;
+    -fx-min-width: 100px;
 }
 
-#closeButton:hover {
-    -fx-cursor: pointer;
-    -fx-text-fill: white
+#marketPane {
+    -fx-background-color: #18a734;
+    -fx-min-width: 400px
 }
 
 #pauseButtonGS {

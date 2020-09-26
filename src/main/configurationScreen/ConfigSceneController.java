@@ -3,7 +3,6 @@ package main.configurationScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -43,12 +42,22 @@ public class ConfigSceneController {
     private CheckBox lettuce;
 
     public void construct() {
-        //this is not going to do anything yet
+        //this doesn't need to do anything yet
     }
 
 
     public void handleContinueButton(ActionEvent event) {
         stage = (Stage) continueButtonCS.getScene().getWindow();
+        boolean dataIsGood = validateData();
+        if (dataIsGood) {
+            loadNextScene(difficulty, farmerName, seeds, startingSeason, 0);
+        } else {
+            getAlert("Please enter your name and select difficulty, season, seed before start!!!");
+        }
+    }
+
+    //SEAN ADDED THIS (You might need to modify it further)
+    private boolean validateData() {
         try {
             boolean seasonCheck = seasonGroup.getSelectedToggle().isSelected();
             boolean seedCheck = wheat.isSelected() || corn.isSelected()
@@ -56,8 +65,7 @@ public class ConfigSceneController {
             boolean difficultyCheck = difficultyGroup.getSelectedToggle().isSelected();
             boolean nameCheck = !playerName.getText().isEmpty();
 
-            if (event.getSource() == continueButtonCS && nameCheck && seasonCheck
-                    && seedCheck && difficultyCheck) {
+            if (nameCheck && seasonCheck && seedCheck && difficultyCheck) {
                 farmerName = playerName.getText();
                 getDifficulty();
 
@@ -75,18 +83,11 @@ public class ConfigSceneController {
                 }
                 RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
                 startingSeason = selectedRadioButton.getText().toLowerCase();
-                loadNextScene(difficulty, farmerName, seeds, startingSeason, 0);
-
-            } else if (event.getSource() == quitButtonCS) {
-                stage.close();
+                return true;
             }
-
-            //            Scene scene = new Scene(root);
-            //            stage.setScene(scene);
-            //            stage.show();
         } catch (Exception e) {
-            getAlert("Please enter your name and select difficulty, season, seed before start!!!");
         }
+        return false;
     }
 
     private void loadNextScene(int difficulty, String name,
@@ -131,8 +132,8 @@ public class ConfigSceneController {
     }
 
     public void handleConfigQuitButton(ActionEvent event) {
-        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        primaryStage.close();
+        stage = (Stage) continueButtonCS.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
