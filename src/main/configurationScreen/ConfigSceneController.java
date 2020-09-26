@@ -46,10 +46,17 @@ public class ConfigSceneController {
     public ConfigSceneController(Integer difficulty, String name,
                                   List<String> seeds, String season) {
         this.difficulty = difficulty;
-        this.farmerName = name;
         this.startingSeason = season;
         for (String seed : seeds) {
             this.seeds.add(seed);
+        }
+        try {
+            if (name.trim() == "") {
+                throw new IllegalArgumentException();
+            }
+            this.farmerName = name;
+        } catch (IllegalArgumentException e) {
+            getAlert("Your name must have at least 1 character.");
         }
     }
 
@@ -61,7 +68,11 @@ public class ConfigSceneController {
         stage = (Stage) continueButtonCS.getScene().getWindow();
         boolean dataIsGood = validateData();
         if (dataIsGood) {
-            loadNextScene("../farm/farmUI.fxml");
+            if (!playerName.getText().trim().equals("")) {
+                loadNextScene("../farm/farmUI.fxml");
+            } else {
+                getAlert("Your name must have at least 1 character.");
+            }
         } else {
             getAlert("Please enter your name and select difficulty, season, seed before start!!!");
         }
