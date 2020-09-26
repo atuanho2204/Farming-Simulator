@@ -1,5 +1,5 @@
 package test.Quynh;
 
-public class TestClass {
+public class M2QuynhTests {
     // placeholder for my folder
 }
