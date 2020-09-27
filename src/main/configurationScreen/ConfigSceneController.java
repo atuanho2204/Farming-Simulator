@@ -195,6 +195,22 @@ public class ConfigSceneController {
         farmerName = playerName.getText();
     }
 
+    public String getNameForTest() {
+        return farmerName;
+    }
+
+    public List<String> getSeedForTest() {
+        return seeds;
+    }
+
+    public String getSeasonForTest() {
+        return startingSeason;
+    }
+
+    public int getDifficultyForTest() {
+        return difficulty;
+    }
+
     @FXML
     public void getSeason() {
         RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
