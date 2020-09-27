@@ -190,9 +190,20 @@ public class ConfigSceneController {
         a.show();
     }
 
-    @FXML
-    public void getName() {
-        farmerName = playerName.getText();
+    public String getNameForTest() {
+        return farmerName;
+    }
+
+    public List<String> getSeedForTest() {
+        return seeds;
+    }
+
+    public String getSeasonForTest() {
+        return startingSeason;
+    }
+
+    public int getDifficultyForTest() {
+        return difficulty;
     }
 
     @FXML

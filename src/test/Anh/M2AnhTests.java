@@ -7,7 +7,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class M2AnhTests {
+
+
 
     @Test (expected = NullPointerException.class)
     public void testGetSeasonWithNoSeasonSelected() {
@@ -15,10 +19,22 @@ public class M2AnhTests {
         configScene2.getSeason();
     }
 
-    @Test (expected = ExceptionInInitializerError.class)
-    public void testNameOfEmptyString() {
+    @Test
+    public void testConstructor() {
         List<String> seeds =  new ArrayList<>();
         seeds.add("cotton");
-        ConfigSceneController configScene1 = new ConfigSceneController(1, "", seeds, "fall");
+        seeds.add("corn");
+        ConfigSceneController controller = new ConfigSceneController(1, "Anh Ho", seeds, "fall");
+        assertEquals("Anh Ho", controller.getNameForTest());
+        assertEquals(1, controller.getDifficultyForTest());
+        assertEquals("fall", controller.getSeasonForTest());
+        assertEquals(seeds, controller.getSeedForTest());
+    }
+
+    @Test
+    public void testEmptyName() {
+        List<String> seeds = new ArrayList<>();
+        seeds.add("cotton");
+        ConfigSceneController controller = new ConfigSceneController(1, "bc", seeds, "fall");
     }
 }
