@@ -18,7 +18,7 @@ public class WelcomeSceneController {
     }
 
     @FXML
-    public void handleStartButton(ActionEvent event) throws Exception {
+    public void handleStartButton(ActionEvent event) {
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -30,7 +30,7 @@ public class WelcomeSceneController {
             ConfigSceneController controller = loader.getController();
             controller.construct();
 
-            primaryStage.setTitle("Welcome");
+            primaryStage.setTitle("Welcome!");
             primaryStage.setScene(new Scene(parent));
         } catch (Exception e) {
             Alert a = new Alert(Alert.AlertType.NONE);
