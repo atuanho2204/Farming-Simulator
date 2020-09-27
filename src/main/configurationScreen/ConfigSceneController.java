@@ -122,7 +122,7 @@ public class ConfigSceneController {
             alertMessage += "* Your name must have at least 1 character. \n";
         } else if (name.length() > 25) {
             alertMessage += "* Your name is too long (" + name.length()
-                    + " character). Should be less than 25 character. \n";
+                    + " characters). Should be less than 25 characters. \n";
         } else {
             farmerName = playerName.getText();
             return true;
