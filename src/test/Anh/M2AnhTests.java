@@ -56,7 +56,7 @@ public class M2AnhTests {
      * Method: Create a constructor in which the parameter for name is longer than 25 characters.
      *    The unit test expects an exception.  In the game, when this exception occurs,
      *    an error wil pop up with the message
-     *    “Your name is too long  (# characters). Should be less than 25 characters.”
+     *    “* Your name is too long  (# characters). Should be less than 25 characters.”
      */
     @Test (expected = NullPointerException.class)
     public void testLongName() {
