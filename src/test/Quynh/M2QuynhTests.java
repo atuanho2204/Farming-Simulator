@@ -2,7 +2,7 @@ package test.Quynh;
 
 import main.configurationScreen.ConfigSceneController;
 import org.junit.Test;
-//import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
