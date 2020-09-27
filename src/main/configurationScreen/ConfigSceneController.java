@@ -206,21 +206,7 @@ public class ConfigSceneController {
         return difficulty;
     }
 
-    public String getNameForTest() {
-        return farmerName;
-    }
 
-    public List<String> getSeedForTest() {
-        return seeds;
-    }
-
-    public String getSeasonForTest() {
-        return startingSeason;
-    }
-
-    public int getDifficultyForTest() {
-        return difficulty;
-    }
 
     @FXML
     public void getSeason() {
