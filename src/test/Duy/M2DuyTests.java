@@ -57,8 +57,8 @@ public class M2DuyTests {
         List<String> seeds =  new ArrayList<>();
         seeds.add("lettuce");
         seeds.add("corn");
-        ConfigSceneController controller = new ConfigSceneController(2, "Duy Nguyen", seeds, "spring");
-        assertEquals("Duy Nguyen", controller.getNameForTest());
+        ConfigSceneController controller = new ConfigSceneController(2, "Duy", seeds, "spring");
+        assertEquals("Duy", controller.getNameForTest());
         assertEquals(2, controller.getDifficultyForTest());
         assertEquals("spring", controller.getSeasonForTest());
         assertEquals(seeds, controller.getSeedForTest());
