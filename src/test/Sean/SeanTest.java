@@ -28,7 +28,7 @@ public class SeanTest {
     @Test
     public void testDayIncrements() {
         controller.construct(1, "Sean", new ArrayList<>(0), "Fall", 0);
-        assertEquals(true, controller.getDay() == 0);
+        assertEquals(0, controller.getDay().intValue());
         try {
             Thread.sleep(4005);
             assertEquals(1, controller.getDay().intValue());
