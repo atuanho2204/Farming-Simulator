@@ -206,6 +206,8 @@ public class ConfigSceneController {
         return difficulty;
     }
 
+
+
     @FXML
     public void getSeason() {
         RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();

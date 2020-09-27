@@ -15,7 +15,7 @@ public class M2QuynhTests {
         configScene1.loadNextScene(path);
     }*/
 
-    @Test (expected = NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testGetSeasonWithNoSeasonSelected() {
         ConfigSceneController configScene2 = new ConfigSceneController();
         configScene2.getSeason();
