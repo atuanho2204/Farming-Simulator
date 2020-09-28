@@ -1,4 +1,4 @@
-package test.Sean;
+package test.Chris;
 
 import main.farm.FarmController;
 import org.junit.Before;
@@ -7,9 +7,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
-public class SeanTest {
+public class ChrisTest {
     private FarmController controller;
 
     @Before
@@ -19,21 +18,16 @@ public class SeanTest {
 
     @Test
     public void testConstructController() {
-        controller.construct(1, "Sean", new ArrayList<>(0), "Fall", 0);
+        controller.construct(1, "Chris", new ArrayList<>(0), "Fall", 0);
         assertEquals(0, controller.getDay().intValue());
         assertEquals(1, controller.getDifficulty().intValue());
         assertEquals(10, controller.getMoney().intValue());
     }
 
     @Test
-    public void testDayIncrements() {
-        controller.construct(1, "Sean", new ArrayList<>(0), "Fall", 0);
-        assertEquals(0, controller.getDay().intValue());
-        try {
-            Thread.sleep(4005);
-            assertEquals(1, controller.getDay().intValue());
-        } catch (Exception e) {
-            fail();
-        }
+    public void testNameAndSeason() {
+        controller.construct(2, "Chris", new ArrayList<>(0), "Spring", 1);
+        assertEquals("Chris", controller.getName());
+        assertEquals("Spring", controller.getSeason());
     }
 }

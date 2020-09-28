@@ -264,7 +264,7 @@
 #farmPlots {
     -fx-font-size: 20px;
     -fx-pref-height: 500px;
-    -fx-pref-width: 880px
+    -fx-pref-width: 880px;
     -fx-background-color: blue;
 }
 

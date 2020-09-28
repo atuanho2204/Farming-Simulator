@@ -40,6 +40,8 @@ public class ConfigSceneController {
     @FXML
     private CheckBox lettuce;
 
+    private String alertMessage = "";
+
     public ConfigSceneController() {
     }
 
@@ -68,45 +70,83 @@ public class ConfigSceneController {
         stage = (Stage) continueButtonCS.getScene().getWindow();
         boolean dataIsGood = validateData();
         if (dataIsGood) {
-            if (!playerName.getText().trim().equals("")) {
-                loadNextScene("../farm/farmUI.fxml");
-            } else {
-                getAlert("Your name must have at least 1 character.");
-            }
+            loadNextScene("../farm/farmUI.fxml");
         } else {
-            getAlert("Please enter your name and select difficulty, season, seed before start!!!");
+            getAlert(alertMessage);
+            alertMessage = "";
         }
     }
 
-    //SEAN ADDED THIS (You might need to modify it further)
+    public void handleConfigQuitButton() {
+        stage = (Stage) quitButtonCS.getScene().getWindow();
+        stage.close();
+    }
+
     public boolean validateData() {
-        try {
-            boolean seasonCheck = seasonGroup.getSelectedToggle().isSelected();
-            boolean seedCheck = wheat.isSelected() || corn.isSelected()
-                    || cotton.isSelected() || lettuce.isSelected();
-            boolean difficultyCheck = difficultyGroup.getSelectedToggle().isSelected();
-            boolean nameCheck = !playerName.getText().isEmpty();
+        boolean nameCheck = validName();
+        boolean difficultyCheck = validDifficulty();
+        boolean seasonCheck = validSeason();
+        boolean seedCheck = validSeed();
 
-            if (nameCheck && seasonCheck && seedCheck && difficultyCheck) {
-                farmerName = playerName.getText();
-                getDifficulty();
+        if (nameCheck && seasonCheck && seedCheck && difficultyCheck) {
+            return true;
+        }
+        return false;
+    }
 
-                if (wheat.isSelected()) {
-                    seeds.add("wheat");
-                }
-                if (corn.isSelected()) {
-                    seeds.add("corn");
-                }
-                if (cotton.isSelected()) {
-                    seeds.add("cotton");
-                }
-                if (lettuce.isSelected()) {
-                    seeds.add("lettuce");
-                }
-                getSeason();
-                return true;
+    public boolean validSeed() {
+        if (wheat.isSelected() || corn.isSelected()
+                || cotton.isSelected() || lettuce.isSelected()) {
+            if (wheat.isSelected()) {
+                seeds.add("wheat");
             }
-        } catch (Exception e) {
+            if (corn.isSelected()) {
+                seeds.add("corn");
+            }
+            if (cotton.isSelected()) {
+                seeds.add("cotton");
+            }
+            if (lettuce.isSelected()) {
+                seeds.add("lettuce");
+            }
+            return true;
+        } else {
+            alertMessage += "* You must select at least one seed \n";
+        }
+        return false;
+    }
+
+    public boolean validName() {
+        String name = playerName.getText().trim();
+        if (name.equals("")) {
+            alertMessage += "* Your name must have at least 1 character. \n";
+        } else if (name.length() > 25) {
+            alertMessage += "* Your name is too long (" + name.length()
+                    + " characters). Should be less than 25 characters. \n";
+        } else {
+            farmerName = playerName.getText();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean validDifficulty() {
+        if (difficultyGroup.getSelectedToggle() != null) {
+            getDifficulty();
+            return true;
+        } else {
+            alertMessage += "* You must choose difficulty \n";
+        }
+        return false;
+    }
+
+    public boolean validSeason() {
+        if (seasonGroup.getSelectedToggle() != null) {
+            RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
+            this.startingSeason = selectedRadioButton.getText();
+            return true;
+        } else {
+            alertMessage += "* You must select season \n";
         }
         return false;
     }
@@ -150,32 +190,27 @@ public class ConfigSceneController {
         a.show();
     }
 
-    public void handleConfigQuitButton() {
-        stage = (Stage) quitButtonCS.getScene().getWindow();
-        stage.close();
+    public String getNameForTest() {
+        return farmerName;
     }
+
+    public List<String> getSeedForTest() {
+        return seeds;
+    }
+
+    public String getSeasonForTest() {
+        return startingSeason;
+    }
+
+    public int getDifficultyForTest() {
+        return difficulty;
+    }
+
+
 
     @FXML
     public void getSeason() {
         RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
         this.startingSeason = selectedRadioButton.getText();
     }
-
-    /*
-    @FXML
-    public void getSeed() throws Exception {
-        if (wheat.isSelected()) {
-            //System.out.println(wheat.getText());
-        }
-        if (corn.isSelected()) {
-            //System.out.println(corn.getText());
-        }
-        if (cotton.isSelected()) {
-            //System.out.println(cotton.getText());
-        }
-        if (lettuce.isSelected()) {
-            //System.out.println(lettuce.getText());
-        }
-    }*/
-
 }

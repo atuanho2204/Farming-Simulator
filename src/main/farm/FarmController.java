@@ -74,6 +74,22 @@ public class FarmController implements NewDayListener, Initializable {
     }
 
     /**
+     * Gets the season of the farm
+     *
+     * @return the String for seasons name
+     */
+    public String getSeason() {
+        return this.season;
+    }
+    /**
+     * Gets the name of the farmer.
+     *
+     * @return the String for farmers name
+     */
+    public String getName() {
+        return this.name;
+    }
+    /**
      * Gets the money of the farm.
      *
      * @return the int with the money
@@ -81,7 +97,6 @@ public class FarmController implements NewDayListener, Initializable {
     public Integer getMoney() {
         return this.money;
     }
-
     /**
      * Gets the day of the farm.
      *
@@ -106,7 +121,7 @@ public class FarmController implements NewDayListener, Initializable {
             Platform.runLater(() -> currentDate.setText("Day: " + day.toString()));
             Platform.runLater(() -> startingMoney.setText("Money: " + money.toString()));
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
