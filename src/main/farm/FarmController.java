@@ -121,7 +121,7 @@ public class FarmController implements NewDayListener, Initializable {
             Platform.runLater(() -> currentDate.setText("Day: " + day.toString()));
             Platform.runLater(() -> startingMoney.setText("Money: " + money.toString()));
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
