@@ -99,10 +99,7 @@
 
     <right>
         <VBox fx:id="marketPane">
-            <children>
-                <Label>Market</Label>
-                <Label>Text</Label>
-            </children>
+
         </VBox>
     </right>
     <bottom>

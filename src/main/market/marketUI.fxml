@@ -3,8 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="marketUI" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../style.css"
+<StackPane fx:id="marketScreen" stylesheets="@../style.css"
             xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="main.market.MarketController">
-    <Label>Market UI</Label>
-</GridPane>
+
+</StackPane>
