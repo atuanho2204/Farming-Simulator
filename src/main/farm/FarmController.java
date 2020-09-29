@@ -3,7 +3,6 @@ package main.farm;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -11,16 +10,14 @@ import main.gameManager.GameManager;
 import main.gameManager.NewDayListener;
 import main.gameManager.NewDayEvent;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 
 /**
  * The Controller for the FarmUI fxml screen
  */
-public class FarmController implements NewDayListener, Initializable {
+public class FarmController implements NewDayListener {
     private Stage stage;
     private Integer difficulty = 1;
     private String name = "";
@@ -37,11 +34,6 @@ public class FarmController implements NewDayListener, Initializable {
     @FXML
     private Label currentDate;
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
 
     /**
      * Constructs the Farm Scene.
@@ -81,6 +73,7 @@ public class FarmController implements NewDayListener, Initializable {
     public String getSeason() {
         return this.season;
     }
+
     /**
      * Gets the name of the farmer.
      *
@@ -89,6 +82,7 @@ public class FarmController implements NewDayListener, Initializable {
     public String getName() {
         return this.name;
     }
+
     /**
      * Gets the money of the farm.
      *
@@ -97,6 +91,7 @@ public class FarmController implements NewDayListener, Initializable {
     public Integer getMoney() {
         return this.money;
     }
+
     /**
      * Gets the day of the farm.
      *
@@ -117,9 +112,21 @@ public class FarmController implements NewDayListener, Initializable {
 
     private void setHeaderData() {
         try {
-            Platform.runLater(() -> difficultyLevel.setText("Name: " + name));
-            Platform.runLater(() -> currentDate.setText("Day: " + day.toString()));
-            Platform.runLater(() -> startingMoney.setText("Money: " + money.toString()));
+            Platform.runLater(() -> {
+                if (difficultyLevel != null) {
+                    difficultyLevel.setText("Name: " + name);
+                }
+            });
+            Platform.runLater(() -> {
+                if (currentDate != null) {
+                    currentDate.setText("Day: " + day.toString());
+                }
+            });
+            Platform.runLater(() -> {
+                if (startingMoney != null) {
+                    startingMoney.setText("Money: " + money.toString());
+                }
+            });
         } catch (Exception e) {
             System.out.println(e);
         }

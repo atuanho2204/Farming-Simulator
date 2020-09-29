@@ -38,7 +38,7 @@ public class GameManager {
             NewDayEvent newDay = new NewDayEvent(this.day);
             listener.handleNewDay(newDay);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             pauseTime();
         }
     }
