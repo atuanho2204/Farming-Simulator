@@ -11,16 +11,19 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import main.configurationScreen.ConfigSceneController;
 
-public class WelcomeSceneController {
+import java.io.IOException;
+import java.util.ArrayList;
 
-    public void construct() {
-        //does nothing right now
+public class WelcomeSceneController {
+    private Stage primaryStage;
+
+    public void construct(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 
     @FXML
-    public void handleStartButton(ActionEvent event) {
-        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        try {
+    public void handleStartButton(ActionEvent event) throws IOException {
+//        try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
                             "../configurationScreen/configScene.fxml"
@@ -28,24 +31,18 @@ public class WelcomeSceneController {
             );
             Parent parent = loader.load();
             ConfigSceneController controller = loader.getController();
-            controller.construct();
+            controller.construct(1, "", new ArrayList<>(), "");
 
             primaryStage.setTitle("Welcome!");
             primaryStage.setScene(new Scene(parent));
-        } catch (Exception e) {
-            Alert a = new Alert(Alert.AlertType.NONE);
-            a.setAlertType(Alert.AlertType.ERROR);
-            a.setContentText("ConfigScreen not found");
-            // show the dialog
-            a.show();
-        }
-
-        //primaryStage.show();
-    }
-
-    private void loadNextScene(Stage stage) {
-
-
+//        } catch (Exception e) {
+//            Alert a = new Alert(Alert.AlertType.NONE);
+//            a.setAlertType(Alert.AlertType.ERROR);
+//            a.setContentText("ConfigScreen not found");
+//            System.out.println(e.getCause() + e.getMessage());
+//            // show the dialog
+//            a.show();
+//        }
     }
 
     public void handleQuitButton(ActionEvent event) {

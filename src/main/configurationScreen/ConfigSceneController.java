@@ -7,17 +7,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.farm.FarmController;
+import main.gameManager.GameManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigSceneController {
     private Stage stage;
-    private String farmerName;
-    private Integer difficulty; // 1 = easy; 2 = medium; 3 = hard
-    private List<String> seeds = new ArrayList<>();
-    private String startingSeason;
-    private final int day = 0;
+    private GameManager gameManager;
 
     @FXML
     private Button continueButtonCS;
@@ -43,27 +40,29 @@ public class ConfigSceneController {
     private String alertMessage = "";
 
     public ConfigSceneController() {
+        this(1, "No Name", new ArrayList<>(), "No Season");
     }
 
     public ConfigSceneController(Integer difficulty, String name,
-                                  List<String> seeds, String season) {
-        this.difficulty = difficulty;
-        this.startingSeason = season;
+                                 List<String> seeds, String season) {
+        this.gameManager = new GameManager(0);
+        gameManager.setDifficulty(difficulty);
+        gameManager.setSeason(season);
+        gameManager.setName(name);
         for (String seed : seeds) {
-            this.seeds.add(seed);
-        }
-        try {
-            if (name.trim() == "") {
-                throw new IllegalArgumentException();
-            }
-            this.farmerName = name;
-        } catch (IllegalArgumentException e) {
-            getAlert("Your name must have at least 1 character.");
+            gameManager.getSeeds().add(seed);
         }
     }
 
-    public void construct() {
-        //this doesn't need to do anything yet
+    public void construct(Integer difficulty, String name,
+                          List<String> seeds, String season) {
+        this.gameManager = new GameManager(0);
+        gameManager.setDifficulty(difficulty);
+        gameManager.setSeason(season);
+        for (String seed : seeds) {
+            gameManager.getSeeds().add(seed);
+        }
+        gameManager.setName(name);
     }
 
     public void handleContinueButton() {
@@ -88,26 +87,23 @@ public class ConfigSceneController {
         boolean seasonCheck = validSeason();
         boolean seedCheck = validSeed();
 
-        if (nameCheck && seasonCheck && seedCheck && difficultyCheck) {
-            return true;
-        }
-        return false;
+        return nameCheck && seasonCheck && seedCheck && difficultyCheck;
     }
 
     public boolean validSeed() {
         if (wheat.isSelected() || corn.isSelected()
                 || cotton.isSelected() || lettuce.isSelected()) {
             if (wheat.isSelected()) {
-                seeds.add("wheat");
+                gameManager.getSeeds().add("wheat");
             }
             if (corn.isSelected()) {
-                seeds.add("corn");
+                gameManager.getSeeds().add("corn");
             }
             if (cotton.isSelected()) {
-                seeds.add("cotton");
+                gameManager.getSeeds().add("cotton");
             }
             if (lettuce.isSelected()) {
-                seeds.add("lettuce");
+                gameManager.getSeeds().add("lettuce");
             }
             return true;
         } else {
@@ -118,13 +114,13 @@ public class ConfigSceneController {
 
     public boolean validName() {
         String name = playerName.getText().trim();
+        gameManager.setName(playerName.getText());
         if (name.equals("")) {
             alertMessage += "* Your name must have at least 1 character. \n";
         } else if (name.length() > 25) {
             alertMessage += "* Your name is too long (" + name.length()
                     + " characters). Should be less than 25 characters. \n";
         } else {
-            farmerName = playerName.getText();
             return true;
         }
         return false;
@@ -143,7 +139,7 @@ public class ConfigSceneController {
     public boolean validSeason() {
         if (seasonGroup.getSelectedToggle() != null) {
             RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
-            this.startingSeason = selectedRadioButton.getText();
+            gameManager.setSeason(selectedRadioButton.getText());
             return true;
         } else {
             alertMessage += "* You must select season \n";
@@ -156,7 +152,8 @@ public class ConfigSceneController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent parent = loader.load();
             FarmController controller = loader.getController();
-            controller.construct(difficulty, farmerName, seeds, startingSeason, day);
+            controller.construct(stage, gameManager);
+
             stage.setTitle("FarmUI");
             stage.setScene(new Scene(parent));
         } catch (Exception e) {
@@ -172,13 +169,11 @@ public class ConfigSceneController {
         ToggleButton selectedDifficulty = (ToggleButton) difficultyGroup.getSelectedToggle();
         char result = selectedDifficulty.getText().toLowerCase().charAt(0);
         if (result == 'e') {
-            difficulty = 1;
-        }
-        if (result == 'm') {
-            difficulty = 2;
-        }
-        if (result == 'h') {
-            difficulty = 3;
+            gameManager.setDifficulty(1);
+        } else if (result == 'm') {
+            gameManager.setDifficulty(2);
+        } else if (result == 'h') {
+            gameManager.setDifficulty(3);
         }
     }
 
@@ -191,19 +186,19 @@ public class ConfigSceneController {
     }
 
     public String getNameForTest() {
-        return farmerName;
+        return gameManager.getName();
     }
 
     public List<String> getSeedForTest() {
-        return seeds;
+        return gameManager.getSeeds();
     }
 
     public String getSeasonForTest() {
-        return startingSeason;
+        return gameManager.getSeason();
     }
 
     public int getDifficultyForTest() {
-        return difficulty;
+        return gameManager.getDifficulty();
     }
 
 
@@ -211,6 +206,6 @@ public class ConfigSceneController {
     @FXML
     public void getSeason() {
         RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
-        this.startingSeason = selectedRadioButton.getText();
+        gameManager.setSeason(selectedRadioButton.getText());
     }
 }

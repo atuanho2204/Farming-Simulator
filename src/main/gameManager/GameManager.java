@@ -1,45 +1,83 @@
 package main.gameManager;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import main.util.TimeAdvancer;
 
-public class GameManager {
-    private Integer day;
-    private ScheduledExecutorService executorService;
-    private final int deltaT = 4000; //in milliseconds
-    private NewDayListener listener;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The Manager of the the Totally-accurate-farm-simulator
+ */
+public class GameManager implements NewDayListener {
+    private Integer day = 0;
+    private final TimeAdvancer timeAdvancer;
+    private String name = "";
+    private List<String> seeds = new ArrayList<>(0);
+    private String season = "";
+    private Integer money = 0;
+    private Integer difficulty = 1;
 
     public GameManager(Integer day) {
         this.day = day;
+        this.timeAdvancer = new TimeAdvancer();
+        this.timeAdvancer.addListener(this);
     }
 
-    public NewDayListener getListener() {
-        return listener;
+    public TimeAdvancer getTimeAdvancer() {
+        return timeAdvancer;
     }
 
-    public void setListener(NewDayListener listener) {
-        this.listener = listener;
+    @Override
+    public void handleNewDay(NewDayEvent e) {
+        System.out.println("advanced");
+        this.day = e.getNewDay();
     }
 
-    public void startTime() {
-        executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleAtFixedRate(this::timeStep, deltaT, deltaT, TimeUnit.MILLISECONDS);
+    public Integer getMoney() {
+        return money;
     }
 
-    public void pauseTime() {
-        executorService.shutdown();
+    public String getSeason() {
+        return season;
     }
 
+    public List<String> getSeeds() {
+        return seeds;
+    }
 
-    private void timeStep() {
-        this.day++;
-        try {
-            NewDayEvent newDay = new NewDayEvent(this.day);
-            listener.handleNewDay(newDay);
-        } catch (Exception e) {
-            System.out.println(e);
-            pauseTime();
-        }
+    public String getName() {
+        return name;
+    }
+
+    public Integer getDay() {
+        return day;
+    }
+
+    public Integer getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDay(Integer day) {
+        this.day = day;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
+
+    public void setSeeds(List<String> seeds) {
+        this.seeds = seeds;
+    }
+
+    public void setDifficulty(Integer difficulty) {
+        this.difficulty = difficulty;
     }
 }
