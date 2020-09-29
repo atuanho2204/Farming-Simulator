@@ -1,5 +1,6 @@
 package main.gameManager;
 
+import main.market.Market;
 import main.util.TimeAdvancer;
 
 import java.util.ArrayList;
@@ -9,27 +10,26 @@ import java.util.List;
  * The Manager of the the Totally-accurate-farm-simulator
  */
 public class GameManager implements NewDayListener {
-    private Integer day = 0;
+    private Integer day;
     private final TimeAdvancer timeAdvancer;
     private String name = "";
     private List<String> seeds = new ArrayList<>(0);
     private String season = "";
     private Integer money = 0;
     private Integer difficulty = 1;
+    private Market market;
 
     public GameManager(Integer day) {
         this.day = day;
         this.timeAdvancer = new TimeAdvancer();
         this.timeAdvancer.addListener(this);
+        this.market = new Market(this);
     }
 
-    public TimeAdvancer getTimeAdvancer() {
-        return timeAdvancer;
-    }
 
     @Override
     public void handleNewDay(NewDayEvent e) {
-        System.out.println("advanced");
+        System.out.println("day advanced");
         this.day = e.getNewDay();
     }
 
@@ -55,6 +55,14 @@ public class GameManager implements NewDayListener {
 
     public Integer getDifficulty() {
         return difficulty;
+    }
+
+    public TimeAdvancer getTimeAdvancer() {
+        return timeAdvancer;
+    }
+
+    public Market getMarket() {
+        return this.market;
     }
 
     public void setDay(Integer day) {

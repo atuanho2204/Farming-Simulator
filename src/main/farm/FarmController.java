@@ -4,21 +4,16 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.gameManager.NewDayListener;
 import main.gameManager.NewDayEvent;
-import main.market.MarketController;
-import main.market.marketListing.MarketListingController;
+import main.market.MarketUIController;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -31,7 +26,7 @@ public class FarmController implements NewDayListener {
 
 
     @FXML
-    private VBox marketPane;
+    private Pane marketHolder;
     @FXML
     private Label difficultyLevel;
     @FXML
@@ -53,14 +48,14 @@ public class FarmController implements NewDayListener {
         gameManager.getTimeAdvancer().addListener(this);
         gameManager.getTimeAdvancer().startTime();
 
-        marketPane.getChildren().add(new Pane(loadMarket()));
+        marketHolder.getChildren().add(new Pane(getMarketUI()));
     }
 
     public void handleNewDay(NewDayEvent e) {
         setHeaderData();
     }
 
-    private Parent loadMarket() {
+    private Parent getMarketUI() {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
@@ -68,7 +63,7 @@ public class FarmController implements NewDayListener {
                     )
             );
             Parent parent = loader.load();
-            MarketController controller = loader.getController();
+            MarketUIController controller = loader.getController();
             controller.construct(primaryStage, gameManager);
             return parent;
         } catch (Exception e) {

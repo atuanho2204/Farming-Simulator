@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Inventory {
     private int storageLimit = 0;
+    private ArrayList<InventoryItem> items;
     //other varaibles to store
 
 

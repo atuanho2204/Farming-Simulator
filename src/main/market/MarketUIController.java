@@ -6,22 +6,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.gameManager.NewDayEvent;
 import main.gameManager.NewDayListener;
+import main.inventory.Inventory;
+import main.inventory.InventoryItem;
 import main.market.marketListing.MarketListingController;
 import main.welcomeScreen.WelcomeSceneController;
+
+import java.util.ArrayList;
 
 
 /**
  * The Controller for the MarketUI fxml screen
  */
-public class MarketController implements NewDayListener {
+public class MarketUIController implements NewDayListener {
     private Stage primaryStage;
     private GameManager gameManager;
 
@@ -38,13 +39,18 @@ public class MarketController implements NewDayListener {
     public void construct(Stage primaryStage, GameManager gameManager) {
         this.primaryStage = primaryStage;
         this.gameManager = gameManager;
+        this.gameManager.getTimeAdvancer().addListener(this);
 
-        marketScreen.getChildren().addAll(
-                loadListingUI(),
-                loadListingUI(),
-                loadListingUI(),
-                loadListingUI()
-        );
+        marketScreen.getChildren().add(loadListingUI());
+        marketScreen.getChildren().add(loadListingUI());
+        try {
+            Thread.sleep(10);
+
+        } catch (Exception e) {
+
+        }
+        marketScreen.getChildren().add(loadListingUI());
+        marketScreen.getChildren().add(loadListingUI());
     }
 
     private Node loadListingUI() {
@@ -57,7 +63,7 @@ public class MarketController implements NewDayListener {
             Parent parent = loader.load();
             MarketListingController controller = loader.getController();
             controller.construct(primaryStage);
-            return new HBox(parent);
+            return new Pane(parent);
         } catch (Exception e) {
             return null;
         }
@@ -65,6 +71,10 @@ public class MarketController implements NewDayListener {
 
     public void handleNewDay(NewDayEvent e) {
         //update values
-        setMarketListings();
+        setUIListings(gameManager.getMarket().getMarketListings());
+    }
+
+    public void setUIListings(ArrayList<InventoryItem> listings) {
+
     }
 }

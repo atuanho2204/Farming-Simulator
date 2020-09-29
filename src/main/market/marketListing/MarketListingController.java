@@ -12,6 +12,6 @@ public class MarketListingController {
     private Label listingTitle;
 
     public void construct(Stage primaryStage) {
-//        listingTitle.setText("HEllo");
+        listingTitle.setText("Hi " + Math.random() * 10);
     }
 }

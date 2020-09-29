@@ -98,9 +98,9 @@
     </center>
 
     <right>
-        <VBox fx:id="marketPane">
+        <Pane fx:id="marketHolder">
 
-        </VBox>
+        </Pane>
     </right>
     <bottom>
     </bottom>
