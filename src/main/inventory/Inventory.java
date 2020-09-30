@@ -16,6 +16,9 @@ public class Inventory {
 
     }
 
+    public int getStorageLimit() {
+        return storageLimit; }
+
     public String getTextOfInventoryItems() {
         return "This should be a list of the inventory items in string format";
     }

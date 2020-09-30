@@ -29,7 +29,8 @@ public class TimeAdvancer {
     public void startTime() {
         System.out.println("Time started");
         executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleWithFixedDelay(this::timeStep, deltaT, deltaT, TimeUnit.MILLISECONDS);
+        executorService.scheduleWithFixedDelay(this::timeStep,
+                deltaT, deltaT, TimeUnit.MILLISECONDS);
     }
 
     public void pauseTime() {

@@ -90,9 +90,11 @@ public class ConfigSceneController {
         return nameCheck && seasonCheck && seedCheck && difficultyCheck;
     }
 
+    @FXML
     public boolean validSeed() {
         if (wheat.isSelected() || corn.isSelected()
                 || cotton.isSelected() || lettuce.isSelected()) {
+            gameManager.getSeeds().clear();
             if (wheat.isSelected()) {
                 gameManager.getSeeds().add("wheat");
             }
@@ -105,13 +107,18 @@ public class ConfigSceneController {
             if (lettuce.isSelected()) {
                 gameManager.getSeeds().add("lettuce");
             }
+            if (gameManager.getSeeds().size() != 3) {
+                alertMessage += "* You must select three seed types. \n";
+                return false;
+            }
             return true;
         } else {
-            alertMessage += "* You must select at least one seed \n";
+            alertMessage += "* You must select three seed types. \n";
         }
         return false;
     }
 
+    @FXML
     public boolean validName() {
         String name = playerName.getText().trim();
         gameManager.setName(playerName.getText());
@@ -126,23 +133,25 @@ public class ConfigSceneController {
         return false;
     }
 
+    @FXML
     public boolean validDifficulty() {
         if (difficultyGroup.getSelectedToggle() != null) {
             getDifficulty();
             return true;
         } else {
-            alertMessage += "* You must choose difficulty \n";
+            alertMessage += "* You must select difficulty. \n";
         }
         return false;
     }
 
+    @FXML
     public boolean validSeason() {
         if (seasonGroup.getSelectedToggle() != null) {
             RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
             gameManager.setSeason(selectedRadioButton.getText());
             return true;
         } else {
-            alertMessage += "* You must select season \n";
+            alertMessage += "* You must select season. \n";
         }
         return false;
     }
@@ -165,6 +174,7 @@ public class ConfigSceneController {
         }
     }
 
+    @FXML
     public void getDifficulty() {
         ToggleButton selectedDifficulty = (ToggleButton) difficultyGroup.getSelectedToggle();
         char result = selectedDifficulty.getText().toLowerCase().charAt(0);
@@ -175,6 +185,12 @@ public class ConfigSceneController {
         } else if (result == 'h') {
             gameManager.setDifficulty(3);
         }
+    }
+
+    @FXML
+    public void getSeason() {
+        RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
+        gameManager.setSeason(selectedRadioButton.getText());
     }
 
     public void getAlert(String message) {
@@ -199,13 +215,5 @@ public class ConfigSceneController {
 
     public int getDifficultyForTest() {
         return gameManager.getDifficulty();
-    }
-
-
-
-    @FXML
-    public void getSeason() {
-        RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
-        gameManager.setSeason(selectedRadioButton.getText());
     }
 }

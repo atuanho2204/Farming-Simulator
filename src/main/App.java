@@ -37,7 +37,7 @@ public class App extends Application {
             Parent parent = loader.load();
             WelcomeSceneController controller = loader.getController();
             controller.construct(primaryStage);
-
+            primaryStage.setResizable(false);
             primaryStage.setTitle("Welcome");
             primaryStage.setScene(new Scene(parent, PREF_WIDTH, PREF_HEIGHT));
             primaryStage.show();
