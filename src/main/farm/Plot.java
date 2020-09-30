@@ -1,4 +1,4 @@
-package main.farm;
+/*package main.farm;
 
 import com.sun.javafx.geom.Vec2d;
 import main.util.Crop;
@@ -27,5 +27,32 @@ public class Plot {
 
     public Vec2d getPosition() {
         return position;
+    }
+}*/
+
+package main.farm;
+
+import com.sun.javafx.geom.Vec2d;
+import main.util.Crop;
+import main.util.CropStage;
+import main.util.CropTypes;
+
+public class Plot {
+    private Crop currentCrop;
+
+    public Plot() {
+        this(new Crop(CropTypes.CORN, CropStage.SPROUT));
+    }
+
+    public Plot(Crop currentCrop) {
+        this.currentCrop = currentCrop;
+    }
+
+    public void setCurrentCrop(Crop currentCrop) {
+        this.currentCrop = currentCrop;
+    }
+
+    public Crop getCurrentCrop() {
+        return currentCrop;
     }
 }
