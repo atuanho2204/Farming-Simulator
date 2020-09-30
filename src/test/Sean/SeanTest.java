@@ -1,7 +1,6 @@
 package test.Sean;
 
 import com.sun.javafx.application.PlatformImpl;
-import javafx.application.Platform;
 import main.farm.FarmController;
 import main.gameManager.GameManager;
 import org.junit.Before;
