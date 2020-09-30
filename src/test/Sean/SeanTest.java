@@ -3,6 +3,7 @@ package test.Sean;
 import com.sun.javafx.application.PlatformImpl;
 import javafx.application.Platform;
 import main.farm.FarmController;
+import main.gameManager.GameManager;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +14,7 @@ import static org.junit.Assert.fail;
 
 public class SeanTest {
     private FarmController controller;
+    GameManager gameMan;
 
     @Before
     public void setup() {
@@ -20,24 +22,25 @@ public class SeanTest {
             //this code serves to remove the "Toolkit not found" error
         });
         controller = new FarmController();
+        gameMan = new GameManager(0);
     }
 
     @Test
     public void testConstructController() {
-        controller.construct(1, "Sean", new ArrayList<>(0), "Fall", 0);
-        assertEquals(0, controller.getDay().intValue());
-        assertEquals(1, controller.getDifficulty().intValue());
-        assertEquals(10, controller.getMoney().intValue());
+        controller.construct(null, gameMan);
+        assertEquals(0, gameMan.getDay().intValue());
+        assertEquals(1, gameMan.getDifficulty().intValue());
+        assertEquals(10, gameMan.getMoney().intValue());
     }
 
 
     @Test
     public void testDayIncrements() {
-        controller.construct(1, "Sean", new ArrayList<>(0), "Fall", 0);
-        assertEquals(0, controller.getDay().intValue());
+        controller.construct(null, gameMan);
+        assertEquals(0, gameMan.getDay().intValue());
         try {
             Thread.sleep(4050);
-            assertEquals(1, controller.getDay().intValue());
+            assertEquals(1, gameMan.getDay().intValue());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             fail();

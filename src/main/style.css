@@ -282,6 +282,11 @@
     -fx-min-width: 400px
 }
 
+.marketListingPane {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
 #pauseButtonGS {
     -fx-width: 70;
     -fx-height: 30;

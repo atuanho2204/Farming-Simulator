@@ -1,6 +1,8 @@
 package test.Chris;
 
+import com.sun.javafx.application.PlatformImpl;
 import main.farm.FarmController;
+import main.gameManager.GameManager;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,24 +12,32 @@ import static org.junit.Assert.assertEquals;
 
 public class ChrisTest {
     private FarmController controller;
+    GameManager gameMan;
 
     @Before
     public void setup() {
+        PlatformImpl.startup(() -> {
+            //this code serves to remove the "Toolkit not found" error
+        });
         controller = new FarmController();
+        gameMan = new GameManager(0);
     }
 
     @Test
     public void testConstructController() {
-        controller.construct(1, "Chris", new ArrayList<>(0), "Fall", 0);
-        assertEquals(0, controller.getDay().intValue());
-        assertEquals(1, controller.getDifficulty().intValue());
-        assertEquals(10, controller.getMoney().intValue());
+        controller.construct(null, gameMan);
+        assertEquals(0, gameMan.getDay().intValue());
+        assertEquals(1, gameMan.getDifficulty().intValue());
+        assertEquals(10, gameMan.getSeason());
     }
 
     @Test
     public void testNameAndSeason() {
-        controller.construct(2, "Chris", new ArrayList<>(0), "Spring", 1);
-        assertEquals("Chris", controller.getName());
-        assertEquals("Spring", controller.getSeason());
+        controller.construct(null, gameMan);
+        gameMan.setSeason("Spring");
+        gameMan.setName("Christ");
+
+        assertEquals("Chris", gameMan.getName());
+        assertEquals("Spring", gameMan.getSeason());
     }
 }
