@@ -1,7 +1,7 @@
 package main.util;
 
 public enum CropStage {
-    SPROUT,
+    SPROUTING,
     IMMATURE,
     MATURE,
     DEAD
