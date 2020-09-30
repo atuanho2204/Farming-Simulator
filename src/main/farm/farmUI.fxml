@@ -1,119 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="FarmUIVBox" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.farm.FarmController">
-    <top>
-        <GridPane fx:id="topBar">
-            <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" />
-                <ColumnConstraints hgrow="ALWAYS" />
-                <ColumnConstraints hgrow="ALWAYS" />
-                <ColumnConstraints hgrow="ALWAYS" />
-                <ColumnConstraints hgrow="ALWAYS" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints vgrow="ALWAYS" />
-            </rowConstraints>
-            <Pane GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">
-                <Label fx:id="difficultyLevel" styleClass="dataLabel" />
-            </Pane>
-            <Pane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0">
-                <Label fx:id="startingMoney" styleClass="dataLabel" />
-            </Pane>
-            <Pane GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
-                <Label fx:id="currentDate" styleClass="dataLabel" />
-            </Pane>
-            <Pane GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0">
-                <Button fx:id="pauseButtonGS" mnemonicParsing="false" onAction="#handlePauseButton" text="Pause" />
-            </Pane>
-            <Pane GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0">
-                <Button fx:id="quitButtonGS" mnemonicParsing="false" onAction="#handleQuitButton" text="Quit" />
-            </Pane>
+<StackPane fx:id="FarmUIVBox" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.farm.FarmController">
+    <children>
+        <ImageView fx:id="image" fitHeight="800.0" fitWidth="1200.0">
+            <image>
+                <Image url="@../images/farm_background.jpg" />
+            </image>
+        </ImageView>
+        <BorderPane>
+            <top>
+                <GridPane fx:id="topBar" maxHeight="75">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="ALWAYS" />
+                    </rowConstraints>
+                    <Pane GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+                        <Label fx:id="difficultyLevel" styleClass="dataLabel" />
+                    </Pane>
+                    <Pane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+                        <Label fx:id="startingMoney" styleClass="dataLabel" />
+                    </Pane>
+                    <Pane GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+                        <Label fx:id="currentDate" styleClass="dataLabel" />
+                    </Pane>
+                    <Pane GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+                        <Button fx:id="pauseButtonGS" mnemonicParsing="false" onAction="#handlePauseButton" text="Pause" />
+                    </Pane>
+                    <Pane GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+                        <Button fx:id="quitButtonGS" mnemonicParsing="false" onAction="#handleQuitButton" text="Quit" />
+                    </Pane>
 
 
-        </GridPane>
-    </top>
+                </GridPane>
+            </top>
 
-    <left>
-    </left>
+            <left>
+            </left>
 
-    <center>
-        <GridPane fx:id="farmPlots">
-            <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
-                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
-                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
-                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
-            </rowConstraints>
+            <center>
+                <GridPane fx:id="farmPlots">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                        <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                        <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                        <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                    </rowConstraints>
 
-            <Button styleClass="farmPlot" fx:id="plot00" onAction="#harvestPlot" GridPane.columnIndex="0"
-                    GridPane.rowIndex="0">
-                <!--(0,0)-->
-            </Button>
+                    <Button fx:id="plot00" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <!--(0,0)-->
+                    </Button>
 
-            <Button styleClass="farmPlot" fx:id="plot10" onAction="#harvestPlot" GridPane.columnIndex="1"
-                    GridPane.rowIndex="0">
-                <!--(1,0)-->
-            </Button>
-            <Button styleClass="farmPlot" fx:id="plot20" onAction="#harvestPlot" GridPane.columnIndex="2"
-                    GridPane.rowIndex="0">
-                <!--(2,0)-->
-            </Button>
+                    <Button fx:id="plot10" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <!--(1,0)-->
+                    </Button>
+                    <Button fx:id="plot20" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <!--(2,0)-->
+                    </Button>
 
-            <Button styleClass="farmPlot" fx:id="plot01" onAction="#harvestPlot" GridPane.columnIndex="0"
-                    GridPane.rowIndex="1">
-                <!--(0,1)-->
-            </Button>
-            <Button styleClass="farmPlot" fx:id="plot11" onAction="#harvestPlot" GridPane.columnIndex="1"
-                    GridPane.rowIndex="1">
-                <!--(1,1)-->
-            </Button>
-            <Button styleClass="farmPlot" fx:id="plot21" onAction="#harvestPlot" GridPane.columnIndex="2"
-                    GridPane.rowIndex="1">
-                <!--(2,1)-->
-            </Button>
+                    <Button fx:id="plot01" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <!--(0,1)-->
+                    </Button>
+                    <Button fx:id="plot11" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <!--(1,1)-->
+                    </Button>
+                    <Button fx:id="plot21" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <!--(2,1)-->
+                    </Button>
 
-            <Button styleClass="farmPlot" fx:id="plot02" onAction="#harvestPlot" GridPane.columnIndex="0"
-                    GridPane.rowIndex="2">
-                <!--(0,2)-->
-            </Button>
-            <Button styleClass="farmPlot" fx:id="plot12" onAction="#harvestPlot" GridPane.columnIndex="1"
-                    GridPane.rowIndex="2">
-                <!--(1,2)-->
-            </Button>
-            <Button styleClass="farmPlot" fx:id="plot22" onAction="#harvestPlot" GridPane.columnIndex="2"
-                    GridPane.rowIndex="2">
-                <!--(2,2)-->
-            </Button>
+                    <Button fx:id="plot02" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <!--(0,2)-->
+                    </Button>
+                    <Button fx:id="plot12" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <!--(1,2)-->
+                    </Button>
+                    <Button fx:id="plot22" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <!--(2,2)-->
+                    </Button>
 
-            <Button styleClass="farmPlot" fx:id="plot03" onAction="#harvestPlot" GridPane.columnIndex="0"
-                    GridPane.rowIndex="3">
-                <!--(0,3)-->
-            </Button>
-            <Button styleClass="farmPlot" fx:id="plot13" onAction="#harvestPlot" GridPane.columnIndex="1"
-                    GridPane.rowIndex="3">
-                <!--(1,3)-->
-            </Button>
-            <Button styleClass="farmPlot" fx:id="plot23" onAction="#harvestPlot" GridPane.columnIndex="2"
-                    GridPane.rowIndex="3">
-                <!--(2,3)-->
-            </Button>
+                    <Button fx:id="plot03" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                        <!--(0,3)-->
+                    </Button>
+                    <Button fx:id="plot13" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <!--(1,3)-->
+                    </Button>
+                    <Button fx:id="plot23" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                        <!--(2,3)-->
+                    </Button>
 
-        </GridPane>
-    </center>
+                </GridPane>
+                <!--<GridPane fx:id="farmPlots">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                        <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                        <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                        <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                    </rowConstraints>
 
-    <right>
-        <Pane fx:id="marketHolder">
+                    <Button fx:id="plot00" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        &lt;!&ndash;(0,0)&ndash;&gt;
+                    </Button>
 
-        </Pane>
-    </right>
-    <bottom>
-    </bottom>
-</BorderPane>
+                    <Button fx:id="plot10" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        &lt;!&ndash;(1,0)&ndash;&gt;
+                    </Button>
+                    <Button fx:id="plot20" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        &lt;!&ndash;(2,0)&ndash;&gt;
+                    </Button>
+
+                    <Button fx:id="plot01" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        &lt;!&ndash;(0,1)&ndash;&gt;
+                    </Button>
+                    <Button fx:id="plot11" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        &lt;!&ndash;(1,1)&ndash;&gt;
+                    </Button>
+                    <Button fx:id="plot21" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        &lt;!&ndash;(2,1)&ndash;&gt;
+                    </Button>
+
+                    <Button fx:id="plot02" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        &lt;!&ndash;(0,2)&ndash;&gt;
+                    </Button>
+                    <Button fx:id="plot12" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        &lt;!&ndash;(1,2)&ndash;&gt;
+                    </Button>
+                    <Button fx:id="plot22" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        &lt;!&ndash;(2,2)&ndash;&gt;
+                    </Button>
+
+                    <Button fx:id="plot03" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                        &lt;!&ndash;(0,3)&ndash;&gt;
+                    </Button>
+                    <Button fx:id="plot13" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        &lt;!&ndash;(1,3)&ndash;&gt;
+                    </Button>
+                    <Button fx:id="plot23" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                        &lt;!&ndash;(2,3)&ndash;&gt;
+                    </Button>
+
+                </GridPane>-->
+            </center>
+
+            <right>
+                <Pane fx:id="marketHolder" prefWidth="460">
+
+
+                </Pane>
+            </right>
+            <bottom>
+            </bottom>
+        </BorderPane>
+    </children>
+</StackPane>
