@@ -21,24 +21,6 @@ import main.util.CropTypes;
 
 import java.util.ArrayList;
 
-
-
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import main.gameManager.GameManager;
-import main.gameManager.NewDayListener;
-import main.gameManager.NewDayEvent;
-import main.market.MarketUIController;
-
-import java.util.ArrayList;
-
-
 /**
  * The Controller for the FarmUI fxml screen
  */
