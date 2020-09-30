@@ -1,17 +1,25 @@
 package main.farm;
 
+import com.sun.javafx.geom.Vec2d;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.gameManager.NewDayListener;
 import main.gameManager.NewDayEvent;
+import main.util.Crop;
+import main.util.CropStage;
+import main.util.CropTypes;
 
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.ResourceBundle;
 
 
 /**
@@ -20,7 +28,10 @@ import java.util.List;
 public class FarmController implements NewDayListener {
     private Stage primaryStage;
     private GameManager gameManager;
-    private ArrayList<Plot> plots; //this should be populated with random stuff at construct
+    private final int NUM_OF_PLOTS = 12;
+    //plots will be initialized with random crop at construct
+    private ArrayList<Plot> plots = new ArrayList<>(NUM_OF_PLOTS);
+    private ArrayList<Button> uiPlots = new ArrayList<>(NUM_OF_PLOTS);
 
 
     @FXML
@@ -29,6 +40,30 @@ public class FarmController implements NewDayListener {
     private Label startingMoney;
     @FXML
     private Label currentDate;
+    @FXML
+    private Button plot00;
+    @FXML
+    private Button plot01;
+    @FXML
+    private Button plot02;
+    @FXML
+    private Button plot03;
+    @FXML
+    private Button plot10;
+    @FXML
+    private Button plot11;
+    @FXML
+    private Button plot12;
+    @FXML
+    private Button plot13;
+    @FXML
+    private Button plot20;
+    @FXML
+    private Button plot21;
+    @FXML
+    private Button plot22;
+    @FXML
+    private Button plot23;
 
 
     /**
@@ -74,7 +109,38 @@ public class FarmController implements NewDayListener {
 
     private void populatePlotsRandomly() {
         //replace this
-        this.plots = new ArrayList<>();
+        int numOfSeedTypes = gameManager.getSeeds().size();
+        for (int i = 0; i < NUM_OF_PLOTS; ++i) {
+            int randomCrop = (int) (Math.random() * 10) % numOfSeedTypes;
+            int randomStage = (int) (Math.random() * 10) % CropStage.values().length;
+            String seed = gameManager.getSeeds().get(randomCrop).toUpperCase();
+            plots.add(new Plot(new Crop(CropTypes.valueOf(seed), CropStage.values()[randomStage])));
+
+            //plots.add(new Plot(new Vec2d(0,0), new Crop(CropTypes.valueOf(seed))));
+        }
+        showPlots();
+    }
+
+    @FXML
+    private void showPlots() {
+        uiPlots.add(plot00);
+        uiPlots.add(plot01);
+        uiPlots.add(plot02);
+        uiPlots.add(plot03);
+        uiPlots.add(plot10);
+        uiPlots.add(plot11);
+        uiPlots.add(plot12);
+        uiPlots.add(plot13);
+        uiPlots.add(plot20);
+        uiPlots.add(plot21);
+        uiPlots.add(plot22);
+        uiPlots.add(plot23);
+        for (int i = 0; i < NUM_OF_PLOTS; ++i) {
+            //uiPlots.get(i).setPrefSize(20,20);
+            //uiPlots.get(i).setGraphic(new ImageView(new Image("main/images/Untitled_Artwork.jpg")));
+            uiPlots.get(i).setText(plots.get(i).getCurrentCrop().getType().toString()
+                    + "\n" + plots.get(i).getCurrentCrop().getStage().toString());
+        }
     }
 
     @FXML
