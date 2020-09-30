@@ -14,5 +14,6 @@ public class Crop {
         return type;
     }
 
-    public CropStage getStage() { return cropStage; }
+    public CropStage getStage() {
+        return cropStage; }
 }

@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import main.configurationScreen.ConfigSceneController;
 
@@ -23,26 +22,29 @@ public class WelcomeSceneController {
 
     @FXML
     public void handleStartButton(ActionEvent event) throws IOException {
-//        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "../configurationScreen/configScene.fxml"
-                    )
-            );
-            Parent parent = loader.load();
-            ConfigSceneController controller = loader.getController();
-            controller.construct(1, "", new ArrayList<>(), "");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "../configurationScreen/configScene.fxml"
+                )
+        );
+        Parent parent = loader.load();
+        ConfigSceneController controller = loader.getController();
+        controller.construct(1, "", new ArrayList<>(), "");
 
-            primaryStage.setTitle("Welcome!");
-            primaryStage.setScene(new Scene(parent));
-//        } catch (Exception e) {
-//            Alert a = new Alert(Alert.AlertType.NONE);
-//            a.setAlertType(Alert.AlertType.ERROR);
-//            a.setContentText("ConfigScreen not found");
-//            System.out.println(e.getCause() + e.getMessage());
-//            // show the dialog
-//            a.show();
-//        }
+        primaryStage.setTitle("Welcome!");
+        primaryStage.setScene(new Scene(parent));
+        /*
+        try {
+        } catch (Exception e) {
+            Alert a = new Alert(Alert.AlertType.NONE);
+            a.setAlertType(Alert.AlertType.ERROR);
+            a.setContentText("ConfigScreen not found");
+            System.out.println(e.getCause() + e.getMessage());
+            // show the dialog
+            a.show();
+        }
+        */
+
     }
 
     public void handleQuitButton(ActionEvent event) {
