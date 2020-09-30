@@ -128,7 +128,6 @@ public class FarmController implements NewDayListener {
         }
     }
 
-    @FXML
     private void initializeUIPlots() {
         uiPlots.add(plot00);
         uiPlots.add(plot01);
