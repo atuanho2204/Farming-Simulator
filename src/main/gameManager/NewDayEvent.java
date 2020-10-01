@@ -1,13 +1,13 @@
 package main.gameManager;
 
 public class NewDayEvent {
-    private Integer newDay;
+    private final Integer newDay;
 
     public Integer getNewDay() {
         return newDay;
     }
 
-    public NewDayEvent(Integer newDay) {
+    public NewDayEvent(int newDay) {
         this.newDay = newDay;
     }
 }

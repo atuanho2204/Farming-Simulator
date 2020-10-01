@@ -29,7 +29,7 @@ public class GameManager implements NewDayListener {
 
     @Override
     public void handleNewDay(NewDayEvent e) {
-        System.out.println("day advanced");
+        //System.out.println("day advanced");
         this.day = e.getNewDay();
     }
 

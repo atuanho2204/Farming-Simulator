@@ -17,7 +17,7 @@ public class MarketListingController {
     public void construct(Stage primaryStage, InventoryItem listing) {
         this.primaryStage = primaryStage;
         this.listing = listing;
-        title.setText("Hi " + Math.random() * 10);
+        title.setText(listing.getName() + ", price: " + listing.getSellCost());
     }
 
     private void setListingUI() {

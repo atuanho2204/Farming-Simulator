@@ -1,6 +1,7 @@
 package main.market;
 
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -42,14 +43,16 @@ public class MarketUIController implements NewDayListener {
     private void setMarketListings() {
         try {
             for (InventoryItem listing : gameManager.getMarket().getMarketListings()) {
-                marketScreen.getChildren().add(loadListingUI(listing));
+                Platform.runLater(() -> {
+                    marketScreen.getChildren().add(loadListingUI(listing));
+                });
                 System.out.println("Loading market item: "
                         + listing.getName()
                         + " with price: "
                         + listing.getBuyCost());
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error in setting market listing: " + e.getMessage());
             for (StackTraceElement l : e.getStackTrace()) {
                 System.out.println(l);
             }
@@ -74,6 +77,6 @@ public class MarketUIController implements NewDayListener {
 
     public void handleNewDay(NewDayEvent e) {
         //update values
-        setMarketListings();
+        //setMarketListings();
     }
 }
