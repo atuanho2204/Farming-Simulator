@@ -284,6 +284,13 @@
 
 .marketListingPane {
     -fx-background-color: black;
+}
+
+.listingTitle {
+    -fx-text-fill: white;
+}
+
+.buyButton {
     -fx-text-fill: white;
 }
 

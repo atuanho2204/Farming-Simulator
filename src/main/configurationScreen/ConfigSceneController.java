@@ -166,6 +166,10 @@ public class ConfigSceneController {
             stage.setTitle("FarmUI");
             stage.setScene(new Scene(parent));
         } catch (Exception e) {
+            System.out.println(e.getMessage() + ": ");
+            for (StackTraceElement l : e.getStackTrace()) {
+                System.out.println(l);
+            }
             Alert a = new Alert(Alert.AlertType.NONE);
             a.setAlertType(Alert.AlertType.ERROR);
             a.setContentText("FarmUI not found");

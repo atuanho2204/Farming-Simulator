@@ -1,15 +1,30 @@
 package main.inventory;
 
+import main.util.crops.CropCatalog;
+import main.util.crops.CropTypes;
+
 public class InventoryItem {
     private int buyCost;
     private int sellCost;
     private int fillSpace = 1;
     private String name;
 
+    public InventoryItem(CropTypes type) {
+        this.buyCost = CropCatalog.getInstance().getCropDetails(type).getBaseBuy();
+        this.sellCost = CropCatalog.getInstance().getCropDetails(type).getBaseSell();
+        this.name = type.name().toLowerCase();
+    }
+
     public InventoryItem(int buyCost, int sellCost, String name) {
         this.buyCost = buyCost;
         this.sellCost = sellCost;
         this.name = name;
+    }
+
+    public InventoryItem(InventoryItem item) {
+        this.buyCost = item.buyCost;
+        this.sellCost = item.sellCost;
+        this.name = new String(item.name);
     }
 
     public String getName() {

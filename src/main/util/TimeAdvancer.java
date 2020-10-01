@@ -2,7 +2,6 @@ package main.util;
 
 import main.gameManager.NewDayEvent;
 import main.gameManager.NewDayListener;
-
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -29,7 +28,7 @@ public class TimeAdvancer {
     public void startTime() {
         System.out.println("Time started");
         executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleWithFixedDelay(this::timeStep,
+        executorService.scheduleAtFixedRate(this::timeStep,
                 deltaT, deltaT, TimeUnit.MILLISECONDS);
     }
 

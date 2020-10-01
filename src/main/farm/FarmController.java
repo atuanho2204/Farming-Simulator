@@ -15,9 +15,9 @@ import main.gameManager.GameManager;
 import main.gameManager.NewDayListener;
 import main.gameManager.NewDayEvent;
 import main.market.MarketUIController;
-import main.util.Crop;
-import main.util.CropStage;
-import main.util.CropTypes;
+import main.util.crops.Crop;
+import main.util.crops.CropStage;
+import main.util.crops.CropTypes;
 
 import java.util.ArrayList;
 
@@ -101,6 +101,8 @@ public class FarmController implements NewDayListener {
             controller.construct(primaryStage, gameManager);
             return parent;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+
             return null;
         }
     }

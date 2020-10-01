@@ -6,6 +6,6 @@
 <Pane styleClass="marketListingPane" stylesheets="@../../style.css"
             xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="main.market.marketListing.MarketListingController">
-    <Label fx:id="listingTitle">Market Listing</Label>
-    <Button>Buy</Button>
+    <Label fx:id="title" styleClass="listingTitle">Market Listing</Label>
+    <Button styleClass="buyButton" onAction="#buyAction">Buy</Button>
 </Pane>
