@@ -4,7 +4,7 @@ package main.market;
 import main.gameManager.GameManager;
 import main.gameManager.NewDayEvent;
 import main.gameManager.NewDayListener;
-import main.inventory.InventoryItem;
+import main.inventory.inventoryItems.InventoryItem;
 import java.util.ArrayList;
 import main.util.crops.CropCatalog;
 import main.util.crops.CropDetails;
@@ -51,7 +51,7 @@ public class Market implements NewDayListener {
         int randomSupplment = (int) Math.round(Math.random() * 10 * randomness);
         int difficultySupplement = gameManager.getDifficulty();
         return priceModifier * (int) (details.getBaseSell()
-                + Math.round(Math.sin(gameManager.getDay()) + randomSupplment)
+                + Math.round(2 * Math.sin(gameManager.getDay()) + randomSupplment)
                 + difficultySupplement);
     }
 

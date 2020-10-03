@@ -11,7 +11,8 @@ import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.gameManager.NewDayEvent;
 import main.gameManager.NewDayListener;
-import main.inventory.InventoryItem;
+import main.inventory.inventoryItems.InventoryItem;
+import main.market.marketListing.MarketListing;
 import main.market.marketListing.MarketListingController;
 
 
@@ -42,6 +43,7 @@ public class MarketUIController implements NewDayListener {
 
     private void setMarketListings() {
         try {
+            marketScreen.getChildren().clear();
             for (InventoryItem listing : gameManager.getMarket().getMarketListings()) {
                 Platform.runLater(() -> {
                     marketScreen.getChildren().add(loadListingUI(listing));
@@ -59,17 +61,10 @@ public class MarketUIController implements NewDayListener {
         }
     }
 
+
     private Node loadListingUI(InventoryItem listing) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "marketListing/marketListing.fxml"
-                    )
-            );
-            Parent parent = loader.load();
-            MarketListingController controller = loader.getController();
-            controller.construct(primaryStage, listing);
-            return new Pane(parent);
+            return MarketListing.getListingUI(listing);
         } catch (Exception e) {
             return null;
         }

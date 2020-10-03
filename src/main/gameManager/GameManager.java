@@ -1,5 +1,6 @@
 package main.gameManager;
 
+import main.inventory.Inventory;
 import main.market.Market;
 import main.util.TimeAdvancer;
 
@@ -18,6 +19,7 @@ public class GameManager implements NewDayListener {
     private Integer money = 0;
     private Integer difficulty = 1;
     private Market market;
+    private Inventory inventory;
 
     public GameManager(Integer day) {
         this.day = day;
@@ -87,5 +89,13 @@ public class GameManager implements NewDayListener {
 
     public void setDifficulty(Integer difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 }

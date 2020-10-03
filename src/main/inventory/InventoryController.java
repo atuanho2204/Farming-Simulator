@@ -1,6 +1,7 @@
 package main.inventory;
 
 
+import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
 //import main.gameManager.NewDayEvent;
@@ -27,4 +28,8 @@ public class InventoryController {
     }
 
 
+    @FXML
+    private void updateInventoryUI() {
+
+    }
 }

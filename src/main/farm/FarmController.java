@@ -180,6 +180,7 @@ public class FarmController implements NewDayListener {
                         try {
                             getAlert("Storage is full!!!"); // for testing only
                             // try to store harvest
+                            gameManager.getInventory().putProduct(CropTypes.CORN);
                         } catch (Exception e) {
                             getAlert("Storage is full!!!");
                         }
