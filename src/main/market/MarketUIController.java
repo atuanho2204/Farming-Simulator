@@ -24,7 +24,7 @@ public class MarketUIController implements NewDayListener {
 
 
     @FXML
-    private StackPane marketScreen;
+    private VBox marketScreen;
 
     /**
      * Constructs the Market Scene.
@@ -40,39 +40,27 @@ public class MarketUIController implements NewDayListener {
         setMarketListings();
     }
 
+    public void handleNewDay(NewDayEvent e) {
+        //update values
+        setMarketListings();
+    }
+
     private void setMarketListings() {
-        ArrayList<Node> list = new ArrayList<>();
+        ArrayList<Node> newListings = new ArrayList<>();
+        Platform.runLater(() -> marketScreen.getChildren().clear());
         try {
-            Platform.runLater(() -> marketScreen.getChildren().clear());
             for (InventoryItem listing : gameManager.getMarket().getMarketListings()) {
-                list.add(loadListingUI(listing));
-                System.out.println("Loading market item: "
-                        + listing.getName()
-                        + " with price: "
-                        + listing.getBuyCost());
+                newListings.add(MarketListing.getListingUI(listing));
+                System.out.println(listing.getName() + " with price: " + listing.getBuyCost());
             }
             Platform.runLater(() -> {
-                marketScreen.getChildren().addAll(list);
+                marketScreen.getChildren().addAll(newListings);
             });
         } catch (Exception e) {
-            System.out.println("Error in setting market listing: " + e.getMessage());
+            System.out.println("Error in setting market listings: " + e.getMessage());
             for (StackTraceElement l : e.getStackTrace()) {
                 System.out.println(l);
             }
         }
-    }
-
-
-    private Node loadListingUI(InventoryItem listing) {
-        try {
-            return MarketListing.getListingUI(listing);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public void handleNewDay(NewDayEvent e) {
-        //update values
-        setMarketListings();
     }
 }

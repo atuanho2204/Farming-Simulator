@@ -15,7 +15,7 @@ public class Market implements NewDayListener {
     private ArrayList<InventoryItem> listings;
     private final GameManager gameManager;
     private final int priceModifier = 1;
-    private final double randomness = 0.3; //higher values mean more random
+    private final double randomness = 0.1; //higher values mean more random
 
     public Market(GameManager gameManager) {
         this.listings = new ArrayList<>();
@@ -30,10 +30,10 @@ public class Market implements NewDayListener {
     }
 
     private void loadListingsIntoMarket() {
-        this.listings = new ArrayList<>();
+        this.listings.clear();
         for (CropTypes type : CropTypes.values()) {
             this.listings.add(new InventoryItem(
-                    CropCatalog.getInstance().getCropDetails(type).getBaseBuy(), //buy price
+                    getPriceForCrop(type), //buy price
                     getPriceForCrop(type), //sell price
                     type.name().toLowerCase()) //name
             );
@@ -49,7 +49,7 @@ public class Market implements NewDayListener {
      */
     private int getPriceForCrop(CropTypes type) {
         CropDetails details = CropCatalog.getInstance().getCropDetails(type);
-        int randomSupplment = (int) Math.round(Math.random() * 10 * randomness);
+        int randomSupplment = (int) Math.round((Math.random() * 10 - 5)  * randomness);
         int difficultySupplement = gameManager.getDifficulty();
         return priceModifier * (int) (details.getBaseSell()
                 + Math.round(2 * Math.sin(gameManager.getDay()) + randomSupplment)
