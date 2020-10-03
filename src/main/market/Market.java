@@ -30,6 +30,7 @@ public class Market implements NewDayListener {
     }
 
     private void loadListingsIntoMarket() {
+        this.listings = new ArrayList<>();
         for (CropTypes type : CropTypes.values()) {
             this.listings.add(new InventoryItem(
                     CropCatalog.getInstance().getCropDetails(type).getBaseBuy(), //buy price

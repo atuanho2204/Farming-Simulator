@@ -277,9 +277,8 @@
     -fx-min-width: 100px;
 }
 
-#marketPane {
-    -fx-background-color: #18a734;
-    -fx-min-width: 400px
+#marketHolder {
+    -fx-background-color: blue;
 }
 
 .marketListingPane {
@@ -292,6 +291,10 @@
 
 .buyButton {
     -fx-text-fill: white;
+}
+
+#inventoryHolder {
+    -fx-background-color: purple;
 }
 
 #pauseButtonGS {
