@@ -15,10 +15,11 @@ public class InventoryListing {
     public static HBox getListingUI(Inventory listing) {
         HBox hBox = new HBox();
 
-
-        Text text = new Text("Inventory"); //change this
+        // Lable for Inventory
+        Text text = new Text("Inventory");
         text.setUnderline(true);
 
+        // Inventory Information
         HBox storage_infor = new HBox();
         Text current = new Text("Current" + listing.getStorageSize());
         int storageRemain = listing.getStorageLimit() - listing.getStorageSize();
@@ -26,6 +27,7 @@ public class InventoryListing {
         Text capacity = new Text("Capacity" + listing.getStorageLimit());
         storage_infor.getChildren().addAll(current, remain, capacity);
 
+        // Display the storage items
         VBox items_infor = new VBox();
         FlowPane display_items = new FlowPane();
         ArrayList<Node> node = new ArrayList<>();
@@ -34,6 +36,7 @@ public class InventoryListing {
             node.add(new Text(item + ": " + getSeed.get(item)));
         }
         display_items.getChildren().addAll(node);
+
 
         hBox.getChildren().addAll(text, storage_infor, items_infor);
         return hBox;
