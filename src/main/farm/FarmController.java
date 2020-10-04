@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.gameManager.NewDayListener;
 import main.gameManager.NewDayEvent;
+import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
 import main.util.crops.Crop;
 import main.util.crops.CropStage;
@@ -32,6 +33,8 @@ public class FarmController implements NewDayListener {
 
     @FXML
     private Pane marketHolder;
+    @FXML
+    private Pane inventoryHolder;
     @FXML
     private Label difficultyLevel;
     @FXML
@@ -107,11 +110,11 @@ public class FarmController implements NewDayListener {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "../market/marketUI.fxml"
+                            "../inventory/inventorytUI.fxml"
                     )
             );
             Parent parent = loader.load();
-            MarketUIController controller = loader.getController();
+            InventoryUIController controller = loader.getController();
             controller.construct(primaryStage, gameManager);
             return parent;
         } catch (Exception e) {

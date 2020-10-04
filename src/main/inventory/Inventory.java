@@ -55,6 +55,7 @@ public class Inventory {
                 throw new NoSuchElementException();
             } else {
                 productStorage.put(type, productStorage.getOrDefault(type, 0) + 1);
+                print();
             }
         } catch (Exception e) {
             System.out.println("The crop does not exist");
@@ -101,5 +102,10 @@ public class Inventory {
 
     public ArrayList<InventoryItem> getListOfInventoryItems() {
         return new ArrayList<InventoryItem>();
+    }
+    public void print(){
+        for (CropTypes item: productStorage.keySet()) {
+            System.out.println(item + " " + productStorage.get(item));
+        }
     }
 }
