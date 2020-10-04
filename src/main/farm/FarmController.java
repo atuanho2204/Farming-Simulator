@@ -1,8 +1,6 @@
 package main.farm;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,7 +26,6 @@ public class FarmController implements NewDayListener {
     private Stage primaryStage;
     private GameManager gameManager;
     private final int numOfPlots = 12;
-    //plots will be initialized with random crop at construct
     private ArrayList<Plot> plots = new ArrayList<>(numOfPlots);
     private ArrayList<Button> uiPlots = new ArrayList<>(numOfPlots);
 
@@ -147,7 +144,6 @@ public class FarmController implements NewDayListener {
     }
 
     private void populatePlotsRandomly() {
-        //replace this
         initializeUIPlots();
         int numOfSeedTypes = gameManager.getSeeds().size();
         int numOfStages = CropStage.values().length;
@@ -155,16 +151,13 @@ public class FarmController implements NewDayListener {
             int randomCrop = (int) (Math.random() * 100) % numOfSeedTypes;
             int randomStage = (int) (Math.random() * 100) % numOfStages;
             String seed = gameManager.getSeeds().get(randomCrop).toUpperCase();
-            plots.add(new Plot(
-                    new Crop(CropTypes.valueOf(seed), CropStage.values()[randomStage]),
-                    uiPlots.get(i)));
-            //plots.add(new Plot(new Vec2d(0,0), new Crop(CropTypes.valueOf(seed))));
-        }
-        for (int i = 0; i < numOfPlots; ++i) {
             //uiPlots.get(i).setPrefSize(20,20);
             /*uiPlots.get(i).setGraphic(
                     new ImageView(new Image("main/images/Untitled_Artwork.jpg")));*/
-            uiPlots.get(i).setText(plots.get(i).getCurrentCrop().getType().toString()
+            plots.add(new Plot(
+                    new Crop(CropTypes.valueOf(seed), CropStage.values()[randomStage]),
+                    uiPlots.get(i)));
+            plots.get(i).getPlotButton().setText(plots.get(i).getCurrentCrop().getType().toString()
                     + "\n" + plots.get(i).getCurrentCrop().getStage().toString());
         }
     }
@@ -184,45 +177,96 @@ public class FarmController implements NewDayListener {
         uiPlots.add(plot23);
     }
 
-    @FXML
-    public void harvestPlot() {
-        for (Plot plot : plots) {
-            plot.getPlotButton().setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    if (plot.getCurrentCrop().getStage() == CropStage.DEAD) {
-                        plot.getPlotButton().setText("");
-                    }
-                    if (plot.getCurrentCrop().getStage() == CropStage.MATURE) {
-                        try {
-                            getAlert("Storage is full!!!"); // for testing only
-                            // try to store harvest
-                            gameManager.getInventory().putProduct(CropTypes.CORN);
-                        } catch (Exception e) {
-                            getAlert("Storage is full!!!");
-                        }
-                    }
-                }
-            });
+    private void harvestPlot(Plot plot) {
+        if (plot.getCurrentCrop().getStage() == CropStage.DEAD) {
+            plot.getPlotButton().setText("");
+        }
+        if (plot.getCurrentCrop().getStage() == CropStage.MATURE) {
+            try {
+                gameManager.getInventory().putProduct(plot.getCurrentCrop().getType());
+                plot.getPlotButton().setText("");
+            } catch (Exception e) {
+                getAlert("Storage is full!!!");
+            }
         }
     }
 
-    @FXML
-    public void handlePauseButton(ActionEvent event) {
-        gameManager.getTimeAdvancer().pauseTime();
-    }
-
-    @FXML
-    public void handleQuitButton(ActionEvent event) {
-        primaryStage.close();
-        gameManager.getTimeAdvancer().pauseTime();
-    }
-
-    public void getAlert(String message) {
+    private void getAlert(String message) {
         Alert a = new Alert(Alert.AlertType.NONE);
         a.setAlertType(Alert.AlertType.INFORMATION);
         a.setContentText(message);
         // show the dialog
         a.show();
+    }
+
+    @FXML
+    public void harvest00() {
+
+    }
+
+    @FXML
+    public void harvest01() {
+        harvestPlot(plots.get(1));
+    }
+
+    @FXML
+    public void harvest02() {
+        harvestPlot(plots.get(2));
+    }
+
+    @FXML
+    public void harvest03() {
+        harvestPlot(plots.get(3));
+    }
+
+    @FXML
+    public void harvest10() {
+        harvestPlot(plots.get(4));
+    }
+
+    @FXML
+    public void harvest11() {
+        harvestPlot(plots.get(5));
+    }
+
+    @FXML
+    public void harvest12() {
+        harvestPlot(plots.get(6));
+    }
+
+    @FXML
+    public void harvest13() {
+        harvestPlot(plots.get(7));
+    }
+
+    @FXML
+    public void harvest20() {
+        harvestPlot(plots.get(8));
+    }
+
+    @FXML
+    public void harvest21() {
+        harvestPlot(plots.get(9));
+    }
+
+    @FXML
+    public void harvest22() {
+        harvestPlot(plots.get(10));
+    }
+
+    @FXML
+    public void harvest23() {
+        harvestPlot(plots.get(11));
+    }
+
+    @FXML
+    public void handlePauseButton() {
+        gameManager.getTimeAdvancer().pauseTime();
+    }
+
+    @FXML
+    public void handleQuitButton() {
+        primaryStage.close();
+        gameManager.getTimeAdvancer().pauseTime();
     }
 }
