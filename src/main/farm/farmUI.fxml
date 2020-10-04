@@ -64,55 +64,55 @@
                         <RowConstraints valignment="CENTER" vgrow="ALWAYS"/>
                     </rowConstraints>
 
-                    <Button fx:id="plot00" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="0"
+                    <Button fx:id="plot00" onAction="#harvest00" styleClass="farmPlot" GridPane.columnIndex="0"
                             GridPane.rowIndex="1">
                         <!--(0,0)-->
                     </Button>
 
-                    <Button fx:id="plot10" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="1"
+                    <Button fx:id="plot10" onAction="#harvest10" styleClass="farmPlot" GridPane.columnIndex="1"
                             GridPane.rowIndex="1">
                         <!--(1,0)-->
                     </Button>
-                    <Button fx:id="plot20" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="2"
+                    <Button fx:id="plot20" onAction="#harvest20" styleClass="farmPlot" GridPane.columnIndex="2"
                             GridPane.rowIndex="1">
                         <!--(2,0)-->
                     </Button>
 
-                    <Button fx:id="plot01" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="0"
+                    <Button fx:id="plot01" onAction="#harvest01" styleClass="farmPlot" GridPane.columnIndex="0"
                             GridPane.rowIndex="2">
                         <!--(0,1)-->
                     </Button>
-                    <Button fx:id="plot11" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="1"
+                    <Button fx:id="plot11" onAction="#harvest11" styleClass="farmPlot" GridPane.columnIndex="1"
                             GridPane.rowIndex="2">
                         <!--(1,1)-->
                     </Button>
-                    <Button fx:id="plot21" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="2"
+                    <Button fx:id="plot21" onAction="#harvest21" styleClass="farmPlot" GridPane.columnIndex="2"
                             GridPane.rowIndex="2">
                         <!--(2,1)-->
                     </Button>
 
-                    <Button fx:id="plot02" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="0"
+                    <Button fx:id="plot02" onAction="#harvest02" styleClass="farmPlot" GridPane.columnIndex="0"
                             GridPane.rowIndex="3">
                         <!--(0,2)-->
                     </Button>
-                    <Button fx:id="plot12" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="1"
+                    <Button fx:id="plot12" onAction="#harvest12" styleClass="farmPlot" GridPane.columnIndex="1"
                             GridPane.rowIndex="3">
                         <!--(1,2)-->
                     </Button>
-                    <Button fx:id="plot22" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="2"
+                    <Button fx:id="plot22" onAction="#harvest22" styleClass="farmPlot" GridPane.columnIndex="2"
                             GridPane.rowIndex="3">
                         <!--(2,2)-->
                     </Button>
 
-                    <Button fx:id="plot03" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="0"
+                    <Button fx:id="plot03" onAction="#harvest03" styleClass="farmPlot" GridPane.columnIndex="0"
                             GridPane.rowIndex="4">
                         <!--(0,3)-->
                     </Button>
-                    <Button fx:id="plot13" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="1"
+                    <Button fx:id="plot13" onAction="#harvest13" styleClass="farmPlot" GridPane.columnIndex="1"
                             GridPane.rowIndex="4">
                         <!--(1,3)-->
                     </Button>
-                    <Button fx:id="plot23" onAction="#harvestPlot" styleClass="farmPlot" GridPane.columnIndex="2"
+                    <Button fx:id="plot23" onAction="#harvest23" styleClass="farmPlot" GridPane.columnIndex="2"
                             GridPane.rowIndex="4">
                         <!--(2,3)-->
                     </Button>
