@@ -106,6 +106,23 @@ public class FarmController implements NewDayListener {
             return null;
         }
     }
+    private Parent getInventoryUI() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "../market/marketUI.fxml"
+                    )
+            );
+            Parent parent = loader.load();
+            MarketUIController controller = loader.getController();
+            controller.construct(primaryStage, gameManager);
+            return parent;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+            return null;
+        }
+    }
 
     private void setHeaderData() {
         try {
