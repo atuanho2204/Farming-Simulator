@@ -83,6 +83,7 @@ public class FarmController implements NewDayListener {
         gameManager.getTimeAdvancer().startTime();
 
         marketHolder.getChildren().add(new Pane(getMarketUI()));
+        inventoryHolder.getChildren().add(new Pane(getInventoryUI()));
     }
 
     public void handleNewDay(NewDayEvent e) {
@@ -110,7 +111,7 @@ public class FarmController implements NewDayListener {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "../inventory/inventorytUI.fxml"
+                            "../inventory/inventoryUI.fxml"
                     )
             );
             Parent parent = loader.load();

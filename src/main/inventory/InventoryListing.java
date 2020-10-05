@@ -36,6 +36,7 @@ public class InventoryListing {
             node.add(new Text(item + ": " + getSeed.get(item)));
         }
         display_items.getChildren().addAll(node);
+        items_infor.getChildren().add(display_items);
 
 
         hBox.getChildren().addAll(text, storage_infor, items_infor);
