@@ -1,7 +1,9 @@
 package main.inventory;
 
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.gameManager.NewDayListener;
@@ -15,7 +17,9 @@ import java.util.HashMap;
 public class InventoryUIController {
     private Stage primaryStage;
     private GameManager gameManager;
-    private InventoryListing inventoryScreen;
+
+    @FXML
+    private VBox inventoryScreen;
 
     public void construct(Stage primaryStage, GameManager gameManager) {
         this.primaryStage = primaryStage;
@@ -25,14 +29,15 @@ public class InventoryUIController {
     }
     private void setInventoryListings() {
         ArrayList<Node> newListings = new ArrayList<>();
-        Platform.runLater(() -> inventoryScreen.getListingUI(gameManager.getInventory()).getChildren().clear());
+        Platform.runLater(() -> inventoryScreen.getChildren().clear());
         try {
             HashMap<CropTypes, Integer> items = gameManager.getInventory().getListOfProductItems();
             for (CropTypes listing : items.keySet()) {
                 System.out.println(listing+ ": " + items.get(listing));
             }
+            newListings.add(InventoryListing.getListingUI(gameManager.getInventory()));
             Platform.runLater(() -> {
-                inventoryScreen.getListingUI(gameManager.getInventory());
+                inventoryScreen.getChildren().addAll(newListings);
             });
         } catch (Exception e) {
             System.out.println("Error in setting market listings: " + e.getMessage());
