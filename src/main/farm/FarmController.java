@@ -166,7 +166,7 @@ public class FarmController implements NewDayListener {
             plots.add(new Plot(
                     new Crop(CropTypes.valueOf(seed), CropStage.values()[randomStage]),
                     uiPlots.get(i)));
-            plots.get(i).getPlotButton().setText(plots.get(i).getCurrentCrop().getType().toString()
+            plots.get(i).getPlotButton().setText(plots.get(i).getCurrentCrop().getCropType().toString()
                     + "\n" + plots.get(i).getCurrentCrop().getStage().toString());
         }
     }
@@ -188,12 +188,14 @@ public class FarmController implements NewDayListener {
 
     private void harvestPlot(Plot plot) {
         if (plot.getCurrentCrop().getStage() == CropStage.DEAD) {
-            plot.getPlotButton().setText("");
+            plot.getPlotButton().setText("Empty &\nlonely..");
+            plot.getCurrentCrop().setCropType(null);
         }
         if (plot.getCurrentCrop().getStage() == CropStage.MATURE) {
             try {
-                gameManager.getInventory().putProduct(plot.getCurrentCrop().getType());
-                plot.getPlotButton().setText("");
+                gameManager.getInventory().putProduct(plot.getCurrentCrop().getCropType());
+                plot.getPlotButton().setText("Empty &\nlonely..");
+                plot.getCurrentCrop().setCropType(null);
             } catch (Exception e) {
                 getAlert("Storage is full!!!");
             }
