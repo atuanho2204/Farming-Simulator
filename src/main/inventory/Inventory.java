@@ -1,5 +1,6 @@
 package main.inventory;
 
+import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.gameManager.NewDayEvent;
 import main.gameManager.NewDayListener;
@@ -11,11 +12,16 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 public class Inventory {
+    private GameManager gameManager;
+    private Stage primaryStage;
     private int storageLimit = 20;
     private HashMap<CropTypes, Integer> productStorage;
     private HashMap<CropTypes, Integer> seedStorage;
+    private InventoryUIController inventoryController;
 
     public Inventory() {
+        this.gameManager = gameManager;
+        this.primaryStage = primaryStage;
         this.productStorage = new HashMap<>();
         this.seedStorage = new HashMap<>();
     }
@@ -55,6 +61,7 @@ public class Inventory {
                 throw new NoSuchElementException();
             } else {
                 productStorage.put(type, productStorage.getOrDefault(type, 0) + 1);
+                inventoryController.construct(this.primaryStage, this.gameManager);
                 print();
             }
         } catch (Exception e) {
