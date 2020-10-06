@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.gameManager.NewDayListener;
 import main.gameManager.NewDayEvent;
+import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
 import main.util.crops.Crop;
@@ -83,6 +84,7 @@ public class FarmController implements NewDayListener {
         gameManager.getTimeAdvancer().startTime();
 
         marketHolder.getChildren().add(new Pane(getMarketUI()));
+        //also sets inventory globally
         inventoryHolder.getChildren().add(new Pane(getInventoryUI()));
     }
 
@@ -107,6 +109,7 @@ public class FarmController implements NewDayListener {
             return null;
         }
     }
+
     private Parent getInventoryUI() {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -116,6 +119,8 @@ public class FarmController implements NewDayListener {
             );
             Parent parent = loader.load();
             InventoryUIController controller = loader.getController();
+            gameManager.setInventory(new Inventory(gameManager, primaryStage, controller));
+            //sets the global inventory
             controller.construct(primaryStage, gameManager);
             return parent;
         } catch (Exception e) {

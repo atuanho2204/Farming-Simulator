@@ -4,11 +4,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
-import main.gameManager.NewDayListener;
-import main.inventory.inventoryItems.InventoryItem;
-import main.market.marketListing.MarketListing;
 import main.util.crops.CropTypes;
 
 import java.util.ArrayList;
@@ -21,18 +19,40 @@ public class InventoryUIController {
     @FXML
     private VBox inventoryScreen;
 
+
     public void construct(Stage primaryStage, GameManager gameManager) {
         this.primaryStage = primaryStage;
         this.gameManager = gameManager;
 
         setInventoryListings();
     }
-    private void setInventoryListings() {
+
+
+    public void setInventoryListings() {
         ArrayList<Node> newListings = new ArrayList<>();
         Platform.runLater(() -> inventoryScreen.getChildren().clear());
         try {
-
-            newListings.add(InventoryListing.getListingUI(gameManager.getInventory()));
+            newListings.add(InventoryListing.getInfoUI(gameManager.getInventory()));
+            HashMap<CropTypes, Integer> seeds = gameManager.getInventory().getListOfSeedItems();
+            if (seeds.keySet().size() == 0) {
+                newListings.add(new Text("You don't have any seeds. How do you plan to farm??"));
+            } else {
+                newListings.add(InventoryListing.getHeader("Seeds"));
+                for (CropTypes type : seeds.keySet()) {
+                    newListings.add(InventoryListing.getSeedListingUI(
+                            type.name().toLowerCase(), seeds.get(type)));
+                }
+            }
+            HashMap<CropTypes, Integer> products = gameManager.getInventory().getListOfProductItems();
+            if (products.keySet().size() == 0) {
+                newListings.add(new Text("You don't have any products. You are a failure at farming! :("));
+            } else {
+                newListings.add(InventoryListing.getHeader("Products"));
+                for (CropTypes type : products.keySet()) {
+                    newListings.add(InventoryListing.getProductListingUI(
+                            type.name().toLowerCase(), products.get(type)));
+                }
+            }
             Platform.runLater(() -> {
                 inventoryScreen.getChildren().addAll(newListings);
             });

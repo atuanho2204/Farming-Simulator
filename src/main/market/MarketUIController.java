@@ -51,7 +51,7 @@ public class MarketUIController implements NewDayListener {
         try {
             for (InventoryItem listing : gameManager.getMarket().getMarketListings()) {
                 newListings.add(MarketListing.getListingUI(listing));
-                System.out.println(listing.getName() + " with price: " + listing.getBuyCost());
+//                System.out.println(listing.getName() + " with price: " + listing.getBuyCost());
             }
             Platform.runLater(() -> {
                 marketScreen.getChildren().addAll(newListings);

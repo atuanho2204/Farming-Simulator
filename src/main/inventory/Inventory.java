@@ -19,9 +19,10 @@ public class Inventory {
     private HashMap<CropTypes, Integer> seedStorage;
     private InventoryUIController inventoryController;
 
-    public Inventory() {
-        this.gameManager = gameManager;
-        this.primaryStage = primaryStage;
+    public Inventory(GameManager gameMan, Stage stage, InventoryUIController controller) {
+        this.gameManager = gameMan;
+        this.primaryStage = stage;
+        this.inventoryController = controller;
         this.productStorage = new HashMap<>();
         this.seedStorage = new HashMap<>();
     }
@@ -33,6 +34,7 @@ public class Inventory {
                 throw new NoSuchElementException();
             } else {
                 seedStorage.put(type, seedStorage.getOrDefault(type, 0) + 1);
+                inventoryController.setInventoryListings();
             }
         } catch (Exception e) {
             System.out.println("The crop does not exist");
@@ -49,6 +51,7 @@ public class Inventory {
                 } else {
                     seedStorage.put(type, seedStorage.get(type) - 1);
                 }
+                inventoryController.setInventoryListings();
             }
         } catch (Exception e) {
             System.out.println("That seed does not exits in storage");
@@ -61,8 +64,7 @@ public class Inventory {
                 throw new NoSuchElementException();
             } else {
                 productStorage.put(type, productStorage.getOrDefault(type, 0) + 1);
-                inventoryController.construct(this.primaryStage, this.gameManager);
-                print();
+                inventoryController.setInventoryListings();
             }
         } catch (Exception e) {
             System.out.println("The crop does not exist");
@@ -79,6 +81,7 @@ public class Inventory {
                 } else {
                     productStorage.put(type, productStorage.get(type) - 1);
                 }
+                inventoryController.setInventoryListings();
             }
         } catch (Exception e) {
             System.out.println("The product does not exits in storage");
@@ -87,10 +90,10 @@ public class Inventory {
 
     public int getStorageSize() {
         int size = 0;
-        for (int num_item: productStorage.values()) {
+        for (int num_item : productStorage.values()) {
             size += num_item;
         }
-        for (int num_item: seedStorage.values()) {
+        for (int num_item : seedStorage.values()) {
             size += num_item;
         }
         return size;
@@ -101,17 +104,19 @@ public class Inventory {
     }
 
     public HashMap<CropTypes, Integer> getListOfSeedItems() {
-        return productStorage;
-    }
-    public HashMap<CropTypes, Integer> getListOfProductItems() {
         return seedStorage;
+    }
+
+    public HashMap<CropTypes, Integer> getListOfProductItems() {
+        return productStorage;
     }
 
     public ArrayList<InventoryItem> getListOfInventoryItems() {
         return new ArrayList<InventoryItem>();
     }
-    public void print(){
-        for (CropTypes item: productStorage.keySet()) {
+
+    public void print() {
+        for (CropTypes item : productStorage.keySet()) {
             System.out.println(item + " " + productStorage.get(item));
         }
     }
