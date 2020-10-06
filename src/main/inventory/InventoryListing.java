@@ -12,33 +12,52 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InventoryListing {
-    public static HBox getListingUI(Inventory listing) {
+    public static HBox getInfoUI(Inventory inventory) {
         HBox hBox = new HBox();
 
-        // Lable for Inventory
-        Text text = new Text("Inventory");
-        text.setUnderline(true);
+        // Label for Inventory
+        //Text text = new Text("Inventory: ");
 
         // Inventory Information
-        HBox storage_infor = new HBox();
-        Text current = new Text("Current" + listing.getStorageSize());
-        int storageRemain = listing.getStorageLimit() - listing.getStorageSize();
-        Text remain = new Text("Remaining" + storageRemain);
-        Text capacity = new Text("Capacity" + listing.getStorageLimit());
-        storage_infor.getChildren().addAll(current, remain, capacity);
+        Text current = new Text("Current: " + inventory.getStorageSize() + "   ");
+        int storageRemain = inventory.getStorageLimit() - inventory.getStorageSize();
+        Text remain = new Text("Remaining: " + storageRemain + "   ");
+        Text capacity = new Text("Capacity: " + inventory.getStorageLimit());
+
+        hBox.getChildren().addAll(current, remain, capacity);
+
+        return hBox;
+    }
+
+    public static HBox getHeader(String t) {
+        HBox hBox = new HBox();
+
+        Text text = new Text(t + ": ");
+        hBox.getChildren().addAll(text);
+
+        return hBox;
+    }
+
+    public static HBox getSeedListingUI(String seedName, int quantity) {
+        HBox hBox = new HBox();
 
         // Display the storage items
-        VBox items_infor = new VBox();
-        FlowPane display_items = new FlowPane();
-        ArrayList<Node> node = new ArrayList<>();
-        HashMap<CropTypes, Integer> getSeed = listing.getListOfSeedItems();
-        for (CropTypes item: getSeed.keySet()) {
-            node.add(new Text(item + ": " + getSeed.get(item)));
-        }
-        display_items.getChildren().addAll(node);
-        items_infor.getChildren().add(display_items);
+        hBox.getChildren().add(new Text(seedName + ": " + quantity));
 
-        hBox.getChildren().addAll(text, storage_infor, items_infor);
+        //optional stuff
+
+        return hBox;
+    }
+
+    public static HBox getProductListingUI(String productName, int quantity) {
+        HBox hBox = new HBox();
+
+        // Display the storage items
+
+        hBox.getChildren().add(new Text(productName + ": " + quantity));
+
+        //optional stuff
+
         return hBox;
     }
 }

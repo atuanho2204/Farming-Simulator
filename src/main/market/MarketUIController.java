@@ -4,6 +4,7 @@ package main.market;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
@@ -51,7 +52,7 @@ public class MarketUIController implements NewDayListener {
         try {
             for (InventoryItem listing : gameManager.getMarket().getMarketListings()) {
                 newListings.add(MarketListing.getListingUI(listing));
-                System.out.println(listing.getName() + " with price: " + listing.getBuyCost());
+//                System.out.println(listing.getName() + " with price: " + listing.getBuyCost());
             }
             Platform.runLater(() -> {
                 marketScreen.getChildren().addAll(newListings);
