@@ -1,5 +1,6 @@
 package main.inventory;
 
+import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.gameManager.NewDayEvent;
 import main.gameManager.NewDayListener;
@@ -11,13 +12,18 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 public class Inventory {
+    private Stage primaryStage;
+    private GameManager gameManager;
     private int storageLimit = 20;
     private HashMap<CropTypes, Integer> productStorage;
     private HashMap<CropTypes, Integer> seedStorage;
+    private InventoryUIController invenController;
 
     public Inventory() {
         this.productStorage = new HashMap<>();
         this.seedStorage = new HashMap<>();
+        productStorage.put(CropTypes.CORN, 3);
+        invenController = new InventoryUIController();
     }
 
 
@@ -54,9 +60,12 @@ public class Inventory {
             if (type == null || getStorageSize() == getStorageLimit()) {
                 throw new NoSuchElementException();
             } else {
+
                 productStorage.put(type, productStorage.getOrDefault(type, 0) + 1);
+                //invenController.setInventoryListings();
                 print();
             }
+
         } catch (Exception e) {
             System.out.println("The crop does not exist");
         }

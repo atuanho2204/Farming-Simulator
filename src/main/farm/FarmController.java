@@ -75,7 +75,7 @@ public class FarmController implements NewDayListener {
     public void construct(Stage primaryStage, GameManager gameManager) {
         this.primaryStage = primaryStage;
         this.gameManager = gameManager;
-
+        inventoryHolder.getChildren().add(new Pane(getInventoryUI()));
         populatePlotsRandomly();
         setHeaderData();
         gameManager.setMoney(10 * gameManager.getDifficulty());
@@ -110,7 +110,7 @@ public class FarmController implements NewDayListener {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "../inventory/inventorytUI.fxml"
+                            "../inventory/inventoryUI.fxml"
                     )
             );
             Parent parent = loader.load();

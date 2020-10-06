@@ -27,14 +27,10 @@ public class InventoryUIController {
 
         setInventoryListings();
     }
-    private void setInventoryListings() {
+    public void setInventoryListings() {
         ArrayList<Node> newListings = new ArrayList<>();
         Platform.runLater(() -> inventoryScreen.getChildren().clear());
         try {
-            HashMap<CropTypes, Integer> items = gameManager.getInventory().getListOfProductItems();
-            for (CropTypes listing : items.keySet()) {
-                System.out.println(listing+ ": " + items.get(listing));
-            }
             newListings.add(InventoryListing.getListingUI(gameManager.getInventory()));
             Platform.runLater(() -> {
                 inventoryScreen.getChildren().addAll(newListings);
