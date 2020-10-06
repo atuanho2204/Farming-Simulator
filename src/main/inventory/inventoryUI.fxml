@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Control?>
-<?import javafx.scene.layout.GridPane?>
-<GridPane fx:id="marketUI" prefHeight="400.0" prefWidth="400.0" stylesheets="@../style.css"
-          xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="main.inventory.InventoryController">
-    <Label>Inventory UI</Label>
-</GridPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="inventoryScreen" stylesheets="@../style.css" prefHeight="Infinity"
+      xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="main.inventory.InventoryUIController">
+   <!--generated listings-->
+</VBox>

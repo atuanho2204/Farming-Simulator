@@ -58,7 +58,6 @@ public class ConfigSceneController {
     public void construct(Integer difficulty, String name,
                           List<String> seeds, String season) {
         this.gameManager = new GameManager(0);
-        gameManager.setInventory(new Inventory());
         gameManager.setDifficulty(difficulty);
         gameManager.setSeason(season);
         for (String seed : seeds) {

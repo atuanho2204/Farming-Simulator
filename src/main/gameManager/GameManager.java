@@ -28,7 +28,6 @@ public class GameManager implements NewDayListener {
         this.market = new Market(this);
     }
 
-
     @Override
     public void handleNewDay(NewDayEvent e) {
         //System.out.println("day advanced");
