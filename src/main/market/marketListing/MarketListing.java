@@ -21,7 +21,6 @@ public class MarketListing {
         Text text = new Text(listing.getName() + ":\n");
         text.setFill(Color.WHITE);
         text.setStyle("-fx-font: 20 arial;");
-        text.setUnderline(true);
         Text text1 = new Text("\t$" + listing.getBuyCost() + "\t\t");
         text1.setFill(Color.WHITE);
         text1.setStyle("-fx-font: 20 arial;");
