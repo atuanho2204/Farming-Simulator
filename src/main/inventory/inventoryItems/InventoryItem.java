@@ -27,6 +27,10 @@ public class InventoryItem {
         this.name = new String(item.name);
     }
 
+    public static CropTypes toCropType(InventoryItem item) {
+        return CropTypes.getTypeFromString(item.getName());
+    }
+
     public String getName() {
         return name;
     }
