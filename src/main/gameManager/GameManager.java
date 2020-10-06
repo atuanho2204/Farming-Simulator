@@ -99,5 +99,5 @@ public class GameManager implements NewDayListener {
         this.inventory = inventory;
     }
 
-    public InventoryUIController getInventoryController() { return  inventoryController;}
+    //public InventoryUIController getInventoryController() { return  inventoryController;}
 }
