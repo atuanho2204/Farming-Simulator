@@ -184,7 +184,7 @@ public class FarmController implements NewDayListener {
 
     @FXML
     public void harvest00() {
-
+        harvestPlot(plots.get(0));
     }
 
     @FXML
