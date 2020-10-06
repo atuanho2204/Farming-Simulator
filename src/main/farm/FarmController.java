@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.gameManager.NewDayListener;
 import main.gameManager.NewDayEvent;
+import main.inventory.Inventory;
+import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
 import main.util.crops.Crop;
 import main.util.crops.CropStage;
@@ -32,6 +34,8 @@ public class FarmController implements NewDayListener {
 
     @FXML
     private Pane marketHolder;
+    @FXML
+    private Pane inventoryHolder;
     @FXML
     private Label difficultyLevel;
     @FXML
@@ -80,6 +84,8 @@ public class FarmController implements NewDayListener {
         gameManager.getTimeAdvancer().startTime();
 
         marketHolder.getChildren().add(new Pane(getMarketUI()));
+        //also sets inventory globally
+        inventoryHolder.getChildren().add(new Pane(getInventoryUI()));
     }
 
     public void handleNewDay(NewDayEvent e) {
@@ -95,6 +101,26 @@ public class FarmController implements NewDayListener {
             );
             Parent parent = loader.load();
             MarketUIController controller = loader.getController();
+            controller.construct(primaryStage, gameManager);
+            return parent;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+            return null;
+        }
+    }
+
+    private Parent getInventoryUI() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "../inventory/inventoryUI.fxml"
+                    )
+            );
+            Parent parent = loader.load();
+            InventoryUIController controller = loader.getController();
+            gameManager.setInventory(new Inventory(gameManager, primaryStage, controller));
+            //sets the global inventory
             controller.construct(primaryStage, gameManager);
             return parent;
         } catch (Exception e) {
