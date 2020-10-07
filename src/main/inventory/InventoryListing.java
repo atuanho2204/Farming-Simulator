@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import main.inventory.inventoryItems.InventoryItem;
 import main.util.crops.CropTypes;
@@ -20,10 +21,12 @@ public class InventoryListing {
 
         // Inventory Information
         Text current = new Text("Current: " + inventory.getStorageSize() + "   ");
+        current.setFill(Color.WHITE);
         int storageRemain = inventory.getStorageLimit() - inventory.getStorageSize();
         Text remain = new Text("Remaining: " + storageRemain + "   ");
+        remain.setFill(Color.WHITE);
         Text capacity = new Text("Capacity: " + inventory.getStorageLimit());
-
+        capacity.setFill(Color.WHITE);
         hBox.getChildren().addAll(current, remain, capacity);
 
         return hBox;
