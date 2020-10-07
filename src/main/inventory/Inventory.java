@@ -27,6 +27,7 @@ public class Inventory {
         this.inventoryController = controller;
         this.productStorage = new HashMap<>();
         this.seedStorage = new HashMap<>();
+        seedStorage.put(CropTypes.CORN, 5);
     }
 
 

@@ -28,8 +28,6 @@ public class InventoryUIController {
     }
 
 
-
-
     public void setInventoryListings() {
         ArrayList<Node> newListings = new ArrayList<>();
         Platform.runLater(() -> inventoryScreen.getChildren().clear());
@@ -48,16 +46,13 @@ public class InventoryUIController {
             }
             HashMap<CropTypes, Integer> products = gameManager.getInventory().getListOfProductItems();
             if (products.keySet().size() == 0) {
-                newListings.add(new Text("You don't have any products. You are a failure at farming! :("));
+                //newListings.add(new Text("You don't have any products. You are a failure at farming! :("));
             } else {
                 newListings.add(InventoryListing.getHeader("Products"));
                 for (CropTypes type : products.keySet()) {
                     newListings.add(InventoryListing.getProductListingUI(
                             type.name().toLowerCase(), products.get(type)));
                 }
-            }
-            for (Node e: newListings) {
-                System.out.println(e);
             }
             Platform.runLater(() -> {
                 inventoryScreen.getChildren().addAll(newListings);
