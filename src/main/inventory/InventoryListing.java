@@ -1,16 +1,9 @@
 package main.inventory;
 
-import javafx.scene.Node;
-import javafx.scene.layout.FlowPane;
+
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import main.inventory.inventoryItems.InventoryItem;
-import main.util.crops.CropTypes;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class InventoryListing {
     public static HBox getInfoUI(Inventory inventory) {

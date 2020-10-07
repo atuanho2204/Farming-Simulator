@@ -2,8 +2,6 @@ package main.inventory;
 
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
-import main.gameManager.NewDayEvent;
-import main.gameManager.NewDayListener;
 import main.inventory.inventoryItems.InventoryItem;
 import main.util.crops.CropTypes;
 
@@ -89,11 +87,11 @@ public class Inventory {
 
     public int getStorageSize() {
         int size = 0;
-        for (int num_item : productStorage.values()) {
-            size += num_item;
+        for (int fill : productStorage.values()) {
+            size += fill;
         }
-        for (int num_item : seedStorage.values()) {
-            size += num_item;
+        for (int fill : seedStorage.values()) {
+            size += fill;
         }
         return size;
     }

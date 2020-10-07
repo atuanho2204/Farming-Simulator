@@ -47,9 +47,11 @@ public class InventoryUIController {
                             type.name().toLowerCase(), seeds.get(type)));
                 }
             }
-            HashMap<CropTypes, Integer> products = gameManager.getInventory().getListOfProductItems();
+            HashMap<CropTypes, Integer> products =
+                    gameManager.getInventory().getListOfProductItems();
             if (products.keySet().size() == 0) {
-                Text emptyProduct = new Text("You don't have any products. You are a failure at farming! :(");
+                Text emptyProduct = new Text("You don't have any products. "
+                        + "You are a failure at farming! :(");
                 emptyProduct.setFill(Color.ORANGE);
                 emptyProduct.setStyle("-fx-font: 18 arial;");
                 newListings.add(emptyProduct);
