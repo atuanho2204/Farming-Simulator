@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
@@ -35,7 +36,10 @@ public class InventoryUIController {
             newListings.add(InventoryListing.getInfoUI(gameManager.getInventory()));
             HashMap<CropTypes, Integer> seeds = gameManager.getInventory().getListOfSeedItems();
             if (seeds.keySet().size() == 0) {
-                newListings.add(new Text("You don't have any seeds. How do you plan to farm??"));
+                Text emptySeed = new Text("You don't have any seeds. How do you plan to farm??");
+                emptySeed.setFill(Color.ORANGE);
+                emptySeed.setStyle("-fx-font: 18 arial;");
+                newListings.add(emptySeed);
             } else {
                 newListings.add(InventoryListing.getHeader("Seeds"));
                 for (CropTypes type : seeds.keySet()) {
@@ -43,9 +47,14 @@ public class InventoryUIController {
                             type.name().toLowerCase(), seeds.get(type)));
                 }
             }
-            HashMap<CropTypes, Integer> products = gameManager.getInventory().getListOfProductItems();
+            HashMap<CropTypes, Integer> products =
+                    gameManager.getInventory().getListOfProductItems();
             if (products.keySet().size() == 0) {
-                newListings.add(new Text("You don't have any products. You are a failure at farming! :("));
+                Text emptyProduct = new Text("You don't have any products. "
+                        + "You are a failure at farming! :(");
+                emptyProduct.setFill(Color.ORANGE);
+                emptyProduct.setStyle("-fx-font: 18 arial;");
+                newListings.add(emptyProduct);
             } else {
                 newListings.add(InventoryListing.getHeader("Products"));
                 for (CropTypes type : products.keySet()) {
