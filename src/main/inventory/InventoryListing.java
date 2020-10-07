@@ -22,14 +22,14 @@ public class InventoryListing {
         // Inventory Information
         Text current = new Text("Current: " + inventory.getStorageSize() + "   ");
         current.setFill(Color.YELLOW);
-        current.setStyle("-fx-font: 20 arial;");
+        current.setStyle("-fx-font: 25 arial;");
         int storageRemain = inventory.getStorageLimit() - inventory.getStorageSize();
         Text remain = new Text("Remaining: " + storageRemain + "   ");
         remain.setFill(Color.YELLOW);
-        remain.setStyle("-fx-font: 20 arial;");
+        remain.setStyle("-fx-font: 25 arial;");
         Text capacity = new Text("Capacity: " + inventory.getStorageLimit());
         capacity.setFill(Color.YELLOW);
-        capacity.setStyle("-fx-font: 20 arial;");
+        capacity.setStyle("-fx-font: 25 arial;");
         hBox.getChildren().addAll(current, remain, capacity);
 
         return hBox;
@@ -40,7 +40,7 @@ public class InventoryListing {
 
         Text text = new Text(t + ": ");
         text.setFill(Color.LIGHTSKYBLUE);
-        text.setStyle("-fx-font: 18 arial;");
+        text.setStyle("-fx-font: 20 arial;");
         hBox.getChildren().addAll(text);
 
         return hBox;
@@ -52,7 +52,7 @@ public class InventoryListing {
         // Display the storage items
         Text seed = new Text(seedName + ": " + quantity);
         seed.setFill(Color.WHITE);
-        seed.setStyle("-fx-font: 15 arial;");
+        seed.setStyle("-fx-font: 18 arial;");
         hBox.getChildren().add(seed);
 
         //optional stuff
@@ -66,7 +66,7 @@ public class InventoryListing {
         // Display the storage items
         Text product = new Text(productName + ": " + quantity);
         product.setFill(Color.WHITE);
-        product.setStyle("-fx-font: 15 arial;");
+        product.setStyle("-fx-font: 18 arial;");
         hBox.getChildren().add(product);
 
         //optional stuff

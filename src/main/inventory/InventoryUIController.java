@@ -38,7 +38,7 @@ public class InventoryUIController {
             if (seeds.keySet().size() == 0) {
                 Text emptySeed = new Text("You don't have any seeds. How do you plan to farm??");
                 emptySeed.setFill(Color.ORANGE);
-                emptySeed.setStyle("-fx-font: 15 arial;");
+                emptySeed.setStyle("-fx-font: 18 arial;");
                 newListings.add(emptySeed);
             } else {
                 newListings.add(InventoryListing.getHeader("Seeds"));
@@ -51,7 +51,7 @@ public class InventoryUIController {
             if (products.keySet().size() == 0) {
                 Text emptyProduct = new Text("You don't have any products. You are a failure at farming! :(");
                 emptyProduct.setFill(Color.ORANGE);
-                emptyProduct.setStyle("-fx-font: 15 arial;");
+                emptyProduct.setStyle("-fx-font: 18 arial;");
                 newListings.add(emptyProduct);
             } else {
                 newListings.add(InventoryListing.getHeader("Products"));
