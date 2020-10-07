@@ -27,7 +27,6 @@ public class Inventory {
         this.seedStorage = new HashMap<>();
     }
 
-
     public void putSeed(CropTypes type) throws NoSuchElementException {
         try {
             if (type == null || getStorageSize() == getStorageLimit()) {

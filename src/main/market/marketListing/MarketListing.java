@@ -31,7 +31,7 @@ public class MarketListing {
         buy.setTextFill(Color.GREEN);
         Button sell = new Button("Sell");
         sell.setOnAction(e -> {
-            sellSeed(CropTypes.getTypeFromString(listing.getName()),gamemanager, listing.getBuyCost());
+            sellSeed(CropTypes.getTypeFromString(listing.getName()),gamemanager, listing.getSellCost());
         });
         sell.setTextFill(Color.RED);
 
@@ -41,10 +41,13 @@ public class MarketListing {
         hBox.getChildren().add(sell);
         return hBox;
     }
+
     private static void buySeed(CropTypes type, GameManager gameManager, int price) {
         try {
             if (gameManager.getMoney() >= price) {
                 gameManager.getInventory().putSeed(type);
+                int money = gameManager.getMoney() - price;
+                gameManager.setMoney(money);
             }
             else {
                 AlertUser.alertUser("Do not have enough money");
@@ -58,13 +61,15 @@ public class MarketListing {
         try {
             if (gameManager.getMoney() <= price) {
                 gameManager.getInventory().removeSeed(type);
+                int money = gameManager.getMoney() + price;
+                gameManager.setMoney(money);
             }
             else {
                 AlertUser.alertUser("Do not have seed");
             }
         }
         catch (Exception e) {
-            AlertUser.alertUser("Do not have enough space");
+            AlertUser.alertUser("Must harvest seed");
         }
     }
 }
