@@ -278,7 +278,7 @@
 }
 
 #marketHolder {
-    -fx-background-color: blue;
+    /*-fx-background-color: blue;*/
 }
 
 .marketListingPane {
@@ -294,7 +294,7 @@
 }
 
 #inventoryHolder {
-    -fx-background-color: purple;
+    /*-fx-background-color: purple;*/
 }
 
 #pauseButtonGS {
