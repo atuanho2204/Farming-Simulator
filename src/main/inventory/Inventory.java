@@ -25,33 +25,25 @@ public class Inventory {
         this.seedStorage = new HashMap<>();
     }
 
-    public void putSeed(CropTypes type) throws NoSuchElementException {
-        try {
-            if (type == null || getStorageSize() == getStorageLimit()) {
-                throw new NoSuchElementException();
-            } else {
-                seedStorage.put(type, seedStorage.getOrDefault(type, 0) + 1);
-                inventoryController.setInventoryListings();
-            }
-        } catch (Exception e) {
-            System.out.println("The crop does not exist");
+    public void putSeed(CropTypes type) throws Exception {
+        if (type == null || getStorageSize() == getStorageLimit()) {
+            throw new Exception();
+        } else {
+            seedStorage.put(type, seedStorage.getOrDefault(type, 0) + 1);
+            inventoryController.setInventoryListings();
         }
     }
 
     public void removeSeed(CropTypes type) throws NoSuchElementException {
-        try {
-            if (type == null || getStorageSize() == 0 || !seedStorage.containsKey(type)) {
-                throw new NoSuchElementException();
+        if (type == null || getStorageSize() == 0 || !seedStorage.containsKey(type)) {
+            throw new NoSuchElementException();
+        } else {
+            if (seedStorage.get(type) == 1) {
+                seedStorage.remove(type);
             } else {
-                if (seedStorage.get(type) == 1) {
-                    seedStorage.remove(type);
-                } else {
-                    seedStorage.put(type, seedStorage.get(type) - 1);
-                }
-                inventoryController.setInventoryListings();
+                seedStorage.put(type, seedStorage.get(type) - 1);
             }
-        } catch (Exception e) {
-            System.out.println("That seed does not exits in storage");
+            inventoryController.setInventoryListings();
         }
     }
 
