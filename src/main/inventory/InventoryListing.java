@@ -1,6 +1,8 @@
 package main.inventory;
 
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -16,25 +18,25 @@ public class InventoryListing {
         Text current = new Text("Current: " + inventory.getStorageSize() + "   ");
 
         current.setFill(Color.YELLOW);
-        current.setStyle("-fx-font: 25 arial;");
+        current.setStyle("-fx-font: 16 chalkduster;");
         int storageRemain = inventory.getStorageLimit() - inventory.getStorageSize();
         Text remain = new Text("Remaining: " + storageRemain + "   ");
         remain.setFill(Color.YELLOW);
-        remain.setStyle("-fx-font: 25 arial;");
+        remain.setStyle("-fx-font: 16 chalkduster;");
         Text capacity = new Text("Capacity: " + inventory.getStorageLimit());
         capacity.setFill(Color.YELLOW);
-        capacity.setStyle("-fx-font: 25 arial;");
+        capacity.setStyle("-fx-font: 16 chalkduster;");
         hBox.getChildren().addAll(current, remain, capacity);
-
+        hBox.setAlignment(Pos.CENTER);
         return hBox;
     }
 
     public static HBox getHeader(String t) {
         HBox hBox = new HBox();
 
-        Text text = new Text(t + ": ");
+        Text text = new Text("\n" + t + ": ");
         text.setFill(Color.LIGHTSKYBLUE);
-        text.setStyle("-fx-font: 20 arial;");
+        text.setStyle("-fx-font: 16 chalkduster;");
         hBox.getChildren().addAll(text);
 
         return hBox;
@@ -44,9 +46,9 @@ public class InventoryListing {
         HBox hBox = new HBox();
 
         // Display the storage items
-        Text seed = new Text(seedName + ": " + quantity);
+        Text seed = new Text("   " + seedName + ": " + quantity);
         seed.setFill(Color.WHITE);
-        seed.setStyle("-fx-font: 18 arial;");
+        seed.setStyle("-fx-font: 16 chalkduster;");
         hBox.getChildren().add(seed);
 
         //optional stuff
@@ -58,9 +60,9 @@ public class InventoryListing {
         HBox hBox = new HBox();
 
         // Display the storage items
-        Text product = new Text(productName + ": " + quantity);
+        Text product = new Text("   " + productName + ": " + quantity);
         product.setFill(Color.WHITE);
-        product.setStyle("-fx-font: 18 arial;");
+        product.setStyle("-fx-font: 16 chalkduster;");
         hBox.getChildren().add(product);
 
         //optional stuff
