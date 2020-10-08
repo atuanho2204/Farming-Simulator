@@ -55,9 +55,9 @@ public class Inventory {
         }
     }
 
-    public void putProduct(CropTypes type) throws NoSuchElementException {
+    public void putProduct(CropTypes type) throws Exception {
         if (type == null || getStorageSize() == getStorageLimit()) {
-            throw new NoSuchElementException();
+            throw new Exception();
         } else {
             productStorage.put(type, productStorage.getOrDefault(type, 0) + 1);
             inventoryController.setInventoryListings();

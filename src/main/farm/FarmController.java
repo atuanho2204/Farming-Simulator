@@ -199,9 +199,8 @@ public class FarmController implements NewDayListener {
                 plot.getPlotButton().setText("Empty &\nlonely..");
                 plot.getCurrentCrop().setCropType(null);
                 plot.getCurrentCrop().setCropStage(null);
-            } catch (NoSuchElementException e) {
-                getAlert("Storage is full!!!");
             } catch (Exception e) {
+                getAlert("Storage is full!!!");
             }
         }
     }
