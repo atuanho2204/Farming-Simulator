@@ -20,7 +20,6 @@ import main.util.crops.CropStage;
 import main.util.crops.CropTypes;
 
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 /**
  * The Controller for the FarmUI fxml screen
@@ -167,7 +166,8 @@ public class FarmController implements NewDayListener {
             plots.add(new Plot(
                     new Crop(CropTypes.valueOf(seed), CropStage.values()[randomStage]),
                     uiPlots.get(i)));
-            plots.get(i).getPlotButton().setText(plots.get(i).getCurrentCrop().getCropType().toString()
+            plots.get(i).getPlotButton().setText(
+                    plots.get(i).getCurrentCrop().getCropType().toString()
                     + "\n" + plots.get(i).getCurrentCrop().getStage().toString());
         }
     }
