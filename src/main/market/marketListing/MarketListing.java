@@ -20,10 +20,10 @@ public class MarketListing {
         // and a button to buy, and a button to sell
         Text text = new Text(listing.getName() + ":\n");
         text.setFill(Color.WHITE);
-        text.setStyle("-fx-font: 20 arial;");
+        text.setStyle("-fx-font: 16 chalkduster;");
         Text text1 = new Text("\t$" + listing.getBuyCost() + "\t\t");
         text1.setFill(Color.WHITE);
-        text1.setStyle("-fx-font: 20 arial;");
+        text1.setStyle("-fx-font: 16 chalkduster;");
         Button buy = new Button("Buy");
         buy.setOnAction(e -> {
             buySeed(CropTypes.getTypeFromString(listing.getName()),gamemanager, listing.getBuyCost());

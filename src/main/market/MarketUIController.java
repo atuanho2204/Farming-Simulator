@@ -3,6 +3,7 @@ package main.market;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -54,6 +55,7 @@ public class MarketUIController implements NewDayListener {
                 newListings.add(MarketListing.getListingUI(listing, gameManager));
                 System.out.println(listing.getName() + " with price: " + listing.getBuyCost());
             }
+            marketScreen.setPadding(new Insets(100,0,0,40));
             Platform.runLater(() -> {
                 marketScreen.getChildren().addAll(newListings);
             });

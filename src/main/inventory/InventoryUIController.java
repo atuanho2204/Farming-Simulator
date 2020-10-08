@@ -2,7 +2,10 @@ package main.inventory;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -36,9 +39,9 @@ public class InventoryUIController {
             newListings.add(InventoryListing.getInfoUI(gameManager.getInventory()));
             HashMap<CropTypes, Integer> seeds = gameManager.getInventory().getListOfSeedItems();
             if (seeds.keySet().size() == 0) {
-                Text emptySeed = new Text("You don't have any seeds. How do you plan to farm??");
+                Text emptySeed = new Text("\nNo seeds?\nHow do you plan to farm??");
                 emptySeed.setFill(Color.ORANGE);
-                emptySeed.setStyle("-fx-font: 18 arial;");
+                emptySeed.setStyle("-fx-font: 16 chalkduster;");
                 newListings.add(emptySeed);
             } else {
                 newListings.add(InventoryListing.getHeader("Seeds"));
@@ -50,10 +53,10 @@ public class InventoryUIController {
             HashMap<CropTypes, Integer> products =
                     gameManager.getInventory().getListOfProductItems();
             if (products.keySet().size() == 0) {
-                Text emptyProduct = new Text("You don't have any products. "
+                Text emptyProduct = new Text("\nNo products?\n"
                         + "You are a failure at farming! :(");
                 emptyProduct.setFill(Color.ORANGE);
-                emptyProduct.setStyle("-fx-font: 18 arial;");
+                emptyProduct.setStyle("-fx-font: 16 chalkduster;");
                 newListings.add(emptyProduct);
             } else {
                 newListings.add(InventoryListing.getHeader("Products"));
@@ -62,6 +65,7 @@ public class InventoryUIController {
                             type.name().toLowerCase(), products.get(type)));
                 }
             }
+            inventoryScreen.setPadding(new Insets(120, 0, 0, 35));
             Platform.runLater(() -> {
                 inventoryScreen.getChildren().addAll(newListings);
             });
