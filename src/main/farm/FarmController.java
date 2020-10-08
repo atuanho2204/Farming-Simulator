@@ -79,7 +79,7 @@ public class FarmController implements NewDayListener {
 
         populatePlotsRandomly();
         setHeaderData();
-        gameManager.setMoney(10 * gameManager.getDifficulty());
+        gameManager.setMoney(40 * gameManager.getDifficulty());
         gameManager.getTimeAdvancer().addListener(this);
         gameManager.getTimeAdvancer().startTime();
 
