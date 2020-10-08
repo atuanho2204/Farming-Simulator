@@ -56,32 +56,24 @@ public class Inventory {
     }
 
     public void putProduct(CropTypes type) throws NoSuchElementException {
-        try {
-            if (type == null || getStorageSize() == getStorageLimit()) {
-                throw new NoSuchElementException();
-            } else {
-                productStorage.put(type, productStorage.getOrDefault(type, 0) + 1);
-                inventoryController.setInventoryListings();
-            }
-        } catch (Exception e) {
-            System.out.println("The crop does not exist");
+        if (type == null || getStorageSize() == getStorageLimit()) {
+            throw new NoSuchElementException();
+        } else {
+            productStorage.put(type, productStorage.getOrDefault(type, 0) + 1);
+            inventoryController.setInventoryListings();
         }
     }
 
     public void removeProduct(CropTypes type) throws NoSuchElementException {
-        try {
-            if (type == null || getStorageSize() == 0 || !productStorage.containsKey(type)) {
-                throw new NoSuchElementException();
+        if (type == null || getStorageSize() == 0 || !productStorage.containsKey(type)) {
+            throw new NoSuchElementException();
+        } else {
+            if (productStorage.get(type) == 1) {
+                productStorage.remove(type);
             } else {
-                if (productStorage.get(type) == 1) {
-                    productStorage.remove(type);
-                } else {
-                    productStorage.put(type, productStorage.get(type) - 1);
-                }
-                inventoryController.setInventoryListings();
+                productStorage.put(type, productStorage.get(type) - 1);
             }
-        } catch (Exception e) {
-            System.out.println("The product does not exits in storage");
+            inventoryController.setInventoryListings();
         }
     }
 

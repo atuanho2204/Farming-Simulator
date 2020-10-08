@@ -20,6 +20,7 @@ import main.util.crops.CropStage;
 import main.util.crops.CropTypes;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 /**
  * The Controller for the FarmUI fxml screen
@@ -190,14 +191,17 @@ public class FarmController implements NewDayListener {
         if (plot.getCurrentCrop().getStage() == CropStage.DEAD) {
             plot.getPlotButton().setText("Empty &\nlonely..");
             plot.getCurrentCrop().setCropType(null);
+            plot.getCurrentCrop().setCropStage(null);
         }
         if (plot.getCurrentCrop().getStage() == CropStage.MATURE) {
             try {
                 gameManager.getInventory().putProduct(plot.getCurrentCrop().getCropType());
                 plot.getPlotButton().setText("Empty &\nlonely..");
                 plot.getCurrentCrop().setCropType(null);
-            } catch (Exception e) {
+                plot.getCurrentCrop().setCropStage(null);
+            } catch (NoSuchElementException e) {
                 getAlert("Storage is full!!!");
+            } catch (Exception e) {
             }
         }
     }
