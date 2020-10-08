@@ -4,32 +4,34 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
-import main.gameManager.NewDayListener;
-import main.gameManager.NewDayEvent;
+import main.util.AlertUser;
+import main.util.UIManager;
+import main.util.customEvents.ForceUIUpdate;
+import main.util.customEvents.ForceUIUpdateListener;
+import main.util.customEvents.NewDayListener;
+import main.util.customEvents.NewDayEvent;
 import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
 import main.util.crops.Crop;
 import main.util.crops.CropStage;
 import main.util.crops.CropTypes;
-
 import java.util.ArrayList;
 
 /**
  * The Controller for the FarmUI fxml screen
  */
-public class FarmController implements NewDayListener {
+public class FarmController implements NewDayListener, ForceUIUpdateListener {
     private Stage primaryStage;
     private GameManager gameManager;
     private final int numOfPlots = 12;
-    private ArrayList<Plot> plots = new ArrayList<>(numOfPlots);
-    private ArrayList<Button> uiPlots = new ArrayList<>(numOfPlots);
+    private final ArrayList<Plot> plots = new ArrayList<>(numOfPlots);
+    private final ArrayList<Button> uiPlots = new ArrayList<>(numOfPlots);
 
 
     @FXML
@@ -80,6 +82,7 @@ public class FarmController implements NewDayListener {
         populatePlotsRandomly();
         setHeaderData();
         gameManager.setMoney(40 * gameManager.getDifficulty());
+        UIManager.getInstance().addListener(this);
         gameManager.getTimeAdvancer().addListener(this);
         gameManager.getTimeAdvancer().startTime();
 
@@ -88,7 +91,13 @@ public class FarmController implements NewDayListener {
         inventoryHolder.getChildren().add(new Pane(getInventoryUI()));
     }
 
+    @Override
     public void handleNewDay(NewDayEvent e) {
+        setHeaderData();
+    }
+
+    @Override
+    public void handleForcedUIUpdate(ForceUIUpdate forcedUIUpdate) {
         setHeaderData();
     }
 
@@ -200,17 +209,9 @@ public class FarmController implements NewDayListener {
                 plot.getCurrentCrop().setCropType(null);
                 plot.getCurrentCrop().setCropStage(null);
             } catch (Exception e) {
-                getAlert("Storage is full!!!");
+                AlertUser.alertUser("Storage is full!!!");
             }
         }
-    }
-
-    private void getAlert(String message) {
-        Alert a = new Alert(Alert.AlertType.NONE);
-        a.setAlertType(Alert.AlertType.INFORMATION);
-        a.setContentText(message);
-        // show the dialog
-        a.show();
     }
 
     @FXML

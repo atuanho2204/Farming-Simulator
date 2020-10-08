@@ -2,8 +2,10 @@ package main.market;
 
 
 import main.gameManager.GameManager;
-import main.gameManager.NewDayEvent;
-import main.gameManager.NewDayListener;
+import main.inventory.inventoryItems.HarvestedCrop;
+import main.inventory.inventoryItems.Seed;
+import main.util.customEvents.NewDayEvent;
+import main.util.customEvents.NewDayListener;
 import main.inventory.inventoryItems.InventoryItem;
 import java.util.ArrayList;
 import main.util.crops.CropCatalog;
@@ -32,10 +34,19 @@ public class Market implements NewDayListener {
     private void loadListingsIntoMarket() {
         this.listings.clear();
         for (CropTypes type : CropTypes.values()) {
-            this.listings.add(new InventoryItem(
+            this.listings.add(new Seed(
                     getPriceForCrop(type), //buy price
                     getPriceForCrop(type), //sell price
-                    type.name().toLowerCase()) //name
+                    "Seed-" + type.name().toLowerCase(), //name
+                    type) //seed type
+            );
+        }
+        for (CropTypes type : CropTypes.values()) {
+            this.listings.add(new HarvestedCrop(
+                    getPriceForCrop(type) * 2, //buy price
+                    getPriceForCrop(type) * 2, //sell price
+                    "Product-" + type.name().toLowerCase(), //name
+                    type) //seed type
             );
         }
     }

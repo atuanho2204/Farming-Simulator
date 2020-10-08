@@ -1,8 +1,8 @@
 package main.util;
 
 
-import main.gameManager.NewDayEvent;
-import main.gameManager.NewDayListener;
+import main.util.customEvents.NewDayEvent;
+import main.util.customEvents.NewDayListener;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

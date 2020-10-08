@@ -3,6 +3,8 @@ package main.gameManager;
 import main.inventory.Inventory;
 import main.market.Market;
 import main.util.TimeAdvancer;
+import main.util.customEvents.NewDayEvent;
+import main.util.customEvents.NewDayListener;
 
 import java.util.ArrayList;
 import java.util.List;

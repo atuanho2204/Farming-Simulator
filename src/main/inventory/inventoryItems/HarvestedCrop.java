@@ -2,15 +2,15 @@ package main.inventory.inventoryItems;
 
 import main.util.crops.CropTypes;
 
-public class Seed extends InventoryItem {
+public class HarvestedCrop extends InventoryItem {
     private CropTypes type;
 
-    public Seed(int buyCost, int sellCost, String name, CropTypes type) {
+    public HarvestedCrop(int buyCost, int sellCost, String name, CropTypes type) {
         super(buyCost, sellCost, name);
         this.type = type;
     }
 
-    public Seed(CropTypes type) {
+    public HarvestedCrop(CropTypes type) {
         super(type);
     }
 

@@ -1,4 +1,4 @@
-package main.gameManager;
+package main.util.customEvents;
 
 public class NewDayEvent {
     private final Integer newDay;

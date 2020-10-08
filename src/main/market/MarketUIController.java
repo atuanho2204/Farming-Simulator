@@ -5,12 +5,15 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
-import main.gameManager.NewDayEvent;
-import main.gameManager.NewDayListener;
+import main.util.UIManager;
+import main.util.customEvents.ForceUIUpdate;
+import main.util.customEvents.ForceUIUpdateListener;
+import main.util.customEvents.NewDayEvent;
+import main.util.customEvents.NewDayListener;
 import main.inventory.inventoryItems.InventoryItem;
 import main.market.marketListing.MarketListing;
 
@@ -37,11 +40,13 @@ public class MarketUIController implements NewDayListener {
     public void construct(Stage primaryStage, GameManager gameManager) {
         this.primaryStage = primaryStage;
         this.gameManager = gameManager;
+
         this.gameManager.getTimeAdvancer().addListener(this);
 
         setMarketListings();
     }
 
+    @Override
     public void handleNewDay(NewDayEvent e) {
         //update values
         setMarketListings();
@@ -53,9 +58,9 @@ public class MarketUIController implements NewDayListener {
         try {
             for (InventoryItem listing : gameManager.getMarket().getMarketListings()) {
                 newListings.add(MarketListing.getListingUI(listing, gameManager));
-                System.out.println(listing.getName() + " with price: " + listing.getBuyCost());
+                //System.out.println(listing.getName() + " with price: " + listing.getBuyCost());
             }
-            marketScreen.setPadding(new Insets(100,0,0,40));
+            marketScreen.setPadding(new Insets(100, 0, 0, 40));
             Platform.runLater(() -> {
                 marketScreen.getChildren().addAll(newListings);
             });

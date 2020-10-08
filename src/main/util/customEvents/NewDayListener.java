@@ -1,6 +1,5 @@
-package main.gameManager;
+package main.util.customEvents;
 
-import main.inventory.Inventory;
 
 public interface NewDayListener {
     void handleNewDay(NewDayEvent e);

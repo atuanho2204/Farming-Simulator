@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.farm.FarmController;
 import main.gameManager.GameManager;
-
 import java.util.ArrayList;
 import java.util.List;
 

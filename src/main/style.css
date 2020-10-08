@@ -277,10 +277,6 @@
     -fx-min-width: 100px;
 }
 
-#marketHolder {
-    /*-fx-background-color: blue;*/
-}
-
 .marketListingPane {
     -fx-background-color: black;
 }
@@ -291,10 +287,6 @@
 
 .buyButton {
     -fx-text-fill: white;
-}
-
-#inventoryHolder {
-    /*-fx-background-color: purple;*/
 }
 
 #pauseButtonGS {

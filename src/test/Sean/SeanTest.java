@@ -5,15 +5,12 @@ import main.farm.FarmController;
 import main.gameManager.GameManager;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class SeanTest {
     private FarmController controller;
-    GameManager gameMan;
+    private GameManager gameMan;
 
     @Before
     public void setup() {
