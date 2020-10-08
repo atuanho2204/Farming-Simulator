@@ -11,7 +11,7 @@ import main.util.AlertUser;
 import main.util.crops.CropTypes;
 import java.util.NoSuchElementException;
 import javafx.scene.paint.Color;
-
+import static org.junit.Assert.assertEquals;
 
 public class MarketListing {
     public static HBox getListingUI(InventoryItem listing, GameManager gamemanager) {
@@ -59,17 +59,12 @@ public class MarketListing {
     }
     private static void sellSeed(CropTypes type, GameManager gameManager, int price) throws NoSuchElementException {
         try {
-            if (gameManager.getMoney() <= price) {
                 gameManager.getInventory().removeSeed(type);
                 int money = gameManager.getMoney() + price;
                 gameManager.setMoney(money);
-            }
-            else {
-                AlertUser.alertUser("Do not have seed");
-            }
         }
         catch (Exception e) {
-            AlertUser.alertUser("Must harvest seed");
+            AlertUser.alertUser("Do not have seed");
         }
     }
 }
