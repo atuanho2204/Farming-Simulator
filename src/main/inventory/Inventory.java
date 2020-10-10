@@ -35,11 +35,9 @@ public class Inventory {
                 seedStorage.put(CropTypes.CORN, 2);
             } else if (type == "wheat") {
                 seedStorage.put(CropTypes.WHEAT, 2);
-            }
-            else if (type == "cotton") {
+            } else if (type == "cotton") {
                 seedStorage.put(CropTypes.COTTON, 2);
-            }
-            else if (type == "lettuce") {
+            } else if (type == "lettuce") {
                 seedStorage.put(CropTypes.LETTUCE, 2);
             }
         }
