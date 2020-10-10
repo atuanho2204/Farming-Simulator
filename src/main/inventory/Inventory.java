@@ -51,7 +51,7 @@ public class Inventory {
         if (type == null || getStorageSize() == getStorageLimit()) {
             throw new Exception();
         } else {
-            productStorage.put(type, productStorage.getOrDefault(type, 0) + 1);
+            productStorage.put(type, productStorage.getOrDefault(type, 0) + 2);
             inventoryController.setInventoryListings();
         }
     }
@@ -63,7 +63,7 @@ public class Inventory {
             if (productStorage.get(type) == 1) {
                 productStorage.remove(type);
             } else {
-                productStorage.put(type, productStorage.get(type) - 1);
+                productStorage.put(type, productStorage.get(type) - 2);
             }
             inventoryController.setInventoryListings();
         }

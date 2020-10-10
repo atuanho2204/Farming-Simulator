@@ -33,6 +33,17 @@
     -fx-font-size: 36px;
 }
 
+#skipButtonWS {
+    -fx-width: 150;
+    -fx-height: 75;
+    -fx-background-color: #18a734;
+    -fx-text-align: center;
+    -fx-text-fill: white;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 36px;
+    -fx-opacity: 1;
+}
+
 /* configurationScreen */
 #csStackPane {
     -fx-pref-width: 1200;
@@ -268,13 +279,8 @@
     /*-fx-background-color: blue;*/
 }
 
-.farmPlot {
-    -fx-background-color: #18a734;
-    -fx-text-align: center;
-    -fx-text-fill: white;
-    -fx-font-family: Chalkduster;
-    -fx-font-size: 14px;
-    -fx-min-width: 100px;
+#marketHolder {
+    /*-fx-background-color: blue;*/
 }
 
 .marketListingPane {
