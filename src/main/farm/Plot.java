@@ -1,7 +1,7 @@
 package main.farm;
 
 import main.util.crops.Crop;
-import main.util.crops.CropStage;
+import main.util.crops.CropStages;
 import main.util.crops.CropTypes;
 
 import javafx.scene.control.Button;
@@ -11,7 +11,7 @@ public class Plot {
     private Button plotButton;
 
     public Plot() {
-        this(new Crop(CropTypes.CORN, CropStage.SPROUTING), new Button());
+        this(new Crop(CropTypes.CORN, CropStages.SPROUTING), new Button());
     }
 
     public Plot(Crop currentCrop, Button plotButton) {

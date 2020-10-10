@@ -1,6 +1,6 @@
 package main.util.crops;
 
-public enum CropStage {
+public enum CropStages {
     SPROUTING,
     IMMATURE,
     MATURE,

@@ -1,32 +1,32 @@
 package main.util.crops;
 
 public class Crop {
-    private CropTypes cropType;
-    private CropStage cropStage;
+    private CropTypes type;
+    private CropStages stage;
 
-    public Crop(CropTypes cropType) {
-        this.cropType = cropType;
-        this.cropStage = CropStage.SPROUTING;
+    public Crop(CropTypes type) {
+        this.type = type;
+        this.stage = CropStages.SPROUTING;
     }
 
-    public Crop(CropTypes cropType, CropStage cropStage) {
-        this.cropType = cropType;
-        this.cropStage = cropStage;
+    public Crop(CropTypes type, CropStages stage) {
+        this.type = type;
+        this.stage = stage;
     }
 
-    public CropTypes getCropType() {
-        return cropType;
+    public CropTypes getType() {
+        return type;
     }
 
-    public CropStage getStage() {
-        return cropStage;
+    public CropStages getStage() {
+        return stage;
     }
 
-    public void setCropStage(CropStage cropStage) {
-        this.cropStage = cropStage;
+    public void setCropStage(CropStages cropStages) {
+        this.stage = cropStages;
     }
 
-    public void setCropType(CropTypes cropType) {
-        this.cropType = cropType;
+    public void setType(CropTypes type) {
+        this.type = type;
     }
 }
