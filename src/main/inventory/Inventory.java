@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 public class Inventory {
+
     private GameManager gameManager;
     private Stage primaryStage;
     private int storageLimit = 20;
@@ -29,6 +30,7 @@ public class Inventory {
         this.inventoryController = controller;
         this.productStorage = new HashMap<>();
         this.seedStorage = new HashMap<>();
+        seedStorage.put(CropTypes.CORN, 5);
     }
 
     public void putSeed(CropTypes type) throws Exception {
@@ -52,6 +54,7 @@ public class Inventory {
             inventoryController.setInventoryListings();
         }
     }
+
 
     public void putProduct(CropTypes type) throws Exception {
         if (type == null || getStorageSize() == getStorageLimit()) {
