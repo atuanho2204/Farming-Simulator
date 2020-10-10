@@ -31,7 +31,7 @@ public class TimeAdvancer {
 
     public void startTime() {
         System.out.println("Time started on day: " + this.day);
-        executorService.scheduleWithFixedDelay(
+        executorService.scheduleAtFixedRate(
                 this::timeStep, newDayWait, newDayWait, TimeUnit.MILLISECONDS);
     }
 

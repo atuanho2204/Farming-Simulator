@@ -1,45 +1,81 @@
 package test.Sean;
 
-import com.sun.javafx.application.PlatformImpl;
-import main.farm.FarmController;
 import main.gameManager.GameManager;
+import main.util.TimeAdvancer;
+import main.util.UIManager;
+import main.util.customEvents.ForceUIUpdateListener;
+import main.util.customEvents.NewDayListener;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+
+import static org.junit.Assert.*;
 
 public class SeanTest {
-    private FarmController controller;
-    private GameManager gameMan;
+    private GameManager gameManager;
+    private final int waitTime = 100; //milliseconds
+    private final int day = 0;
 
     @Before
     public void setup() {
-        PlatformImpl.startup(() -> {
-            //this code serves to remove the "Toolkit not found" error
-        });
-        controller = new FarmController();
-        gameMan = new GameManager(0);
+        gameManager = new GameManager(day);
+        TimeAdvancer.setNewDayWait(waitTime);
     }
 
     @Test
-    public void testConstructController() {
-        controller.construct(null, gameMan);
-        assertEquals(0, gameMan.getDay().intValue());
-        assertEquals(1, gameMan.getDifficulty().intValue());
-        assertEquals(10, gameMan.getMoney().intValue());
+    public void testDayIncrement() {
+        gameManager.getTimeAdvancer().startTime();
+        waitDay(1);
+        waitDay(2);
+        waitDay(3);
     }
 
+    @Test
+    public void testStopTime() {
+        gameManager.getTimeAdvancer().startTime();
+        waitDay(1);
+        gameManager.getTimeAdvancer().pauseTime();
+        waitDay(1);
+        waitDay(1);
+    }
 
     @Test
-    public void testDayIncrements() {
-        controller.construct(null, gameMan);
-        assertEquals(0, gameMan.getDay().intValue());
+    public void testListenToNewDay() {
+        gameManager.getTimeAdvancer().startTime();
+        final int[] count = {0};
+        NewDayListener newDayListener = e -> count[0]++;
+        gameManager.getTimeAdvancer().addListener(newDayListener);
+        waitDay(1);
+        assertEquals(1, count[0]);
+    }
+
+    @Test
+    public void listenToForceUIUpdate() {
+        final int[] count = {0};
+        ForceUIUpdateListener forceUIUpdateListener = e -> count[0]++;
+        UIManager.getInstance().addListener(forceUIUpdateListener);
+        UIManager.getInstance().pushUIUpdate();
+        assertEquals(1, count[0]);
+    }
+
+    @Test
+    public void testGameManagerFields() {
+        assertNotNull(gameManager.getTimeAdvancer());
+        assertNotNull(gameManager.getMarket());
+        assertNotNull(gameManager.getSeeds());
+        assertEquals("", gameManager.getName());
+        assertEquals(day, gameManager.getDay().intValue());
+        assertEquals(0, gameManager.getMoney().intValue());
+        assertEquals(1, gameManager.getDifficulty().intValue());
+    }
+
+    private void waitDay(int expect) {
+        long time = System.currentTimeMillis();
         try {
-            Thread.sleep(4050);
-            assertEquals(1, gameMan.getDay().intValue());
+            Thread.sleep(waitTime + 10);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            fail();
         }
+        System.out.println("Passed time: " + (System.currentTimeMillis() - time));
+        assertEquals(expect, gameManager.getDay().intValue());
     }
 }
