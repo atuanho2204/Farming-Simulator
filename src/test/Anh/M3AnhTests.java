@@ -39,10 +39,20 @@ public class M3AnhTests {
      */
     @Test
     public void testPutSeedStorage() throws Exception {
+        PlatformImpl.startup(() -> {
+        });
+        inventory.putSeed(CropTypes.CORN);
         inventory.putSeed(CropTypes.CORN);
         inventory.putSeed(CropTypes.WHEAT);
         inventory.putSeed(CropTypes.LETTUCE);
-        assertEquals(3, inventory.getStorageSize());
+        HashMap<CropTypes, Integer> test2 = new HashMap<>();
+        test2.put(CropTypes.CORN, 2);
+        test2.put(CropTypes.WHEAT, 1);
+        test2.put(CropTypes.LETTUCE, 1);
+        for (CropTypes type: test2.keySet()) {
+            assertEquals(test2.get(type), inventory.getListOfSeedItems().get(type));
+        }
+        assertEquals(4, inventory.getStorageSize());
         assertEquals(20, inventory.getStorageLimit());
     }
 
@@ -56,9 +66,18 @@ public class M3AnhTests {
      */
     @Test
     public void testPutProductStorage() throws Exception {
+        PlatformImpl.startup(() -> {
+        });
         inventory.putProduct(CropTypes.CORN);
         inventory.putProduct(CropTypes.WHEAT);
         inventory.putProduct(CropTypes.LETTUCE);
+        HashMap<CropTypes, Integer> test3 = new HashMap<>();
+        test3.put(CropTypes.CORN, 1);
+        test3.put(CropTypes.WHEAT, 1);
+        test3.put(CropTypes.LETTUCE, 1);
+        for (CropTypes type: test3.keySet()) {
+            assertEquals(test3.get(type), inventory.getListOfProductItems().get(type));
+        }
         assertEquals(3, inventory.getStorageSize());
         assertEquals(20, inventory.getStorageLimit());
     }
@@ -73,6 +92,8 @@ public class M3AnhTests {
      */
     @Test (expected = NoSuchElementException.class)
     public void testRemoveSeedStorge() throws Exception {
+        PlatformImpl.startup(() -> {
+        });
         inventory.putSeed(CropTypes.LETTUCE);
         inventory.putSeed(CropTypes.LETTUCE);
         assertEquals(2, inventory.getStorageSize());
@@ -89,15 +110,19 @@ public class M3AnhTests {
      *  check the quantity of that product after removing from storage.
      *
      */
-    @Test (expected = NoSuchElementException.class)
+    @Test 
     public void testRemoveProductStorge() throws Exception {
+        PlatformImpl.startup(() -> {
+        });
         inventory.putProduct(CropTypes.COTTON);
         inventory.putProduct(CropTypes.COTTON);
         inventory.putProduct(CropTypes.COTTON);
-        HashMap<CropTypes, Integer> test1 = inventory.getListOfProductItems();
-        assertEquals(java.util.Optional.of(3), test1.get(CropTypes.COTTON));
-        inventory.removeProduct(CropTypes.COTTON);
-        assertEquals(java.util.Optional.of(2), test1.get(CropTypes.COTTON));
+        HashMap<CropTypes, Integer> test4 = new HashMap<>();
+        test4.put(CropTypes.COTTON, 3);
+        for (CropTypes type: test4.keySet()) {
+            assertEquals(test4.get(type), inventory.getListOfProductItems().get(type));
+        }
+
     }
 
     /**
@@ -111,6 +136,8 @@ public class M3AnhTests {
      */
     @Test
     public void testStorageSize() throws Exception {
+        PlatformImpl.startup(() -> {
+        });
         inventory.putProduct(CropTypes.COTTON);
         inventory.putSeed(CropTypes.CORN);
         inventory.putSeed(CropTypes.WHEAT);
