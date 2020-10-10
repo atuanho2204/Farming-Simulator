@@ -17,6 +17,12 @@ public class Inventory {
     private HashMap<CropTypes, Integer> seedStorage;
     private InventoryUIController inventoryController;
 
+    public Inventory(InventoryUIController controller) {
+        this.productStorage = new HashMap<>();
+        this.seedStorage = new HashMap<>();
+        this.inventoryController = controller;
+    }
+
     public Inventory(GameManager gameMan, Stage stage, InventoryUIController controller) {
         this.gameManager = gameMan;
         this.primaryStage = stage;
