@@ -18,7 +18,7 @@ import main.util.customEvents.NewDayEvent;
 import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
-import main.util.crops.CropStage;
+import main.util.crops.CropStages;
 import main.util.crops.CropTypes;
 
 import java.util.ArrayList;
@@ -57,11 +57,16 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
         this.gameManager = gameManager;
         initializePlots();
         setHeaderData();
-        gameManager.setMoney(40 * gameManager.getDifficulty());
+        if (gameManager.getName().equals("Super Farmer")) {
+            gameManager.setMoney((1000));
+        } else {
+            gameManager.setMoney(40 * gameManager.getDifficulty());
+        }
         UIManager.getInstance().addListener(this);
         gameManager.getTimeAdvancer().addListener(this);
         gameManager.getTimeAdvancer().startTime();
-        farmPlots.getChildren().add(new Pane(populatePlotsRandomly()));
+        farmPlots.getChildren().add(
+                new Pane(populatePlotsRandomly(gameManager.getSeeds())));
         marketHolder.getChildren().add(new Pane(getMarketUI()));
         //also sets inventory globally
         inventoryHolder.getChildren().add(new Pane(getInventoryUI()));
@@ -137,7 +142,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
         }
     }
 
-    private void initializePlots() {
+    public void initializePlots() {
         for (int i = 0; i < numOfPlots; ++i) {
             this.plots.add(new Plot());
             this.plots.get(i).getPlotButton().setStyle("-fx-background-color: #18a734;"
@@ -145,38 +150,38 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
                     + "-fx-font-size: 14px; -fx-min-width: 100px;");
         }
     }
-    private Pane populatePlotsRandomly() {
+    public Pane populatePlotsRandomly(List<String> seeds) {
         TilePane plotGrid = new TilePane();
         plotGrid.setPrefWidth(880);
         plotGrid.setPrefTileHeight(200);
         plotGrid.setPrefTileWidth(220);
-        int numOfSeedTypes = gameManager.getSeeds().size();
-        int numOfStages = CropStage.values().length;
+        int numOfSeedTypes = seeds.size();
+        int numOfStages = CropStages.values().length;
         for (int i = 0; i < numOfPlots; ++i) {
             int randomCrop = (int) (Math.random() * 100) % numOfSeedTypes;
             int randomStage = (int) (Math.random() * 100) % numOfStages;
-            String seed = gameManager.getSeeds().get(randomCrop).toUpperCase();
+            String seed = seeds.get(randomCrop).toUpperCase();
             //uiPlots.get(i).setPrefSize(20,20);
             /*uiPlots.get(i).setGraphic(
                     new ImageView(new Image("main/images/Untitled_Artwork.jpg")));*/
             Plot currPlot = plots.get(i);
-            currPlot.getCurrentCrop().setCropType(CropTypes.valueOf(seed));
-            currPlot.getCurrentCrop().setCropStage(CropStage.values()[randomStage]);
+            currPlot.getCurrentCrop().setType(CropTypes.valueOf(seed));
+            currPlot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
             currPlot.getPlotButton().setText(
-                    plots.get(i).getCurrentCrop().getCropType().toString()
+                    plots.get(i).getCurrentCrop().getType().toString()
                             + "\n" + plots.get(i).getCurrentCrop().getStage().toString()
             );
             currPlot.getPlotButton().setOnAction(actionEvent -> {
-                if (currPlot.getCurrentCrop().getStage() == CropStage.DEAD) {
+                if (currPlot.getCurrentCrop().getStage() == CropStages.DEAD) {
                     currPlot.getPlotButton().setText("Empty &\nlonely..");
-                    currPlot.getCurrentCrop().setCropType(null);
+                    currPlot.getCurrentCrop().setType(null);
                     currPlot.getCurrentCrop().setCropStage(null);
-                } else if (currPlot.getCurrentCrop().getStage() == CropStage.MATURE) {
+                } else if (currPlot.getCurrentCrop().getStage() == CropStages.MATURE) {
                     try {
                         gameManager.getInventory().putProduct(
-                                currPlot.getCurrentCrop().getCropType());
+                                currPlot.getCurrentCrop().getType());
                         currPlot.getPlotButton().setText("Empty &\nlonely..");
-                        currPlot.getCurrentCrop().setCropType(null);
+                        currPlot.getCurrentCrop().setType(null);
                         currPlot.getCurrentCrop().setCropStage(null);
                     } catch (Exception e) {
                         AlertUser.alertUser("Storage is full!!!");
@@ -188,7 +193,6 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
         return plotGrid;
     }
 
-
     @FXML
     public void handlePauseButton() {
         gameManager.getTimeAdvancer().pauseTime();
@@ -198,5 +202,9 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     public void handleQuitButton() {
         primaryStage.close();
         gameManager.getTimeAdvancer().pauseTime();
+    }
+
+    public List<Plot> getPlots() {
+        return plots;
     }
 }

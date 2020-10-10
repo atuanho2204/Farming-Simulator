@@ -34,14 +34,10 @@
 }
 
 #skipButtonWS {
-    -fx-width: 150;
-    -fx-height: 75;
+    -fx-pref-width: 130;
+    -fx-pref-height: 70;
     -fx-background-color: #18a734;
-    -fx-text-align: center;
-    -fx-text-fill: white;
-    -fx-font-family: Chalkduster;
-    -fx-font-size: 36px;
-    -fx-opacity: 1;
+    -fx-opacity: 0;
 }
 
 /* configurationScreen */
