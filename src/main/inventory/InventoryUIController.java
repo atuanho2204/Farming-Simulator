@@ -32,7 +32,11 @@ public class InventoryUIController {
 
     public void setInventoryListings() {
         ArrayList<Node> newListings = new ArrayList<>();
-        Platform.runLater(() -> inventoryScreen.getChildren().clear());
+        Platform.runLater(() -> {
+            if (inventoryScreen != null) {
+                inventoryScreen.getChildren().clear();
+            }
+        });
         try {
 
             newListings.add(InventoryListing.getInfoUI(gameManager.getInventory()));
