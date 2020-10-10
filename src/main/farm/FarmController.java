@@ -57,7 +57,11 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
         this.gameManager = gameManager;
         initializePlots();
         setHeaderData();
-        gameManager.setMoney(40 * gameManager.getDifficulty());
+        if (gameManager.getName().equals("Super Farmer")) {
+            gameManager.setMoney((1000));
+        } else {
+            gameManager.setMoney(40 * gameManager.getDifficulty());
+        }
         UIManager.getInstance().addListener(this);
         gameManager.getTimeAdvancer().addListener(this);
         gameManager.getTimeAdvancer().startTime();

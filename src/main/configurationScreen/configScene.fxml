@@ -6,11 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="csStackPane"
-           stylesheets="@../style.css"
-           xmlns="http://javafx.com/javafx/11.0.1"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="main.configurationScreen.ConfigSceneController">
+<StackPane fx:id="csStackPane" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.configurationScreen.ConfigSceneController">
     <children>
         <ImageView fx:id="image" fitHeight="800.0" fitWidth="1200.0">
             <image>
@@ -77,28 +73,24 @@
                                 <ToggleGroup fx:id="seasonGroup" />
                             </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="summer" mnemonicParsing="false" onAction="#getSeason"
-                                     text="Summer" toggleGroup="$seasonGroup">
+                        <RadioButton fx:id="summer" mnemonicParsing="false" onAction="#getSeason" text="Summer" toggleGroup="$seasonGroup">
                             <VBox.margin>
                                 <Insets left="100.0" />
                             </VBox.margin>
                         </RadioButton>
-                        <RadioButton fx:id="fall" mnemonicParsing="false" onAction="#getSeason"
-                                     text="Fall" toggleGroup="$seasonGroup">
+                        <RadioButton fx:id="fall" mnemonicParsing="false" onAction="#getSeason" text="Fall" toggleGroup="$seasonGroup">
                             <VBox.margin>
                                 <Insets left="100.0" />
                             </VBox.margin>
                         </RadioButton>
-                        <RadioButton fx:id="winter" mnemonicParsing="false" onAction="#getSeason"
-                                     text="Winter" toggleGroup="$seasonGroup">
+                        <RadioButton fx:id="winter" mnemonicParsing="false" onAction="#getSeason" text="Winter" toggleGroup="$seasonGroup">
                             <VBox.margin>
                                 <Insets left="100.0" />
                             </VBox.margin>
                         </RadioButton>
                     </children>
                 </VBox>
-                <Label fx:id="enterName" text="Enter your name:" GridPane.columnIndex="1" GridPane.rowIndex="1"
-                       GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Label fx:id="enterName" text="Enter your name:" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets right="20.0" />
                     </GridPane.margin>
@@ -108,8 +100,7 @@
                 </Label>
                 <TextField fx:id="playerName" GridPane.columnIndex="2" GridPane.rowIndex="1">
                 </TextField>
-                <Label fx:id="selectLevel" text="Select difficulty:" GridPane.columnIndex="1"
-                       GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                <Label fx:id="selectLevel" text="Select difficulty:" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets right="20.0" />
                     </GridPane.margin>
@@ -123,13 +114,11 @@
                             <effect>
                                 <Reflection fraction="0.25" topOpacity="0.25" />
                             </effect></ToggleButton>
-                        <ToggleButton fx:id="medium" mnemonicParsing="false" text="Medium"
-                                      toggleGroup="$difficultyGroup">
+                        <ToggleButton fx:id="medium" mnemonicParsing="false" text="Medium" toggleGroup="$difficultyGroup">
                             <effect>
                                 <Reflection fraction="0.25" topOpacity="0.25" />
                             </effect></ToggleButton>
-                        <ToggleButton fx:id="hard" mnemonicParsing="false" text="Hard"
-                                      toggleGroup="$difficultyGroup">
+                        <ToggleButton fx:id="hard" mnemonicParsing="false" text="Hard" toggleGroup="$difficultyGroup">
                             <effect>
                                 <Reflection fraction="0.25" topOpacity="0.25" />
                             </effect>
@@ -138,17 +127,22 @@
                 </HBox>
                 <HBox fx:id="configButton1" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <children>
-                        <Button fx:id="continueButtonCS" mnemonicParsing="false"
-                                onAction="#handleContinueButton" text="Continue">
+                        <Button fx:id="continueButtonCS" mnemonicParsing="false" onAction="#handleContinueButton" text="Continue">
                         </Button>
                     </children>
                 </HBox>
                 <HBox fx:id="configButton2" GridPane.columnIndex="2" GridPane.rowIndex="4">
                     <children>
-                        <Button fx:id="quitButtonCS" alignment="CENTER" mnemonicParsing="false"
-                                onAction="#handleConfigQuitButton" text="Quit">
+                        <Button fx:id="quitButtonCS" alignment="CENTER" mnemonicParsing="false" onAction="#handleConfigQuitButton" text="Quit">
                         </Button>
                     </children>
+                </HBox>
+                <HBox alignment="TOP_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <Button fx:id="skipButtonWS" onAction="#handleSkipButton">
+                    </Button>
+               <padding>
+                  <Insets top="40.0" />
+               </padding>
                 </HBox>
             </children>
         </GridPane>
