@@ -1,6 +1,5 @@
 package main.gameManager;
 
-import main.farm.Plot;
 import main.inventory.Inventory;
 import main.market.Market;
 import main.util.TimeAdvancer;
