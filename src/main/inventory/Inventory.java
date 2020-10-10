@@ -30,7 +30,19 @@ public class Inventory {
         this.inventoryController = controller;
         this.productStorage = new HashMap<>();
         this.seedStorage = new HashMap<>();
-        seedStorage.put(CropTypes.CORN, 5);
+        for (String type : gameManager.getSeeds()) {
+            if (type == "corn") {
+                seedStorage.put(CropTypes.CORN, 2);
+            } else if (type == "wheat") {
+                seedStorage.put(CropTypes.WHEAT, 2);
+            }
+            else if (type == "cotton") {
+                seedStorage.put(CropTypes.COTTON, 2);
+            }
+            else if (type == "lettuce") {
+                seedStorage.put(CropTypes.LETTUCE, 2);
+            }
+        }
     }
 
     public void putSeed(CropTypes type) throws Exception {
