@@ -38,7 +38,7 @@ public class M3DuyTests {
         inventory.putSeed(CropTypes.CORN);
         inventory.putSeed(CropTypes.COTTON);
         for (CropTypes key : seeds.keySet()) {
-            assertEquals(inventory.getListOfSeedItems().get(key), seeds.get(key));
+            assertEquals(seeds.get(key), inventory.getListOfSeedItems().get(key));
         }
     }
 
@@ -62,7 +62,7 @@ public class M3DuyTests {
         inventory.putProduct(CropTypes.WHEAT);
         inventory.putProduct(CropTypes.WHEAT);
         for (CropTypes key : products.keySet()) {
-            assertEquals(inventory.getListOfProductItems().get(key), products.get(key));
+            assertEquals(products.get(key), inventory.getListOfProductItems().get(key));
         }
     }
 
@@ -86,7 +86,7 @@ public class M3DuyTests {
         inventory.putSeed(CropTypes.COTTON);
         inventory.removeSeed(CropTypes.COTTON);
         for (CropTypes key : seeds.keySet()) {
-            assertEquals(inventory.getListOfSeedItems().get(key), seeds.get(key));
+            assertEquals(seeds.get(key), inventory.getListOfSeedItems().get(key));
         }
     }
 
@@ -111,7 +111,7 @@ public class M3DuyTests {
         inventory.putProduct(CropTypes.WHEAT);
         inventory.removeProduct(CropTypes.CORN);
         for (CropTypes key : products.keySet()) {
-            assertEquals(inventory.getListOfProductItems().get(key), products.get(key));
+            assertEquals(products.get(key), inventory.getListOfProductItems().get(key));
         }
     }
 
@@ -133,6 +133,6 @@ public class M3DuyTests {
         inventory.putProduct(CropTypes.WHEAT);
         inventory.putSeed(CropTypes.COTTON);
         inventory.putSeed(CropTypes.LETTUCE);
-        assertEquals(inventory.getStorageSize(), 7);
+        assertEquals(7, inventory.getStorageSize());
     }
 }
