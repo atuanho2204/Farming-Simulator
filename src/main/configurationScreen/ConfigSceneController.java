@@ -20,6 +20,8 @@ public class ConfigSceneController {
     @FXML
     private Button quitButtonCS;
     @FXML
+    private Button skipButtonWS;
+    @FXML
     private TextField playerName;
 
     @FXML
@@ -218,5 +220,21 @@ public class ConfigSceneController {
 
     public int getDifficultyForTest() {
         return gameManager.getDifficulty();
+    }
+
+    public void handleSkipButton() {
+        stage = (Stage) skipButtonWS.getScene().getWindow();
+        // set name
+        gameManager.setName("Super Farmer");
+        // set difficulty
+        gameManager.setDifficulty(3);
+        // set season
+        gameManager.setSeason("fall");
+        // set seeds
+        gameManager.getSeeds().add("wheat");
+        gameManager.getSeeds().add("cotton");
+        gameManager.getSeeds().add("lettuce");
+        //
+        loadNextScene("../farm/farmUI.fxml");
     }
 }

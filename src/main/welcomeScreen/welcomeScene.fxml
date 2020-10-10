@@ -21,8 +21,6 @@
                 </Button>
                 <Button fx:id="quitButtonWS" mnemonicParsing="false" onAction="#handleQuitButton" text="Quit">
                 </Button>
-                <!--<Button fx:id="skipButtonWS" mnemonicParsing="false" onAction="#handleSkipButton" text="">-->
-                <!--</Button>-->
             </children>
         </HBox>
     </children>
