@@ -1,7 +1,6 @@
 package main.gameManager;
 
 import main.inventory.Inventory;
-import main.inventory.InventoryUIController;
 import main.market.Market;
 import main.util.TimeAdvancer;
 import main.util.customEvents.NewDayEvent;
