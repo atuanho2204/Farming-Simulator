@@ -69,9 +69,6 @@ public class InventoryUIController {
             });
         } catch (Exception e) {
             System.out.println("Error in setting market listings: " + e.getMessage());
-            for (StackTraceElement l : e.getStackTrace()) {
-                System.out.println(l);
-            }
         }
     }
 }

@@ -25,6 +25,12 @@ public class Inventory {
         this.seedStorage = new HashMap<>();
     }
 
+    public Inventory(InventoryUIController controller) {
+        this.inventoryController = controller;
+        this.productStorage = new HashMap<>();
+        this.seedStorage = new HashMap<>();
+    }
+
     public void putSeed(CropTypes type) throws Exception {
         if (type == null || getStorageSize() == getStorageLimit()) {
             throw new Exception();
