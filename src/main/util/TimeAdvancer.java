@@ -12,11 +12,12 @@ import java.util.concurrent.TimeUnit;
 public class TimeAdvancer {
     private int day;
     private final ScheduledExecutorService executorService;
-    private final int deltaT = 4000; //in MILLISECONDS
+    private static int newDayWait = 4000; //in MILLISECONDS
     private ArrayList<NewDayListener> listeners;
 
-    public TimeAdvancer() {
+    public TimeAdvancer(int startDay) {
         this.listeners = new ArrayList<>();
+        this.day = startDay;
         executorService = Executors.newSingleThreadScheduledExecutor();
     }
 
@@ -29,20 +30,28 @@ public class TimeAdvancer {
     }
 
     public void startTime() {
-        System.out.println("Time started");
-        executorService.scheduleAtFixedRate(this::timeStep, deltaT, deltaT, TimeUnit.MILLISECONDS);
+        System.out.println("Time started on day: " + this.day);
+        executorService.scheduleWithFixedDelay(
+                this::timeStep, newDayWait, newDayWait, TimeUnit.MILLISECONDS);
     }
 
     public void pauseTime() {
-        System.out.println("Time Paused");
+        System.out.println("Time Paused at day: " + this.day);
         executorService.shutdown();
     }
 
+    public static int getNewDayWait() {
+        return newDayWait;
+    }
+
+    public static void setNewDayWait(int newDayWait) {
+        TimeAdvancer.newDayWait = newDayWait;
+    }
 
     private void timeStep() {
         try {
-            System.out.println("Time stepped to day: " + this.day);
             this.day = day + 1;
+            System.out.println("Time stepped to day: " + this.day);
             NewDayEvent newDay = new NewDayEvent(this.day);
             for (NewDayListener listener : this.listeners) {
                 //System.out.println(listener);

@@ -25,7 +25,7 @@ public class GameManager implements NewDayListener {
 
     public GameManager(Integer day) {
         this.day = day;
-        this.timeAdvancer = new TimeAdvancer();
+        this.timeAdvancer = new TimeAdvancer(day);
         this.timeAdvancer.addListener(this);
         this.market = new Market(this);
     }
