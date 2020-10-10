@@ -34,6 +34,7 @@ public class InventoryUIController {
         ArrayList<Node> newListings = new ArrayList<>();
         Platform.runLater(() -> inventoryScreen.getChildren().clear());
         try {
+
             newListings.add(InventoryListing.getInfoUI(gameManager.getInventory()));
             HashMap<CropTypes, Integer> seeds = gameManager.getInventory().getListOfSeedItems();
             if (seeds.keySet().size() == 0) {
@@ -41,6 +42,7 @@ public class InventoryUIController {
                 emptySeed.setFill(Color.ORANGE);
                 emptySeed.setStyle("-fx-font: 16 chalkduster;");
                 newListings.add(emptySeed);
+
             } else {
                 newListings.add(InventoryListing.getHeader("Seeds"));
                 for (CropTypes type : seeds.keySet()) {

@@ -55,6 +55,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     public void construct(Stage primaryStage, GameManager gameManager) {
         this.primaryStage = primaryStage;
         this.gameManager = gameManager;
+
         initializePlots();
         setHeaderData();
         if (gameManager.getName().equals("Super Farmer")) {

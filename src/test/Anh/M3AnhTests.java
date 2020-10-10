@@ -105,12 +105,13 @@ public class M3AnhTests {
     /**
      *
      * Test Component: test the remove product method
-     * Reason: check that the removeProduct() method is able to remove the product into product storage.
+     * Reason: check that the removeProduct() method is able to
+     * remove the product into product storage.
      * Method: call the removeProduct() method for multiple crop types and
      *  check the quantity of that product after removing from storage.
      *
      */
-    @Test 
+    @Test
     public void testRemoveProductStorge() throws Exception {
         PlatformImpl.startup(() -> {
         });
