@@ -20,6 +20,8 @@ import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
 import main.util.crops.CropStage;
 import main.util.crops.CropTypes;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +31,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     private Stage primaryStage;
     private GameManager gameManager;
     private final int numOfPlots = 12;
-    private List<Plot> plots;
+    private List<Plot> plots = new ArrayList<>(numOfPlots);
 
     @FXML
     private Pane farmPlots;
@@ -53,7 +55,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     public void construct(Stage primaryStage, GameManager gameManager) {
         this.primaryStage = primaryStage;
         this.gameManager = gameManager;
-
+        initializePlots();
         setHeaderData();
         gameManager.setMoney(40 * gameManager.getDifficulty());
         UIManager.getInstance().addListener(this);
@@ -135,8 +137,15 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
         }
     }
 
+    private void initializePlots() {
+        for (int i = 0; i < numOfPlots; ++i) {
+            this.plots.add(new Plot());
+            this.plots.get(i).getPlotButton().setStyle("-fx-background-color: #18a734;"
+                    + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
+                    + "-fx-font-size: 14px; -fx-min-width: 100px;");
+        }
+    }
     private Pane populatePlotsRandomly() {
-        plots = gameManager.getPlots();
         TilePane plotGrid = new TilePane();
         plotGrid.setPrefWidth(880);
         plotGrid.setPrefTileHeight(200);

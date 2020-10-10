@@ -23,20 +23,12 @@ public class GameManager implements NewDayListener {
     private Integer difficulty = 1;
     private Market market;
     private Inventory inventory;
-    private final int numOfPlots = 12;
-    private List<Plot> plots = new ArrayList<>(numOfPlots);
 
     public GameManager(Integer day) {
         this.day = day;
         this.timeAdvancer = new TimeAdvancer();
         this.timeAdvancer.addListener(this);
         this.market = new Market(this);
-        for (int i = 0; i < numOfPlots; ++i) {
-            this.plots.add(new Plot());
-            this.plots.get(i).getPlotButton().setStyle("-fx-background-color: #18a734;"
-                    + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
-                    + "-fx-font-size: 14px; -fx-min-width: 100px;");
-        }
     }
 
     @Override
@@ -107,16 +99,5 @@ public class GameManager implements NewDayListener {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
-    }
-
-    public void setPlots(List<Plot> plots) {
-        for (int i = 0; i < numOfPlots; ++i) {
-            this.plots.add(
-                    new Plot(plots.get(i).getCurrentCrop(), plots.get(i).getPlotButton()));
-        }
-    }
-
-    public List<Plot> getPlots() {
-        return this.plots;
     }
 }
