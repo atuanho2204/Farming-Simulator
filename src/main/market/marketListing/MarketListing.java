@@ -38,7 +38,8 @@ public class MarketListing {
             });
         } else if (listing instanceof HarvestedCrop) {
             sell.setOnAction(e -> {
-                sellProduct(((HarvestedCrop) listing).getType(), gameManager, listing.getSellCost());
+                sellProduct((
+                        (HarvestedCrop) listing).getType(), gameManager, listing.getSellCost());
             });
         } else {
             Text warning = new Text("\tThis probably shouldn't be here\t\t");

@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -19,7 +18,6 @@ import main.util.customEvents.NewDayEvent;
 import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
-import main.util.crops.Crop;
 import main.util.crops.CropStage;
 import main.util.crops.CropTypes;
 import java.util.List;
@@ -166,7 +164,8 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
                     currPlot.getCurrentCrop().setCropStage(null);
                 } else if (currPlot.getCurrentCrop().getStage() == CropStage.MATURE) {
                     try {
-                        gameManager.getInventory().putProduct(currPlot.getCurrentCrop().getCropType());
+                        gameManager.getInventory().putProduct(
+                                currPlot.getCurrentCrop().getCropType());
                         currPlot.getPlotButton().setText("Empty &\nlonely..");
                         currPlot.getCurrentCrop().setCropType(null);
                         currPlot.getCurrentCrop().setCropStage(null);
