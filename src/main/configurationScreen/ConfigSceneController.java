@@ -49,9 +49,16 @@ public class ConfigSceneController {
         this.gameManager = new GameManager(0);
         gameManager.setDifficulty(difficulty);
         gameManager.setSeason(season);
-        gameManager.setName(name);
         for (String seed : seeds) {
             gameManager.getSeeds().add(seed);
+        }
+        try {
+            if (name.trim() == "") {
+                throw new IllegalArgumentException();
+            }
+            gameManager.setName(name);
+        } catch (IllegalArgumentException e) {
+            getAlert("Your name must have at least 1 character.");
         }
     }
 
