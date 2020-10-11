@@ -1,35 +1,31 @@
 package test.Chris;
 
-import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.inventory.Inventory;
-import main.inventory.InventoryUIController;
 import main.inventory.inventoryItems.InventoryItem;
 import main.inventory.inventoryItems.Seed;
 import main.market.Market;
-import java.util.HashMap;
 import main.util.crops.CropTypes;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
 public class ChrisTest {
     private GameManager gameManager;
-    private Stage stage;
-    private InventoryUIController controller;
+    private Inventory inventory;
 
     @Before
-    public void setup() {
+    public void setup() throws NullPointerException {
         gameManager = new GameManager(0);
-        stage = new Stage();
-        controller = new InventoryUIController();
+        inventory = new Inventory(gameManager, null, null);
     }
 
     @Test
-    public void testBuySeed() {
+    public void testBuySeed() throws Exception{
         gameManager.setMoney(100);
         ArrayList<InventoryItem> listings = gameManager.getMarket().getMarketListings();
         int price = 0;
@@ -59,7 +55,6 @@ public class ChrisTest {
     @Test
     public void testSellSeed() throws Exception{
         int price = 0;
-        Inventory inventory = new Inventory(gameManager, stage, controller);
         gameManager.setInventory(inventory);
         gameManager.getInventory().putSeed(CropTypes.CORN);
         Market.sellSeed(CropTypes.CORN, gameManager, price);
@@ -70,7 +65,6 @@ public class ChrisTest {
     public void testSellSeedWithoutSeed() throws Exception {
         int price = 10;
         gameManager.setMoney(0);
-        Inventory inventory = new Inventory(gameManager, stage, controller);
         gameManager.setInventory(inventory);
         gameManager.getInventory().putSeed(CropTypes.CORN);
         Market.sellSeed(CropTypes.COTTON, gameManager, price);
@@ -80,10 +74,12 @@ public class ChrisTest {
     @Test
     public void testSellProduct() throws Exception {
         int price = 0;
-        Inventory inventory = new Inventory(gameManager, stage, controller);
-        gameManager.setInventory(inventory);
-        gameManager.getInventory().putSeed(CropTypes.CORN);
-        Market.sellProduct(CropTypes.CORN, gameManager, price);
+        inventory.putProduct(CropTypes.CORN);
+        //gameManager.setInventory(inventory);
+        //gameManager.getInventory().putSeed(CropTypes.CORN);
+        //Market.sellProduct(CropTypes.CORN, gameManager, price);
+        HashMap<CropTypes, Integer> test = new HashMap<>();
+        test.put(CropTypes.CORN, 1);
         assertEquals(0, gameManager.getInventory().getStorageSize());
     }
 }
