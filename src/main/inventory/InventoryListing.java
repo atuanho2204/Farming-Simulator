@@ -37,6 +37,7 @@ public class InventoryListing {
         text.setStyle("-fx-font: 16 chalkduster;");
         hBox.getChildren().addAll(text);
 
+
         return hBox;
     }
 
@@ -44,12 +45,12 @@ public class InventoryListing {
         HBox hBox = new HBox();
 
         // Display the storage items
+
         Text seed = new Text("   " + seedName + ": " + quantity);
         seed.setFill(Color.WHITE);
         seed.setStyle("-fx-font: 16 chalkduster;");
         hBox.getChildren().add(seed);
 
-        //optional stuff
 
         return hBox;
     }
@@ -58,12 +59,11 @@ public class InventoryListing {
         HBox hBox = new HBox();
 
         // Display the storage items
+
         Text product = new Text("   " + productName + ": " + quantity);
         product.setFill(Color.WHITE);
         product.setStyle("-fx-font: 16 chalkduster;");
         hBox.getChildren().add(product);
-
-        //optional stuff
 
         return hBox;
     }

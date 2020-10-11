@@ -32,8 +32,13 @@ public class InventoryUIController {
 
     public void setInventoryListings() {
         ArrayList<Node> newListings = new ArrayList<>();
-        Platform.runLater(() -> inventoryScreen.getChildren().clear());
+        Platform.runLater(() -> {
+            if (inventoryScreen != null) {
+                inventoryScreen.getChildren().clear();
+            }
+        });
         try {
+
             newListings.add(InventoryListing.getInfoUI(gameManager.getInventory()));
             HashMap<CropTypes, Integer> seeds = gameManager.getInventory().getListOfSeedItems();
             if (seeds.keySet().size() == 0) {
@@ -41,6 +46,7 @@ public class InventoryUIController {
                 emptySeed.setFill(Color.ORANGE);
                 emptySeed.setStyle("-fx-font: 16 chalkduster;");
                 newListings.add(emptySeed);
+
             } else {
                 newListings.add(InventoryListing.getHeader("Seeds"));
                 for (CropTypes type : seeds.keySet()) {
@@ -69,9 +75,6 @@ public class InventoryUIController {
             });
         } catch (Exception e) {
             System.out.println("Error in setting market listings: " + e.getMessage());
-            for (StackTraceElement l : e.getStackTrace()) {
-                System.out.println(l);
-            }
         }
     }
 }
