@@ -29,7 +29,6 @@ import java.util.List;
  */
 public class FarmController implements NewDayListener, ForceUIUpdateListener {
     private Stage primaryStage;
-    private GameManager gameManager;
     private final int numOfPlots = 12;
     private List<Plot> plots = new ArrayList<>(numOfPlots);
 
@@ -50,24 +49,22 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     /**
      * Constructs the Farm Scene.
      * @param primaryStage ...
-     * @param gameManager ...
      */
-    public void construct(Stage primaryStage, GameManager gameManager) {
+    public void construct(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.gameManager = gameManager;
 
         initializePlots();
         setHeaderData();
-        if (gameManager.getName().equals("Super Farmer")) {
-            gameManager.setMoney((1000));
+        if (GameManager.getInstance().getName().equals("Super Farmer")) {
+            GameManager.getInstance().setMoney((1000));
         } else {
-            gameManager.setMoney(40 * gameManager.getDifficulty());
+            GameManager.getInstance().setMoney(40 * GameManager.getInstance().getDifficulty());
         }
         UIManager.getInstance().addListener(this);
-        gameManager.getTimeAdvancer().addListener(this);
-        gameManager.getTimeAdvancer().startTime();
+        GameManager.getInstance().getTimeAdvancer().addListener(this);
+        GameManager.getInstance().getTimeAdvancer().startTime();
         farmPlots.getChildren().add(
-                new Pane(populatePlotsRandomly(gameManager.getSeeds())));
+                new Pane(populatePlotsRandomly(GameManager.getInstance().getSeeds())));
         marketHolder.getChildren().add(new Pane(getMarketUI()));
         //also sets inventory globally
         inventoryHolder.getChildren().add(new Pane(getInventoryUI()));
@@ -92,7 +89,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             );
             Parent parent = loader.load();
             MarketUIController controller = loader.getController();
-            controller.construct(primaryStage, gameManager);
+            controller.construct(primaryStage);
             return parent;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -110,9 +107,9 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             );
             Parent parent = loader.load();
             InventoryUIController controller = loader.getController();
-            gameManager.setInventory(new Inventory(gameManager, primaryStage, controller));
+            GameManager.getInstance().setInventory(new Inventory(true));
             //sets the global inventory
-            controller.construct(primaryStage, gameManager);
+            controller.construct(primaryStage);
             return parent;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -125,17 +122,13 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
         try {
             Platform.runLater(() -> {
                 if (difficultyLevel != null) {
-                    difficultyLevel.setText("Name: " + gameManager.getName());
+                    difficultyLevel.setText("Name: " + GameManager.getInstance().getName());
                 }
-            });
-            Platform.runLater(() -> {
                 if (currentDate != null) {
-                    currentDate.setText("Day: " + gameManager.getDay());
+                    currentDate.setText("Day: " + GameManager.getInstance().getDay());
                 }
-            });
-            Platform.runLater(() -> {
                 if (startingMoney != null) {
-                    startingMoney.setText("Money: " + gameManager.getMoney());
+                    startingMoney.setText("Money: " + GameManager.getInstance().getMoney());
                 }
             });
         } catch (Exception e) {
@@ -151,7 +144,8 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
                     + "-fx-font-size: 14px; -fx-min-width: 100px;");
         }
     }
-    public Pane populatePlotsRandomly(List<String> seeds) {
+
+    public Pane populatePlotsRandomly(List<CropTypes> seeds) {
         TilePane plotGrid = new TilePane();
         plotGrid.setPrefWidth(880);
         plotGrid.setPrefTileHeight(200);
@@ -161,7 +155,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
         for (int i = 0; i < numOfPlots; ++i) {
             int randomCrop = (int) (Math.random() * 100) % numOfSeedTypes;
             int randomStage = (int) (Math.random() * 100) % numOfStages;
-            String seed = seeds.get(randomCrop).toUpperCase();
+            String seed = seeds.get(randomCrop).toString();
             //uiPlots.get(i).setPrefSize(20,20);
             /*uiPlots.get(i).setGraphic(
                     new ImageView(new Image("main/images/Untitled_Artwork.jpg")));*/
@@ -179,7 +173,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
                     currPlot.getCurrentCrop().setCropStage(null);
                 } else if (currPlot.getCurrentCrop().getStage() == CropStages.MATURE) {
                     try {
-                        gameManager.getInventory().putProduct(
+                        GameManager.getInstance().getInventory().putProduct(
                                 currPlot.getCurrentCrop().getType());
                         currPlot.getPlotButton().setText("Empty &\nlonely..");
                         currPlot.getCurrentCrop().setType(null);
@@ -196,13 +190,13 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
 
     @FXML
     public void handlePauseButton() {
-        gameManager.getTimeAdvancer().pauseTime();
+        GameManager.getInstance().getTimeAdvancer().pauseTime();
     }
 
     @FXML
     public void handleQuitButton() {
         primaryStage.close();
-        gameManager.getTimeAdvancer().pauseTime();
+        GameManager.getInstance().getTimeAdvancer().pauseTime();
     }
 
     public List<Plot> getPlots() {

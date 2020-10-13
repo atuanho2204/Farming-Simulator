@@ -14,7 +14,6 @@ import java.util.NoSuchElementException;
 import static org.junit.Assert.assertEquals;
 public class M3AnhTests {
     private FarmController controller;
-    private GameManager gameManager;
     private InventoryUIController inventoryUI;
     private Inventory inventory;
 
@@ -25,8 +24,8 @@ public class M3AnhTests {
         });
         inventoryUI = new InventoryUIController();
         controller = new FarmController();
-        gameManager = new GameManager(0);
-        inventory = new Inventory(inventoryUI);
+        GameManager.getInstance();
+        inventory = new Inventory(false);
     }
 
     /**

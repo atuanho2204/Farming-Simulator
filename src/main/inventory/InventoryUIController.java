@@ -9,38 +9,40 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
+import main.util.UIManager;
 import main.util.crops.CropTypes;
+import main.util.customEvents.ForceUIUpdate;
+import main.util.customEvents.ForceUIUpdateListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class InventoryUIController {
+public class InventoryUIController implements ForceUIUpdateListener {
     private Stage primaryStage;
-    private GameManager gameManager;
 
     @FXML
     private VBox inventoryScreen;
 
 
-    public void construct(Stage primaryStage, GameManager gameManager) {
+    public void construct(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.gameManager = gameManager;
+        inventoryScreen.setPadding(new Insets(120, 0, 0, 35));
+        setInventoryListings();
+        UIManager.getInstance().addListener(this);
+    }
 
+    @Override
+    public void handleForcedUIUpdate(ForceUIUpdate forcedUIUpdate) {
         setInventoryListings();
     }
 
-
     public void setInventoryListings() {
         ArrayList<Node> newListings = new ArrayList<>();
-        Platform.runLater(() -> {
-            if (inventoryScreen != null) {
-                inventoryScreen.getChildren().clear();
-            }
-        });
         try {
-
-            newListings.add(InventoryListing.getInfoUI(gameManager.getInventory()));
-            HashMap<CropTypes, Integer> seeds = gameManager.getInventory().getListOfSeedItems();
+            newListings.add(InventoryListing.getInfoUI(GameManager.getInstance().getInventory()));
+            //go through the seeds
+            HashMap<CropTypes, Integer> seeds =
+                    GameManager.getInstance().getInventory().getListOfSeedItems();
             if (seeds.keySet().size() == 0) {
                 Text emptySeed = new Text("\nNo seeds?\nHow do you plan to farm??");
                 emptySeed.setFill(Color.ORANGE);
@@ -54,8 +56,9 @@ public class InventoryUIController {
                             type.name().toLowerCase(), seeds.get(type)));
                 }
             }
+            //go through the products
             HashMap<CropTypes, Integer> products =
-                    gameManager.getInventory().getListOfProductItems();
+                    GameManager.getInstance().getInventory().getListOfProductItems();
             if (products.keySet().size() == 0) {
                 Text emptyProduct = new Text("\nNo products?\n"
                         + "You are a failure at farming! :(");
@@ -69,8 +72,8 @@ public class InventoryUIController {
                             type.name().toLowerCase(), products.get(type)));
                 }
             }
-            inventoryScreen.setPadding(new Insets(120, 0, 0, 35));
             Platform.runLater(() -> {
+                inventoryScreen.getChildren().clear();
                 inventoryScreen.getChildren().addAll(newListings);
             });
         } catch (Exception e) {

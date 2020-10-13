@@ -8,12 +8,15 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.farm.FarmController;
 import main.gameManager.GameManager;
+import main.market.Market;
+import main.util.AlertUser;
+import main.util.crops.CropTypes;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigSceneController {
     private Stage stage;
-    private GameManager gameManager;
 
     @FXML
     private Button continueButtonCS;
@@ -45,25 +48,27 @@ public class ConfigSceneController {
     }
 
     public ConfigSceneController(Integer difficulty, String name,
-                                 List<String> seeds, String season) {
-        this.gameManager = new GameManager(0);
-        gameManager.setDifficulty(difficulty);
-        gameManager.setSeason(season);
-        gameManager.setName(name);
-        for (String seed : seeds) {
-            gameManager.getSeeds().add(seed);
+                                 List<CropTypes> seeds, String season) {
+        GameManager.getInstance().setDifficulty(difficulty);
+        GameManager.getInstance().setSeason(season);
+        GameManager.getInstance().setName(name);
+        for (CropTypes type : seeds) {
+            GameManager.getInstance().getSeeds().add(type);
         }
     }
 
     public void construct(Integer difficulty, String name,
-                          List<String> seeds, String season) {
-        this.gameManager = new GameManager(0);
-        gameManager.setDifficulty(difficulty);
-        gameManager.setSeason(season);
-        for (String seed : seeds) {
-            gameManager.getSeeds().add(seed);
+                          List<CropTypes> seeds, String season) {
+        GameManager.getInstance().setDifficulty(difficulty);
+        GameManager.getInstance().setSeason(season);
+        for (CropTypes type : seeds) {
+            GameManager.getInstance().getSeeds().add(type);
         }
-        gameManager.setName(name);
+        GameManager.getInstance().setName(name);
+        //wait until the gameManager is fully initialized
+        Market market = new Market();
+        GameManager.getInstance().setMarket(market);
+        GameManager.getInstance().getTimeAdvancer().addListener(market);
     }
 
     public void handleContinueButton() {
@@ -72,8 +77,7 @@ public class ConfigSceneController {
         if (dataIsGood) {
             loadNextScene("../farm/farmUI.fxml");
         } else {
-            getAlert(alertMessage);
-            alertMessage = "";
+            AlertUser.alertUser(alertMessage);
         }
     }
 
@@ -95,20 +99,20 @@ public class ConfigSceneController {
     public boolean validSeed() {
         if (wheat.isSelected() || corn.isSelected()
                 || cotton.isSelected() || lettuce.isSelected()) {
-            gameManager.getSeeds().clear();
+            GameManager.getInstance().getSeeds().clear();
             if (wheat.isSelected()) {
-                gameManager.getSeeds().add("wheat");
+                GameManager.getInstance().getSeeds().add(CropTypes.WHEAT);
             }
             if (corn.isSelected()) {
-                gameManager.getSeeds().add("corn");
+                GameManager.getInstance().getSeeds().add(CropTypes.CORN);
             }
             if (cotton.isSelected()) {
-                gameManager.getSeeds().add("cotton");
+                GameManager.getInstance().getSeeds().add(CropTypes.COTTON);
             }
             if (lettuce.isSelected()) {
-                gameManager.getSeeds().add("lettuce");
+                GameManager.getInstance().getSeeds().add(CropTypes.LETTUCE);
             }
-            if (gameManager.getSeeds().size() != 3) {
+            if (GameManager.getInstance().getSeeds().size() != 3) {
                 alertMessage += "* You must select three seed types. \n";
                 return false;
             }
@@ -122,7 +126,7 @@ public class ConfigSceneController {
     @FXML
     public boolean validName() {
         String name = playerName.getText().trim();
-        gameManager.setName(playerName.getText());
+        GameManager.getInstance().setName(playerName.getText());
         if (name.equals("")) {
             alertMessage += "* Your name must have at least 1 character. \n";
         } else if (name.length() > 25) {
@@ -149,7 +153,7 @@ public class ConfigSceneController {
     public boolean validSeason() {
         if (seasonGroup.getSelectedToggle() != null) {
             RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
-            gameManager.setSeason(selectedRadioButton.getText());
+            GameManager.getInstance().setSeason(selectedRadioButton.getText());
             return true;
         } else {
             alertMessage += "* You must select season. \n";
@@ -162,7 +166,7 @@ public class ConfigSceneController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent parent = loader.load();
             FarmController controller = loader.getController();
-            controller.construct(stage, gameManager);
+            controller.construct(stage);
 
             stage.setTitle("FarmUI");
             stage.setScene(new Scene(parent));
@@ -184,56 +188,48 @@ public class ConfigSceneController {
         ToggleButton selectedDifficulty = (ToggleButton) difficultyGroup.getSelectedToggle();
         char result = selectedDifficulty.getText().toLowerCase().charAt(0);
         if (result == 'e') {
-            gameManager.setDifficulty(1);
+            GameManager.getInstance().setDifficulty(1);
         } else if (result == 'm') {
-            gameManager.setDifficulty(2);
+            GameManager.getInstance().setDifficulty(2);
         } else if (result == 'h') {
-            gameManager.setDifficulty(3);
+            GameManager.getInstance().setDifficulty(3);
         }
     }
 
     @FXML
     public void getSeason() {
         RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
-        gameManager.setSeason(selectedRadioButton.getText());
-    }
-
-    public void getAlert(String message) {
-        Alert a = new Alert(Alert.AlertType.NONE);
-        a.setAlertType(Alert.AlertType.INFORMATION);
-        a.setContentText(message);
-        // show the dialog
-        a.show();
+        GameManager.getInstance().setSeason(selectedRadioButton.getText());
     }
 
     public String getNameForTest() {
-        return gameManager.getName();
+        return GameManager.getInstance().getName();
     }
 
-    public List<String> getSeedForTest() {
-        return gameManager.getSeeds();
+    public List<CropTypes> getSeedForTest() {
+        return GameManager.getInstance().getSeeds();
     }
 
     public String getSeasonForTest() {
-        return gameManager.getSeason();
+        return GameManager.getInstance().getSeason();
     }
 
     public int getDifficultyForTest() {
-        return gameManager.getDifficulty();
+        return GameManager.getInstance().getDifficulty();
     }
 
     public void handleSkipButton() {
         stage = (Stage) skipButtonWS.getScene().getWindow();
         // set name
-        gameManager.setName("Super Farmer");
+        GameManager.getInstance().setName("Super Farmer");
         // set difficulty
-        gameManager.setDifficulty(3);
+        GameManager.getInstance().setDifficulty(3);
         // set season
-        gameManager.setSeason("fall");
+        GameManager.getInstance().setSeason("fall");
         // set seeds
-        gameManager.getSeeds().add("wheat");
-        gameManager.getSeeds().add("cotton");
-        gameManager.getSeeds().add("lettuce");
+        GameManager.getInstance().getSeeds().add(CropTypes.WHEAT);
+        GameManager.getInstance().getSeeds().add(CropTypes.COTTON);
+        GameManager.getInstance().getSeeds().add(CropTypes.LETTUCE);
         //
         loadNextScene("../farm/farmUI.fxml");
     }

@@ -17,7 +17,7 @@ public class M3DuyTests {
     @Before
     public void setUp() {
         controller1 = new InventoryUIController();
-        inventory = new Inventory(controller1);
+        inventory = new Inventory(false);
     }
 
     /**

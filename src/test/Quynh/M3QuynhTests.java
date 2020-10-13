@@ -15,7 +15,7 @@ public class M3QuynhTests {
     private FarmController controller2;
     private List<Plot> plots1;
     private List<Plot> plots2;
-    private List<String> seeds;
+    private List<CropTypes> seeds;
 
 
     @Before
@@ -23,9 +23,9 @@ public class M3QuynhTests {
         controller1 = new FarmController();
         controller2 = new FarmController();
         seeds = new ArrayList<>();
-        seeds.add(CropTypes.WHEAT.toString());
-        seeds.add(CropTypes.CORN.toString());
-        seeds.add(CropTypes.COTTON.toString());
+        seeds.add(CropTypes.WHEAT);
+        seeds.add(CropTypes.CORN);
+        seeds.add(CropTypes.COTTON);
     }
 
     /**
