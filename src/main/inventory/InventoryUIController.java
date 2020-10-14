@@ -77,7 +77,8 @@ public class InventoryUIController implements ForceUIUpdateListener {
                 inventoryScreen.getChildren().addAll(newListings);
             });
         } catch (Exception e) {
-            System.out.println("Error in setting market listings: " + e.getMessage());
+            System.out.println("Error in setting inventory listings: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

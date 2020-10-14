@@ -43,11 +43,11 @@ public class MarketUIController implements NewDayListener {
     }
 
     private void setMarketListings() {
-        ArrayList<Node> newListings = new ArrayList<>();
         try {
+            ArrayList<Node> newListings = new ArrayList<>();
             for (InventoryItem listing
                     : GameManager.getInstance().getMarket().getMarketListings()) {
-                newListings.add(MarketListing.getListingUI(listing, GameManager.getInstance()));
+                newListings.add(MarketListing.getListingUI(listing));
                 //System.out.println(listing.getName() + " with price: " + listing.getBuyCost());
             }
             marketScreen.setPadding(new Insets(100, 0, 0, 40));
@@ -57,9 +57,7 @@ public class MarketUIController implements NewDayListener {
             });
         } catch (Exception e) {
             System.out.println("Error in setting market listings: " + e.getMessage());
-            for (StackTraceElement l : e.getStackTrace()) {
-                System.out.println(l);
-            }
+            e.printStackTrace();
         }
     }
 }
