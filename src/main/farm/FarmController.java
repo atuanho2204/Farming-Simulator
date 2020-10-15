@@ -152,7 +152,8 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             this.plots.add(new Plot());
         }
         try {
-            plotHolder = getRandomPlots(Arrays.asList(CropTypes.values()));
+            //plotHolder = getRandomPlots(Arrays.asList(CropTypes.values()));
+            plotHolder = getRandomPlots(GameManager.getInstance().getSeeds());
             farmPlots.getChildren().add(plotHolder);
         } catch (Exception e) {
             System.out.println(e.getMessage());
