@@ -1,7 +1,9 @@
 package test.Chris;
 
+import com.sun.javafx.application.PlatformImpl;
 import main.gameManager.GameManager;
 import main.inventory.Inventory;
+import main.inventory.InventoryUIController;
 import main.inventory.inventoryItems.InventoryItem;
 import main.inventory.inventoryItems.Seed;
 import main.market.Market;
@@ -10,18 +12,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
 public class ChrisTest {
     private GameManager gameManager;
     private Inventory inventory;
+    private InventoryUIController controller;
 
     @Before
     public void setup() throws NullPointerException {
         gameManager = new GameManager(0);
-        inventory = new Inventory(gameManager, null, null);
+        controller = new InventoryUIController();
+        inventory = new Inventory(controller);
     }
 
     @Test
@@ -32,12 +35,12 @@ public class ChrisTest {
         //Go through the listings to find price of corn
         for (InventoryItem item : listings) {
             if (item instanceof Seed) {
-                if (((Seed) item).getType() == CropTypes.CORN) {
+                if (((Seed) item).getType() == CropTypes.WHEAT) {
                     price = item.getBuyCost();
                 }
             }
         }
-        Market.buySeed(CropTypes.CORN, gameManager, price);
+        Market.buySeed(CropTypes.WHEAT, gameManager, price);
         assertEquals(100-price, gameManager.getMoney().intValue());
     }
 
@@ -73,13 +76,12 @@ public class ChrisTest {
 
     @Test
     public void testSellProduct() throws Exception {
+        PlatformImpl.startup(() -> {
+        });
         int price = 0;
-        inventory.putProduct(CropTypes.CORN);
-        //gameManager.setInventory(inventory);
-        //gameManager.getInventory().putSeed(CropTypes.CORN);
-        //Market.sellProduct(CropTypes.CORN, gameManager, price);
-        HashMap<CropTypes, Integer> test = new HashMap<>();
-        test.put(CropTypes.CORN, 1);
+        gameManager.setInventory(inventory);
+        gameManager.getInventory().putSeed(CropTypes.CORN);
+        Market.sellProduct(CropTypes.CORN, gameManager, price);
         assertEquals(0, gameManager.getInventory().getStorageSize());
     }
 }
