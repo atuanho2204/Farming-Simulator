@@ -9,6 +9,9 @@ import main.inventory.inventoryItems.InventoryItem;
 import main.inventory.inventoryItems.Seed;
 import main.market.Market;
 import javafx.scene.paint.Color;
+import main.util.AlertUser;
+import main.util.UIManager;
+import main.util.crops.CropTypes;
 
 public class MarketListing {
     public static HBox getListingUI(InventoryItem listing, GameManager gameManager) {
@@ -49,8 +52,6 @@ public class MarketListing {
 
         return hBox;
     }
-<<<<<<< HEAD
-=======
 
     public static void buySeed(CropTypes type, GameManager gameManager, int price) {
         try {
@@ -88,5 +89,5 @@ public class MarketListing {
             AlertUser.alertUser("You do not have that product in your inventory");
         }
     }
->>>>>>> AnhHo
+
 }
