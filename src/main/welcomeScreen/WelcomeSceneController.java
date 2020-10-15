@@ -33,18 +33,6 @@ public class WelcomeSceneController {
 
         primaryStage.setTitle("Welcome!");
         primaryStage.setScene(new Scene(parent));
-        /*
-        try {
-        } catch (Exception e) {
-            Alert a = new Alert(Alert.AlertType.NONE);
-            a.setAlertType(Alert.AlertType.ERROR);
-            a.setContentText("ConfigScreen not found");
-            System.out.println(e.getCause() + e.getMessage());
-            // show the dialog
-            a.show();
-        }
-        */
-
     }
 
     public void handleQuitButton(ActionEvent event) {

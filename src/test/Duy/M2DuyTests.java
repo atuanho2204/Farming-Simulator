@@ -2,6 +2,7 @@ package test.Duy;
 
 import main.configurationScreen.ConfigSceneController;
 
+import main.util.crops.CropTypes;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -54,9 +55,9 @@ public class M2DuyTests {
      */
     @Test
     public void testConstructor() {
-        List<String> seeds =  new ArrayList<>();
-        seeds.add("lettuce");
-        seeds.add("corn");
+        List<CropTypes> seeds =  new ArrayList<>();
+        seeds.add(CropTypes.LETTUCE);
+        seeds.add(CropTypes.CORN);
         ConfigSceneController controller = new ConfigSceneController(2, "Duy", seeds, "spring");
         assertEquals("Duy", controller.getNameForTest());
         assertEquals(2, controller.getDifficultyForTest());

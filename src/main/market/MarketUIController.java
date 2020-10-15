@@ -21,8 +21,6 @@ import java.util.ArrayList;
  */
 public class MarketUIController implements NewDayListener {
     private Stage primaryStage;
-    private GameManager gameManager;
-
 
     @FXML
     private VBox marketScreen;
@@ -31,14 +29,10 @@ public class MarketUIController implements NewDayListener {
      * Constructs the Market Scene.
      *
      * @param primaryStage the stage
-     * @param gameManager  the gameManager
      */
-    public void construct(Stage primaryStage, GameManager gameManager) {
+    public void construct(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.gameManager = gameManager;
-
-        this.gameManager.getTimeAdvancer().addListener(this);
-
+        GameManager.getInstance().getTimeAdvancer().addListener(this);
         setMarketListings();
     }
 
@@ -49,22 +43,21 @@ public class MarketUIController implements NewDayListener {
     }
 
     private void setMarketListings() {
-        ArrayList<Node> newListings = new ArrayList<>();
-        Platform.runLater(() -> marketScreen.getChildren().clear());
         try {
-            for (InventoryItem listing : gameManager.getMarket().getMarketListings()) {
-                newListings.add(MarketListing.getListingUI(listing, gameManager));
+            ArrayList<Node> newListings = new ArrayList<>();
+            for (InventoryItem listing
+                    : GameManager.getInstance().getMarket().getMarketListings()) {
+                newListings.add(MarketListing.getListingUI(listing));
                 //System.out.println(listing.getName() + " with price: " + listing.getBuyCost());
             }
             marketScreen.setPadding(new Insets(100, 0, 0, 40));
             Platform.runLater(() -> {
+                marketScreen.getChildren().clear();
                 marketScreen.getChildren().addAll(newListings);
             });
         } catch (Exception e) {
             System.out.println("Error in setting market listings: " + e.getMessage());
-            for (StackTraceElement l : e.getStackTrace()) {
-                System.out.println(l);
-            }
+            e.printStackTrace();
         }
     }
 }

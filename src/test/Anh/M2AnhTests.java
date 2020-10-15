@@ -2,6 +2,7 @@ package test.Anh;
 
 
 import main.configurationScreen.ConfigSceneController;
+import main.util.crops.CropTypes;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -24,9 +25,9 @@ public class M2AnhTests {
      */
     @Test
     public void testConstructor() {
-        List<String> seeds =  new ArrayList<>();
-        seeds.add("cotton");
-        seeds.add("corn");
+        List<CropTypes> seeds =  new ArrayList<>();
+        seeds.add(CropTypes.COTTON);
+        seeds.add(CropTypes.CORN);
         ConfigSceneController controller = new ConfigSceneController(1, "Anh Ho", seeds, "fall");
         assertEquals("Anh Ho", controller.getNameForTest());
         assertEquals(1, controller.getDifficultyForTest());
@@ -44,8 +45,8 @@ public class M2AnhTests {
      */
     @Test (expected = NullPointerException.class)
     public void testDifficulty() {
-        List<String> seeds = new ArrayList<>();
-        seeds.add("corn");
+        List<CropTypes> seeds = new ArrayList<>();
+        seeds.add(CropTypes.CORN);
         ConfigSceneController controller2 = new ConfigSceneController(null, "Anh", seeds, "fall");
         controller2.handleContinueButton();
     }
@@ -60,8 +61,8 @@ public class M2AnhTests {
      */
     @Test (expected = NullPointerException.class)
     public void testLongName() {
-        List<String> seeds = new ArrayList<>();
-        seeds.add("corn");
+        List<CropTypes> seeds = new ArrayList<>();
+        seeds.add(CropTypes.CORN);
         String name = "di fhdsifkdsfsdkfnaskdjfnaskgnaoeribnaoenbadfobkndfkbldfvnifv";
         ConfigSceneController controller2 = new ConfigSceneController(2, name, seeds, "fall");
         controller2.handleContinueButton();

@@ -1,5 +1,6 @@
 package test.Chris;
 
+<<<<<<< HEAD
 import com.sun.javafx.application.PlatformImpl;
 import main.gameManager.GameManager;
 import main.inventory.Inventory;
@@ -128,5 +129,9 @@ public class ChrisTest {
         assertEquals(0, gameManager.getInventory().getStorageSize());
         assertEquals(50 + price, gameManager.getMoney().intValue());
     }
+=======
+public class ChrisTest {
+
+>>>>>>> origin/skaat
 }
 

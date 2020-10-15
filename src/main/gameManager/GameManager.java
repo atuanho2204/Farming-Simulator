@@ -3,6 +3,7 @@ package main.gameManager;
 import main.inventory.Inventory;
 import main.market.Market;
 import main.util.TimeAdvancer;
+import main.util.crops.CropTypes;
 import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 
@@ -13,21 +14,25 @@ import java.util.List;
  * The Manager of the the Totally-accurate-farm-simulator
  */
 public class GameManager implements NewDayListener {
-    private Integer day;
+    private static GameManager instance = new GameManager();
+    private Integer day = 0;
     private final TimeAdvancer timeAdvancer;
     private String name = "";
-    private List<String> seeds = new ArrayList<>(0);
+    private List<CropTypes> seeds = new ArrayList<>(0);
     private String season = "";
     private Integer money = 0;
     private Integer difficulty = 1;
     private Market market;
     private Inventory inventory;
 
-    public GameManager(Integer day) {
-        this.day = day;
-        this.timeAdvancer = new TimeAdvancer(day);
+    private GameManager() {
+        this.timeAdvancer = new TimeAdvancer(0);
         this.timeAdvancer.addListener(this);
-        this.market = new Market(this);
+
+    }
+
+    public static GameManager getInstance() {
+        return instance;
     }
 
     @Override
@@ -44,7 +49,7 @@ public class GameManager implements NewDayListener {
         return season;
     }
 
-    public List<String> getSeeds() {
+    public List<CropTypes> getSeeds() {
         return seeds;
     }
 
@@ -84,7 +89,7 @@ public class GameManager implements NewDayListener {
         this.season = season;
     }
 
-    public void setSeeds(List<String> seeds) {
+    public void setSeeds(List<CropTypes> seeds) {
         this.seeds = seeds;
     }
 
@@ -100,5 +105,7 @@ public class GameManager implements NewDayListener {
         this.inventory = inventory;
     }
 
-    //public InventoryUIController getInventoryController() { return  inventoryController;}
+    public void setMarket(Market market) {
+        this.market = market;
+    }
 }

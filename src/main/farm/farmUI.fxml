@@ -64,6 +64,7 @@
                     <StackPane fx:id="toolsHolder" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     </StackPane>
                     <HBox fx:id="farmPlots" GridPane.columnIndex="0" GridPane.rowIndex="1">
+
                     </HBox>
                 </GridPane>
             </center>

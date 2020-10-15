@@ -15,15 +15,14 @@ import main.util.crops.CropTypes;
 
 public class Market implements NewDayListener {
     private ArrayList<InventoryItem> listings;
-    private final GameManager gameManager;
     private final int priceModifier = 1;
     private final double randomness = 0.1; //higher values mean more random
 
-    public Market(GameManager gameManager) {
+    public Market() {
         this.listings = new ArrayList<>();
-        this.gameManager = gameManager;
-        this.gameManager.getTimeAdvancer().addListener(this);
+
         loadListingsIntoMarket();
+
     }
 
     @Override
@@ -61,9 +60,9 @@ public class Market implements NewDayListener {
     private int getPriceForCrop(CropTypes type) {
         CropDetails details = CropCatalog.getInstance().getCropDetails(type);
         int randomSupplment = (int) Math.round((Math.random() * 10 - 5)  * randomness);
-        int difficultySupplement = gameManager.getDifficulty();
+        int difficultySupplement = GameManager.getInstance().getDifficulty();
         return priceModifier * (int) (details.getBaseSell()
-                + Math.round(2 * Math.sin(gameManager.getDay()) + randomSupplment)
+                + Math.round(2 * Math.sin(GameManager.getInstance().getDay()) + randomSupplment)
                 + difficultySupplement);
     }
 
