@@ -1,6 +1,10 @@
 package main.farm.plot;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -32,13 +36,15 @@ public class PlotUI {
 
         Text text1 = new Text();
         if (plot.getCurrentCrop() == null) {
-            text1.setText("Empty & lonely..");
+            text1.setText("empty & lonely..");
         } else if (plot.getCurrentCrop().getStage() == CropStages.DEAD) {
-            text1.setText("Dead");
+            text1.setText("dead");
         } else if (plot.getCurrentCrop().getStage() == CropStages.SPROUTING) {
-            text1.setText("growing");
+            text1.setText("sprouting");
         } else if (plot.getCurrentCrop().getStage() == CropStages.MATURE) {
             text1.setText("mature");
+        } else { // CropStages.IMMATURE
+            text1.setText("growing");
         }
         Text text2 = new Text();
         if (plot.getCurrentCrop() == null) {
@@ -50,22 +56,52 @@ public class PlotUI {
         text2.setFill(Color.WHITE);
         text1.setStyle("-fx-font: 16 chalkduster;");
         text2.setStyle("-fx-font: 16 chalkduster;");
-        vBox.getChildren().add(text1);
         vBox.getChildren().add(text2);
+        vBox.getChildren().add(text1);
 
-
-        Button button1 = new Button("harvest");
-        button1.setTextFill(Color.GREEN);
-        button1.setOnAction(actionEvent -> {
+        HBox buttons = new HBox();
+        // water
+        Button waterBut = new Button("water");
+        waterBut.setOnAction(actionEvent -> {
             //onButtonClick
             plot.harvestPlot();
             controller.updatePlotUI(plot);
         });
-        button1.setStyle("-fx-background-color: #18a734;"
+        waterBut.setStyle("-fx-background-color: #00CED1;"
                 + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
-                + "-fx-font-size: 14px; -fx-min-width: 100px;");
-        vBox.getChildren().add(button1);
+                + "-fx-font-size: 13px; -fx-min-width: 50px;");
+        buttons.getChildren().add(waterBut);
 
+        // harvest
+        Button harvestBut = new Button("harvest");
+        harvestBut.setOnAction(actionEvent -> {
+            //onButtonClick
+            plot.harvestPlot();
+            controller.updatePlotUI(plot);
+        });
+        harvestBut.setStyle("-fx-background-color: #18a734;"
+                + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
+                + "-fx-font-size: 13px; -fx-min-width: 50px;");
+        buttons.getChildren().add(harvestBut);
+
+        // plant
+        Button plantBut = new Button("plant");
+        plantBut.setOnAction(actionEvent -> {
+            //onButtonClick
+        });
+        plantBut.setStyle("-fx-background-color: #A0522D;"
+                + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
+                + "-fx-font-size: 13px; -fx-min-width: 50px;");
+        buttons.getChildren().add(plantBut);
+        buttons.setAlignment(Pos.CENTER);
+        buttons.setSpacing(5);
+
+        //ProgressIndicator pi = new ProgressIndicator(0.6);
+        ProgressBar pb = new ProgressBar(0.6);
+
+        vBox.getChildren().addAll(buttons, pb);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(5);
         return vBox;
     }
 }
