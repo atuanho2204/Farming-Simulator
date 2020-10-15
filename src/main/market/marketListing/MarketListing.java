@@ -52,7 +52,7 @@ public class MarketListing {
         return hBox;
     }
 
-    private static void buySeed(CropTypes type, GameManager gameManager, int price) {
+    public static void buySeed(CropTypes type, GameManager gameManager, int price) {
         try {
             if (gameManager.getMoney() >= price) {
                 gameManager.getInventory().putSeed(type);
@@ -67,7 +67,7 @@ public class MarketListing {
         }
     }
 
-    private static void sellSeed(CropTypes type, GameManager gameManager, int price) {
+    public static void sellSeed(CropTypes type, GameManager gameManager, int price) {
         try {
             gameManager.getInventory().removeSeed(type);
             int money = gameManager.getMoney() + price;
@@ -78,7 +78,7 @@ public class MarketListing {
         }
     }
 
-    private static void sellProduct(CropTypes type, GameManager gameManager, int price) {
+    public static void sellProduct(CropTypes type, GameManager gameManager, int price) {
         try {
             gameManager.getInventory().removeProduct(type);
             int newMoney = gameManager.getMoney() + price;
