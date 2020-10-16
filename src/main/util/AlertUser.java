@@ -15,6 +15,9 @@ public class AlertUser {
             System.out.println("Probably running tests...ignoring initialization error");
         } catch (NoClassDefFoundError e2) {
             System.out.println("Probably running tests...ignoring noClassDef error");
+        } catch (IllegalStateException e) {
+            System.out.println(
+                    "Probably running tests...ignoring IllegalStateException error");
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
