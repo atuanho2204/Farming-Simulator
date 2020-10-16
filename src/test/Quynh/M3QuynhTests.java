@@ -136,17 +136,17 @@ public class M3QuynhTests {
      *    and passes otherwise.
      *
      */
-    @Test
+    /*@Test
     public void testPlotsLabels() {
         PlatformImpl.startup(() -> {
         });
         controller1.initializePlots();
         controller1.getRandomPlots(seeds);
         plots1 = controller1.getPlots();
-//        for (Plot plot : plots1) {
-//            Assert.assertNotEquals("", plot.getPlotButton().getText());
-//            Assert.assertNotEquals(
-//                    "Empty &\nlonely..", plot.getPlotButton().getText());
-//        }
-    }
+        for (Plot plot : plots1) {
+            Assert.assertNotEquals("", plot.getPlotButton().getText());
+            Assert.assertNotEquals(
+                    "Empty &\nlonely..", plot.getPlotButton().getText());
+        }
+    }*/
 }
