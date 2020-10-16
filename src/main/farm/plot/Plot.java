@@ -78,6 +78,10 @@ public class Plot {
         //its not time to harvest yet
     }
 
+    public void plantCrop() {
+        
+    }
+
     public int getMaxWater() {
         return maxWater;
     }

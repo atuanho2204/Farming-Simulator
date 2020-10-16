@@ -20,7 +20,7 @@ public class ChrisTest {
     private GameManager gameManager;
     private Inventory inventory;
     private InventoryUIController controller;
-
+/*
     @Before
     public void setup() throws NullPointerException {
         gameManager = new GameManager(0);
@@ -37,7 +37,7 @@ public class ChrisTest {
      * Method: set Money and then buy a seed from the
      * array list (market) and add to gameManager
      */
-    @Test
+   /* @Test
     public void testBuySeed() throws Exception {
         gameManager.setMoney(100);
         ArrayList<InventoryItem> listings = gameManager.getMarket().getMarketListings();
@@ -62,7 +62,7 @@ public class ChrisTest {
          * for a price with no money
          *
          */
-        @Test
+       /* @Test
         public void testBuySeedWithOutMoney () {
             //purpose is to test given 0 money
             gameManager.setMoney(0);
@@ -80,7 +80,7 @@ public class ChrisTest {
          * the seed in inventory
          *
          */
-        @Test
+       /* @Test
         public void testSellSeed () throws Exception {
             int price = 0;
             gameManager.getInventory().putSeed(CropTypes.CORN);
@@ -97,7 +97,7 @@ public class ChrisTest {
          * sell Cotton given it is null in inventory
          *
          */
-        @Test
+        /*@Test
         public void testSellSeedWithoutSeed () throws Exception {
             int price = 10;
             gameManager.setMoney(0);
@@ -117,7 +117,7 @@ public class ChrisTest {
          * the seed in inventory
          *
          */
-        @Test
+        /*@Test
         public void testSellProduct () throws Exception {
             PlatformImpl.startup(() -> {
             });
@@ -127,5 +127,5 @@ public class ChrisTest {
             MarketListing.sellProduct(CropTypes.CORN, gameManager, price);
             assertEquals(0, gameManager.getInventory().getStorageSize());
             assertEquals(50 + price, gameManager.getMoney().intValue());
-        }
+        } */
     }
