@@ -4,6 +4,8 @@ package main.market;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
 import main.inventory.inventoryItems.Seed;
+import main.util.AlertUser;
+import main.util.UIManager;
 import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 import main.inventory.inventoryItems.InventoryItem;
@@ -72,5 +74,42 @@ public class Market implements NewDayListener {
      */
     public ArrayList<InventoryItem> getMarketListings() {
         return listings;
+    }
+
+    public static void buySeed(CropTypes type, GameManager gameManager, int price) {
+        try {
+            if (gameManager.getMoney() >= price) {
+                gameManager.getInventory().putSeed(type);
+                int money = gameManager.getMoney() - price;
+                gameManager.setMoney(money);
+                UIManager.getInstance().pushUIUpdate();
+            } else {
+                AlertUser.alertUser("Do not have enough money");
+            }
+        } catch (Exception e) {
+            AlertUser.alertUser("Do not have enough space");
+        }
+    }
+
+    public static void sellSeed(CropTypes type, GameManager gameManager, int price) {
+        try {
+            gameManager.getInventory().removeSeed(type);
+            int money = gameManager.getMoney() + price;
+            gameManager.setMoney(money);
+            UIManager.getInstance().pushUIUpdate();
+        } catch (Exception e) {
+            AlertUser.alertUser("Do not have seed");
+        }
+    }
+
+    public static void sellProduct(CropTypes type, GameManager gameManager, int price) {
+        try {
+            gameManager.getInventory().removeProduct(type);
+            int newMoney = gameManager.getMoney() + price;
+            gameManager.setMoney(newMoney);
+            UIManager.getInstance().pushUIUpdate();
+        } catch (Exception e) {
+            AlertUser.alertUser("You do not have that product in your inventory");
+        }
     }
 }

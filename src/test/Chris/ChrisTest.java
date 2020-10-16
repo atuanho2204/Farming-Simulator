@@ -6,6 +6,7 @@ import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.inventory.inventoryItems.InventoryItem;
 import main.inventory.inventoryItems.Seed;
+import main.market.Market;
 import main.market.marketListing.MarketListing;
 import main.util.crops.CropTypes;
 import org.junit.Before;
@@ -25,22 +26,30 @@ public class ChrisTest {
         gameManager = new GameManager(0);
         controller = new InventoryUIController();
         inventory = new Inventory(controller);
+        PlatformImpl.startup(() -> {
+        });
         gameManager.setInventory(inventory);
     }
 
+<<<<<<< HEAD
     *//**
      *
+=======
+    /**
+>>>>>>> 85f8646a37dd4e8dac7e70672968266187a7d6c4
      * Test Component: test the buySeed method
      * Reason: Check to be able to buy seed from market
      * Method: set Money and then buy a seed from the
      * array list (market) and add to gameManager
+<<<<<<< HEAD
      *
      *//*
+=======
+     */
+>>>>>>> 85f8646a37dd4e8dac7e70672968266187a7d6c4
     @Test
     public void testBuySeed() throws Exception {
-        PlatformImpl.startup(() -> {
-        });
-        gameManager.setMoney(300);
+        gameManager.setMoney(100);
         ArrayList<InventoryItem> listings = gameManager.getMarket().getMarketListings();
         int price = 0;
         //Go through the listings to find price of corn
@@ -51,10 +60,11 @@ public class ChrisTest {
                 }
             }
         }
-        MarketListing.buySeed(CropTypes.WHEAT, gameManager, price);
-        assertEquals(300 - price, gameManager.getMoney().intValue());
+        Market.buySeed(CropTypes.WHEAT, gameManager, price);
+        assertEquals(100 - price, gameManager.getMoney().intValue());
     }
 
+<<<<<<< HEAD
     *//**
      *
      * Test Component: test buySeed method
@@ -71,10 +81,28 @@ public class ChrisTest {
         int price = 10;
         for (CropTypes type: CropTypes.values()) {
             MarketListing.buySeed(type, gameManager, price);
+=======
+         /**
+         * Test Component: test buySeed method
+         * with no money
+         * Reason: Check to be able to buy seed from market
+         * Method: set no money and try to buy seed
+         * for a price with no money
+         *
+         */
+        @Test
+        public void testBuySeedWithOutMoney () {
+            //purpose is to test given 0 money
+            gameManager.setMoney(0);
+            int price = 10;
+            for (CropTypes type : CropTypes.values()) {
+                MarketListing.buySeed(type, gameManager, price);
+            }
+            assertEquals(0, gameManager.getMoney().intValue());
+>>>>>>> 85f8646a37dd4e8dac7e70672968266187a7d6c4
         }
-        assertEquals(0, gameManager.getMoney().intValue());
-    }
 
+<<<<<<< HEAD
     *//**
      *
      * Test Component: test the sellSeed method
@@ -129,3 +157,62 @@ public class ChrisTest {
         assertEquals(50 + price, gameManager.getMoney().intValue());
     }
 }*/
+=======
+        /**
+         * Test Component: test the sellSeed method
+         * Reason: Check to be able to sell seed from inventory
+         * Method: given a price, sell seed from market given
+         * the seed in inventory
+         *
+         */
+        @Test
+        public void testSellSeed () throws Exception {
+            int price = 0;
+            gameManager.getInventory().putSeed(CropTypes.CORN);
+            MarketListing.sellSeed(CropTypes.CORN, gameManager, price);
+            assertEquals(0, gameManager.getInventory().getStorageSize());
+        }
+
+        /**
+         *
+         * Test Component: test sellSeed method
+         * Reason: Check to be able sell a seed tht is not in
+         * your current inventory
+         * Method: given a price for the seed, set inventory and
+         * sell Cotton given it is null in inventory
+         *
+         */
+        @Test
+        public void testSellSeedWithoutSeed () throws Exception {
+            int price = 10;
+            gameManager.setMoney(0);
+            gameManager.setInventory(inventory);
+            gameManager.getInventory().putSeed(CropTypes.CORN);
+            Market.sellSeed(CropTypes.COTTON, gameManager, price);
+            gameManager.getInventory().putSeed(CropTypes.CORN);
+            MarketListing.sellSeed(CropTypes.COTTON, gameManager, price);
+            assertEquals(0, gameManager.getMoney().intValue());
+        }
+
+        /**
+         *
+         * Test Component: test the sellProduct method
+         * Reason: Check to be able to sell product from inventory
+         * Method: given a price, sell product from market given
+         * the seed in inventory
+         *
+         */
+        @Test
+        public void testSellProduct () throws Exception {
+            PlatformImpl.startup(() -> {
+            });
+            int price = 100;
+            gameManager.setMoney(50);
+            gameManager.getInventory().putProduct(CropTypes.CORN);
+            MarketListing.sellProduct(CropTypes.CORN, gameManager, price);
+            assertEquals(0, gameManager.getInventory().getStorageSize());
+            assertEquals(50 + price, gameManager.getMoney().intValue());
+        }
+    }
+
+>>>>>>> 85f8646a37dd4e8dac7e70672968266187a7d6c4
