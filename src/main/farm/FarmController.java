@@ -25,7 +25,6 @@ import main.util.crops.CropStages;
 import main.util.crops.CropTypes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -86,6 +85,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     @Override
     public void handleNewDay(NewDayEvent e) {
         setHeaderData();
+        reduceWaterLevels();
     }
 
     @Override
@@ -152,7 +152,6 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             this.plots.add(new Plot());
         }
         try {
-            //plotHolder = getRandomPlots(Arrays.asList(CropTypes.values()));
             plotHolder = getRandomPlots(GameManager.getInstance().getSeeds());
             farmPlots.getChildren().add(plotHolder);
         } catch (Exception e) {
@@ -186,6 +185,37 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     public void updatePlotUI(Plot plot) {
         int index = plotsToUIIndex.get(plot);
         plotHolder.getChildren().set(index, PlotUI.getPlotUI(plot, this));
+    }
+
+    private void reduceWaterLevels() {
+        try {
+            Platform.runLater(() -> {
+                for (Plot plot : plots) {
+                    int maxLevel = plot.getMaxWater();
+                    if (plot.getCurrentWater() % maxLevel == 0) {
+                        continue;
+                    }
+                    if (plot.getCurrentWater() >= 3) {
+                        plot.setCurrentWater(plot.getCurrentWater() - 2);
+                        if (plot.getCurrentWater() == 7) {
+                            plot.getWaterBar().setStyle("-fx-accent: #00BFFF;"); // blue
+                        }
+                        if (plot.getCurrentWater() == 1 || plot.getCurrentWater() == 2) {
+                            plot.getWaterBar().setStyle("-fx-accent: #FFD700;"); // yellow
+                        }
+                    } else {
+                        plot.setCurrentWater(0);
+                        if (plot.getCurrentCrop() != null) {
+                            plot.getCurrentCrop().setCropStage(CropStages.DEAD);
+                        }
+                    }
+                    plot.getWaterBar().setProgress(plot.getCurrentWater() * 1.0 / maxLevel);
+                    updatePlotUI(plot);
+                }
+            });
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
