@@ -248,7 +248,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             CropDetails details = CropCatalog.getInstance().getCropDetails(type);
             int growthTime = details.getGrowthTime();
             int currentDay = GameManager.getInstance().getDay();
-            if (currentDay - plantDay >= 1) {
+            if ((currentDay - plantDay) % growthTime == 0) {
                 if (stage == CropStages.DEAD) {
                     continue;
                 } else if (stage == CropStages.SPROUTING) {
