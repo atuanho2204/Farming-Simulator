@@ -86,6 +86,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     public void handleNewDay(NewDayEvent e) {
         setHeaderData();
         reduceWaterLevels();
+        updateGrowthCycle();
     }
 
     @Override
@@ -232,4 +233,5 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     public List<Plot> getPlots() {
         return plots;
     }
+    
 }
