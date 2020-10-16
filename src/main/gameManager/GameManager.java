@@ -28,7 +28,6 @@ public class GameManager implements NewDayListener {
     private GameManager() {
         this.timeAdvancer = new TimeAdvancer(0);
         this.timeAdvancer.addListener(this);
-
     }
 
     public static GameManager getInstance() {
