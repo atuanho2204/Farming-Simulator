@@ -244,7 +244,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             }
             CropTypes type = plot.getCurrentCrop().getType();
             CropStages stage = plot.getCurrentCrop().getStage();
-            int plantDay = plot.getPlantDay();
+            int plantDay = plot.getCurrentCrop().getPlantDay();
             CropDetails details = CropCatalog.getInstance().getCropDetails(type);
             int growthTime = details.getGrowthTime();
             int currentDay = GameManager.getInstance().getDay();

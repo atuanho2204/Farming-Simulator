@@ -3,6 +3,7 @@ package main.util.crops;
 public class Crop {
     private CropTypes type;
     private CropStages stage;
+    private int plantDay = 0;
 
     public Crop(CropTypes type) {
         this.type = type;
@@ -29,4 +30,8 @@ public class Crop {
     public void setType(CropTypes type) {
         this.type = type;
     }
+
+    public void setPlantDay(int day) { this.plantDay = day; }
+
+    public int getPlantDay() { return this.plantDay; }
 }

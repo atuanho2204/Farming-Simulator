@@ -25,10 +25,10 @@ public class CropCatalog {
 
     private void setCatalogs() {
         cropsToDetails = new HashMap<>();
-        cropsToDetails.put(CropTypes.CORN, new CropDetails(10, 20, 2));
-        cropsToDetails.put(CropTypes.WHEAT, new CropDetails(5, 10, 1));
+        cropsToDetails.put(CropTypes.CORN, new CropDetails(10, 20, 4));
+        cropsToDetails.put(CropTypes.WHEAT, new CropDetails(5, 10, 2));
         cropsToDetails.put(CropTypes.LETTUCE, new CropDetails(10, 15, 3));
-        cropsToDetails.put(CropTypes.COTTON, new CropDetails(3, 7, 2));
+        cropsToDetails.put(CropTypes.COTTON, new CropDetails(3, 7, 1));
     }
 
     public CropDetails getCropDetails(CropTypes type) {
