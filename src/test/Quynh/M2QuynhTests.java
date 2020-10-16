@@ -1,18 +1,9 @@
 package test.Quynh;
 
 import main.configurationScreen.ConfigSceneController;
-<<<<<<< HEAD
-import main.gameManager.GameManager;
-=======
-import main.util.crops.CropTypes;
->>>>>>> origin/skaat
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class M2QuynhTests {
-    private GameManager gameManager;
 
     /**
      *
@@ -42,11 +33,11 @@ public class M2QuynhTests {
      *    an error will pop up with the message “Your name must have at least 1 character.”
      *
      */
-    @Test (expected = ExceptionInInitializerError.class)
+    /*@Test (expected = ExceptionInInitializerError.class)
     public void testNameOfEmptyString() {
         List<CropTypes> seeds =  new ArrayList<>();
         seeds.add(CropTypes.COTTON);
         ConfigSceneController configScene1 = new ConfigSceneController(
                 1, "", seeds, "fall");
-    }
+    }*/
 }
