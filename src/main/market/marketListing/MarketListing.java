@@ -9,12 +9,9 @@ import main.inventory.inventoryItems.InventoryItem;
 import main.inventory.inventoryItems.Seed;
 import main.market.Market;
 import javafx.scene.paint.Color;
-import main.util.AlertUser;
-import main.util.UIManager;
-import main.util.crops.CropTypes;
 
 public class MarketListing {
-    public static HBox getListingUI(InventoryItem listing, GameManager gameManager) {
+    public static HBox getListingUI(InventoryItem listing) {
         HBox hBox = new HBox();
         Text text = new Text(listing.getName() + ":");
         text.setFill(Color.WHITE);
@@ -31,16 +28,16 @@ public class MarketListing {
             Button buy = new Button("Buy");
             buy.setTextFill(Color.GREEN);
             buy.setOnAction(e -> {
-                Market.buySeed(((Seed) listing).getType(), gameManager, listing.getBuyCost());
+                Market.buySeed(((Seed) listing).getType(), listing.getBuyCost());
             });
             hBox.getChildren().add(buy);
             sell.setOnAction(e -> {
-                Market.sellSeed(((Seed) listing).getType(), gameManager, listing.getSellCost());
+                Market.sellSeed(((Seed) listing).getType(), listing.getSellCost());
             });
         } else if (listing instanceof HarvestedCrop) {
             sell.setOnAction(e -> {
                 Market.sellProduct((
-                        (HarvestedCrop) listing).getType(), gameManager, listing.getSellCost());
+                        (HarvestedCrop) listing).getType(), listing.getSellCost());
             });
         } else {
             Text warning = new Text("\tThis probably shouldn't be here\t\t");
@@ -52,42 +49,4 @@ public class MarketListing {
 
         return hBox;
     }
-
-    public static void buySeed(CropTypes type, GameManager gameManager, int price) {
-        try {
-            if (gameManager.getMoney() >= price) {
-                gameManager.getInventory().putSeed(type);
-                int money = gameManager.getMoney() - price;
-                gameManager.setMoney(money);
-                UIManager.getInstance().pushUIUpdate();
-            } else {
-                AlertUser.alertUser("Do not have enough money");
-            }
-        } catch (Exception e) {
-            AlertUser.alertUser("Do not have enough space");
-        }
-    }
-
-    public static void sellSeed(CropTypes type, GameManager gameManager, int price) {
-        try {
-            gameManager.getInventory().removeSeed(type);
-            int money = gameManager.getMoney() + price;
-            gameManager.setMoney(money);
-            UIManager.getInstance().pushUIUpdate();
-        } catch (Exception e) {
-            AlertUser.alertUser("Do not have seed");
-        }
-    }
-
-    public static void sellProduct(CropTypes type, GameManager gameManager, int price) {
-        try {
-            gameManager.getInventory().removeProduct(type);
-            int newMoney = gameManager.getMoney() + price;
-            gameManager.setMoney(newMoney);
-            UIManager.getInstance().pushUIUpdate();
-        } catch (Exception e) {
-            AlertUser.alertUser("You do not have that product in your inventory");
-        }
-    }
-
 }

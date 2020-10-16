@@ -76,12 +76,12 @@ public class Market implements NewDayListener {
         return listings;
     }
 
-    public static void buySeed(CropTypes type, GameManager gameManager, int price) {
+    public static void buySeed(CropTypes type, int price) {
         try {
-            if (gameManager.getMoney() >= price) {
-                gameManager.getInventory().putSeed(type);
-                int money = gameManager.getMoney() - price;
-                gameManager.setMoney(money);
+            if (GameManager.getInstance().getMoney() >= price) {
+                GameManager.getInstance().getInventory().putSeed(type);
+                int money = GameManager.getInstance().getMoney() - price;
+                GameManager.getInstance().setMoney(money);
                 UIManager.getInstance().pushUIUpdate();
             } else {
                 AlertUser.alertUser("Do not have enough money");
@@ -91,22 +91,22 @@ public class Market implements NewDayListener {
         }
     }
 
-    public static void sellSeed(CropTypes type, GameManager gameManager, int price) {
+    public static void sellSeed(CropTypes type, int price) {
         try {
-            gameManager.getInventory().removeSeed(type);
-            int money = gameManager.getMoney() + price;
-            gameManager.setMoney(money);
+            GameManager.getInstance().getInventory().removeSeed(type);
+            int money = GameManager.getInstance().getMoney() + price;
+            GameManager.getInstance().setMoney(money);
             UIManager.getInstance().pushUIUpdate();
         } catch (Exception e) {
             AlertUser.alertUser("Do not have seed");
         }
     }
 
-    public static void sellProduct(CropTypes type, GameManager gameManager, int price) {
+    public static void sellProduct(CropTypes type, int price) {
         try {
-            gameManager.getInventory().removeProduct(type);
-            int newMoney = gameManager.getMoney() + price;
-            gameManager.setMoney(newMoney);
+            GameManager.getInstance().getInventory().removeProduct(type);
+            int newMoney = GameManager.getInstance().getMoney() + price;
+            GameManager.getInstance().setMoney(newMoney);
             UIManager.getInstance().pushUIUpdate();
         } catch (Exception e) {
             AlertUser.alertUser("You do not have that product in your inventory");
