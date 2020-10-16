@@ -11,7 +11,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class SeanTest {
-    private GameManager gameManager;
     private final int waitTime = 100; //milliseconds
     private final int day = 0;
 
@@ -20,7 +19,7 @@ public class SeanTest {
      */
     @Before
     public void setup() {
-        gameManager = new GameManager(day);
+        GameManager.getInstance();
         TimeAdvancer.setNewDayWait(waitTime);
     }
 
@@ -29,7 +28,7 @@ public class SeanTest {
      */
     @Test
     public void testDayIncrement() {
-        gameManager.getTimeAdvancer().startTime();
+        GameManager.getInstance().getTimeAdvancer().startTime();
         waitDay(1);
         waitDay(2);
         waitDay(3);
@@ -40,9 +39,9 @@ public class SeanTest {
      */
     @Test
     public void testStopTime() {
-        gameManager.getTimeAdvancer().startTime();
+        GameManager.getInstance().getTimeAdvancer().startTime();
         waitDay(1);
-        gameManager.getTimeAdvancer().pauseTime();
+        GameManager.getInstance().getTimeAdvancer().pauseTime();
         waitDay(1);
         waitDay(1);
     }
@@ -52,10 +51,10 @@ public class SeanTest {
      */
     @Test
     public void testListenToNewDay() {
-        gameManager.getTimeAdvancer().startTime();
+        GameManager.getInstance().getTimeAdvancer().startTime();
         final int[] count = {0};
         NewDayListener newDayListener = e -> count[0]++;
-        gameManager.getTimeAdvancer().addListener(newDayListener);
+        GameManager.getInstance().getTimeAdvancer().addListener(newDayListener);
         waitDay(1);
         assertEquals(1, count[0]);
     }
@@ -77,13 +76,13 @@ public class SeanTest {
      */
     @Test
     public void testGameManagerFields() {
-        assertNotNull(gameManager.getTimeAdvancer());
-        assertNotNull(gameManager.getMarket());
-        assertNotNull(gameManager.getSeeds());
-        assertEquals("", gameManager.getName());
-        assertEquals(day, gameManager.getDay().intValue());
-        assertEquals(0, gameManager.getMoney().intValue());
-        assertEquals(1, gameManager.getDifficulty().intValue());
+        assertNotNull(GameManager.getInstance().getTimeAdvancer());
+        assertNotNull(GameManager.getInstance().getMarket());
+        assertNotNull(GameManager.getInstance().getSeeds());
+        assertEquals("", GameManager.getInstance().getName());
+        assertEquals(day, GameManager.getInstance().getDay().intValue());
+        assertEquals(0, GameManager.getInstance().getMoney().intValue());
+        assertEquals(1, GameManager.getInstance().getDifficulty().intValue());
     }
 
 
@@ -99,6 +98,6 @@ public class SeanTest {
             System.out.println(e.getMessage());
         }
         System.out.println("Passed time: " + (System.currentTimeMillis() - time));
-        assertEquals(expect, gameManager.getDay().intValue());
+        assertEquals(expect, GameManager.getInstance().getDay().intValue());
     }
 }

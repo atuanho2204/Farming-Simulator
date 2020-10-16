@@ -1,8 +1,8 @@
 package main.inventory;
 
-import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.InventoryItem;
+import main.util.UIManager;
 import main.util.crops.CropTypes;
 
 import java.util.ArrayList;
@@ -11,34 +11,17 @@ import java.util.NoSuchElementException;
 
 public class Inventory {
 
-    private GameManager gameManager;
-    private Stage primaryStage;
     private int storageLimit = 20;
     private HashMap<CropTypes, Integer> productStorage;
     private HashMap<CropTypes, Integer> seedStorage;
-    private InventoryUIController inventoryController;
 
-    public Inventory(InventoryUIController controller) {
+
+    public Inventory(boolean storeOriginalSeeds) {
         this.productStorage = new HashMap<>();
         this.seedStorage = new HashMap<>();
-        this.inventoryController = controller;
-    }
-
-    public Inventory(GameManager gameMan, Stage stage, InventoryUIController controller) {
-        this.gameManager = gameMan;
-        this.primaryStage = stage;
-        this.inventoryController = controller;
-        this.productStorage = new HashMap<>();
-        this.seedStorage = new HashMap<>();
-        for (String type : gameManager.getSeeds()) {
-            if (type == "corn") {
-                seedStorage.put(CropTypes.CORN, 2);
-            } else if (type == "wheat") {
-                seedStorage.put(CropTypes.WHEAT, 2);
-            } else if (type == "cotton") {
-                seedStorage.put(CropTypes.COTTON, 2);
-            } else if (type == "lettuce") {
-                seedStorage.put(CropTypes.LETTUCE, 2);
+        if (storeOriginalSeeds) {
+            for (CropTypes type : GameManager.getInstance().getSeeds()) {
+                seedStorage.put(type, 2);
             }
         }
     }
@@ -48,7 +31,7 @@ public class Inventory {
             throw new Exception();
         } else {
             seedStorage.put(type, seedStorage.getOrDefault(type, 0) + 1);
-            inventoryController.setInventoryListings();
+            UIManager.getInstance().pushUIUpdate();
         }
     }
 
@@ -61,7 +44,7 @@ public class Inventory {
             } else {
                 seedStorage.put(type, seedStorage.get(type) - 1);
             }
-            inventoryController.setInventoryListings();
+            UIManager.getInstance().pushUIUpdate();
         }
     }
 
@@ -71,7 +54,7 @@ public class Inventory {
             throw new Exception();
         } else {
             productStorage.put(type, productStorage.getOrDefault(type, 0) + 1);
-            inventoryController.setInventoryListings();
+            UIManager.getInstance().pushUIUpdate();
         }
     }
 
@@ -84,7 +67,7 @@ public class Inventory {
             } else {
                 productStorage.put(type, productStorage.get(type) - 1);
             }
-            inventoryController.setInventoryListings();
+            UIManager.getInstance().pushUIUpdate();
         }
     }
 
