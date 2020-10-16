@@ -5,11 +5,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import main.farm.plot.Plot;
+import main.farm.plot.PlotUI;
 import main.gameManager.GameManager;
-import main.util.AlertUser;
 import main.util.UIManager;
 import main.util.customEvents.ForceUIUpdate;
 import main.util.customEvents.ForceUIUpdateListener;
@@ -22,6 +25,7 @@ import main.util.crops.CropStages;
 import main.util.crops.CropTypes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -29,12 +33,13 @@ import java.util.List;
  */
 public class FarmController implements NewDayListener, ForceUIUpdateListener {
     private Stage primaryStage;
-    private GameManager gameManager;
     private final int numOfPlots = 12;
     private List<Plot> plots = new ArrayList<>(numOfPlots);
+    private HashMap<Plot, Integer> plotsToUIIndex = new HashMap<>();
+    private TilePane plotHolder;
 
     @FXML
-    private Pane farmPlots;
+    private HBox farmPlots;
     @FXML
     private Pane marketHolder;
     @FXML
@@ -49,33 +54,38 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
 
     /**
      * Constructs the Farm Scene.
+     *
      * @param primaryStage ...
-     * @param gameManager ...
      */
-    public void construct(Stage primaryStage, GameManager gameManager) {
+    public void construct(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.gameManager = gameManager;
+
+        setHeaderData();
+        if (GameManager.getInstance().getName().equals("Super Farmer")) {
+            GameManager.getInstance().setMoney((1000));
+        } else {
+            GameManager.getInstance().setMoney(40 * GameManager.getInstance().getDifficulty());
+        }
+        //listen to forcedUIUpdates
+        UIManager.getInstance().addListener(this);
+        //listen to newDay
+        GameManager.getInstance().getTimeAdvancer().addListener(this);
+        GameManager.getInstance().getTimeAdvancer().startTime();
+
+        //create inventory
+        GameManager.getInstance().setInventory(new Inventory(true));
+
+        //add market and inventoryUI & controllers
+        marketHolder.getChildren().add(new Pane(getMarketUI()));
+        inventoryHolder.getChildren().add(new Pane(getInventoryUI()));
 
         initializePlots();
-        setHeaderData();
-        if (gameManager.getName().equals("Super Farmer")) {
-            gameManager.setMoney((1000));
-        } else {
-            gameManager.setMoney(40 * gameManager.getDifficulty());
-        }
-        UIManager.getInstance().addListener(this);
-        gameManager.getTimeAdvancer().addListener(this);
-        gameManager.getTimeAdvancer().startTime();
-        farmPlots.getChildren().add(
-                new Pane(populatePlotsRandomly(gameManager.getSeeds())));
-        marketHolder.getChildren().add(new Pane(getMarketUI()));
-        //also sets inventory globally
-        inventoryHolder.getChildren().add(new Pane(getInventoryUI()));
     }
 
     @Override
     public void handleNewDay(NewDayEvent e) {
         setHeaderData();
+        reduceWaterLevels();
     }
 
     @Override
@@ -92,11 +102,11 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             );
             Parent parent = loader.load();
             MarketUIController controller = loader.getController();
-            controller.construct(primaryStage, gameManager);
+            controller.construct(primaryStage);
             return parent;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-
+            e.printStackTrace();
             return null;
         }
     }
@@ -110,13 +120,11 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             );
             Parent parent = loader.load();
             InventoryUIController controller = loader.getController();
-            gameManager.setInventory(new Inventory(gameManager, primaryStage, controller));
-            //sets the global inventory
-            controller.construct(primaryStage, gameManager);
+            controller.construct(primaryStage);
             return parent;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-
+            e.printStackTrace();
             return null;
         }
     }
@@ -125,17 +133,13 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
         try {
             Platform.runLater(() -> {
                 if (difficultyLevel != null) {
-                    difficultyLevel.setText("Name: " + gameManager.getName());
+                    difficultyLevel.setText("Name: " + GameManager.getInstance().getName());
                 }
-            });
-            Platform.runLater(() -> {
                 if (currentDate != null) {
-                    currentDate.setText("Day: " + gameManager.getDay());
+                    currentDate.setText("Day: " + GameManager.getInstance().getDay());
                 }
-            });
-            Platform.runLater(() -> {
                 if (startingMoney != null) {
-                    startingMoney.setText("Money: " + gameManager.getMoney());
+                    startingMoney.setText("Money: " + GameManager.getInstance().getMoney());
                 }
             });
         } catch (Exception e) {
@@ -146,63 +150,83 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     public void initializePlots() {
         for (int i = 0; i < numOfPlots; ++i) {
             this.plots.add(new Plot());
-            this.plots.get(i).getPlotButton().setStyle("-fx-background-color: #18a734;"
-                    + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
-                    + "-fx-font-size: 14px; -fx-min-width: 100px;");
+        }
+        try {
+            plotHolder = getRandomPlots(GameManager.getInstance().getSeeds());
+            farmPlots.getChildren().add(plotHolder);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
-    public Pane populatePlotsRandomly(List<String> seeds) {
-        TilePane plotGrid = new TilePane();
-        plotGrid.setPrefWidth(880);
-        plotGrid.setPrefTileHeight(200);
-        plotGrid.setPrefTileWidth(220);
-        int numOfSeedTypes = seeds.size();
-        int numOfStages = CropStages.values().length;
-        for (int i = 0; i < numOfPlots; ++i) {
-            int randomCrop = (int) (Math.random() * 100) % numOfSeedTypes;
-            int randomStage = (int) (Math.random() * 100) % numOfStages;
-            String seed = seeds.get(randomCrop).toUpperCase();
-            //uiPlots.get(i).setPrefSize(20,20);
-            /*uiPlots.get(i).setGraphic(
-                    new ImageView(new Image("main/images/Untitled_Artwork.jpg")));*/
-            Plot currPlot = plots.get(i);
-            currPlot.getCurrentCrop().setType(CropTypes.valueOf(seed));
-            currPlot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
-            currPlot.getPlotButton().setText(
-                    plots.get(i).getCurrentCrop().getType().toString()
-                            + "\n" + plots.get(i).getCurrentCrop().getStage().toString()
-            );
-            currPlot.getPlotButton().setOnAction(actionEvent -> {
-                if (currPlot.getCurrentCrop().getStage() == CropStages.DEAD) {
-                    currPlot.getPlotButton().setText("Empty &\nlonely..");
-                    currPlot.getCurrentCrop().setType(null);
-                    currPlot.getCurrentCrop().setCropStage(null);
-                } else if (currPlot.getCurrentCrop().getStage() == CropStages.MATURE) {
-                    try {
-                        gameManager.getInventory().putProduct(
-                                currPlot.getCurrentCrop().getType());
-                        currPlot.getPlotButton().setText("Empty &\nlonely..");
-                        currPlot.getCurrentCrop().setType(null);
-                        currPlot.getCurrentCrop().setCropStage(null);
-                    } catch (Exception e) {
-                        AlertUser.alertUser("Storage is full!!!");
-                    }
-                }
-            });
-            plotGrid.getChildren().add(currPlot.getPlotButton());
+
+    public TilePane getRandomPlots(List<CropTypes> seeds) {
+        TilePane plotGrid = PlotUI.getPlotHolderUI();
+        for (int i = 0; i < plots.size(); i++) {
+            Plot plot = plots.get(i);
+            int randomCrop = (int) (Math.random() * 100) % seeds.size();
+            int randomStage = (int) (Math.random() * 100) % CropStages.values().length;
+            plot.getCurrentCrop().setType(seeds.get(randomCrop));
+            plot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
+
+            VBox uiComponent = PlotUI.getPlotUI(plot, this);
+
+            plotGrid.getChildren().add(uiComponent);
+            //now we add it to the hashMap as well
+            plotsToUIIndex.put(plot, i);
         }
         return plotGrid;
     }
 
+    /**
+     * Updates a given plot's UI.
+     * @param plot the plot to render based on
+     */
+    public void updatePlotUI(Plot plot) {
+        int index = plotsToUIIndex.get(plot);
+        plotHolder.getChildren().set(index, PlotUI.getPlotUI(plot, this));
+    }
+
+    private void reduceWaterLevels() {
+        try {
+            Platform.runLater(() -> {
+                for (Plot plot : plots) {
+                    int maxLevel = plot.getMaxWater();
+                    if (plot.getCurrentWater() % maxLevel == 0) {
+                        continue;
+                    }
+                    if (plot.getCurrentWater() >= 3) {
+                        plot.setCurrentWater(plot.getCurrentWater() - 2);
+                        if (plot.getCurrentWater() == 7) {
+                            plot.getWaterBar().setStyle("-fx-accent: #00BFFF;"); // blue
+                        }
+                        if (plot.getCurrentWater() == 1 || plot.getCurrentWater() == 2) {
+                            plot.getWaterBar().setStyle("-fx-accent: #FFD700;"); // yellow
+                        }
+                    } else {
+                        plot.setCurrentWater(0);
+                        if (plot.getCurrentCrop() != null) {
+                            plot.getCurrentCrop().setCropStage(CropStages.DEAD);
+                        }
+                    }
+                    plot.getWaterBar().setProgress(plot.getCurrentWater() * 1.0 / maxLevel);
+                    updatePlotUI(plot);
+                }
+            });
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     @FXML
     public void handlePauseButton() {
-        gameManager.getTimeAdvancer().pauseTime();
+        GameManager.getInstance().getTimeAdvancer().pauseTime();
     }
 
     @FXML
     public void handleQuitButton() {
         primaryStage.close();
-        gameManager.getTimeAdvancer().pauseTime();
+        GameManager.getInstance().getTimeAdvancer().pauseTime();
     }
 
     public List<Plot> getPlots() {

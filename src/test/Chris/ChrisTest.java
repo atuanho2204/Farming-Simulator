@@ -129,4 +129,3 @@ public class ChrisTest {
             assertEquals(50 + price, gameManager.getMoney().intValue());
         }
     }
-
