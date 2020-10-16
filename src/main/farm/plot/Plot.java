@@ -12,7 +12,7 @@ public class Plot {
     private int currentWater = 5;
     private final int maxWater = 10;
     private ProgressBar waterBar;
-    private GrowthCycle currentState;
+    private int plantDay = 0;
 
     public Plot() {
         // random water level from 4 to 8
@@ -94,4 +94,14 @@ public class Plot {
     public ProgressBar getWaterBar() {
         return waterBar;
     }
+
+    //
+    public void setPlantDay(int day) {
+        this.plantDay = day;
+    }
+
+    public int getPlantDay() {
+        return plantDay;
+    }
+
 }

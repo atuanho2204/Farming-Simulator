@@ -14,6 +14,8 @@ import main.farm.plot.Plot;
 import main.farm.plot.PlotUI;
 import main.gameManager.GameManager;
 import main.util.UIManager;
+import main.util.crops.CropCatalog;
+import main.util.crops.CropDetails;
 import main.util.customEvents.ForceUIUpdate;
 import main.util.customEvents.ForceUIUpdateListener;
 import main.util.customEvents.NewDayListener;
@@ -86,6 +88,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     public void handleNewDay(NewDayEvent e) {
         setHeaderData();
         reduceWaterLevels();
+        updateGrowthCycle();
     }
 
     @Override
@@ -231,5 +234,31 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
 
     public List<Plot> getPlots() {
         return plots;
+    }
+
+    public void updateGrowthCycle() {
+        for (Plot plot: plots) {
+            if (plot.getCurrentCrop() == null) {
+                continue;
+            }
+            CropTypes type = plot.getCurrentCrop().getType();
+            CropStages stage = plot.getCurrentCrop().getStage();
+            int plantDay = plot.getPlantDay();
+            CropDetails details = CropCatalog.getInstance().getCropDetails(type);
+            int growthTime = details.getGrowthTime();
+            int currentDay = GameManager.getInstance().getDay();
+            if (currentDay - plantDay >= growthTime) {
+                if (stage == CropStages.DEAD) {
+                    continue;
+                } else if (stage == CropStages.SPROUTING) {
+                    plot.getCurrentCrop().setCropStage(CropStages.IMMATURE);
+                } else if (stage == CropStages.IMMATURE) {
+                    plot.getCurrentCrop().setCropStage(CropStages.MATURE);
+                } else if (stage == CropStages.MATURE) {
+                    plot.getCurrentCrop().setCropStage(CropStages.DEAD);
+                }
+            }
+
+        }
     }
 }
