@@ -37,23 +37,29 @@ public class PlotUI {
         Text text1 = new Text();
         if (plot.getCurrentCrop() == null) {
             text1.setText("empty & lonely..");
+            text1.setFill(Color.BLACK);
         } else if (plot.getCurrentCrop().getStage() == CropStages.DEAD) {
             text1.setText("dead");
+            text1.setFill(Color.RED);
         } else if (plot.getCurrentCrop().getStage() == CropStages.SPROUTING) {
             text1.setText("sprouting");
+            text1.setFill(Color.ORANGE);
         } else if (plot.getCurrentCrop().getStage() == CropStages.MATURE) {
             text1.setText("mature");
+            text1.setFill(Color.GREEN);
         } else { // CropStages.IMMATURE
             text1.setText("growing");
+            text1.setFill(Color.ORANGE);
         }
+
         Text text2 = new Text();
         if (plot.getCurrentCrop() == null) {
             text2.setText("dirt");
+            text2.setFill(Color.BLACK);
         } else {
             text2.setText(plot.getCurrentCrop().getType().toString());
+            text2.setFill(Color.WHITE);
         }
-        text1.setFill(Color.WHITE);
-        text2.setFill(Color.WHITE);
         text1.setStyle("-fx-font: 16 chalkduster;");
         text2.setStyle("-fx-font: 20 chalkduster;");
         vBox.getChildren().add(text2);
