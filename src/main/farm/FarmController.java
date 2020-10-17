@@ -87,7 +87,8 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     @Override
     public void handleNewDay(NewDayEvent e) {
         setHeaderData();
-        reduceWaterLevels();
+        reduceWaterLevels(GameManager.getInstance().getDifficulty(),
+                GameManager.getInstance().getSeason());
         updateGrowthCycle();
     }
 
@@ -190,21 +191,30 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
         plotHolder.getChildren().set(index, PlotUI.getPlotUI(plot, this));
     }
 
-    private void reduceWaterLevels() {
+    private void reduceWaterLevels(Integer difficulty, String season) {
+        if (GameManager.getInstance().getDay() % 2 != 0) {
+            return;
+        }
+        int waterLost = (difficulty < 3) ? 1 : 2;
+        if (season.toLowerCase().equals("summer")) {
+            ++waterLost;
+        }
         try {
+            int finalWaterLost = waterLost;
             Platform.runLater(() -> {
                 for (Plot plot : plots) {
+                    System.out.println("-----");
+                    System.out.println("Before: " + plot.getCurrentWater());
                     int maxLevel = plot.getMaxWater();
                     if (plot.getCurrentWater() % maxLevel == 0) {
                         continue;
                     }
-                    if (plot.getCurrentWater() >= 3) {
-                        plot.setCurrentWater(plot.getCurrentWater() - 2);
-                        if (plot.getCurrentWater() == 7) {
-                            plot.getWaterBar().setStyle("-fx-accent: #00BFFF;"); // blue
-                        }
-                        if (plot.getCurrentWater() == 1 || plot.getCurrentWater() == 2) {
+                    if (plot.getCurrentWater() > finalWaterLost) {
+                        plot.setCurrentWater(plot.getCurrentWater() - finalWaterLost);
+                        if (plot.getCurrentWater() < 4) {
                             plot.getWaterBar().setStyle("-fx-accent: #FFD700;"); // yellow
+                        } else if (plot.getCurrentWater() < maxLevel - 1) {
+                            plot.getWaterBar().setStyle("-fx-accent: #00BFFF;"); // blue
                         }
                     } else {
                         plot.setCurrentWater(0);
@@ -212,6 +222,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
                             plot.getCurrentCrop().setCropStage(CropStages.DEAD);
                         }
                     }
+                    System.out.println("After: " + plot.getCurrentWater());
                     plot.getWaterBar().setProgress(plot.getCurrentWater() * 1.0 / maxLevel);
                     updatePlotUI(plot);
                 }
