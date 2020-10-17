@@ -1,6 +1,7 @@
 package test.Sean;
 
 import main.gameManager.GameManager;
+import main.market.Market;
 import main.util.TimeAdvancer;
 import main.util.UIManager;
 import main.util.customEvents.ForceUIUpdateListener;
@@ -19,7 +20,6 @@ public class SeanTest {
      */
     @Before
     public void setup() {
-        GameManager.getInstance();
         TimeAdvancer.setNewDayWait(waitTime);
     }
 
@@ -28,10 +28,12 @@ public class SeanTest {
      */
     @Test
     public void testDayIncrement() {
+        GameManager.getInstance().setDay(0);
         GameManager.getInstance().getTimeAdvancer().startTime();
         waitDay(1);
         waitDay(2);
         waitDay(3);
+        GameManager.getInstance().getTimeAdvancer().pauseTime();
     }
 
     /**
@@ -39,6 +41,7 @@ public class SeanTest {
      */
     @Test
     public void testStopTime() {
+        GameManager.getInstance().setDay(0);
         GameManager.getInstance().getTimeAdvancer().startTime();
         waitDay(1);
         GameManager.getInstance().getTimeAdvancer().pauseTime();
@@ -51,12 +54,14 @@ public class SeanTest {
      */
     @Test
     public void testListenToNewDay() {
+        GameManager.getInstance().setDay(0);
         GameManager.getInstance().getTimeAdvancer().startTime();
         final int[] count = {0};
         NewDayListener newDayListener = e -> count[0]++;
         GameManager.getInstance().getTimeAdvancer().addListener(newDayListener);
         waitDay(1);
         assertEquals(1, count[0]);
+        GameManager.getInstance().getTimeAdvancer().pauseTime();
     }
 
     /**
@@ -76,13 +81,15 @@ public class SeanTest {
      */
     @Test
     public void testGameManagerFields() {
+        GameManager.getInstance().setDay(0);
         assertNotNull(GameManager.getInstance().getTimeAdvancer());
+        GameManager.getInstance().setMarket(new Market());
         assertNotNull(GameManager.getInstance().getMarket());
         assertNotNull(GameManager.getInstance().getSeeds());
         assertEquals("", GameManager.getInstance().getName());
-        assertEquals(day, GameManager.getInstance().getDay().intValue());
         assertEquals(0, GameManager.getInstance().getMoney().intValue());
         assertEquals(1, GameManager.getInstance().getDifficulty().intValue());
+        assertEquals(day, GameManager.getInstance().getDay().intValue());
     }
 
 
@@ -93,7 +100,7 @@ public class SeanTest {
     private void waitDay(int expect) {
         long time = System.currentTimeMillis();
         try {
-            Thread.sleep(waitTime + 10);
+            Thread.sleep(waitTime + 20);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
