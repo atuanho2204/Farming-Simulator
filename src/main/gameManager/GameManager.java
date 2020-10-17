@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class GameManager implements NewDayListener {
     private static GameManager instance = new GameManager();
-    private Integer day = 0;
+    private Integer day;
     private final TimeAdvancer timeAdvancer;
     private String name = "";
     private List<CropTypes> seeds = new ArrayList<>(0);
@@ -26,6 +26,7 @@ public class GameManager implements NewDayListener {
     private Inventory inventory;
 
     private GameManager() {
+        this.day = 0;
         this.timeAdvancer = new TimeAdvancer(0);
         this.timeAdvancer.addListener(this);
     }
@@ -73,6 +74,7 @@ public class GameManager implements NewDayListener {
     }
 
     public void setDay(Integer day) {
+        this.timeAdvancer.setDay(day);
         this.day = day;
     }
 

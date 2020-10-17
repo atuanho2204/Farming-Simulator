@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 public class TimeAdvancer {
     private int day;
-    private final ScheduledExecutorService executorService;
-    private static int newDayWait = 10000; //in MILLISECONDS
+    private ScheduledExecutorService executorService;
+    private static int newDayWait = 10000; //in mili-seconds
     private ArrayList<NewDayListener> listeners;
 
     public TimeAdvancer(int startDay) {
@@ -31,6 +31,7 @@ public class TimeAdvancer {
 
     public void startTime() {
         System.out.println("Time started on day: " + this.day);
+        executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(
                 this::timeStep, newDayWait, newDayWait, TimeUnit.MILLISECONDS);
     }
@@ -59,9 +60,15 @@ public class TimeAdvancer {
             }
         } catch (Exception e) {
             System.out.println("Error in timeStepping: " + e.getMessage());
-            for (StackTraceElement l : e.getStackTrace()) {
-                System.out.println(l);
-            }
+            e.printStackTrace();
         }
+    }
+
+    /**
+     * Should ONLY be called from GameManager setDay().
+     * @param day the new day
+     */
+    public void setDay(int day) {
+        this.day = day;
     }
 }
