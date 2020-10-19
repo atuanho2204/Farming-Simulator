@@ -113,12 +113,11 @@ public class PlotUI {
 
     private static Button handlePlantCrop(Plot plot, FarmController controller) {
         Button plantBut = new Button("plant");
-
-        //TODO
         plantBut.setOnAction(actionEvent -> {
             //onButtonClick
+            plot.plantSeed();
+            controller.updatePlotUI(plot);
         });
-
         // please do not change the styling below
         plantBut.setStyle("-fx-background-color: #A0522D;"
                 + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"

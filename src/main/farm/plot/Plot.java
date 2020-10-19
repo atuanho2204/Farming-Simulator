@@ -3,6 +3,7 @@ package main.farm.plot;
 import javafx.scene.control.ProgressBar;
 import main.gameManager.GameManager;
 import main.util.AlertUser;
+import main.util.UIManager;
 import main.util.crops.Crop;
 import main.util.crops.CropStages;
 import main.util.crops.CropTypes;
@@ -78,8 +79,28 @@ public class Plot {
         //its not time to harvest yet
     }
 
-    public void plantCrop() {
-        
+    /**
+     * Plants the seed in plot
+     */
+    public void plantSeed() {
+        if (currentCrop != null) {
+            //the plot is not ready to plant
+            return;
+        } else {
+            //plot is empty and ready
+            try {
+                /*if (GameManager.getInstance().getInventory() != null) {
+                    currentCrop.setType(CropTypes.WHEAT);
+                    setCurrentCrop(currentCrop);
+                } else {
+                    AlertUser.alertUser("Inventory is null");
+                }*/
+                currentCrop.setType(CropTypes.WHEAT);
+                setCurrentCrop(currentCrop);
+            } catch (Exception e) {
+                AlertUser.alertUser("Seed not available");
+            }
+        }
     }
 
     public int getMaxWater() {
