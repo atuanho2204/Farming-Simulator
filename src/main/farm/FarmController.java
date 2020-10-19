@@ -14,6 +14,8 @@ import main.farm.plot.Plot;
 import main.farm.plot.PlotUI;
 import main.gameManager.GameManager;
 import main.util.UIManager;
+import main.util.crops.CropCatalog;
+import main.util.crops.CropDetails;
 import main.util.customEvents.ForceUIUpdate;
 import main.util.customEvents.ForceUIUpdateListener;
 import main.util.customEvents.NewDayListener;
@@ -85,7 +87,9 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     @Override
     public void handleNewDay(NewDayEvent e) {
         setHeaderData();
-        reduceWaterLevels();
+        reduceWaterLevels(GameManager.getInstance().getDifficulty(),
+                GameManager.getInstance().getSeason());
+        updateGrowthCycle();
     }
 
     @Override
@@ -187,21 +191,30 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
         plotHolder.getChildren().set(index, PlotUI.getPlotUI(plot, this));
     }
 
-    private void reduceWaterLevels() {
+    private void reduceWaterLevels(Integer difficulty, String season) {
+        if (GameManager.getInstance().getDay() % 2 != 0) {
+            return;
+        }
+        int waterLost = (difficulty < 3) ? 1 : 2;
+        if (season.toLowerCase().equals("summer")) {
+            ++waterLost;
+        }
         try {
+            int finalWaterLost = waterLost;
             Platform.runLater(() -> {
                 for (Plot plot : plots) {
+                    System.out.println("-----");
+                    System.out.println("Before: " + plot.getCurrentWater());
                     int maxLevel = plot.getMaxWater();
                     if (plot.getCurrentWater() % maxLevel == 0) {
                         continue;
                     }
-                    if (plot.getCurrentWater() >= 3) {
-                        plot.setCurrentWater(plot.getCurrentWater() - 2);
-                        if (plot.getCurrentWater() == 7) {
-                            plot.getWaterBar().setStyle("-fx-accent: #00BFFF;"); // blue
-                        }
-                        if (plot.getCurrentWater() == 1 || plot.getCurrentWater() == 2) {
+                    if (plot.getCurrentWater() > finalWaterLost) {
+                        plot.setCurrentWater(plot.getCurrentWater() - finalWaterLost);
+                        if (plot.getCurrentWater() < 4) {
                             plot.getWaterBar().setStyle("-fx-accent: #FFD700;"); // yellow
+                        } else if (plot.getCurrentWater() < maxLevel - 1) {
+                            plot.getWaterBar().setStyle("-fx-accent: #00BFFF;"); // blue
                         }
                     } else {
                         plot.setCurrentWater(0);
@@ -209,6 +222,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
                             plot.getCurrentCrop().setCropStage(CropStages.DEAD);
                         }
                     }
+                    System.out.println("After: " + plot.getCurrentWater());
                     plot.getWaterBar().setProgress(plot.getCurrentWater() * 1.0 / maxLevel);
                     updatePlotUI(plot);
                 }
@@ -231,5 +245,32 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
 
     public List<Plot> getPlots() {
         return plots;
+    }
+
+
+    public void updateGrowthCycle() {
+        for (Plot plot: plots) {
+            if (plot.getCurrentCrop() == null) {
+                continue;
+            }
+            CropTypes type = plot.getCurrentCrop().getType();
+            CropStages stage = plot.getCurrentCrop().getStage();
+            int plantDay = plot.getCurrentCrop().getPlantDay();
+            CropDetails details = CropCatalog.getInstance().getCropDetails(type);
+            int growthTime = details.getGrowthTime();
+            int currentDay = GameManager.getInstance().getDay();
+            if (currentDay - plantDay > 0 && (currentDay - plantDay) % growthTime == 0) {
+                if (stage == CropStages.DEAD) {
+                    continue;
+                } else if (stage == CropStages.SPROUTING) {
+                    plot.getCurrentCrop().setCropStage(CropStages.IMMATURE);
+                } else if (stage == CropStages.IMMATURE) {
+                    plot.getCurrentCrop().setCropStage(CropStages.MATURE);
+                } else if (stage == CropStages.MATURE) {
+                    plot.getCurrentCrop().setCropStage(CropStages.DEAD);
+                }
+            }
+
+        }
     }
 }

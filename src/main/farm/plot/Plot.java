@@ -14,9 +14,9 @@ public class Plot {
     private ProgressBar waterBar;
 
     public Plot() {
-        // random water level from 4 to 8
+        // random water level from 5 to 15
         this(new Crop(CropTypes.CORN, CropStages.SPROUTING),
-                (int) (Math.random() * (8 - 4 + 1)) + 4);
+                (int) (Math.random() * (8 - 5 + 1)) + 5);
     }
 
     public Plot(Crop currentCrop, int currentWater) {
@@ -44,14 +44,14 @@ public class Plot {
         }
         currentWater++;
         if (currentWater == maxWater) {
-            waterBar.setStyle("-fx-accent: #B22222;"); // red at 10
+            waterBar.setStyle("-fx-accent: #B22222;"); // red at max
             currentCrop.setCropStage(CropStages.DEAD);
         } else if (currentWater == maxWater - 1) {
-            waterBar.setStyle("-fx-accent: #FA8072;"); // orange at 9
-        } else if (currentWater == 3) {
-            this.waterBar.setStyle("-fx-accent: #00BFFF;"); // back to blue at 3
+            waterBar.setStyle("-fx-accent: #FA8072;"); // orange at max - 1
+        } else if (currentWater == 4) {
+            this.waterBar.setStyle("-fx-accent: #00BFFF;"); // back to blue at 4
         }
-        waterBar.setProgress(currentWater  * 1.0 / maxWater);
+        waterBar.setProgress(currentWater * 1.0 / maxWater);
     }
 
     /**
@@ -97,4 +97,6 @@ public class Plot {
     public ProgressBar getWaterBar() {
         return waterBar;
     }
+
+
 }
