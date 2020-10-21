@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.farm.FarmController;
 import main.gameManager.GameManager;
-import main.market.Market;
 import main.util.AlertUser;
 import main.util.crops.CropTypes;
 
@@ -43,32 +42,18 @@ public class ConfigSceneController {
 
     private String alertMessage = "";
 
-    public ConfigSceneController() {
-        this(1, "No Name", new ArrayList<>(), "No Season");
+    public void construct(Stage primaryStage) {
+        construct(primaryStage, 1, "",
+                new ArrayList<CropTypes>(), "No season");
     }
 
-    public ConfigSceneController(Integer difficulty, String name,
-                                 List<CropTypes> seeds, String season) {
-        GameManager.getInstance().setDifficulty(difficulty);
-        GameManager.getInstance().setSeason(season);
-        GameManager.getInstance().setName(name);
-        for (CropTypes type : seeds) {
-            GameManager.getInstance().getSeeds().add(type);
-        }
-    }
-
-    public void construct(Integer difficulty, String name,
+    public void construct(Stage primaryStage, Integer difficulty, String name,
                           List<CropTypes> seeds, String season) {
+        this.stage = primaryStage;
         GameManager.getInstance().setDifficulty(difficulty);
         GameManager.getInstance().setSeason(season);
-        for (CropTypes type : seeds) {
-            GameManager.getInstance().getSeeds().add(type);
-        }
+        GameManager.getInstance().setSeeds(seeds);
         GameManager.getInstance().setName(name);
-        //wait until the gameManager is fully initialized
-        Market market = new Market();
-        GameManager.getInstance().setMarket(market);
-        GameManager.getInstance().getTimeAdvancer().addListener(market);
     }
 
     public void handleContinueButton() {

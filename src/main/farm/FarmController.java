@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import main.farm.plot.Plot;
 import main.farm.plot.PlotUI;
 import main.gameManager.GameManager;
+import main.market.Market;
 import main.util.UIManager;
 import main.util.crops.CropCatalog;
 import main.util.crops.CropDetails;
@@ -76,6 +77,11 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
 
         //create inventory
         GameManager.getInstance().setInventory(new Inventory(true));
+
+        //create market
+        Market market = new Market();
+        GameManager.getInstance().setMarket(market);
+        GameManager.getInstance().getTimeAdvancer().addListener(market);
 
         //add market and inventoryUI & controllers
         marketHolder.getChildren().add(new Pane(getMarketUI()));
