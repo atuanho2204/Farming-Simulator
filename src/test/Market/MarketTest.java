@@ -14,6 +14,9 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * @author Chris
+ */
 public class MarketTest {
 
     @Before
