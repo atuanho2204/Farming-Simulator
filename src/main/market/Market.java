@@ -22,9 +22,7 @@ public class Market implements NewDayListener {
 
     public Market() {
         this.listings = new ArrayList<>();
-
         loadListingsIntoMarket();
-
     }
 
     @Override

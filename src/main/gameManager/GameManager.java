@@ -14,24 +14,28 @@ import java.util.List;
  * The Manager of the the Totally-accurate-farm-simulator
  */
 public class GameManager implements NewDayListener {
-    private static GameManager instance = new GameManager();
+    private static GameManager instance;
     private Integer day;
     private final TimeAdvancer timeAdvancer;
     private String name = "";
     private List<CropTypes> seeds = new ArrayList<>(0);
     private String season = "";
     private Integer money = 0;
-    private Integer difficulty = 1;
+    private Integer difficulty;
     private Market market;
     private Inventory inventory;
 
     private GameManager() {
         this.day = 0;
+        this.difficulty = 1;
         this.timeAdvancer = new TimeAdvancer(0);
         this.timeAdvancer.addListener(this);
     }
 
     public static GameManager getInstance() {
+        if (instance == null) {
+            instance = new GameManager();
+        }
         return instance;
     }
 
@@ -108,5 +112,10 @@ public class GameManager implements NewDayListener {
 
     public void setMarket(Market market) {
         this.market = market;
+    }
+
+    public void clear() {
+        System.out.println("CLEARING GAMEMANAGER...ONLY TO BE DONE IN TESTS!!");
+        GameManager.instance = new GameManager();
     }
 }

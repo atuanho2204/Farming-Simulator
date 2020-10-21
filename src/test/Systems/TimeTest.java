@@ -1,18 +1,15 @@
-package test.Sean;
+package test.Systems;
 
 import main.gameManager.GameManager;
 import main.market.Market;
 import main.util.TimeAdvancer;
-import main.util.UIManager;
-import main.util.customEvents.ForceUIUpdateListener;
-import main.util.customEvents.NewDayListener;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class SeanTest {
-    private final int waitTime = 100; //milliseconds
+public class TimeTest {
+    public static final int WAIT_TIME = 100; //milliseconds
     private final int day = 0;
 
     /**
@@ -20,64 +17,38 @@ public class SeanTest {
      */
     @Before
     public void setup() {
-        TimeAdvancer.setNewDayWait(waitTime);
+        TimeAdvancer.setNewDayWait(WAIT_TIME);
+        GameManager.getInstance().clear(); //test only
     }
 
     /**
-     * Tests that the day increments every wait period.
+     * Tests that the day increments every wait period. SEAN
      */
     @Test
     public void testDayIncrement() {
         GameManager.getInstance().setDay(0);
         GameManager.getInstance().getTimeAdvancer().startTime();
-        waitDay(1);
-        waitDay(2);
-        waitDay(3);
+        waitDay(1, WAIT_TIME);
+        waitDay(2, WAIT_TIME);
+        waitDay(3, WAIT_TIME);
         GameManager.getInstance().getTimeAdvancer().pauseTime();
     }
 
     /**
-     * Tests that the day increments and can be paused.
+     * Tests that the day increments and can be paused. SEAN
      */
     @Test
     public void testStopTime() {
         GameManager.getInstance().setDay(0);
         GameManager.getInstance().getTimeAdvancer().startTime();
-        waitDay(1);
+        waitDay(1, WAIT_TIME);
         GameManager.getInstance().getTimeAdvancer().pauseTime();
-        waitDay(1);
-        waitDay(1);
+        waitDay(1, WAIT_TIME);
+        waitDay(1, WAIT_TIME);
     }
 
     /**
-     * Tests that a listener can be added to the newDay functionality.
-     */
-    @Test
-    public void testListenToNewDay() {
-        GameManager.getInstance().setDay(0);
-        GameManager.getInstance().getTimeAdvancer().startTime();
-        final int[] count = {0};
-        NewDayListener newDayListener = e -> count[0]++;
-        GameManager.getInstance().getTimeAdvancer().addListener(newDayListener);
-        waitDay(1);
-        assertEquals(1, count[0]);
-        GameManager.getInstance().getTimeAdvancer().pauseTime();
-    }
-
-    /**
-     * Tests that a listener can be added to the forcedUIUpdate functionality.
-     */
-    @Test
-    public void listenToForceUIUpdate() {
-        final int[] count = {0};
-        ForceUIUpdateListener forceUIUpdateListener = e -> count[0]++;
-        UIManager.getInstance().addListener(forceUIUpdateListener);
-        UIManager.getInstance().pushUIUpdate();
-        assertEquals(1, count[0]);
-    }
-
-    /**
-     * Tests that the gameManager maintains proper construction.
+     * Tests that the gameManager maintains proper construction. SEAN
      */
     @Test
     public void testGameManagerFields() {
@@ -92,12 +63,12 @@ public class SeanTest {
         assertEquals(day, GameManager.getInstance().getDay().intValue());
     }
 
-
     /**
-     * Waits a day and checks that the expected value is now the newDay.
+     * Waits a day and checks that the expected value is now the newDay. SEAN
      * @param expect the expected day
+     * @param waitTime the amount of time to wait for
      */
-    private void waitDay(int expect) {
+    public static void waitDay(int expect, int waitTime) {
         long time = System.currentTimeMillis();
         try {
             Thread.sleep(waitTime + 20);

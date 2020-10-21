@@ -1,9 +1,12 @@
-package test.Quynh;
+package test.Configuration;
 
 import main.configurationScreen.ConfigSceneController;
 import org.junit.Test;
 
-public class M2QuynhTests {
+/**
+ * @author Quynh
+ */
+public class ConfigurationTest1 {
 
     /**
      *

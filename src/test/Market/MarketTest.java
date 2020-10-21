@@ -1,4 +1,4 @@
-package test.Chris;
+package test.Market;
 
 import com.sun.javafx.application.PlatformImpl;
 import main.gameManager.GameManager;
@@ -14,10 +14,14 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-public class ChrisTest {
+/**
+ * @author Chris
+ */
+public class MarketTest {
 
     @Before
     public void setup() throws NullPointerException {
+        GameManager.getInstance().clear(); //test only
         PlatformImpl.startup(() -> {
             //fix TOOLKIT NOT INITIALIZED
         });
