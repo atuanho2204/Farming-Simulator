@@ -3,7 +3,6 @@ package main.market.marketListing;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
-import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
 import main.inventory.inventoryItems.InventoryItem;
 import main.inventory.inventoryItems.Seed;

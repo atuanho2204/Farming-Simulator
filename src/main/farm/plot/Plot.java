@@ -3,10 +3,12 @@ package main.farm.plot;
 import javafx.scene.control.ProgressBar;
 import main.gameManager.GameManager;
 import main.util.AlertUser;
-import main.util.UIManager;
 import main.util.crops.Crop;
 import main.util.crops.CropStages;
 import main.util.crops.CropTypes;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Plot {
     private Crop currentCrop;
@@ -89,14 +91,11 @@ public class Plot {
         } else {
             //plot is empty and ready
             try {
-                /*if (GameManager.getInstance().getInventory() != null) {
-                    currentCrop.setType(CropTypes.WHEAT);
-                    setCurrentCrop(currentCrop);
-                } else {
-                    AlertUser.alertUser("Inventory is null");
-                }*/
-                currentCrop.setType(CropTypes.WHEAT);
-                setCurrentCrop(currentCrop);
+                //Find first seed in inventory; plant seed & decrease seed inventory
+                Map<CropTypes, Integer> seedItems = GameManager.getInstance().getInventory().getListOfSeedItems();
+                CropTypes type = seedItems.entrySet().iterator().next().getKey();
+                GameManager.getInstance().getInventory().removeSeed(type);
+                currentCrop = new Crop(type);
             } catch (Exception e) {
                 AlertUser.alertUser("Seed not available");
             }
