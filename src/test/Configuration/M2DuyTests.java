@@ -1,8 +1,10 @@
-package test.Duy;
+package test.Configuration;
 
 import main.configurationScreen.ConfigSceneController;
 
+import main.gameManager.GameManager;
 import main.util.crops.CropTypes;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -11,6 +13,11 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class M2DuyTests {
+
+    @Before
+    public void setup() {
+        GameManager.getInstance().clear(); //test only
+    }
 
     /**
      * Test component: Check the season type.

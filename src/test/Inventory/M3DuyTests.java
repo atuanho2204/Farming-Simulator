@@ -1,4 +1,4 @@
-package test.Duy;
+package test.Inventory;
 
 import com.sun.javafx.application.PlatformImpl;
 import main.inventory.Inventory;

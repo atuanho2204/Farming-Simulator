@@ -109,4 +109,9 @@ public class GameManager implements NewDayListener {
     public void setMarket(Market market) {
         this.market = market;
     }
+
+    public void clear() {
+        System.out.println("CLEARING GAMEMANAGER...ONLY TO BE DONE IN TESTS!!");
+        GameManager.instance = new GameManager();
+    }
 }

@@ -1,4 +1,4 @@
-package test.Anh;
+package test.Inventory;
 
 import com.sun.javafx.application.PlatformImpl;
 import main.farm.FarmController;
@@ -19,6 +19,7 @@ public class M3AnhTests {
 
     @Before
     public void setup() {
+        GameManager.getInstance().clear();  //to be used in tests only
         PlatformImpl.startup(() -> {
             //this code serves to remove the "Toolkit not found" error
         });
