@@ -7,7 +7,6 @@ import main.util.crops.Crop;
 import main.util.crops.CropStages;
 import main.util.crops.CropTypes;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Plot {
@@ -48,7 +47,9 @@ public class Plot {
         currentWater++;
         if (currentWater == maxWater) {
             waterBar.setStyle("-fx-accent: #B22222;"); // red at max
-            currentCrop.setCropStage(CropStages.DEAD);
+            if (currentCrop != null) {
+                currentCrop.setCropStage(CropStages.DEAD);
+            }
         } else if (currentWater == maxWater - 1) {
             waterBar.setStyle("-fx-accent: #FA8072;"); // orange at max - 1
         } else if (currentWater == 4) {
@@ -92,10 +93,16 @@ public class Plot {
             //plot is empty and ready
             try {
                 //Find first seed in inventory; plant seed & decrease seed inventory
-                Map<CropTypes, Integer> seedItems = GameManager.getInstance().getInventory().getListOfSeedItems();
+                Map<CropTypes, Integer> seedItems =
+                        GameManager.getInstance().getInventory().getListOfSeedItems();
                 CropTypes type = seedItems.entrySet().iterator().next().getKey();
                 GameManager.getInstance().getInventory().removeSeed(type);
                 currentCrop = new Crop(type);
+                if (currentWater % maxWater == 0) {
+                    currentWater = 5;
+                    this.waterBar.setStyle("-fx-accent: #00BFFF;");
+                    waterBar.setProgress(currentWater * 1.0 / maxWater);
+                }
             } catch (Exception e) {
                 AlertUser.alertUser("Seed not available");
             }
