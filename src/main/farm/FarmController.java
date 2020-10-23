@@ -179,6 +179,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             plot.getCurrentCrop().setType(seeds.get(randomCrop));
             plot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
 
+
             VBox uiComponent = PlotUI.getPlotUI(plot, this);
 
             plotGrid.getChildren().add(uiComponent);
@@ -209,8 +210,8 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             int finalWaterLost = waterLost;
             Platform.runLater(() -> {
                 for (Plot plot : plots) {
-                    System.out.println("-----");
-                    System.out.println("Before: " + plot.getCurrentWater());
+                    //System.out.println("-----");
+                    //System.out.println("Before: " + plot.getCurrentWater());
                     int maxLevel = plot.getMaxWater();
                     if (plot.getCurrentWater() % maxLevel == 0) {
                         continue;
@@ -228,7 +229,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
                             plot.getCurrentCrop().setCropStage(CropStages.DEAD);
                         }
                     }
-                    System.out.println("After: " + plot.getCurrentWater());
+                    //System.out.println("After: " + plot.getCurrentWater());
                     plot.getWaterBar().setProgress(plot.getCurrentWater() * 1.0 / maxLevel);
                     updatePlotUI(plot);
                 }
@@ -265,7 +266,10 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             CropDetails details = CropCatalog.getInstance().getCropDetails(type);
             int growthTime = details.getGrowthTime();
             int currentDay = GameManager.getInstance().getDay();
+            System.out.println(plot.getCurrentCrop().getType());
+            System.out.println(currentDay - plantDay + ": " + stage);
             if (currentDay - plantDay > 0 && (currentDay - plantDay) % growthTime == 0) {
+                System.out.println("advancing stage");
                 if (stage == CropStages.DEAD) {
                     continue;
                 } else if (stage == CropStages.SPROUTING) {
@@ -275,8 +279,11 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
                 } else if (stage == CropStages.MATURE) {
                     plot.getCurrentCrop().setCropStage(CropStages.DEAD);
                 }
+                //update the plot UI
+                Platform.runLater(() -> {
+                    updatePlotUI(plot);
+                });
             }
-
         }
     }
 }
