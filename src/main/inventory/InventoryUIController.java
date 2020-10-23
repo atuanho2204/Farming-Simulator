@@ -39,6 +39,8 @@ public class InventoryUIController implements ForceUIUpdateListener {
     public void setInventoryListings() {
         ArrayList<Node> newListings = new ArrayList<>();
         try {
+            inventoryScreen.getChildren().clear();
+
             newListings.add(InventoryListing.getInfoUI(GameManager.getInstance().getInventory()));
             //go through the seeds
             HashMap<CropTypes, Integer> seeds =
@@ -72,10 +74,9 @@ public class InventoryUIController implements ForceUIUpdateListener {
                             type.name().toLowerCase(), products.get(type)));
                 }
             }
-            Platform.runLater(() -> {
-                inventoryScreen.getChildren().clear();
-                inventoryScreen.getChildren().addAll(newListings);
-            });
+            //Platform.runLater(() -> {
+            inventoryScreen.getChildren().addAll(newListings);
+            //});
         } catch (Exception e) {
             System.out.println("Error in setting inventory listings: " + e.getMessage());
             e.printStackTrace();
