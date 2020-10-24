@@ -33,7 +33,11 @@ public class Crop {
         this.type = type;
     }
 
-    public void setPlantDay(int day) { this.plantDay = day; }
+    public void setPlantDay(int day) {
+        this.plantDay = day;
+    }
 
-    public int getPlantDay() { return this.plantDay; }
+    public int getPlantDay() {
+        return this.plantDay;
+    }
 }
