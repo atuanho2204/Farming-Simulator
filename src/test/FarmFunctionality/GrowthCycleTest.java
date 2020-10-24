@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class LifeCycle {
+public class GrowthCycleTest {
     private Plot plot;
     private FarmController controller;
     private InventoryUIController inventoryUI;
