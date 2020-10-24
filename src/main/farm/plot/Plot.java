@@ -124,6 +124,4 @@ public class Plot {
     public ProgressBar getWaterBar() {
         return waterBar;
     }
-
-
 }

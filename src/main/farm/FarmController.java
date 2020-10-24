@@ -254,7 +254,6 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
         return plots;
     }
 
-
     public void updateGrowthCycle() {
         for (Plot plot: plots) {
             if (plot.getCurrentCrop() == null) {
@@ -266,10 +265,8 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             CropDetails details = CropCatalog.getInstance().getCropDetails(type);
             int growthTime = details.getGrowthTime();
             int currentDay = GameManager.getInstance().getDay();
-            System.out.println(plot.getCurrentCrop().getType());
-            System.out.println(currentDay - plantDay + ": " + stage);
+
             if (currentDay - plantDay > 0 && (currentDay - plantDay) % growthTime == 0) {
-                System.out.println("advancing stage");
                 if (stage == CropStages.DEAD) {
                     continue;
                 } else if (stage == CropStages.SPROUTING) {
@@ -284,6 +281,21 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
                     updatePlotUI(plot);
                 });
             }
+        }
+    }
+
+    public void setPlotsForTest(List<CropTypes> seeds) {
+        for (int i = 0; i < numOfPlots; ++i) {
+            this.plots.add(new Plot());
+        }
+
+        for (int i = 0; i < plots.size(); i++) {
+            Plot plot = plots.get(i);
+            int randomCrop = (int) (Math.random() * 100) % seeds.size();
+            int randomStage = (int) (Math.random() * 100) % CropStages.values().length;
+            plot.getCurrentCrop().setType(seeds.get(randomCrop));
+            plot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
+
         }
     }
 }
