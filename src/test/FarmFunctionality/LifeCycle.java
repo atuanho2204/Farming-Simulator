@@ -6,10 +6,8 @@ import main.farm.plot.Plot;
 import main.gameManager.GameManager;
 import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
-import main.util.crops.Crop;
 import main.util.crops.CropStages;
 import main.util.crops.CropTypes;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
