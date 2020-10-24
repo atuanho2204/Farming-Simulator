@@ -15,8 +15,7 @@ import main.farm.plot.PlotUI;
 import main.gameManager.GameManager;
 import main.market.Market;
 import main.util.UIManager;
-import main.util.crops.CropCatalog;
-import main.util.crops.CropDetails;
+import main.util.crops.*;
 import main.util.customEvents.ForceUIUpdate;
 import main.util.customEvents.ForceUIUpdateListener;
 import main.util.customEvents.NewDayListener;
@@ -24,8 +23,6 @@ import main.util.customEvents.NewDayEvent;
 import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
-import main.util.crops.CropStages;
-import main.util.crops.CropTypes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -253,6 +250,28 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     public List<Plot> getPlots() {
         return plots;
     }
+
+
+    public void initializeTest() {
+        plots = new ArrayList<>(4);
+        for (int i = 0; i < 4; ++i) {
+            this.plots.add(new Plot());
+        }
+        plots.get(0).getCurrentCrop().setType(CropTypes.CORN);
+        plots.get(0).getCurrentCrop().setCropStage(CropStages.MATURE);
+        plots.get(0).getCurrentCrop().setPlantDay(0);
+        plots.get(1).getCurrentCrop().setType(CropTypes.WHEAT);
+        plots.get(1).getCurrentCrop().setCropStage(CropStages.SPROUTING);
+        plots.get(1).getCurrentCrop().setPlantDay(0);
+        plots.get(2).getCurrentCrop().setType(CropTypes.LETTUCE);
+        plots.get(2).getCurrentCrop().setCropStage(CropStages.IMMATURE);
+        plots.get(2).getCurrentCrop().setPlantDay(0);
+        plots.get(3).getCurrentCrop().setType(CropTypes.COTTON);
+        plots.get(3).getCurrentCrop().setCropStage(CropStages.IMMATURE);
+        plots.get(3).getCurrentCrop().setPlantDay(0);
+
+    }
+
 
     public void updateGrowthCycle() {
         for (Plot plot: plots) {
