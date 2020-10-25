@@ -15,8 +15,7 @@ import main.farm.plot.PlotUI;
 import main.gameManager.GameManager;
 import main.market.Market;
 import main.util.UIManager;
-import main.util.crops.CropCatalog;
-import main.util.crops.CropDetails;
+import main.util.crops.*;
 import main.util.customEvents.ForceUIUpdate;
 import main.util.customEvents.ForceUIUpdateListener;
 import main.util.customEvents.NewDayListener;
@@ -24,8 +23,6 @@ import main.util.customEvents.NewDayEvent;
 import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
-import main.util.crops.CropStages;
-import main.util.crops.CropTypes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -179,6 +176,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             plot.getCurrentCrop().setType(seeds.get(randomCrop));
             plot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
 
+
             VBox uiComponent = PlotUI.getPlotUI(plot, this);
 
             plotGrid.getChildren().add(uiComponent);
@@ -209,8 +207,8 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             int finalWaterLost = waterLost;
             Platform.runLater(() -> {
                 for (Plot plot : plots) {
-                    System.out.println("-----");
-                    System.out.println("Before: " + plot.getCurrentWater());
+                    //System.out.println("-----");
+                    //System.out.println("Before: " + plot.getCurrentWater());
                     int maxLevel = plot.getMaxWater();
                     if (plot.getCurrentWater() % maxLevel == 0) {
                         continue;
@@ -228,7 +226,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
                             plot.getCurrentCrop().setCropStage(CropStages.DEAD);
                         }
                     }
-                    System.out.println("After: " + plot.getCurrentWater());
+                    //System.out.println("After: " + plot.getCurrentWater());
                     plot.getWaterBar().setProgress(plot.getCurrentWater() * 1.0 / maxLevel);
                     updatePlotUI(plot);
                 }
@@ -254,6 +252,27 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     }
 
 
+    public void initializeTest() {
+        plots = new ArrayList<>(4);
+        for (int i = 0; i < 4; ++i) {
+            this.plots.add(new Plot());
+        }
+        plots.get(0).getCurrentCrop().setType(CropTypes.CORN);
+        plots.get(0).getCurrentCrop().setCropStage(CropStages.MATURE);
+        plots.get(0).getCurrentCrop().setPlantDay(0);
+        plots.get(1).getCurrentCrop().setType(CropTypes.WHEAT);
+        plots.get(1).getCurrentCrop().setCropStage(CropStages.SPROUTING);
+        plots.get(1).getCurrentCrop().setPlantDay(0);
+        plots.get(2).getCurrentCrop().setType(CropTypes.LETTUCE);
+        plots.get(2).getCurrentCrop().setCropStage(CropStages.IMMATURE);
+        plots.get(2).getCurrentCrop().setPlantDay(0);
+        plots.get(3).getCurrentCrop().setType(CropTypes.COTTON);
+        plots.get(3).getCurrentCrop().setCropStage(CropStages.IMMATURE);
+        plots.get(3).getCurrentCrop().setPlantDay(0);
+
+    }
+
+
     public void updateGrowthCycle() {
         for (Plot plot: plots) {
             if (plot.getCurrentCrop() == null) {
@@ -265,6 +284,7 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             CropDetails details = CropCatalog.getInstance().getCropDetails(type);
             int growthTime = details.getGrowthTime();
             int currentDay = GameManager.getInstance().getDay();
+
             if (currentDay - plantDay > 0 && (currentDay - plantDay) % growthTime == 0) {
                 if (stage == CropStages.DEAD) {
                     continue;
@@ -275,7 +295,25 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
                 } else if (stage == CropStages.MATURE) {
                     plot.getCurrentCrop().setCropStage(CropStages.DEAD);
                 }
+                //update the plot UI
+                Platform.runLater(() -> {
+                    updatePlotUI(plot);
+                });
             }
+        }
+    }
+
+    public void setPlotsForTest(List<CropTypes> seeds) {
+        for (int i = 0; i < numOfPlots; ++i) {
+            this.plots.add(new Plot());
+        }
+
+        for (int i = 0; i < plots.size(); i++) {
+            Plot plot = plots.get(i);
+            int randomCrop = (int) (Math.random() * 100) % seeds.size();
+            int randomStage = (int) (Math.random() * 100) % CropStages.values().length;
+            plot.getCurrentCrop().setType(seeds.get(randomCrop));
+            plot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
 
         }
     }

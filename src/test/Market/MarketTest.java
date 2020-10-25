@@ -38,7 +38,10 @@ public class MarketTest {
     @Test
     public void testBuySeed() throws Exception {
         GameManager.getInstance().setMoney(100);
-        ArrayList<InventoryItem> listings = GameManager.getInstance().getMarket().getMarketListings();
+
+        ArrayList<InventoryItem> listings = GameManager.getInstance()
+                .getMarket().getMarketListings();
+
         int price = 0;
         //Go through the listings to find price of corn
         for (InventoryItem item : listings) {
