@@ -3,6 +3,8 @@ package test.FarmFunctionality;
 import com.sun.javafx.application.PlatformImpl;
 import main.farm.plot.Plot;
 import main.gameManager.GameManager;
+import main.inventory.Inventory;
+import main.inventory.inventoryItems.InventoryItem;
 import main.util.crops.Crop;
 import main.util.crops.CropStages;
 import main.util.crops.CropTypes;
@@ -10,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +26,7 @@ public class PlantingTest {
         });
         plot = new Plot();
         GameManager.getInstance().clear();
+        GameManager.getInstance().setInventory(new Inventory(true));
     }
 
     /**
@@ -33,13 +37,13 @@ public class PlantingTest {
      */
     @Test
     public void testSeedPlot() {
-        //Map<CropTypes, Integer> seedItems = null;
-        //seedItems.put(CropTypes.WHEAT, 1);
-        //seedItems.put(CropTypes.CORN, 1);
         Map<CropTypes, Integer> seedItems = GameManager.getInstance().getInventory().getListOfSeedItems();
+        seedItems.put(CropTypes.WHEAT, 1);
+        seedItems.put(CropTypes.CORN, 1);
+        seedItems.put(CropTypes.COTTON, 2);
+        seedItems.put(CropTypes.LETTUCE, 3);
         CropTypes type = seedItems.entrySet().iterator().next().getKey();
         GameManager.getInstance().getInventory().removeSeed(type);
-        Crop currentCrop = new Crop(type);
         plot.plantSeed();
     }
 }
