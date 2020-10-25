@@ -28,6 +28,14 @@ public class GrowthCycleTest {
         GameManager.getInstance().clear();
     }
 
+    /**
+     *
+     * Test Component: CropStage of different plots during its cycle
+     * Reason: CropStage of each crop should change accordingly to their growth cycle
+     * Method: Initialize 4 plots of 4 crop types with different stages and see
+     * the difference in 4 days. Check if their next stages are correct.
+     *
+     */
     @Test
     public void testUpdateGrowthCycle() {
         GameManager.getInstance().setDay(1);
