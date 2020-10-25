@@ -22,14 +22,21 @@ public class PlantingTest {
             //fix TOOLKIT NOT INITIALIZED
         });
         plot = new Plot();
+        GameManager.getInstance().clear();
     }
 
-    //Chris
+    /**
+     * Author: Chris
+     * Test Component: I am testing the plant seed btn
+     * Reason: Check if seed gets planted from inventory
+     * Method: Calling the plantSeed() method
+     */
     @Test
     public void testSeedPlot() {
-        Map<CropTypes, Integer> seedItems = null;
-        seedItems.put(CropTypes.WHEAT, 1);
-        seedItems.put(CropTypes.CORN, 1);
+        //Map<CropTypes, Integer> seedItems = null;
+        //seedItems.put(CropTypes.WHEAT, 1);
+        //seedItems.put(CropTypes.CORN, 1);
+        Map<CropTypes, Integer> seedItems = GameManager.getInstance().getInventory().getListOfSeedItems();
         CropTypes type = seedItems.entrySet().iterator().next().getKey();
         GameManager.getInstance().getInventory().removeSeed(type);
         Crop currentCrop = new Crop(type);
