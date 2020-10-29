@@ -139,7 +139,8 @@ public class ConfigSceneController {
     public boolean validSeason() {
         if (seasonGroup.getSelectedToggle() != null) {
             RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
-            GameManager.getInstance().setSeason(Seasons.valueOf(selectedRadioButton.getText()));
+            GameManager.getInstance().setSeason(
+                    Seasons.valueOf(selectedRadioButton.getText().toUpperCase()));
             return true;
         } else {
             alertMessage += "* You must select season. \n";
@@ -179,7 +180,7 @@ public class ConfigSceneController {
     @FXML
     public void getSeason() {
         RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
-        GameManager.getInstance().setSeason(Seasons.valueOf(selectedRadioButton.getText()));
+        GameManager.getInstance().setSeason(Seasons.valueOf(selectedRadioButton.getText().toUpperCase()));
     }
 
     public String getNameForTest() {
