@@ -1,9 +1,9 @@
 package main.inventory.inventoryItems;
 
-import main.util.crops.CropTypes;
+import main.farm.crops.CropTypes;
 
 public class HarvestedCrop extends InventoryItem {
-    private CropTypes type;
+    private final CropTypes type;
 
     public HarvestedCrop(int buyCost, int sellCost, String name, CropTypes type) {
         super(buyCost, sellCost, name);
@@ -12,6 +12,7 @@ public class HarvestedCrop extends InventoryItem {
 
     public HarvestedCrop(CropTypes type) {
         super(type);
+        this.type = type;
     }
 
     public CropTypes getType() {

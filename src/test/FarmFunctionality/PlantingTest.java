@@ -4,7 +4,7 @@ import com.sun.javafx.application.PlatformImpl;
 import main.farm.plot.Plot;
 import main.gameManager.GameManager;
 import main.inventory.Inventory;
-import main.util.crops.CropTypes;
+import main.farm.crops.CropTypes;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.Map;

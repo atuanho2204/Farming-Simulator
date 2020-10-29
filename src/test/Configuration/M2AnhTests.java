@@ -3,7 +3,8 @@ package test.Configuration;
 
 import main.configurationScreen.ConfigSceneController;
 import main.gameManager.GameManager;
-import main.util.crops.CropTypes;
+import main.farm.crops.CropTypes;
+import main.util.Seasons;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
@@ -34,10 +35,10 @@ public class M2AnhTests {
         seeds.add(CropTypes.COTTON);
         seeds.add(CropTypes.CORN);
         ConfigSceneController controller = new ConfigSceneController();
-        controller.construct(null, 1, "Anh Ho", seeds, "fall");
+        controller.construct(null, 1, "Anh Ho", seeds, Seasons.FALL);
         assertEquals("Anh Ho", controller.getNameForTest());
         assertEquals(1, controller.getDifficultyForTest());
-        assertEquals("fall", controller.getSeasonForTest());
+        assertEquals(Seasons.FALL, GameManager.getInstance().getSeason());
         assertEquals(seeds, controller.getSeedForTest());
     }
 
@@ -54,7 +55,7 @@ public class M2AnhTests {
         List<CropTypes> seeds = new ArrayList<>();
         seeds.add(CropTypes.CORN);
         ConfigSceneController controller2 = new ConfigSceneController();
-        controller2.construct(null, 1, "Anh", seeds, "fall");
+        controller2.construct(null, 1, "Anh", seeds, Seasons.FALL);
         controller2.handleContinueButton();
     }
 
@@ -72,7 +73,7 @@ public class M2AnhTests {
         seeds.add(CropTypes.CORN);
         String name = "di fhdsifkdsfsdkfnaskdjfnaskgnaoeribnaoenbadfobkndfkbldfvnifv";
         ConfigSceneController controller2 = new ConfigSceneController();
-        controller2.construct(null, 2, name, seeds, "fall");
+        controller2.construct(null, 2, name, seeds, Seasons.FALL);
         controller2.handleContinueButton();
     }
 

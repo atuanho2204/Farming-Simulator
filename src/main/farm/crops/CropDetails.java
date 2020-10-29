@@ -1,4 +1,4 @@
-package main.util.crops;
+package main.farm.crops;
 
 public class CropDetails {
     private final int baseBuy;

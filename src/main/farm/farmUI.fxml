@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
@@ -9,88 +8,73 @@
            xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="main.farm.FarmController">
-    <children>
-        <ImageView fx:id="farmImage" fitHeight="800.0" fitWidth="1340.0">
-            <image>
-                <Image url="@../images/farm_background.jpg" />
-            </image>
-        </ImageView>
-        <BorderPane>
-            <top>
-                <GridPane fx:id="topBar" maxHeight="50">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="ALWAYS" />
-                        <ColumnConstraints hgrow="ALWAYS" />
-                        <ColumnConstraints hgrow="ALWAYS" />
-                        <ColumnConstraints hgrow="ALWAYS" />
-                        <ColumnConstraints hgrow="ALWAYS" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints vgrow="ALWAYS" />
-                    </rowConstraints>
-                    <Pane GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">
-                        <Label fx:id="difficultyLevel" styleClass="dataLabel" />
-                    </Pane>
-                    <Pane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0">
-                        <Label fx:id="startingMoney" styleClass="dataLabel" />
-                    </Pane>
-                    <Pane GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
-                        <Label fx:id="currentDate" styleClass="dataLabel" />
-                    </Pane>
-                    <Pane GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0">
-                        <Button fx:id="pauseButtonGS" mnemonicParsing="false"
-                                onAction="#handlePauseButton" text="Pause" />
-                    </Pane>
-                    <Pane GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0">
-                        <Button fx:id="quitButtonGS" mnemonicParsing="false"
-                                onAction="#handleQuitButton" text="Quit" />
-                    </Pane>
-                </GridPane>
-            </top>
+    <ImageView fx:id="farmImage" fitHeight="800.0" fitWidth="1300.0">
+        <image>
+            <Image url="@../images/farm_background.jpg"/>
+        </image>
+    </ImageView>
+    <BorderPane>
+        <top>
+            <HBox fx:id="headerHolder" prefHeight="50" maxHeight="50" minHeight="50">
+                <!-- holds the header-->
+            </HBox>
+        </top>
 
-            <left>
-            </left>
+        <left>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                </rowConstraints>
+                <StackPane fx:id="employmentHolder" prefHeight="375" prefWidth="360"
+                           GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-background-color: blue">
+                </StackPane>
+                <StackPane fx:id="notificationHolder" prefHeight="375" prefWidth="360"
+                           GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-background-color: green">
+                </StackPane>
+            </GridPane>
+        </left>
 
-            <center>
-                <GridPane>
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="NEVER"/>
-                        <ColumnConstraints hgrow="NEVER"/>
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="161.0" minHeight="114.0" prefHeight="150.0" vgrow="ALWAYS" />
-                        <RowConstraints maxHeight="636.0" minHeight="589.0" prefHeight="600.0" vgrow="ALWAYS" />
-                    </rowConstraints>
-                    <StackPane fx:id="toolsHolder" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    </StackPane>
-                    <HBox fx:id="farmPlots" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <center>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="NEVER" prefWidth="680"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints prefHeight="750.0" vgrow="ALWAYS"/>
+                </rowConstraints>
+                <HBox fx:id="farmPlots" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                      >
+                    <!--farm plots are generated-->
+                </HBox>
+            </GridPane>
+        </center>
 
-                    </HBox>
-                </GridPane>
-            </center>
+        <right>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                </rowConstraints>
+                <StackPane fx:id="marketHolder" prefHeight="375" prefWidth="400"
+                           GridPane.columnIndex="0" GridPane.rowIndex="0">
+                </StackPane>
+                <StackPane fx:id="inventoryHolder" prefHeight="375" prefWidth="400"
+                           GridPane.columnIndex="0" GridPane.rowIndex="1">
+                </StackPane>
+            </GridPane>
+        </right>
 
-            <right>
-                <GridPane>
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="ALWAYS" />
-                        <ColumnConstraints hgrow="ALWAYS" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints vgrow="ALWAYS" />
-                        <RowConstraints vgrow="ALWAYS" />
-                    </rowConstraints>
-                    <StackPane fx:id="marketHolder" prefHeight="350" prefWidth="460"
-                               GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    </StackPane>
-                    <StackPane fx:id="inventoryHolder" prefHeight="350" prefWidth="460"
-                               GridPane.columnIndex="0" GridPane.rowIndex="1">
-                    </StackPane>
-                </GridPane>
-            </right>
+        <bottom>
+        </bottom>
 
-            <bottom>
-            </bottom>
-
-        </BorderPane>
-    </children>
+    </BorderPane>
 </StackPane>

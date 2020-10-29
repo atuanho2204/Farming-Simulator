@@ -2,7 +2,6 @@ package main.market;
 
 
 import main.gameManager.GameManager;
-import main.inventory.inventoryItems.HarvestedCrop;
 import main.inventory.inventoryItems.Seed;
 import main.util.AlertUser;
 import main.util.UIManager;
@@ -10,15 +9,14 @@ import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 import main.inventory.inventoryItems.InventoryItem;
 import java.util.ArrayList;
-import main.util.crops.CropCatalog;
-import main.util.crops.CropDetails;
-import main.util.crops.CropTypes;
+import main.farm.crops.CropCatalog;
+import main.farm.crops.CropDetails;
+import main.farm.crops.CropTypes;
 
 
 public class Market implements NewDayListener {
     private ArrayList<InventoryItem> listings;
     private final int priceModifier = 1;
-    private final double randomness = 0.1; //higher values mean more random
 
     public Market() {
         this.listings = new ArrayList<>();
@@ -40,14 +38,14 @@ public class Market implements NewDayListener {
                     type) //seed type
             );
         }
-        for (CropTypes type : CropTypes.values()) {
-            this.listings.add(new HarvestedCrop(
-                    getPriceForCrop(type) * 2, //buy price
-                    getPriceForCrop(type) * 2, //sell price
-                    "Product-" + type.name().toLowerCase(), //name
-                    type) //seed type
-            );
-        }
+        //for (CropTypes type : CropTypes.values()) {
+        //    this.listings.add(new HarvestedCrop(
+        //            getPriceForCrop(type) * 2, //buy price
+        //            getPriceForCrop(type) * 2, //sell price
+        //            "Product-" + type.name().toLowerCase(), //name
+        //            type) //seed type
+        //    );
+        //}
     }
 
     /**
@@ -59,10 +57,10 @@ public class Market implements NewDayListener {
      */
     private int getPriceForCrop(CropTypes type) {
         CropDetails details = CropCatalog.getInstance().getCropDetails(type);
-        int randomSupplment = (int) Math.round((Math.random() * 10 - 5)  * randomness);
+        //int randomSupplment = (int) Math.round((Math.random() * 2 - 1));
         int difficultySupplement = GameManager.getInstance().getDifficulty();
         return priceModifier * (int) (details.getBaseSell()
-                + Math.round(2 * Math.sin(GameManager.getInstance().getDay()) + randomSupplment)
+                + Math.round(2 * Math.sin(GameManager.getInstance().getDay()))
                 + difficultySupplement);
     }
 
@@ -100,14 +98,5 @@ public class Market implements NewDayListener {
         }
     }
 
-    public static void sellProduct(CropTypes type, int price) {
-        try {
-            GameManager.getInstance().getInventory().removeProduct(type);
-            int newMoney = GameManager.getInstance().getMoney() + price;
-            GameManager.getInstance().setMoney(newMoney);
-            UIManager.getInstance().pushUIUpdate();
-        } catch (Exception e) {
-            AlertUser.alertUser("You do not have that product in your inventory");
-        }
-    }
+
 }

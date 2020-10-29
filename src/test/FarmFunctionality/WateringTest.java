@@ -2,7 +2,7 @@ package test.FarmFunctionality;
 
 import com.sun.javafx.application.PlatformImpl;
 import main.farm.plot.Plot;
-import main.util.crops.CropStages;
+import main.farm.crops.CropStages;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

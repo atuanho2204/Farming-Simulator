@@ -2,21 +2,26 @@ package main.farm.plot;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import main.farm.FarmController;
-import main.util.crops.CropStages;
+import main.farm.crops.CropStages;
 
 public class PlotUI {
+    private static int farmPlotWidth = 680;
+    private static int farmPlotHeight = 750;
+
     public static TilePane getPlotHolderUI() {
         //setup the plotGrid
         TilePane plotGrid = new TilePane();
-        plotGrid.setPrefWidth(880);
-        plotGrid.setPrefTileHeight(200);
-        plotGrid.setPrefTileWidth(220);
+        plotGrid.setPrefWidth(farmPlotWidth);
+        plotGrid.setPrefHeight(farmPlotHeight);
+        plotGrid.setPrefTileHeight(farmPlotHeight / 4);
+        plotGrid.setPrefTileWidth(farmPlotWidth / 3);
 
         return plotGrid;
     }
@@ -81,7 +86,21 @@ public class PlotUI {
         Button plantBut = handlePlantCrop(plot, controller);
         buttons.getChildren().add(plantBut);
 
-        vBox.getChildren().addAll(buttons, plot.getWaterBar());
+        //water bar
+        ProgressBar waterBar = new ProgressBar(plot.getCurrentWater() * 1.0 / plot.getMaxWater());
+        waterBar.setStyle("-fx-accent: #00BFFF;"); // blue
+
+        if (plot.getCurrentWater() == plot.getMaxWater()) {
+            waterBar.setStyle("-fx-accent: #B22222;"); // red at max
+        } else if (plot.getCurrentWater() == plot.getMaxWater() - 1) {
+            waterBar.setStyle("-fx-accent: #FA8072;"); // orange at max - 1
+        } else if (plot.getCurrentWater() >= 4) {
+            waterBar.setStyle("-fx-accent: #00BFFF;"); // back to blue at 4
+        } else if (plot.getCurrentWater() >= 1) {
+            waterBar.setStyle("-fx-accent: #FFD700;"); // yellow
+        }
+
+        vBox.getChildren().addAll(buttons, waterBar);
         return vBox;
     }
 

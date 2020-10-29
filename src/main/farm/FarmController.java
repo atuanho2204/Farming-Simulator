@@ -4,40 +4,37 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import main.employment.EmploymentController;
+import main.farm.header.FarmHeaderController;
 import main.farm.plot.Plot;
 import main.farm.plot.PlotUI;
 import main.gameManager.GameManager;
 import main.market.Market;
-import main.util.UIManager;
-import main.util.crops.*;
-import main.util.customEvents.ForceUIUpdate;
-import main.util.customEvents.ForceUIUpdateListener;
-import main.util.customEvents.NewDayListener;
-import main.util.customEvents.NewDayEvent;
+import main.notifications.NotificationController;
+import main.util.AlertUser;
+import main.farm.crops.*;
 import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
 
-import java.util.ArrayList;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * The Controller for the FarmUI fxml screen
  */
-public class FarmController implements NewDayListener, ForceUIUpdateListener {
+public class FarmController implements PropertyChangeListener {
     private Stage primaryStage;
-    private final int numOfPlots = 12;
-    private List<Plot> plots = new ArrayList<>(numOfPlots);
     private HashMap<Plot, Integer> plotsToUIIndex = new HashMap<>();
     private TilePane plotHolder;
+    private FarmState farmState;
 
+    @FXML
+    private HBox headerHolder;
     @FXML
     private HBox farmPlots;
     @FXML
@@ -45,11 +42,9 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     @FXML
     private Pane inventoryHolder;
     @FXML
-    private Label difficultyLevel;
+    private Pane employmentHolder;
     @FXML
-    private Label startingMoney;
-    @FXML
-    private Label currentDate;
+    private Pane notificationHolder;
 
 
     /**
@@ -60,17 +55,14 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     public void construct(Stage primaryStage) {
         this.primaryStage = primaryStage;
 
-        setHeaderData();
         if (GameManager.getInstance().getName().equals("Super Farmer")) {
             GameManager.getInstance().setMoney((1000));
         } else {
             GameManager.getInstance().setMoney(40 * GameManager.getInstance().getDifficulty());
         }
-        //listen to forcedUIUpdates
-        UIManager.getInstance().addListener(this);
-        //listen to newDay
-        GameManager.getInstance().getTimeAdvancer().addListener(this);
-        GameManager.getInstance().getTimeAdvancer().startTime();
+        //listen to the farmState
+        farmState = FarmState.getInstance();
+        farmState.subscribeToChanges(this);
 
         //create inventory
         GameManager.getInstance().setInventory(new Inventory(true));
@@ -80,27 +72,48 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
         GameManager.getInstance().setMarket(market);
         GameManager.getInstance().getTimeAdvancer().addListener(market);
 
-        //add market and inventoryUI & controllers
-        marketHolder.getChildren().add(new Pane(getMarketUI()));
-        inventoryHolder.getChildren().add(new Pane(getInventoryUI()));
+        //add various UI's & controllers
+        setHeaderUI();
+        setMarketUI();
+        setInventoryUI();
+        setEmployeeUI();
+        setNotificationUI();
 
         initializePlots();
+
+        //BEGIN GAME
+        GameManager.getInstance().getTimeAdvancer().startTime();
     }
 
     @Override
-    public void handleNewDay(NewDayEvent e) {
-        setHeaderData();
-        reduceWaterLevels(GameManager.getInstance().getDifficulty(),
-                GameManager.getInstance().getSeason());
-        updateGrowthCycle();
+    public void propertyChange(PropertyChangeEvent evt) {
+        //this happens when the farm state changes from outside this class
+        for (Plot plot : farmState.getPlots()) {
+            Platform.runLater(() -> {
+                updatePlotUI(plot);
+            });
+        }
     }
 
-    @Override
-    public void handleForcedUIUpdate(ForceUIUpdate forcedUIUpdate) {
-        setHeaderData();
-    }
 
-    private Parent getMarketUI() {
+    private void setHeaderUI() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "../farm/header/farmHeader.fxml"
+                    )
+            );
+            Parent parent = loader.load();
+            FarmHeaderController controller = loader.getController();
+            controller.construct(primaryStage);
+            headerHolder.getChildren().add(new Pane(parent));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            AlertUser.alertUser("There was an error loading in the headerUI");
+        }
+    }
+    private void setMarketUI() {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
@@ -110,15 +123,14 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             Parent parent = loader.load();
             MarketUIController controller = loader.getController();
             controller.construct(primaryStage);
-            return parent;
+            marketHolder.getChildren().add(new Pane(parent));
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-            return null;
+            AlertUser.alertUser("There was an error loading in the marketUI");
         }
     }
-
-    private Parent getInventoryUI() {
+    private void setInventoryUI() {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
@@ -128,35 +140,49 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
             Parent parent = loader.load();
             InventoryUIController controller = loader.getController();
             controller.construct(primaryStage);
-            return parent;
+            inventoryHolder.getChildren().add(new Pane(parent));
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-            return null;
         }
     }
-
-    private void setHeaderData() {
+    private void setEmployeeUI() {
         try {
-            Platform.runLater(() -> {
-                if (difficultyLevel != null) {
-                    difficultyLevel.setText("Name: " + GameManager.getInstance().getName());
-                }
-                if (currentDate != null) {
-                    currentDate.setText("Day: " + GameManager.getInstance().getDay());
-                }
-                if (startingMoney != null) {
-                    startingMoney.setText("Money: " + GameManager.getInstance().getMoney());
-                }
-            });
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "../employment/employmentUI.fxml"
+                    )
+            );
+            Parent parent = loader.load();
+            EmploymentController controller = loader.getController();
+            controller.construct(primaryStage);
+            employmentHolder.getChildren().add(new Pane(parent));
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    private void setNotificationUI() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "../notifications/notificationUI.fxml"
+                    )
+            );
+            Parent parent = loader.load();
+            NotificationController controller = loader.getController();
+            controller.construct(primaryStage);
+            notificationHolder.getChildren().add(new Pane(parent));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
+
     public void initializePlots() {
-        for (int i = 0; i < numOfPlots; ++i) {
-            this.plots.add(new Plot());
+        for (int i = 0; i < farmState.getNumOfPlots(); ++i) {
+            farmState.getPlots().add(new Plot());
         }
         try {
             plotHolder = getRandomPlots(GameManager.getInstance().getSeeds());
@@ -169,8 +195,8 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
 
     public TilePane getRandomPlots(List<CropTypes> seeds) {
         TilePane plotGrid = PlotUI.getPlotHolderUI();
-        for (int i = 0; i < plots.size(); i++) {
-            Plot plot = plots.get(i);
+        for (int i = 0; i < farmState.getPlots().size(); i++) {
+            Plot plot = farmState.getPlots().get(i);
             int randomCrop = (int) (Math.random() * 100) % seeds.size();
             int randomStage = (int) (Math.random() * 100) % CropStages.values().length;
             plot.getCurrentCrop().setType(seeds.get(randomCrop));
@@ -193,128 +219,5 @@ public class FarmController implements NewDayListener, ForceUIUpdateListener {
     public void updatePlotUI(Plot plot) {
         int index = plotsToUIIndex.get(plot);
         plotHolder.getChildren().set(index, PlotUI.getPlotUI(plot, this));
-    }
-
-    private void reduceWaterLevels(Integer difficulty, String season) {
-        if (GameManager.getInstance().getDay() % 2 != 0) {
-            return;
-        }
-        int waterLost = (difficulty < 3) ? 1 : 2;
-        if (season.toLowerCase().equals("summer")) {
-            ++waterLost;
-        }
-        try {
-            int finalWaterLost = waterLost;
-            Platform.runLater(() -> {
-                for (Plot plot : plots) {
-                    //System.out.println("-----");
-                    //System.out.println("Before: " + plot.getCurrentWater());
-                    int maxLevel = plot.getMaxWater();
-                    if (plot.getCurrentWater() % maxLevel == 0) {
-                        continue;
-                    }
-                    if (plot.getCurrentWater() > finalWaterLost) {
-                        plot.setCurrentWater(plot.getCurrentWater() - finalWaterLost);
-                        if (plot.getCurrentWater() < 4) {
-                            plot.getWaterBar().setStyle("-fx-accent: #FFD700;"); // yellow
-                        } else if (plot.getCurrentWater() < maxLevel - 1) {
-                            plot.getWaterBar().setStyle("-fx-accent: #00BFFF;"); // blue
-                        }
-                    } else {
-                        plot.setCurrentWater(0);
-                        if (plot.getCurrentCrop() != null) {
-                            plot.getCurrentCrop().setCropStage(CropStages.DEAD);
-                        }
-                    }
-                    //System.out.println("After: " + plot.getCurrentWater());
-                    plot.getWaterBar().setProgress(plot.getCurrentWater() * 1.0 / maxLevel);
-                    updatePlotUI(plot);
-                }
-            });
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    @FXML
-    public void handlePauseButton() {
-        GameManager.getInstance().getTimeAdvancer().pauseTime();
-    }
-
-    @FXML
-    public void handleQuitButton() {
-        primaryStage.close();
-        GameManager.getInstance().getTimeAdvancer().pauseTime();
-    }
-
-    public List<Plot> getPlots() {
-        return plots;
-    }
-
-
-    public void initializeTest() {
-        plots = new ArrayList<>(4);
-        for (int i = 0; i < 4; ++i) {
-            this.plots.add(new Plot());
-        }
-        plots.get(0).getCurrentCrop().setType(CropTypes.CORN);
-        plots.get(0).getCurrentCrop().setCropStage(CropStages.MATURE);
-        plots.get(0).getCurrentCrop().setPlantDay(0);
-        plots.get(1).getCurrentCrop().setType(CropTypes.WHEAT);
-        plots.get(1).getCurrentCrop().setCropStage(CropStages.SPROUTING);
-        plots.get(1).getCurrentCrop().setPlantDay(0);
-        plots.get(2).getCurrentCrop().setType(CropTypes.LETTUCE);
-        plots.get(2).getCurrentCrop().setCropStage(CropStages.IMMATURE);
-        plots.get(2).getCurrentCrop().setPlantDay(0);
-        plots.get(3).getCurrentCrop().setType(CropTypes.COTTON);
-        plots.get(3).getCurrentCrop().setCropStage(CropStages.IMMATURE);
-        plots.get(3).getCurrentCrop().setPlantDay(0);
-
-    }
-
-
-    public void updateGrowthCycle() {
-        for (Plot plot: plots) {
-            if (plot.getCurrentCrop() == null) {
-                continue;
-            }
-            CropTypes type = plot.getCurrentCrop().getType();
-            CropStages stage = plot.getCurrentCrop().getStage();
-            int plantDay = plot.getCurrentCrop().getPlantDay();
-            CropDetails details = CropCatalog.getInstance().getCropDetails(type);
-            int growthTime = details.getGrowthTime();
-            int currentDay = GameManager.getInstance().getDay();
-
-            if (currentDay - plantDay > 0 && (currentDay - plantDay) % growthTime == 0) {
-                if (stage == CropStages.DEAD) {
-                    continue;
-                } else if (stage == CropStages.SPROUTING) {
-                    plot.getCurrentCrop().setCropStage(CropStages.IMMATURE);
-                } else if (stage == CropStages.IMMATURE) {
-                    plot.getCurrentCrop().setCropStage(CropStages.MATURE);
-                } else if (stage == CropStages.MATURE) {
-                    plot.getCurrentCrop().setCropStage(CropStages.DEAD);
-                }
-                //update the plot UI
-                Platform.runLater(() -> {
-                    updatePlotUI(plot);
-                });
-            }
-        }
-    }
-
-    public void setPlotsForTest(List<CropTypes> seeds) {
-        for (int i = 0; i < numOfPlots; ++i) {
-            this.plots.add(new Plot());
-        }
-
-        for (int i = 0; i < plots.size(); i++) {
-            Plot plot = plots.get(i);
-            int randomCrop = (int) (Math.random() * 100) % seeds.size();
-            int randomStage = (int) (Math.random() * 100) % CropStages.values().length;
-            plot.getCurrentCrop().setType(seeds.get(randomCrop));
-            plot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
-
-        }
     }
 }

@@ -8,15 +8,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
-import main.util.UIManager;
-import main.util.crops.CropTypes;
-import main.util.customEvents.ForceUIUpdate;
-import main.util.customEvents.ForceUIUpdateListener;
+import main.inventory.inventoryItems.HarvestedCrop;
+import main.farm.crops.CropTypes;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class InventoryUIController implements ForceUIUpdateListener {
+public class InventoryUIController implements PropertyChangeListener {
     private Stage primaryStage;
 
     @FXML
@@ -26,12 +26,16 @@ public class InventoryUIController implements ForceUIUpdateListener {
     public void construct(Stage primaryStage) {
         this.primaryStage = primaryStage;
         inventoryScreen.setPadding(new Insets(120, 0, 0, 35));
+
+        //subscribe to the inventory changes
+        GameManager.getInstance().getInventory().subscribeToChanges(this);
+
         setInventoryListings();
-        UIManager.getInstance().addListener(this);
     }
 
     @Override
-    public void handleForcedUIUpdate(ForceUIUpdate forcedUIUpdate) {
+    public void propertyChange(PropertyChangeEvent evt) {
+        //System.out.println("Inventory Controller received changed property");
         setInventoryListings();
     }
 
@@ -58,9 +62,9 @@ public class InventoryUIController implements ForceUIUpdateListener {
                 }
             }
             //go through the products
-            HashMap<CropTypes, Integer> products =
-                    GameManager.getInstance().getInventory().getListOfProductItems();
-            if (products.keySet().size() == 0) {
+            ArrayList<HarvestedCrop> products =
+                    GameManager.getInstance().getInventory().getProducts();
+            if (products.size() == 0) {
                 Text emptyProduct = new Text("\nNo products?\n"
                         + "You are a failure at farming! :(");
                 emptyProduct.setFill(Color.ORANGE);
@@ -68,9 +72,8 @@ public class InventoryUIController implements ForceUIUpdateListener {
                 newListings.add(emptyProduct);
             } else {
                 newListings.add(InventoryListing.getHeader("Products"));
-                for (CropTypes type : products.keySet()) {
-                    newListings.add(InventoryListing.getProductListingUI(
-                            type.name().toLowerCase(), products.get(type)));
+                for (HarvestedCrop crop : products) {
+                    newListings.add(InventoryListing.getProductListingUI(crop));
                 }
             }
             //Platform.runLater(() -> {

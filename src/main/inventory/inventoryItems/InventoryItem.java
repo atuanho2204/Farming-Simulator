@@ -1,18 +1,18 @@
 package main.inventory.inventoryItems;
 
-import main.util.crops.CropCatalog;
-import main.util.crops.CropTypes;
+import main.farm.crops.CropCatalog;
+import main.farm.crops.CropTypes;
 
 public class InventoryItem {
     private int buyCost;
     private int sellCost;
-    private int fillSpace = 1;
+    private float priceModifier = 1;
     private String name;
 
     public InventoryItem(CropTypes type) {
         this.buyCost = CropCatalog.getInstance().getCropDetails(type).getBaseBuy();
         this.sellCost = CropCatalog.getInstance().getCropDetails(type).getBaseSell();
-        this.name = type.name().toLowerCase().format("%-20s= %s");
+        this.name = type.name().toLowerCase();
     }
 
     public InventoryItem(int buyCost, int sellCost, String name) {
@@ -24,7 +24,7 @@ public class InventoryItem {
     public InventoryItem(InventoryItem item) {
         this.buyCost = item.buyCost;
         this.sellCost = item.sellCost;
-        this.name = new String(item.name);
+        this.name = item.name;
     }
 
     public String getName() {
@@ -35,16 +35,8 @@ public class InventoryItem {
         this.name = name;
     }
 
-    public int getFillSpace() {
-        return fillSpace;
-    }
-
-    public void setFillSpace(int fillSpace) {
-        this.fillSpace = fillSpace;
-    }
-
     public int getSellCost() {
-        return sellCost;
+        return (int) (sellCost * priceModifier);
     }
 
     public void setSellCost(int sellCost) {

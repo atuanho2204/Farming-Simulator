@@ -3,7 +3,8 @@ package test.Configuration;
 
 import main.configurationScreen.ConfigSceneController;
 import main.gameManager.GameManager;
-import main.util.crops.CropTypes;
+import main.farm.crops.CropTypes;
+import main.util.Seasons;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
@@ -65,10 +66,10 @@ public class M2DuyTests {
         seeds.add(CropTypes.LETTUCE);
         seeds.add(CropTypes.CORN);
         ConfigSceneController controller = new ConfigSceneController();
-        controller.construct(null, 2, "Duy", seeds, "spring");
+        controller.construct(null, 2, "Duy", seeds, Seasons.SPRING);
         assertEquals("Duy", controller.getNameForTest());
         assertEquals(2, controller.getDifficultyForTest());
-        assertEquals("spring", controller.getSeasonForTest());
+        assertEquals(Seasons.SPRING, GameManager.getInstance().getSeason());
         assertEquals(seeds, controller.getSeedForTest());
     }
 }

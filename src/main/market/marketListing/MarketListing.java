@@ -3,7 +3,6 @@ package main.market.marketListing;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
-import main.inventory.inventoryItems.HarvestedCrop;
 import main.inventory.inventoryItems.InventoryItem;
 import main.inventory.inventoryItems.Seed;
 import main.market.Market;
@@ -23,27 +22,16 @@ public class MarketListing {
         sell.setTextFill(Color.RED);
         hBox.getChildren().add(text);
         hBox.getChildren().add(text1);
-        if (listing instanceof Seed) {
-            Button buy = new Button("Buy");
-            buy.setTextFill(Color.GREEN);
-            buy.setOnAction(e -> {
-                Market.buySeed(((Seed) listing).getType(), listing.getBuyCost());
-            });
-            hBox.getChildren().add(buy);
-            sell.setOnAction(e -> {
-                Market.sellSeed(((Seed) listing).getType(), listing.getSellCost());
-            });
-        } else if (listing instanceof HarvestedCrop) {
-            sell.setOnAction(e -> {
-                Market.sellProduct((
-                        (HarvestedCrop) listing).getType(), listing.getSellCost());
-            });
-        } else {
-            Text warning = new Text("\tThis probably shouldn't be here\t\t");
-            warning.setFill(Color.WHITE);
-            warning.setStyle("-fx-font: 16 chalkduster;");
-            hBox.getChildren().add(warning);
-        }
+
+        Button buy = new Button("Buy");
+        buy.setTextFill(Color.GREEN);
+        buy.setOnAction(e -> {
+            Market.buySeed(((Seed) listing).getType(), listing.getBuyCost());
+        });
+        hBox.getChildren().add(buy);
+        sell.setOnAction(e -> {
+            Market.sellSeed(((Seed) listing).getType(), listing.getSellCost());
+        });
         hBox.getChildren().add(sell);
 
         return hBox;

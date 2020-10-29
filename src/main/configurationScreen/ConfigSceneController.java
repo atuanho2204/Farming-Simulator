@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 import main.farm.FarmController;
 import main.gameManager.GameManager;
 import main.util.AlertUser;
-import main.util.crops.CropTypes;
+import main.farm.crops.CropTypes;
+import main.util.Seasons;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +45,11 @@ public class ConfigSceneController {
 
     public void construct(Stage primaryStage) {
         construct(primaryStage, 1, "",
-                new ArrayList<CropTypes>(), "No season");
+                new ArrayList<CropTypes>(), Seasons.FALL);
     }
 
     public void construct(Stage primaryStage, Integer difficulty, String name,
-                          List<CropTypes> seeds, String season) {
+                          List<CropTypes> seeds, Seasons season) {
         this.stage = primaryStage;
         GameManager.getInstance().setDifficulty(difficulty);
         GameManager.getInstance().setSeason(season);
@@ -138,7 +139,7 @@ public class ConfigSceneController {
     public boolean validSeason() {
         if (seasonGroup.getSelectedToggle() != null) {
             RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
-            GameManager.getInstance().setSeason(selectedRadioButton.getText());
+            GameManager.getInstance().setSeason(Seasons.valueOf(selectedRadioButton.getText()));
             return true;
         } else {
             alertMessage += "* You must select season. \n";
@@ -156,15 +157,9 @@ public class ConfigSceneController {
             stage.setTitle("FarmUI");
             stage.setScene(new Scene(parent));
         } catch (Exception e) {
-            System.out.println(e.getMessage() + ": ");
-            for (StackTraceElement l : e.getStackTrace()) {
-                System.out.println(l);
-            }
-            Alert a = new Alert(Alert.AlertType.NONE);
-            a.setAlertType(Alert.AlertType.ERROR);
-            a.setContentText("FarmUI not found");
-            // show the dialog
-            a.show();
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            AlertUser.alertUser("FarmUI not found");
         }
     }
 
@@ -184,7 +179,7 @@ public class ConfigSceneController {
     @FXML
     public void getSeason() {
         RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
-        GameManager.getInstance().setSeason(selectedRadioButton.getText());
+        GameManager.getInstance().setSeason(Seasons.valueOf(selectedRadioButton.getText()));
     }
 
     public String getNameForTest() {
@@ -193,10 +188,6 @@ public class ConfigSceneController {
 
     public List<CropTypes> getSeedForTest() {
         return GameManager.getInstance().getSeeds();
-    }
-
-    public String getSeasonForTest() {
-        return GameManager.getInstance().getSeason();
     }
 
     public int getDifficultyForTest() {
@@ -210,7 +201,7 @@ public class ConfigSceneController {
         // set difficulty
         GameManager.getInstance().setDifficulty(3);
         // set season
-        GameManager.getInstance().setSeason("fall");
+        GameManager.getInstance().setSeason(Seasons.FALL);
         // set seeds
         GameManager.getInstance().getSeeds().add(CropTypes.WHEAT);
         GameManager.getInstance().getSeeds().add(CropTypes.COTTON);

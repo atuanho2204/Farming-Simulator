@@ -1,25 +1,30 @@
 package main.inventory;
 
 import main.gameManager.GameManager;
-import main.inventory.inventoryItems.InventoryItem;
+import main.inventory.inventoryItems.HarvestedCrop;
+import main.util.AlertUser;
 import main.util.UIManager;
-import main.util.crops.CropTypes;
+import main.farm.crops.CropTypes;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 public class Inventory {
-
-    private int storageLimit = 20;
-    private HashMap<CropTypes, Integer> productStorage;
-    private HashMap<CropTypes, Integer> seedStorage;
+    private PropertyChangeSupport changeSupport;
+    private final int storageLimit = 20;
+    private final HashMap<CropTypes, Integer> seedStorage;
+    private final int productLimit = 10;
+    private final ArrayList<HarvestedCrop> products;
 
 
     public Inventory(boolean storeOriginalSeeds) {
-        this.productStorage = new HashMap<>();
+        this.changeSupport = new PropertyChangeSupport(this);
+        this.products = new ArrayList<>(productLimit);
         this.seedStorage = new HashMap<>();
-        if (storeOriginalSeeds) {
+        if (storeOriginalSeeds) { //if we should store the original amount of seeds
             for (CropTypes type : GameManager.getInstance().getSeeds()) {
                 seedStorage.put(type, 2);
             }
@@ -31,7 +36,8 @@ public class Inventory {
             throw new Exception();
         } else {
             seedStorage.put(type, seedStorage.getOrDefault(type, 0) + 1);
-            UIManager.getInstance().pushUIUpdate();
+            changeSupport.firePropertyChange(
+                    "Inventory", "", "seed added");
         }
     }
 
@@ -44,38 +50,53 @@ public class Inventory {
             } else {
                 seedStorage.put(type, seedStorage.get(type) - 1);
             }
-            UIManager.getInstance().pushUIUpdate();
+            changeSupport.firePropertyChange(
+                    "Inventory", "", "seed removed");
         }
     }
 
 
-    public void putProduct(CropTypes type) throws Exception {
-        if (type == null || getStorageSize() == getStorageLimit()) {
-            throw new Exception();
+    /**
+     * Puts the given crop into storage.
+     *
+     * @param crop the crop to store
+     * @throws Exception an exception because there isn't any space
+     */
+    public void putProduct(HarvestedCrop crop) throws Exception {
+        if (crop == null || products.size() >= productLimit) {
+            throw new Exception("There is no space in product storage");
         } else {
-            productStorage.put(type, productStorage.getOrDefault(type, 0) + 1);
-            UIManager.getInstance().pushUIUpdate();
+            products.add(crop);
+            changeSupport.firePropertyChange(
+                    "Inventory", "", "Crop added");
         }
     }
 
-    public void removeProduct(CropTypes type) throws NoSuchElementException {
-        if (type == null || getStorageSize() == 0 || !productStorage.containsKey(type)) {
-            throw new NoSuchElementException();
+    public void removeProduct(HarvestedCrop crop) throws NoSuchElementException {
+        if (crop == null || products.size() == 0) {
+            throw new NoSuchElementException("The crop given is null, or there are no products");
+        } else if (!products.contains(crop)) {
+            throw new NoSuchElementException("The crop doesn't exist in the products list");
         } else {
-            if (productStorage.get(type) == 1) {
-                productStorage.remove(type);
-            } else {
-                productStorage.put(type, productStorage.get(type) - 1);
-            }
+            products.remove(crop);
+            changeSupport.firePropertyChange(
+                    "Inventory", "", "Crop removed");
+        }
+    }
+
+    public static void sellProduct(HarvestedCrop crop) {
+        try {
+            GameManager.getInstance().getInventory().removeProduct(crop);
+            int newMoney = GameManager.getInstance().getMoney() + crop.getSellCost();
+            GameManager.getInstance().setMoney(newMoney);
             UIManager.getInstance().pushUIUpdate();
+        } catch (Exception e) {
+            AlertUser.alertUser("You do not have that product in your inventory");
         }
     }
 
     public int getStorageSize() {
         int size = 0;
-        for (int fill : productStorage.values()) {
-            size += fill;
-        }
         for (int fill : seedStorage.values()) {
             size += fill;
         }
@@ -90,17 +111,11 @@ public class Inventory {
         return seedStorage;
     }
 
-    public HashMap<CropTypes, Integer> getListOfProductItems() {
-        return productStorage;
+    public ArrayList<HarvestedCrop> getProducts() {
+        return products;
     }
 
-    public ArrayList<InventoryItem> getListOfInventoryItems() {
-        return new ArrayList<InventoryItem>();
-    }
-
-    public void print() {
-        for (CropTypes item : productStorage.keySet()) {
-            System.out.println(item + " " + productStorage.get(item));
-        }
+    public void subscribeToChanges(PropertyChangeListener l) {
+        changeSupport.addPropertyChangeListener(l);
     }
 }

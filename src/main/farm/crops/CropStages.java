@@ -1,4 +1,4 @@
-package main.util.crops;
+package main.farm.crops;
 
 public enum CropStages {
     SPROUTING,

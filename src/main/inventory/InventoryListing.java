@@ -1,9 +1,12 @@
 package main.inventory;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import main.gameManager.GameManager;
+import main.inventory.inventoryItems.HarvestedCrop;
 
 public class InventoryListing {
     public static HBox getInfoUI(Inventory inventory) {
@@ -46,7 +49,7 @@ public class InventoryListing {
 
         // Display the storage items
 
-        Text seed = new Text("   " + seedName + ": " + quantity);
+        Text seed = new Text("\t" + seedName + ": " + quantity);
         seed.setFill(Color.WHITE);
         seed.setStyle("-fx-font: 16 chalkduster;");
         hBox.getChildren().add(seed);
@@ -55,15 +58,21 @@ public class InventoryListing {
         return hBox;
     }
 
-    public static HBox getProductListingUI(String productName, int quantity) {
+    public static HBox getProductListingUI(HarvestedCrop crop) {
         HBox hBox = new HBox();
 
-        // Display the storage items
-
-        Text product = new Text("   " + productName + ": " + quantity);
+        Text product = new Text("\t" + crop.getName() + ": " + crop.getSellCost());
         product.setFill(Color.WHITE);
         product.setStyle("-fx-font: 16 chalkduster;");
         hBox.getChildren().add(product);
+
+        //ADD BUTTON TO SELL
+        Button sell = new Button("Sell");
+        sell.setTextFill(Color.RED);
+        sell.setOnAction(e -> {
+            GameManager.getInstance().getInventory().sellProduct(crop);
+        });
+        hBox.getChildren().add(sell);
 
         return hBox;
     }

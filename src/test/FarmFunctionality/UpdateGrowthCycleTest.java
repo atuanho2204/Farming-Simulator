@@ -2,12 +2,12 @@ package test.FarmFunctionality;
 
 import com.sun.javafx.application.PlatformImpl;
 import main.farm.FarmController;
+import main.farm.FarmState;
 import main.farm.plot.Plot;
 import main.gameManager.GameManager;
 import main.inventory.Inventory;
-import main.inventory.InventoryUIController;
-import main.util.crops.CropStages;
-import main.util.crops.CropTypes;
+import main.farm.crops.CropStages;
+import main.farm.crops.CropTypes;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,27 +17,20 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class UpdateGrowthCycleTest {
-    private Plot plot;
-    private FarmController controller;
-    private InventoryUIController inventoryUI;
-    private Inventory inventory;
     private List<Plot> plots;
-
 
     @Before
     public void setUp() {
         PlatformImpl.startup(() -> {
 
         });
-        inventoryUI = new InventoryUIController();
-        controller = new FarmController();
-        GameManager.getInstance();
-        inventory = new Inventory(false);
+        GameManager.getInstance().clear();
+        FarmState.clearFarmStateDangerous();
         List<CropTypes> seed = new ArrayList<>();
         seed.add(CropTypes.CORN);
         GameManager.getInstance().setSeeds(seed);
-        controller.setPlotsForTest(seed);
-        plots = controller.getPlots();
+        setPlotsForTest(seed);
+        plots = FarmState.getInstance().getPlots();
     }
 
     /**
@@ -66,10 +59,25 @@ public class UpdateGrowthCycleTest {
         }
 
         GameManager.getInstance().setDay(8);
-        controller.updateGrowthCycle();
+        FarmState.getInstance().updateGrowthCycle();
 
         for (int i = 0; i < plots.size(); i++) {
             assertEquals(stage.get(i), plots.get(i).getCurrentCrop().getStage());
+        }
+    }
+
+    private void setPlotsForTest(List<CropTypes> seeds) {
+        for (int i = 0; i < FarmState.getInstance().getPlots().size(); ++i) {
+            this.plots.add(new Plot());
+        }
+
+        for (int i = 0; i < plots.size(); i++) {
+            Plot plot = plots.get(i);
+            int randomCrop = (int) (Math.random() * 100) % seeds.size();
+            int randomStage = (int) (Math.random() * 100) % CropStages.values().length;
+            plot.getCurrentCrop().setType(seeds.get(randomCrop));
+            plot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
+
         }
     }
 }

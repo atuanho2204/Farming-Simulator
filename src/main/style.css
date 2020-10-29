@@ -257,10 +257,6 @@
 #topBar {
     -fx-background-color: #545454;
     -fx-font-size: 20px;
-    -fx-pref-height: 100px;
-    /*-fx-border-top: 1px;
-    -fx-border-color: black;
-    -fx-border-style: solid;*/
     -fx-text-align: center;
 }
 
@@ -268,20 +264,13 @@
     -fx-text-fill: white;
 }
 
-#farmPlots {
-    -fx-font-size: 20px;
-    -fx-pref-height: 500px;
-    -fx-pref-width: 880px;
+
+
+#employmentHolder {
     /*-fx-background-color: blue;*/
 }
 
-#marketHolder {
-    /*-fx-background-color: blue;*/
-}
 
-.marketListingPane {
-    -fx-background-color: black;
-}
 
 .listingTitle {
     -fx-text-fill: white;

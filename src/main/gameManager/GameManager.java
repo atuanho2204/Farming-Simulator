@@ -2,8 +2,9 @@ package main.gameManager;
 
 import main.inventory.Inventory;
 import main.market.Market;
+import main.util.Seasons;
 import main.util.TimeAdvancer;
-import main.util.crops.CropTypes;
+import main.farm.crops.CropTypes;
 import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 
@@ -19,7 +20,7 @@ public class GameManager implements NewDayListener {
     private final TimeAdvancer timeAdvancer;
     private String name = "";
     private List<CropTypes> seeds = new ArrayList<>(0);
-    private String season = "";
+    private Seasons season = Seasons.FALL;
     private Integer money = 0;
     private Integer difficulty;
     private Market market;
@@ -49,7 +50,7 @@ public class GameManager implements NewDayListener {
         return money;
     }
 
-    public String getSeason() {
+    public Seasons getSeason() {
         return season;
     }
 
@@ -90,7 +91,7 @@ public class GameManager implements NewDayListener {
         this.name = name;
     }
 
-    public void setSeason(String season) {
+    public void setSeason(Seasons season) {
         this.season = season;
     }
 

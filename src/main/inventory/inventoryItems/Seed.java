@@ -1,6 +1,6 @@
 package main.inventory.inventoryItems;
 
-import main.util.crops.CropTypes;
+import main.farm.crops.CropTypes;
 
 public class Seed extends InventoryItem {
     private CropTypes type;
