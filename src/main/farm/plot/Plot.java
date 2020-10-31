@@ -1,7 +1,5 @@
 package main.farm.plot;
 
-import javafx.scene.control.ProgressBar;
-import main.farm.FarmState;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
 import main.util.AlertUser;
@@ -17,9 +15,10 @@ public class Plot {
     private final int maxWater = 10;
 
     public Plot() {
-        // random water level from 5 to 15
-        this(new Crop(CropTypes.CORN, CropStages.SPROUTING),
-                (int) (Math.random() * (8 - 5 + 1)) + 5);
+        // random crop, random stage, random water level from 4 to 6
+        this(new Crop(CropTypes.values()[(int) (Math.random() * 4)],
+                        CropStages.values()[(int) (Math.random() * 4)], false),
+                (int) (Math.random() * (6 - 4 + 1)) + 4);
     }
 
     public Plot(Crop currentCrop, int currentWater) {
@@ -32,13 +31,15 @@ public class Plot {
     }
 
 
-    public void waterPlot() {
-        // cannot water if currentWater == 0 or max
-        if (currentWater % maxWater == 0) {
-            return;
-        }
-        currentWater++;
-        if (currentWater == maxWater) {
+    public void waterPlot(int increment) {
+        currentWater += increment;
+        if (currentWater >= maxWater || currentWater <= 0) {
+            if (currentWater > maxWater) {
+                currentWater = maxWater;
+            }
+            if (currentWater < 0) {
+                currentWater = 0;
+            }
             if (currentCrop != null) {
                 currentCrop.setCropStage(CropStages.DEAD);
             }
