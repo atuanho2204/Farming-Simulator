@@ -1,10 +1,6 @@
 package main.farm;
 
-import javafx.application.Platform;
-import main.farm.crops.CropCatalog;
-import main.farm.crops.CropDetails;
-import main.farm.crops.CropStages;
-import main.farm.crops.CropTypes;
+import main.farm.crops.*;
 import main.farm.plot.Plot;
 import main.gameManager.GameManager;
 import main.notifications.NotificationManager;
@@ -22,6 +18,9 @@ public class FarmState implements NewDayListener {
     private List<Plot> plots;
     private static FarmState instance;
     private PropertyChangeSupport changeSupport;
+    private int daysEachMonth = 30;
+    private int numSunnyDays = 0;
+    private int numRainyDays = 0;
 
     private FarmState() {
         this.plots = new ArrayList<>(numOfPlots);
@@ -40,10 +39,6 @@ public class FarmState implements NewDayListener {
         return instance;
     }
 
-    public List<Plot> getPlots() {
-        return plots;
-    }
-
     public static void clearFarmStateDangerous() {
         System.out.println("Clearing the farm state...only to be done while testing");
         instance = new FarmState();
@@ -51,11 +46,13 @@ public class FarmState implements NewDayListener {
 
     @Override
     public void handleNewDay(NewDayEvent e) {
-        reduceWaterLevels(GameManager.getInstance().getDifficulty(),
-                GameManager.getInstance().getSeason());
+        randomizeEvents();
+        reduceWaterLevelsEveryThreeDays(GameManager.getInstance().getDifficulty());
         updateGrowthCycle();
-        NotificationManager.getInstance().addNotification("Day " + e.getNewDay() + " Began");
+        NotificationManager.getInstance().addNotification("~~~~~~~~~~~~~~~~~~~~Day " + e.getNewDay()
+                + "~~~~~~~~~~~~~~~~~~~~");
         forcePlotUpdate("Show new plot water and growth levels");
+        updateSeason();
     }
 
     public void updateGrowthCycle() {
@@ -84,35 +81,18 @@ public class FarmState implements NewDayListener {
         }
     }
 
-    private void reduceWaterLevels(Integer difficulty, Seasons season) {
-        if (GameManager.getInstance().getDay() % 2 != 0) {
-            return;
-        }
-        int waterLost = (difficulty < 3) ? 1 : 2;
-        if (season == Seasons.SUMMER) {
-            ++waterLost;
-        }
-        try {
-            int finalWaterLost = waterLost;
-            Platform.runLater(() -> {
-                for (Plot plot : plots) {
-                    int maxLevel = plot.getMaxWater();
-                    if (plot.getCurrentWater() % maxLevel == 0) {
-                        continue;
-                    }
-                    if (plot.getCurrentWater() > finalWaterLost) {
-                        plot.setCurrentWater(plot.getCurrentWater() - finalWaterLost);
-
-                    } else {
-                        plot.setCurrentWater(0);
-                        if (plot.getCurrentCrop() != null) {
-                            plot.getCurrentCrop().setCropStage(CropStages.DEAD);
-                        }
-                    }
-                }
-            });
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+    /**
+     * Method reduceWaterLevelsEveryThreeDays decrements each plot's water level by
+     * 1 (for easy and medium levels) or 2 (for hard level).
+     *
+     * @param difficulty level of the game
+     */
+    private void reduceWaterLevelsEveryThreeDays(Integer difficulty) {
+        if (GameManager.getInstance().getDay() % 3 == 2) {
+            int waterLost = (difficulty < 3) ? -1 : -2;
+            for (Plot plot : plots) {
+                plot.waterPlot(waterLost);
+            }
         }
     }
 
@@ -121,7 +101,139 @@ public class FarmState implements NewDayListener {
                 "plots", "", reason);
     }
 
+    /**
+     * Method updateSeason advances to the next season every 'daysEachMonth' days.
+     */
+    private void updateSeason() {
+        if (GameManager.getInstance().getDay() % daysEachMonth == 0) {
+            int currentSeason = GameManager.getInstance().getSeason().ordinal();
+            Seasons nextSeason = Seasons.values()[++currentSeason % Seasons.values().length];
+            GameManager.getInstance().setSeason(nextSeason);
+            NotificationManager.getInstance().addNotification(
+                    "Hello " + nextSeason.toString().toLowerCase() + "!!");
+        }
+    }
+
+    /**
+     * Method randomizeEvents initiates rain, drought, and locust swarming based on
+     * rain rate of each season. Only one event happens each day.
+     *
+     * Rain occurs depends on rain rate formed by season's rainRate * difficulty
+     * A drought happens after 5 sunny days of no rain.
+     * The more rainy days, the higher chance locust swarming will occur.
+     */
+    private void randomizeEvents() {
+        int difficulty = GameManager.getInstance().getDifficulty();
+        // drought
+        if (numSunnyDays == 5) {
+            //System.out.println("drought");
+            triggerDrought();
+            numSunnyDays = 0;
+            numRainyDays = 0;
+        } else {
+            // rain
+            double rainRate = GameManager.getInstance().getSeason().getRainRate() * difficulty;
+            if (Math.random() < rainRate) {
+                //System.out.println("rain");
+                triggerRain();
+                numSunnyDays = 0;
+                ++numRainyDays;
+            } else {
+                ++numSunnyDays;
+                //System.out.println("no rain for " + numSunnyDays + " days");
+                // locust
+                double locustRate = 0.2 * numRainyDays;
+                if (Math.random() < locustRate) {
+                    triggerLocustSwarms(difficulty);
+                }
+            }
+        }
+    }
+
+    /**
+     * Method triggerRain increments each plot's water level by 1 or 2 units.
+     */
+    public void triggerRain() {
+        // random increment ranges from 1 to 2
+        int increment = (int) (Math.random() * (2 - 1 + 1) + 1);
+        for (Plot plot : plots) {
+            plot.waterPlot(increment);
+        }
+        NotificationManager.getInstance().addNotification("ALERT!! It's raining!!!\n"
+                + "Water level of each plot is incremented by " + increment);
+    }
+
+    /**
+     * Method triggerDrought decrements each plot's water level by 1, 2, or 3 units.
+     */
+    public void triggerDrought() {
+        int decrement = (int) (Math.random() * (3 - 1 + 1) + 1) * -1;
+        for (Plot plot : plots) {
+            plot.waterPlot(decrement);
+        }
+        NotificationManager.getInstance().addNotification("ALERT!! There was a drought--"
+                + "no rain for 5 days straight!!!\nWater level of each plot "
+                + "is decremented by " + (decrement * -1));
+    }
+
+    /**
+     * When a swarm of locusts occurs, at least one crop is killed if not all plots
+     * have pesticide.
+     * The likelihood to be killed of each remaining living crop is determined
+     * by the deadRate of difficulty * 0.15
+     * @param difficulty current level of the game
+     */
+    public void triggerLocustSwarms(int difficulty) {
+        List<Plot> plotsWithLivingCrops = new ArrayList<>();
+        for (Plot plot : plots) {
+            if (plot.getCurrentCrop() != null
+                    && plot.getCurrentCrop().getStage() != CropStages.DEAD
+                    && !plot.getCurrentCrop().hasPesticide()) {
+                plotsWithLivingCrops.add(plot);
+            }
+        }
+
+        // At least one crop is killed
+        if (plotsWithLivingCrops.size() > 0) {
+
+            Plot unluckyPlot = plotsWithLivingCrops.remove(
+                    (int) (Math.random() * plotsWithLivingCrops.size()));
+            unluckyPlot.getCurrentCrop().setCropStage(CropStages.DEAD);
+            NotificationManager.getInstance().addNotification("ALERT!! Locusts killed your "
+                    + unluckyPlot.getCurrentCrop().getType().toString() + "... :(");
+        }
+
+        if (plotsWithLivingCrops.size() > 0) {
+            double deadChance = 0.15 * difficulty;
+            for (Plot plot : plotsWithLivingCrops) {
+                if (!plot.getCurrentCrop().hasPesticide() && Math.random() < deadChance) {
+                    plot.getCurrentCrop().setCropStage(CropStages.DEAD);
+                    NotificationManager.getInstance().addNotification("ALERT!! Locusts killed your "
+                            + plot.getCurrentCrop().getType().toString() + "... :(");
+                }
+            }
+            // decrease the number of rainy days to prevent ridiculously high chances of swarming
+            numRainyDays -= 3;
+            numRainyDays = Math.max(0, numRainyDays);
+        }
+    }
+
+
+    // Getters and Setters
+
     public int getNumOfPlots() {
         return numOfPlots;
+    }
+
+    public List<Plot> getPlots() {
+        return plots;
+    }
+
+    public void setNumSunnyDays(int numDays) {
+        this.numSunnyDays = numDays;
+    }
+
+    public void setNumRainyDays(int numDays) {
+        this.numRainyDays = numDays;
     }
 }

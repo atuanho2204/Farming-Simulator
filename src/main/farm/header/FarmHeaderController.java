@@ -3,7 +3,6 @@ package main.farm.header;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.util.UIManager;
@@ -20,11 +19,15 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
     private Stage primaryStage;
 
     @FXML
+    private Label currentSeason;
+    @FXML
     private Label difficultyLevel;
     @FXML
     private Label startingMoney;
     @FXML
     private Label currentDate;
+    @FXML
+    private Label farmerName;
 
 
     /**
@@ -53,14 +56,21 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
     private void setHeaderData() {
         try {
             Platform.runLater(() -> {
-                if (difficultyLevel != null) {
-                    difficultyLevel.setText("Name: " + GameManager.getInstance().getName());
+                if (farmerName != null) {
+                    farmerName.setText("Name: " + GameManager.getInstance().getName());
+                }
+                if (currentSeason != null) {
+                    currentSeason.setText("Season: "
+                            + GameManager.getInstance().getSeason().toString().toLowerCase());
                 }
                 if (currentDate != null) {
                     currentDate.setText("Day: " + GameManager.getInstance().getDay());
                 }
                 if (startingMoney != null) {
                     startingMoney.setText("Money: " + GameManager.getInstance().getMoney());
+                }
+                if (difficultyLevel != null) {
+                    difficultyLevel.setText("Level: " + GameManager.getInstance().getDifficulty());
                 }
             });
         } catch (Exception e) {

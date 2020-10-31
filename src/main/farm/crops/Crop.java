@@ -6,15 +6,17 @@ public class Crop {
     private CropTypes type;
     private CropStages stage;
     private int plantDay;
+    private boolean pesticide = false;
 
     public Crop(CropTypes type) {
-        this(type, CropStages.SPROUTING);
+        this(type, CropStages.SPROUTING, false);
     }
 
-    public Crop(CropTypes type, CropStages stage) {
+    public Crop(CropTypes type, CropStages stage, boolean pesticide) {
         this.type = type;
         this.stage = stage;
         this.plantDay = GameManager.getInstance().getDay();
+        this.pesticide = false;
     }
 
     public CropTypes getType() {
@@ -39,5 +41,13 @@ public class Crop {
 
     public int getPlantDay() {
         return this.plantDay;
+    }
+
+    public boolean hasPesticide() {
+        return pesticide;
+    }
+
+    public void setPesticide(boolean hasPesticide) {
+        this.pesticide = hasPesticide;
     }
 }
