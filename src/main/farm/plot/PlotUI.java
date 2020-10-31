@@ -108,7 +108,7 @@ public class PlotUI {
         Button waterBut = new Button("water");
         waterBut.setOnAction(actionEvent -> {
             //onButtonClick
-            plot.waterPlot();
+            plot.waterPlot(1);
             controller.updatePlotUI(plot);
         });
         waterBut.setStyle("-fx-background-color: #00CED1;"
