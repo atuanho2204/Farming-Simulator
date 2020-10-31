@@ -13,22 +13,28 @@
         <ColumnConstraints hgrow="ALWAYS"/>
         <ColumnConstraints hgrow="ALWAYS"/>
         <ColumnConstraints hgrow="ALWAYS"/>
+        <ColumnConstraints hgrow="ALWAYS"/>
+        <ColumnConstraints hgrow="ALWAYS"/>
     </columnConstraints>
     <rowConstraints>
         <RowConstraints vgrow="ALWAYS"/>
     </rowConstraints>
-
     <Pane GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">
         <Label fx:id="difficultyLevel" styleClass="dataLabel"/>
     </Pane>
     <Pane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0">
-        <Label fx:id="startingMoney" styleClass="dataLabel"/>
+        <Label fx:id="farmerName" styleClass="dataLabel"/>
     </Pane>
     <Pane GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        <Label fx:id="startingMoney" styleClass="dataLabel"/>
+    </Pane>
+    <Pane GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        <Label fx:id="currentSeason" styleClass="dataLabel"/>
+    </Pane>
+    <Pane GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0">
         <Label fx:id="currentDate" styleClass="dataLabel"/>
     </Pane>
-
-    <Pane GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+    <Pane GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="0">
         <Button fx:id="quitButtonGS" mnemonicParsing="false"
                 onAction="#handleQuitButton" text="Quit"/>
     </Pane>
