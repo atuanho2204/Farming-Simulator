@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class TimeAdvancer {
     private int day;
     private ScheduledExecutorService executorService;
-    private static int newDayWait = 10000; //in mili-seconds
+    private static int newDayWait = 15000; //in mili-seconds
     private ArrayList<NewDayListener> listeners;
 
     public TimeAdvancer(int startDay) {
