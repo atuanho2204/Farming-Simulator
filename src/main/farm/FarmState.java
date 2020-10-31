@@ -85,7 +85,7 @@ public class FarmState implements NewDayListener {
      * Method reduceWaterLevelsEveryThreeDays decrements each plot's water level by
      * 1 (for easy and medium levels) or 2 (for hard level).
      *
-     * @param difficulty
+     * @param difficulty level of the game
      */
     private void reduceWaterLevelsEveryThreeDays(Integer difficulty) {
         if (GameManager.getInstance().getDay() % 3 == 2) {
@@ -102,7 +102,7 @@ public class FarmState implements NewDayListener {
     }
 
     /**
-     * Method updateSeason advances to the next season every <daysEachMonth> days.
+     * Method updateSeason advances to the next season every 'daysEachMonth' days.
      */
     private void updateSeason() {
         if (GameManager.getInstance().getDay() % daysEachMonth == 0) {
@@ -159,8 +159,8 @@ public class FarmState implements NewDayListener {
         for (Plot plot : plots) {
             plot.waterPlot(increment);
         }
-        NotificationManager.getInstance().addNotification("ALERT!! It's raining!!!\n" +
-                "Water level of each plot is incremented by " + increment);
+        NotificationManager.getInstance().addNotification("ALERT!! It's raining!!!\n"
+                + "Water level of each plot is incremented by " + increment);
     }
 
     /**
@@ -219,7 +219,7 @@ public class FarmState implements NewDayListener {
     }
 
 
-    /** Getters and Setters **/
+    // Getters and Setters
 
     public int getNumOfPlots() {
         return numOfPlots;
