@@ -180,7 +180,8 @@ public class ConfigSceneController {
     @FXML
     public void getSeason() {
         RadioButton selectedRadioButton = (RadioButton) seasonGroup.getSelectedToggle();
-        GameManager.getInstance().setSeason(Seasons.valueOf(selectedRadioButton.getText().toUpperCase()));
+        GameManager.getInstance().setSeason(
+                Seasons.valueOf(selectedRadioButton.getText().toUpperCase()));
     }
 
     public String getNameForTest() {
