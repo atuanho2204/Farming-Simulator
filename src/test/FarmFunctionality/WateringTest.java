@@ -45,38 +45,12 @@ public class WateringTest {
     @Test
     public void testWaterPlot() {
         plot.setCurrentWater(5);
-        plot.waterPlot();
+        plot.waterPlot(1);
         Assert.assertEquals(6, (long) plot.getCurrentWater());
         plot = new Plot();
         int levelBeforeWatering = plot.getCurrentWater();
-        plot.waterPlot();
+        plot.waterPlot(1);
         Assert.assertEquals(++levelBeforeWatering, (long) plot.getCurrentWater());
-    }
-
-    /**
-     *
-     * Player cannot water a plot if its water level is 0.
-     * --Quynh--
-     *
-     */
-    @Test
-    public void testCannotWaterWhenWaterAtMin() {
-        plot.setCurrentWater(0);
-        plot.waterPlot();
-        Assert.assertEquals(0, plot.getCurrentWater());
-    }
-
-    /**
-     *
-     * Player cannot water a plot if its water level is 10.
-     * --Quynh--
-     *
-     */
-    @Test
-    public void testCannotWaterWhenWaterAtMax() {
-        plot.setCurrentWater(plot.getMaxWater());
-        plot.waterPlot();
-        Assert.assertEquals(plot.getMaxWater(), plot.getCurrentWater());
     }
 
     /**
@@ -92,21 +66,21 @@ public class WateringTest {
         plot = new Plot();
         plot.getCurrentCrop().setCropStage(CropStages.SPROUTING);
         plot.setCurrentWater(plot.getMaxWater() - 1);
-        plot.waterPlot();
+        plot.waterPlot(1);
         Assert.assertEquals(CropStages.DEAD, plot.getCurrentCrop().getStage());
 
         // from immature
         plot = new Plot();
         plot.getCurrentCrop().setCropStage(CropStages.IMMATURE);
         plot.setCurrentWater(plot.getMaxWater() - 1);
-        plot.waterPlot();
+        plot.waterPlot(1);
         Assert.assertEquals(CropStages.DEAD, plot.getCurrentCrop().getStage());
 
         // from mature
         plot = new Plot();
         plot.getCurrentCrop().setCropStage(CropStages.MATURE);
         plot.setCurrentWater(plot.getMaxWater() - 1);
-        plot.waterPlot();
+        plot.waterPlot(1);
         Assert.assertEquals(CropStages.DEAD, plot.getCurrentCrop().getStage());
     }
 }
