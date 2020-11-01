@@ -10,6 +10,7 @@ import main.util.customEvents.NewDayListener;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -190,6 +191,7 @@ public class FarmState implements NewDayListener {
      */
     public void triggerLocustSwarms(int difficulty) {
         List<Plot> plotsWithLivingCrops = new ArrayList<>();
+        int numCropsKilled = 0;
         for (Plot plot : plots) {
             if (plot.getCurrentCrop() != null
                     && plot.getCurrentCrop().getStage() != CropStages.DEAD
@@ -200,12 +202,10 @@ public class FarmState implements NewDayListener {
 
         // At least one crop is killed
         if (plotsWithLivingCrops.size() > 0) {
-
             Plot unluckyPlot = plotsWithLivingCrops.remove(
                     (int) (Math.random() * plotsWithLivingCrops.size()));
             unluckyPlot.getCurrentCrop().setCropStage(CropStages.DEAD);
-            NotificationManager.getInstance().addNotification("ALERT!! Locusts killed your "
-                    + unluckyPlot.getCurrentCrop().getType().toString() + "... :(");
+            ++numCropsKilled;
         }
 
         if (plotsWithLivingCrops.size() > 0) {
@@ -213,13 +213,18 @@ public class FarmState implements NewDayListener {
             for (Plot plot : plotsWithLivingCrops) {
                 if (!plot.getCurrentCrop().hasPesticide() && Math.random() < deadChance) {
                     plot.getCurrentCrop().setCropStage(CropStages.DEAD);
-                    NotificationManager.getInstance().addNotification("ALERT!! Locusts killed your "
-                            + plot.getCurrentCrop().getType().toString() + "... :(");
+                    ++numCropsKilled;
                 }
             }
             // decrease the number of rainy days to prevent ridiculously high chances of swarming
             numRainyDays -= 3;
             numRainyDays = Math.max(0, numRainyDays);
+        }
+
+        if (numCropsKilled != 0) {
+            System.out.println(numCropsKilled);
+            NotificationManager.getInstance().addNotification("ALERT!! Locusts killed "
+                    + numCropsKilled + " of your crops :( :( :(");
         }
     }
 
