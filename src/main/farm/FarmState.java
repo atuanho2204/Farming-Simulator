@@ -132,7 +132,12 @@ public class FarmState implements NewDayListener {
             numRainyDays = 0;
         } else {
             // rain
-            double rainRate = GameManager.getInstance().getSeason().getRainRate() * difficulty;
+            double rainRate = 0;
+            if (difficulty == 1) {
+                rainRate = GameManager.getInstance().getSeason().getRainRate() * 1.5;
+            } else {
+                rainRate = GameManager.getInstance().getSeason().getRainRate() * difficulty;
+            }
             if (Math.random() < rainRate) {
                 //System.out.println("rain");
                 triggerRain();
