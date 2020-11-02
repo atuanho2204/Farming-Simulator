@@ -50,6 +50,7 @@ public class MarketUIController implements NewDayListener {
                 newListings.add(MarketListing.getListingUI(listing));
                 //System.out.println(listing.getName() + " with price: " + listing.getBuyCost());
             }
+            newListings.add(MarketListing.getFertilizeUI());
             marketScreen.setPadding(new Insets(100, 0, 0, 40));
             Platform.runLater(() -> {
                 marketScreen.getChildren().clear();

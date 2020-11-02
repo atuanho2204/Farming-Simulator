@@ -86,6 +86,7 @@ public class PlotUI {
         Button plantBut = handlePlantCrop(plot, controller);
         buttons.getChildren().add(plantBut);
 
+
         //water bar
         ProgressBar waterBar = new ProgressBar(plot.getCurrentWater() * 1.0 / plot.getMaxWater());
         waterBar.setStyle("-fx-accent: #00BFFF;"); // blue
@@ -100,7 +101,19 @@ public class PlotUI {
             waterBar.setStyle("-fx-accent: #FFD700;"); // yellow
         }
 
-        vBox.getChildren().addAll(buttons, waterBar);
+        HBox fertilize = new HBox();
+        fertilize.setAlignment(Pos.CENTER);
+        fertilize.setSpacing(5);
+
+        Button fertilizeBut = handleFertilize(plot, controller);
+
+        //fertilizer
+        ProgressBar fertilizerBar = new ProgressBar(plot.getCurrentFertilizer() * 1.0 / plot.getMaxFertilizer());
+        fertilizerBar.setStyle("-fx-accent: #00BFFF;"); // blue
+
+
+        fertilize.getChildren().addAll(fertilizerBar, fertilizeBut);
+        vBox.getChildren().addAll(buttons, waterBar, fertilize);
         return vBox;
     }
 
@@ -135,6 +148,20 @@ public class PlotUI {
         plantBut.setOnAction(actionEvent -> {
             //onButtonClick
             plot.plantSeed();
+            controller.updatePlotUI(plot);
+        });
+        // please do not change the styling below
+        plantBut.setStyle("-fx-background-color: #A0522D;"
+                + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
+                + "-fx-font-size: 13px; -fx-min-width: 50px;");
+        return plantBut;
+    }
+
+    private static Button handleFertilize(Plot plot, FarmController controller) {
+        Button plantBut = new Button("fertilize");
+        plantBut.setOnAction(actionEvent -> {
+            //onButtonClick
+            plot.fertilizePlot(10);
             controller.updatePlotUI(plot);
         });
         // please do not change the styling below

@@ -1,6 +1,7 @@
 package main.market;
 
 
+import javafx.scene.control.Alert;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.Seed;
 import main.util.AlertUser;
@@ -98,5 +99,18 @@ public class Market implements NewDayListener {
         }
     }
 
-
+    public static void buyFertilizer(int price) {
+        try {
+            if (GameManager.getInstance().getMoney() >= price) {
+                GameManager.getInstance().getInventory().putFertilizer(10);
+                int money = GameManager.getInstance().getMoney() - price;
+                GameManager.getInstance().setMoney(money);
+                UIManager.getInstance().pushUIUpdate();
+            } else {
+                AlertUser.alertUser("Do not have enough money");
+            }
+        } catch (Exception e) {
+            AlertUser.alertUser(e.getMessage());
+        }
+    }
 }

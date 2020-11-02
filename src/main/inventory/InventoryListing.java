@@ -58,6 +58,7 @@ public class InventoryListing {
         return hBox;
     }
 
+
     public static HBox getProductListingUI(HarvestedCrop crop) {
         HBox hBox = new HBox();
 

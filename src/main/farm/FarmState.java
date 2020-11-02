@@ -48,6 +48,7 @@ public class FarmState implements NewDayListener {
     public void handleNewDay(NewDayEvent e) {
         randomizeEvents();
         reduceWaterLevelsEveryThreeDays(GameManager.getInstance().getDifficulty());
+        reduceFertilizer(GameManager.getInstance().getDifficulty());
         updateGrowthCycle();
         NotificationManager.getInstance().addNotification("~~~~~~~~~~~~~~~~~~~~Day " + e.getNewDay()
                 + "~~~~~~~~~~~~~~~~~~~~");
@@ -65,6 +66,9 @@ public class FarmState implements NewDayListener {
             int plantDay = plot.getCurrentCrop().getPlantDay();
             CropDetails details = CropCatalog.getInstance().getCropDetails(type);
             int growthTime = details.getGrowthTime();
+            if (plot.getCurrentFertilizer() > 0) {
+                growthTime -= 1;
+            }
             int currentDay = GameManager.getInstance().getDay();
 
             if (currentDay - plantDay > 0 && (currentDay - plantDay) % growthTime == 0) {
@@ -81,6 +85,8 @@ public class FarmState implements NewDayListener {
         }
     }
 
+
+
     /**
      * Method reduceWaterLevelsEveryThreeDays decrements each plot's water level by
      * 1 (for easy and medium levels) or 2 (for hard level).
@@ -93,6 +99,13 @@ public class FarmState implements NewDayListener {
             for (Plot plot : plots) {
                 plot.waterPlot(waterLost);
             }
+        }
+    }
+
+    private void reduceFertilizer(Integer difficulty) {
+        int fertilizeLost = (difficulty < 3) ? -1 : -2;
+        for (Plot plot : plots) {
+            plot.fertilizePlot(fertilizeLost);
         }
     }
 
