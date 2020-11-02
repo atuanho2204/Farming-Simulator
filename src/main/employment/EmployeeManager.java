@@ -1,10 +1,15 @@
 package main.employment;
 
+import javafx.application.Platform;
+import main.farm.FarmController;
 import main.farm.FarmState;
+import main.farm.crops.Crop;
 import main.farm.crops.CropStages;
 import main.farm.plot.Plot;
+import main.farm.plot.PlotUI;
 import main.gameManager.GameManager;
 import main.inventory.Inventory;
+import main.inventory.inventoryItems.HarvestedCrop;
 import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 
@@ -32,6 +37,8 @@ public class EmployeeManager implements NewDayListener {
 
     @Override
     public void handleNewDay(NewDayEvent e) {
+        harvestEmployeeWork();
+        sellEmployeeWork();
         payWages();
         resetEmployeeCapacity();
         //
@@ -161,12 +168,37 @@ public class EmployeeManager implements NewDayListener {
     }
 
     public void harvestEmployeeWork() {
-        for (Plot plot: FarmState.getInstance().getPlots()) {
-            CropStages stage = plot.getCurrentCrop().getStage();
-            if (stage == CropStages.MATURE) {
-                plot.harvestPlot();
-                totalHarvestCapacity -= 4;
+        Platform.runLater(() -> {
+            if (totalHarvestCapacity >= 4) {
+                for (Plot plot: FarmState.getInstance().getPlots()) {
+                    Crop crop = plot.getCurrentCrop();
+                    if (crop != null) {
+                        CropStages stage = crop.getStage();
+                        if (stage == CropStages.MATURE) {
+                            plot.harvestPlot();
+                            totalHarvestCapacity -= 4;
+                        }
+                    }
+                }
             }
-        }
+        });
+    }
+
+    public void sellEmployeeWork() {
+        Platform.runLater(() -> {
+            try {
+                System.out.println(totalSellCapacity);
+                for (HarvestedCrop item : GameManager.getInstance().getInventory().getProducts()) {
+                    System.out.println(item.getName());
+                    if (totalSellCapacity >= 3) {
+                        GameManager.getInstance().getInventory().sellProduct(item);
+                        totalSellCapacity -= 3;
+                        System.out.println("I just sell " + item.getName());
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("ERROR");
+            }
+        });
     }
 }
