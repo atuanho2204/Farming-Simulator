@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import main.employment.EmployeeManager;
 import main.employment.EmploymentController;
 import main.farm.header.FarmHeaderController;
 import main.farm.plot.Plot;
@@ -71,6 +72,11 @@ public class FarmController implements PropertyChangeListener {
         Market market = new Market();
         GameManager.getInstance().setMarket(market);
         GameManager.getInstance().getTimeAdvancer().addListener(market);
+
+        // create employee
+        EmployeeManager employeeManager = new EmployeeManager();
+        GameManager.getInstance().setEmployees(employeeManager);
+        GameManager.getInstance().getTimeAdvancer().addListener(employeeManager);
 
         //add various UI's & controllers
         setHeaderUI();
