@@ -1,5 +1,7 @@
 package main.gameManager;
 
+import main.employment.Employee;
+import main.employment.EmployeeManager;
 import main.inventory.Inventory;
 import main.market.Market;
 import main.util.Seasons;
@@ -25,6 +27,7 @@ public class GameManager implements NewDayListener {
     private Integer difficulty;
     private Market market;
     private Inventory inventory;
+    private EmployeeManager employees;
 
     private GameManager() {
         this.day = 0;
@@ -113,6 +116,14 @@ public class GameManager implements NewDayListener {
 
     public void setMarket(Market market) {
         this.market = market;
+    }
+
+    public EmployeeManager getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(EmployeeManager employees) {
+        this.employees = employees;
     }
 
     public void clear() {
