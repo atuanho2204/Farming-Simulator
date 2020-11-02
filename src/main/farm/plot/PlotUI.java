@@ -90,6 +90,10 @@ public class PlotUI {
         ProgressBar waterBar = new ProgressBar(plot.getCurrentWater() * 1.0 / plot.getMaxWater());
         waterBar.setStyle("-fx-accent: #00BFFF;"); // blue
 
+        // pesticide
+        Button pestBut = handlePesticidePlot(plot, controller);
+        buttons.getChildren().add(pestBut);
+
         if (plot.getCurrentWater() == plot.getMaxWater()) {
             waterBar.setStyle("-fx-accent: #B22222;"); // red at max
         } else if (plot.getCurrentWater() == plot.getMaxWater() - 1) {
@@ -142,5 +146,18 @@ public class PlotUI {
                 + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
                 + "-fx-font-size: 13px; -fx-min-width: 50px;");
         return plantBut;
+    }
+
+    private static Button handlePesticidePlot(Plot plot, FarmController controller) {
+        Button pestBut = new Button("pesticide");
+        pestBut.setOnAction(actionEvent -> {
+            //onButtonClick
+            plot.usePesticide();
+            controller.updatePlotUI(plot);
+        });
+        pestBut.setStyle("-fx-background-color: #18a734;"
+                + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
+                + "-fx-font-size: 13px; -fx-min-width: 50px;");
+        return pestBut;
     }
 }

@@ -18,6 +18,7 @@ public class Inventory {
     private final HashMap<CropTypes, Integer> seedStorage;
     private final int productLimit = 10;
     private final ArrayList<HarvestedCrop> products;
+    private Integer pesticide = 0;
 
 
     public Inventory(boolean storeOriginalSeeds) {
@@ -55,6 +56,9 @@ public class Inventory {
         }
     }
 
+    public void fillPesticide(HarvestedCrop crop) {
+
+    }
 
     /**
      * Puts the given crop into storage.
@@ -105,6 +109,13 @@ public class Inventory {
 
     public int getStorageLimit() {
         return storageLimit;
+    }
+
+    public Integer getPesticide() { return pesticide; }
+
+    public void setPesticide(Integer pesticide) {
+        this.pesticide = pesticide;
+        pesticide = 10;
     }
 
     public HashMap<CropTypes, Integer> getListOfSeedItems() {

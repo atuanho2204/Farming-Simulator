@@ -89,6 +89,16 @@ public class Plot {
         }
     }
 
+    public void usePesticide() {
+        if(currentCrop == null) {
+            //plot does not need pesticide
+            return;
+        } else {
+            //use pesticide
+            //decrement pesticide in inventory
+        }
+    }
+
     public int getMaxWater() {
         return maxWater;
     }

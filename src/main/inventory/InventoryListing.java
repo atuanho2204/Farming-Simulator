@@ -76,4 +76,18 @@ public class InventoryListing {
 
         return hBox;
     }
+
+    public static HBox getPesticideUI() {
+        HBox hBox = new HBox();
+        Text pesticide = new Text("Pesticide:\t");
+        Text pesticide1 = new Text(GameManager.getInstance().getInventory().getPesticide() + "/10");
+        pesticide.setFill(Color.LIGHTSKYBLUE);
+        pesticide1.setFill(Color.RED);
+        pesticide.setStyle("-fx-font: 16 chalkduster;");
+        pesticide1.setStyle("-fx-font: 16 chalkduster;");
+        hBox.getChildren().add(pesticide);
+        hBox.getChildren().add(pesticide1);
+
+        return hBox;
+    }
 }

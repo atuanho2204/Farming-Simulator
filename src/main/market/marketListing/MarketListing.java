@@ -3,6 +3,7 @@ package main.market.marketListing;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import main.gameManager.GameManager;
 import main.inventory.inventoryItems.InventoryItem;
 import main.inventory.inventoryItems.Seed;
 import main.market.Market;
@@ -33,6 +34,25 @@ public class MarketListing {
             Market.sellSeed(((Seed) listing).getType(), listing.getSellCost());
         });
         hBox.getChildren().add(sell);
+
+        return hBox;
+    }
+    public static HBox getFillTankUI() {
+        // text and button to fill Pesticide tank
+        HBox hBox = new HBox();
+
+        Text text = new Text("Pesticide refill:\t$20\t\t");
+        text.setFill(Color.WHITE);
+        text.setStyle("-fx-font: 16 chalkduster;");
+        hBox.getChildren().add(text);
+
+        Button buy = new Button("Buy");
+        buy.setTextFill(Color.BLUE);
+        buy.setOnAction(e -> {
+            Market.buyPesticide(20);
+            GameManager.getInstance().getInventory().getPesticide();
+        });
+        hBox.getChildren().add(buy);
 
         return hBox;
     }

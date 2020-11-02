@@ -76,6 +76,7 @@ public class InventoryUIController implements PropertyChangeListener {
                     newListings.add(InventoryListing.getProductListingUI(crop));
                 }
             }
+            newListings.add(InventoryListing.getPesticideUI());
             //Platform.runLater(() -> {
             inventoryScreen.getChildren().addAll(newListings);
             //});
