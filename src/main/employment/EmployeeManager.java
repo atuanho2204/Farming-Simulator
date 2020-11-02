@@ -1,6 +1,10 @@
 package main.employment;
 
+import main.farm.FarmState;
+import main.farm.crops.CropStages;
+import main.farm.plot.Plot;
 import main.gameManager.GameManager;
+import main.inventory.Inventory;
 import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 
@@ -9,8 +13,10 @@ import java.util.Random;
 
 public class EmployeeManager implements NewDayListener {
     private final int employeeLimit = 3;
-    private final int baseHarvestSalary = 3;
-    private final int baseSellSalary = 5;
+    private final int baseHarvestSalary = 2;
+    private final int baseSellSalary = 4;
+    private int totalHarvestCapacity = 0;
+    private int totalSellCapacity = 0;
 
     private ArrayList<Employee> harvestEmployees;
     private ArrayList<Employee> sellEmployees;
@@ -27,6 +33,7 @@ public class EmployeeManager implements NewDayListener {
     @Override
     public void handleNewDay(NewDayEvent e) {
         payWages();
+        resetEmployeeCapacity();
         //
         System.out.println(GameManager.getInstance().getMoney());
     }
@@ -119,7 +126,12 @@ public class EmployeeManager implements NewDayListener {
 
     private int generateWorkCapacity() {
         Random ran = new Random();
-        return ran.nextInt(3) + 4;
+        return ran.nextInt(6 - 4 + 1) + 4;
+    }
+
+    private void resetEmployeeCapacity() {
+        this.totalHarvestCapacity = getHarvestEmployeeCapacity();
+        this.totalSellCapacity = getSellEmployeeCapacity();
     }
 
     public void payWages() {
@@ -148,6 +160,13 @@ public class EmployeeManager implements NewDayListener {
         }
     }
 
-
-
+    public void harvestEmployeeWork() {
+        for (Plot plot: FarmState.getInstance().getPlots()) {
+            CropStages stage = plot.getCurrentCrop().getStage();
+            if (stage == CropStages.MATURE) {
+                plot.harvestPlot();
+                totalHarvestCapacity -= 4;
+            }
+        }
+    }
 }
