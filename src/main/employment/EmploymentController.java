@@ -84,6 +84,7 @@ public class EmploymentController implements NewDayListener {
             GameManager.getInstance().getEmployees().addHarvestEmployee(currentDay);
             //
             System.out.println(GameManager.getInstance().getEmployees().getHarvestEmployees().size() + "A");
+            GameManager.getInstance().getEmployees().harvestEmployeeWork();
         } catch (Exception e) {
             System.out.println("You don't have enough money or too much employee");
         }
