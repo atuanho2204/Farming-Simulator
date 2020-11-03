@@ -45,6 +45,11 @@ public class InventoryUIController implements PropertyChangeListener {
             inventoryScreen.getChildren().clear();
 
             newListings.add(InventoryListing.getInfoUI(GameManager.getInstance().getInventory()));
+            //Fertilizer display
+            Text fertilize = new Text("Fertilizer Tank: " + GameManager.getInstance().getInventory().getFertilizer() + "/10");
+            fertilize.setFill(Color.ANTIQUEWHITE);
+            fertilize.setStyle("-fx-font: 16 chalkduster;");
+            newListings.add(fertilize);
             //go through the seeds
             HashMap<CropTypes, Integer> seeds =
                     GameManager.getInstance().getInventory().getListOfSeedItems();

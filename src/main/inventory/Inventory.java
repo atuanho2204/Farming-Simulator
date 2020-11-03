@@ -18,6 +18,8 @@ public class Inventory {
     private final HashMap<CropTypes, Integer> seedStorage;
     private final int productLimit = 10;
     private final ArrayList<HarvestedCrop> products;
+    private int fertilizerTank = 10;
+    private int currentFertilizer = 0;
 
 
     public Inventory(boolean storeOriginalSeeds) {
@@ -29,6 +31,24 @@ public class Inventory {
                 seedStorage.put(type, 2);
             }
         }
+    }
+    public void putFertilizer(int amount) throws Exception{
+        if (currentFertilizer == fertilizerTank && amount > 0) {
+            throw new Exception("Your fertilizer tank is full");
+        }
+        if (currentFertilizer == 0 && amount < 0) {
+            throw new Exception("You don't have enough fertilizer");
+        }
+        if (amount > 0) {
+            currentFertilizer = fertilizerTank;
+        } else {
+            currentFertilizer += amount;
+        }
+        changeSupport.firePropertyChange("Inventory", "", "Fertilizer tank changed");
+    }
+
+    public int getFertilizer() {
+        return currentFertilizer;
     }
 
     public void putSeed(CropTypes type) throws Exception {

@@ -30,10 +30,10 @@
                     <RowConstraints vgrow="ALWAYS"/>
                     <RowConstraints vgrow="ALWAYS"/>
                 </rowConstraints>
-                <StackPane fx:id="employmentHolder" prefHeight="375" prefWidth="360"
+                <StackPane fx:id="employmentHolder" prefHeight="350" prefWidth="360"
                            GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-background-color: blue">
                 </StackPane>
-                <StackPane fx:id="notificationHolder" prefHeight="375" prefWidth="360"
+                <StackPane fx:id="notificationHolder" prefHeight="350" prefWidth="360"
                            GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-background-color: green">
                 </StackPane>
             </GridPane>
@@ -64,10 +64,10 @@
                     <RowConstraints vgrow="ALWAYS"/>
                     <RowConstraints vgrow="ALWAYS"/>
                 </rowConstraints>
-                <StackPane fx:id="marketHolder" prefHeight="375" prefWidth="400"
+                <StackPane fx:id="marketHolder" prefHeight="375" prefWidth="350"  style="-fx-background-color: blue"
                            GridPane.columnIndex="0" GridPane.rowIndex="0">
                 </StackPane>
-                <StackPane fx:id="inventoryHolder" prefHeight="375" prefWidth="400"
+                <StackPane fx:id="inventoryHolder" prefHeight="375" prefWidth="350"  style="-fx-background-color: brown"
                            GridPane.columnIndex="0" GridPane.rowIndex="1">
                 </StackPane>
             </GridPane>
