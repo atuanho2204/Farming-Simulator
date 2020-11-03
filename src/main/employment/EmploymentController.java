@@ -68,7 +68,7 @@ public class EmploymentController implements NewDayListener, ForceUIUpdateListen
         try {
             int wage = GameManager.getInstance().getEmployees().getTotalSalary();
             int totalEmp = GameManager.getInstance().getEmployees().getTotalEmployees().size();
-            dailyWage.setText(": " + wage);
+            dailyWage.setText(": $" + wage);
             totalEmployees.setText(": " + totalEmp);
             dailyWage.setStyle("-fx-font: 16 chalkduster;");
             dailyWage.setFill(Color.WHITE);
