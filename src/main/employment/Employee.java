@@ -1,32 +1,32 @@
 package main.employment;
 
 public class Employee {
-    private int capacity;
-    private int hireDay;
+    private int salary;
+    private int hiredDay;
     private EmployeeTypes type;
     private String employeeName;
 
-    public Employee(int capacity, int hireDay, EmployeeTypes type, String employeeName) {
-        this.capacity = capacity;
-        this.hireDay = hireDay;
+    public Employee(int capacity, int hiredDay, EmployeeTypes type, String employeeName) {
+        this.salary = capacity;
+        this.hiredDay = hiredDay;
         this.type = type;
         this.employeeName = employeeName;
     }
 
-    public int getCapacity() {
-        return this.capacity;
+    public int getSalary() {
+        return this.salary;
     }
 
     public int getHireDay() {
-        return this.hireDay;
+        return this.hiredDay;
     }
 
-    public void setHireDay(int hireDay) {
-        this.hireDay = hireDay;
+    public void setHireDay(int hiredDay) {
+        this.hiredDay = hiredDay;
     }
 
-    public void setCapacity(int salary) {
-        this.capacity = salary;
+    public void setSalary(int salary) {
+        this.salary = salary;
     }
 
     public EmployeeTypes getEmployeeType() {
