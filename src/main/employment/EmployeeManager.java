@@ -206,7 +206,7 @@ public class EmployeeManager implements NewDayListener {
                     }
                 }
             } catch (Exception e) {
-                System.out.println("ERROR");
+                //System.out.println("ERROR");
             }
         });
     }
