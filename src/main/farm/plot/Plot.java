@@ -89,7 +89,7 @@ public class Plot {
                             new HarvestedCrop(currentCrop.getType()));
                 }
                 NotificationManager.getInstance().addNotification(
-                        "You harvested " + yieldBonus + " "+ currentCrop.getType().toString().toLowerCase() + "!!");
+                        "Harvested " + yieldBonus + " "+ currentCrop.getType().toString().toLowerCase() + "!!");
                 currentCrop = null;
                 return;
             } catch (Exception e) {

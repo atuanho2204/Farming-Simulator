@@ -11,7 +11,7 @@ public class InventoryItem {
 
     public InventoryItem(CropTypes type) {
         this.buyCost = CropCatalog.getInstance().getCropDetails(type).getBaseBuy();
-        this.sellCost = CropCatalog.getInstance().getCropDetails(type).getBaseSell();
+        this.sellCost = CropCatalog.getInstance().getCropDetails(type).getBaseSell() * 2;
         this.name = type.name().toLowerCase();
     }
 
