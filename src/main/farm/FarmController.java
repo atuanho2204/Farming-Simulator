@@ -58,7 +58,7 @@ public class FarmController implements PropertyChangeListener {
         if (GameManager.getInstance().getName().equals("Super Farmer")) {
             GameManager.getInstance().setMoney((1000));
         } else {
-            GameManager.getInstance().setMoney(40 * GameManager.getInstance().getDifficulty());
+            GameManager.getInstance().setMoney(75 * GameManager.getInstance().getDifficulty());
         }
         //listen to the farmState
         farmState = FarmState.getInstance();
