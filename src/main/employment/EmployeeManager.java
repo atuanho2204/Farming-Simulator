@@ -193,7 +193,7 @@ public class EmployeeManager implements NewDayListener {
                     if (totalSellCapacity >= 3) {
                         GameManager.getInstance().getInventory().sellProduct(item);
                         totalSellCapacity -= 3;
-                        System.out.println("I just sell " + item.getName());
+                        System.out.println("I just sold " + item.getName());
                     }
                 }
             } catch (Exception e) {
