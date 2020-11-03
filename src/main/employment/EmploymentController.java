@@ -2,27 +2,45 @@ package main.employment;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import main.employment.employmentData.EmploymentDataController;
+import main.farm.header.FarmHeaderController;
 import main.gameManager.GameManager;
+import main.market.MarketUIController;
+import main.util.AlertUser;
+import main.util.UIManager;
+import main.util.customEvents.ForceUIUpdate;
+import main.util.customEvents.ForceUIUpdateListener;
 import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 
 /**
  * The Controller for the employmentUI fxml screen
  */
-public class EmploymentController implements NewDayListener {
+public class EmploymentController implements NewDayListener, ForceUIUpdateListener{
     private Stage primaryStage;
-    private int numEmployee1;
-    private int numEmployee2;
+
     private final int salary = 5;
-    private ArrayList<Employee> employees;
 
     @FXML
-    private VBox employmentScreen;
+    private VBox employmentData;
+
+    @FXML
+    private Text dailyWage;
+
+    @FXML
+    private Text totalEmployees;
 
     /**
      * Constructs the Employment Scene.
@@ -31,19 +49,35 @@ public class EmploymentController implements NewDayListener {
      */
     public void construct(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        //
+
         GameManager.getInstance().getTimeAdvancer().addListener(this);
+        UIManager.getInstance().addListener(this);
+
+
         employmentUpdate();
+        setEmploymentDataUI();
     }
 
     @Override
     public void handleNewDay(NewDayEvent e) {
         employmentUpdate();
+    }
 
+    @Override
+    public void handleForcedUIUpdate(ForceUIUpdate forcedUIUpdate) {
+        employmentUpdate();
     }
 
     private void employmentUpdate() {
         try {
+            int wage = GameManager.getInstance().getEmployees().getTotalSalary();
+            int totalEmp = GameManager.getInstance().getEmployees().getTotalEmployees().size();
+            dailyWage.setText(": " + wage);
+            totalEmployees.setText(": " + totalEmp);
+            dailyWage.setStyle("-fx-font: 16 chalkduster;");
+            dailyWage.setFill(Color.WHITE);
+            totalEmployees.setStyle("-fx-font: 16 chalkduster;");
+            totalEmployees.setFill(Color.WHITE);
 
         } catch (Exception e) {
 
@@ -53,10 +87,13 @@ public class EmploymentController implements NewDayListener {
     //BEGIN: methods for hiring, firing, displaying the weekly cost, and next pay day, etc:
     @FXML
     private void fireHarvestEmployee(ActionEvent event) {
-        int numHarvestEmployee = GameManager.getInstance().getEmployees().getHarvestEmployees().size();
         try {
-            if (numHarvestEmployee > 0) {
-                GameManager.getInstance().getEmployees().deleteHarvestEmployee();
+            for (Employee e: GameManager.getInstance().getEmployees().getTotalEmployees()) {
+                if (e.getEmployeeType() == EmployeeTypes.HARVESTER) {
+                    GameManager.getInstance().getEmployees().deleteHarvester();
+                    //System.out.println("You fired " + e.getEmployeeName());
+                    break;
+                }
             }
         } catch (Exception e) {
             System.out.println("You don't have any harvest employee");
@@ -65,10 +102,13 @@ public class EmploymentController implements NewDayListener {
 
     @FXML
     private void fireSellEmployee(ActionEvent event) {
-        int numSellEmployee = GameManager.getInstance().getEmployees().getSellEmployees().size();
         try {
-            if (numSellEmployee > 0) {
-                GameManager.getInstance().getEmployees().deleteSellEmployee();
+            for (Employee e: GameManager.getInstance().getEmployees().getTotalEmployees()) {
+                if (e.getEmployeeType() == EmployeeTypes.SELLER) {
+                    GameManager.getInstance().getEmployees().deleteSeller();
+                    //System.out.println("You fired " + e.getEmployeeName());
+                    break;
+                }
             }
         } catch (Exception e) {
             System.out.println("You don't have any sell employee");
@@ -79,12 +119,7 @@ public class EmploymentController implements NewDayListener {
     private void hireHarvestEmployee(ActionEvent event) {
         int currentDay = GameManager.getInstance().getDay();
         try {
-            GameManager.getInstance().getEmployees().addHarvestEmployee(currentDay);
-            //
-
-            //System.out.println(GameManager.getInstance().getEmployees().getHarvestEmployees().size() + "A");
-            GameManager.getInstance().getEmployees().harvestEmployeeWork();
-
+            GameManager.getInstance().getEmployees().addHarvester(currentDay);
         } catch (Exception e) {
             System.out.println("You don't have enough money or too much employee");
         }
@@ -93,12 +128,7 @@ public class EmploymentController implements NewDayListener {
     private void hireSellEmployee(ActionEvent event) {
         int currentDay = GameManager.getInstance().getDay();
         try {
-            GameManager.getInstance().getEmployees().addSellEmployee(currentDay);
-            //
-
-            //System.out.println(GameManager.getInstance().getEmployees().getSellEmployees().size()
-                    //+ "B");
-
+            GameManager.getInstance().getEmployees().addSeller(currentDay);
         } catch (Exception e) {
             System.out.println("You don't have enough money or too much employee");
         }
@@ -114,6 +144,22 @@ public class EmploymentController implements NewDayListener {
         //ArrayList<Plot> plots = GameManager.getInstance().get
     }
 
-
+    private void setEmploymentDataUI() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "../employment/employmentData/employmentDataUI.fxml"
+                    )
+            );
+            Parent parent = loader.load();
+            EmploymentDataController controller = loader.getController();
+            controller.construct(primaryStage);
+            employmentData.getChildren().add(new Pane(parent));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            AlertUser.alertUser("There was an error loading in the headerUI");
+        }
+    }
     //END
 }
