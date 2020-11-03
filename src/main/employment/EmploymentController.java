@@ -2,10 +2,8 @@ package main.employment;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import main.farm.plot.Plot;
 import main.gameManager.GameManager;
 import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
