@@ -47,7 +47,8 @@ public class InventoryUIController implements PropertyChangeListener {
         try {
             inventoryScreen.getChildren().clear();
 
-            newListings.addAll(InventoryListing.getInfoUI(GameManager.getInstance().getInventory()));
+            newListings.addAll(InventoryListing.getInfoUI(
+                    GameManager.getInstance().getInventory()));
 
             //go through the seeds
             HashMap<CropTypes, Integer> seeds =

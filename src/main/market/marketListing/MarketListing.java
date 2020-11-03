@@ -53,7 +53,7 @@ public class MarketListing {
             Market.buyFertilizer(price);
         });
         hBox.getChildren().addAll(buy);
-        hBox.setPadding(new Insets( 20, 20, 20, 20));
+        hBox.setPadding(new Insets(20, 20, 20, 20));
         return hBox;
     }
 }

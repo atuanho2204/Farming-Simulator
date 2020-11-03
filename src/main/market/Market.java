@@ -1,7 +1,5 @@
 package main.market;
 
-
-import javafx.scene.control.Alert;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.Seed;
 import main.util.AlertUser;

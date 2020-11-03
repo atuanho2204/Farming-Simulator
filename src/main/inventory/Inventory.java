@@ -36,7 +36,7 @@ public class Inventory {
         products.add(new HarvestedCrop(CropTypes.CORN));
         products.add(new HarvestedCrop(CropTypes.COTTON));
     }
-    public void putFertilizer(int amount) throws Exception{
+    public void putFertilizer(int amount) throws Exception {
         if (currentFertilizer == fertilizerTank && amount > 0) {
             throw new Exception("Your fertilizer tank is full");
         }

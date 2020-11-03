@@ -10,9 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.employment.employmentData.EmploymentDataController;
-import main.farm.header.FarmHeaderController;
 import main.gameManager.GameManager;
-import main.market.MarketUIController;
+
 import main.util.AlertUser;
 import main.util.UIManager;
 import main.util.customEvents.ForceUIUpdate;
@@ -20,15 +19,12 @@ import main.util.customEvents.ForceUIUpdateListener;
 import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
 
 /**
  * The Controller for the employmentUI fxml screen
  */
-public class EmploymentController implements NewDayListener, ForceUIUpdateListener{
+public class EmploymentController implements NewDayListener, ForceUIUpdateListener {
     private Stage primaryStage;
 
     private final int salary = 5;

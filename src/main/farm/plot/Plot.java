@@ -82,14 +82,15 @@ public class Plot {
                 int yieldBonus = 1;
                 if (currentFertilizer > 0) {
                     Random random = new Random();
-                    yieldBonus = random.nextInt(3) +1;
+                    yieldBonus = random.nextInt(3) + 1;
                 }
                 for (int i = 0; i < yieldBonus; i++) {
                     GameManager.getInstance().getInventory().putProduct(
                             new HarvestedCrop(currentCrop.getType()));
                 }
                 NotificationManager.getInstance().addNotification(
-                        "Harvested " + yieldBonus + " "+ currentCrop.getType().toString().toLowerCase() + "!!");
+                        "Harvested " + yieldBonus + " "
+                                + currentCrop.getType().toString().toLowerCase() + "!!");
                 currentCrop = null;
                 return;
             } catch (Exception e) {
@@ -108,7 +109,8 @@ public class Plot {
             try {
                 //Find first seed in inventory; plant seed & decrease seed inventory
                 Map<CropTypes, Integer> seedItems =
-                        GameManager.getInstance().getInventory().getListOfSeedItems();
+                        GameManager.getInstance().getInventory()
+                                .getListOfSeedItems();
                 CropTypes type = seedItems.entrySet().iterator().next().getKey();
                 GameManager.getInstance().getInventory().removeSeed(type);
                 currentCrop = new Crop(type);

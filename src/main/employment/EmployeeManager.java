@@ -1,25 +1,15 @@
 package main.employment;
 
-
 import main.gameManager.GameManager;
-
 import javafx.application.Platform;
-import main.farm.FarmController;
 import main.farm.FarmState;
 import main.farm.crops.Crop;
 import main.farm.crops.CropStages;
 import main.farm.plot.Plot;
-import main.farm.plot.PlotUI;
-import main.gameManager.GameManager;
-import main.inventory.Inventory;
 import main.inventory.inventoryItems.HarvestedCrop;
-
 import main.util.UIManager;
 import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -60,7 +50,8 @@ public class EmployeeManager implements NewDayListener {
             //System.out.println("A");
             employees.add(employee);
             UIManager.getInstance().pushUIUpdate();
-            System.out.println("You hired " + employee.getEmployeeName() + " " + employee.getEmployeeType());
+            /*System.out.println("You hired " + employee.getEmployeeName()
+                    + " " + employee.getEmployeeType());*/
         } else {
             throw new Exception();
         }
@@ -76,7 +67,8 @@ public class EmployeeManager implements NewDayListener {
             employees.add(employee);
 
             UIManager.getInstance().pushUIUpdate();
-            System.out.println("You hired " + employee.getEmployeeName() + " " + employee.getEmployeeType());
+            /*System.out.println("You hired " + employee.getEmployeeName()
+                    + " " + employee.getEmployeeType());*/
         } else {
             throw new Exception();
         }
@@ -88,7 +80,8 @@ public class EmployeeManager implements NewDayListener {
                 for (int i = 0; i < employees.size(); i++) {
                     if (employees.get(i).getEmployeeType() == EmployeeTypes.HARVESTER) {
                         employees.remove(i);
-                        System.out.println("You fired " + employees.get(i).getEmployeeName());
+                        /*System.out.println("You fired " +
+                                employees.get(i).getEmployeeName());*/
                         UIManager.getInstance().pushUIUpdate();
                         break;
                     }
@@ -104,7 +97,8 @@ public class EmployeeManager implements NewDayListener {
                 for (int i = 0; i < employees.size(); i++) {
                     if (employees.get(i).getEmployeeType() == EmployeeTypes.SELLER) {
                         employees.remove(i);
-                        System.out.println("You fired " + employees.get(i).getEmployeeName());
+                        /*System.out.println("You fired "
+                                + employees.get(i).getEmployeeName());*/
                         UIManager.getInstance().pushUIUpdate();
                         break;
                     }

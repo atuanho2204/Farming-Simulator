@@ -108,7 +108,8 @@ public class PlotUI {
         Button fertilizeBut = handleFertilize(plot, controller);
 
         //fertilizer
-        ProgressBar fertilizerBar = new ProgressBar(plot.getCurrentFertilizer() * 1.0 / plot.getMaxFertilizer());
+        ProgressBar fertilizerBar = new ProgressBar(
+                plot.getCurrentFertilizer() * 1.0 / plot.getMaxFertilizer());
         fertilizerBar.setStyle("-fx-accent: #00BFFF;"); // blue
 
 

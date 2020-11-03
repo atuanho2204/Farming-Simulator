@@ -1,11 +1,11 @@
 package test.FarmFunctionality;
 
 import com.sun.javafx.application.PlatformImpl;
-import main.farm.FarmController;
+
 import main.farm.FarmState;
 import main.farm.plot.Plot;
 import main.gameManager.GameManager;
-import main.inventory.Inventory;
+
 import main.farm.crops.CropStages;
 import main.farm.crops.CropTypes;
 import org.junit.Before;
