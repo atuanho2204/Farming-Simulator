@@ -109,7 +109,7 @@ public class FarmState implements NewDayListener {
         }
     }
 
-    private void forcePlotUpdate(String reason) {
+    public void forcePlotUpdate(String reason) {
         changeSupport.firePropertyChange(
                 "plots", "", reason);
     }

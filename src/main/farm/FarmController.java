@@ -225,6 +225,8 @@ public class FarmController implements PropertyChangeListener {
      */
     public void updatePlotUI(Plot plot) {
         int index = plotsToUIIndex.get(plot);
+        Platform.runLater(() -> {
         plotHolder.getChildren().set(index, PlotUI.getPlotUI(plot, this));
+        });
     }
 }

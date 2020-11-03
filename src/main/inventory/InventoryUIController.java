@@ -25,7 +25,7 @@ public class InventoryUIController implements PropertyChangeListener {
 
     public void construct(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        inventoryScreen.setPadding(new Insets(120, 0, 0, 35));
+        inventoryScreen.setPadding(new Insets(5, 0, 0, 5));
 
         //subscribe to the inventory changes
         GameManager.getInstance().getInventory().subscribeToChanges(this);
@@ -44,17 +44,13 @@ public class InventoryUIController implements PropertyChangeListener {
         try {
             inventoryScreen.getChildren().clear();
 
-            newListings.add(InventoryListing.getInfoUI(GameManager.getInstance().getInventory()));
-            //Fertilizer display
-            Text fertilize = new Text("Fertilizer Tank: " + GameManager.getInstance().getInventory().getFertilizer() + "/10");
-            fertilize.setFill(Color.ANTIQUEWHITE);
-            fertilize.setStyle("-fx-font: 16 chalkduster;");
-            newListings.add(fertilize);
+            newListings.addAll(InventoryListing.getInfoUI(GameManager.getInstance().getInventory()));
+
             //go through the seeds
             HashMap<CropTypes, Integer> seeds =
                     GameManager.getInstance().getInventory().getListOfSeedItems();
             if (seeds.keySet().size() == 0) {
-                Text emptySeed = new Text("\nNo seeds?\nHow do you plan to farm??");
+                Text emptySeed = new Text("\nNo seeds? How do you plan to farm??");
                 emptySeed.setFill(Color.ORANGE);
                 emptySeed.setStyle("-fx-font: 16 chalkduster;");
                 newListings.add(emptySeed);

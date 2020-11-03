@@ -177,7 +177,7 @@ public class EmployeeManager implements NewDayListener {
     }
 
     public void harvestEmployeeWork() {
-        Platform.runLater(() -> {
+        //Platform.runLater(() -> {
             if (totalHarvestCapacity >= 4) {
                 for (Plot plot: FarmState.getInstance().getPlots()) {
                     Crop crop = plot.getCurrentCrop();
@@ -190,7 +190,7 @@ public class EmployeeManager implements NewDayListener {
                     }
                 }
             }
-        });
+        //});
     }
 
     public void sellEmployeeWork() {
