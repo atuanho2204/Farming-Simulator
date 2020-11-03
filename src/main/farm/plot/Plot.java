@@ -2,18 +2,21 @@ package main.farm.plot;
 
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
+import main.notifications.NotificationManager;
 import main.util.AlertUser;
 import main.farm.crops.Crop;
 import main.farm.crops.CropStages;
 import main.farm.crops.CropTypes;
 
 import java.util.Map;
+import java.util.Random;
 
 public class Plot {
     private Crop currentCrop;
     private int currentWater = 5;
     private final int maxWater = 10;
-
+    private int currentFertilizer = 0;
+    private final int maxFertilizer = 10;
     public Plot() {
         // random crop, random stage, random water level from 4 to 6
         this(new Crop(CropTypes.values()[(int) (Math.random() * 4)],
@@ -46,6 +49,26 @@ public class Plot {
         }
     }
 
+    public void fertilizePlot(int increment) {
+        try {
+            if (increment == 10) {
+                GameManager.getInstance().getInventory().putFertilizer(-1);
+            }
+            currentFertilizer += increment;
+            if (currentFertilizer >= maxFertilizer || currentFertilizer <= 0) {
+                if (currentFertilizer > maxFertilizer) {
+                    currentFertilizer = maxFertilizer;
+                }
+                if (currentFertilizer < 0) {
+                    currentFertilizer = 0;
+                }
+            }
+        } catch (Exception e) {
+            AlertUser.alertUser(e.getMessage());
+        }
+    }
+
+
     public void harvestPlot() {
         if (currentCrop == null) {
             //the plot is empty
@@ -56,8 +79,17 @@ public class Plot {
         } else if (currentCrop.getStage() == CropStages.MATURE) {
             //try to harvest the mature crop
             try {
-                GameManager.getInstance().getInventory().putProduct(
-                        new HarvestedCrop(currentCrop.getType()));
+                int yieldBonus = 1;
+                if (currentFertilizer > 0) {
+                    Random random = new Random();
+                    yieldBonus = random.nextInt(3) +1;
+                }
+                for (int i = 0; i < yieldBonus; i++) {
+                    GameManager.getInstance().getInventory().putProduct(
+                            new HarvestedCrop(currentCrop.getType()));
+                }
+                NotificationManager.getInstance().addNotification(
+                        "Harvested " + yieldBonus + " "+ currentCrop.getType().toString().toLowerCase() + "!!");
                 currentCrop = null;
                 return;
             } catch (Exception e) {
@@ -105,6 +137,14 @@ public class Plot {
 
     public int getCurrentWater() {
         return currentWater;
+    }
+
+    public int getMaxFertilizer() {
+        return maxFertilizer;
+    }
+
+    public int getCurrentFertilizer() {
+        return currentFertilizer;
     }
 
     public void setCurrentWater(int currentWater) {

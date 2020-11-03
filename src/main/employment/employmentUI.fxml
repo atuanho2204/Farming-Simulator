@@ -9,11 +9,29 @@
       fx:controller="main.employment.EmploymentController">
     <!--This holds the information for employment:-->
     <HBox>
-        <Label>Sample Label:</Label>
-        <Button>Sample button</Button>
+        <Label style="-fx-font: 20 chalkduster;">Harvester</Label>
+        <Button fx:id="hireHarvestE" mnemonicParsing="false" onAction="#hireHarvestEmployee">
+            Hire
+        </Button>
+        <Button fx:id="fireHarvestE" mnemonicParsing="false"
+                onAction="#fireHarvestEmployee">Fire
+        </Button>
     </HBox>
     <HBox>
-        <Label>Sample Label:</Label>
-        <Button>Sample button</Button>
+        <Label style="-fx-font: 20 chalkduster;">Product Seller</Label>
+        <Button fx:id="hireSellE" mnemonicParsing="false"
+                onAction="#hireSellEmployee">Hire
+        </Button>
+        <Button fx:id="fireSellE" mnemonicParsing="false"
+                onAction="#fireSellEmployee">Fire
+        </Button>
+    </HBox>
+    <HBox>
+        <Label>Daily Wages: </Label>
+
+    </HBox>
+    <HBox>
+        <Label>Employees: </Label>
+
     </HBox>
 </VBox>

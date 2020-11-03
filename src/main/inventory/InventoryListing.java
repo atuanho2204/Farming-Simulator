@@ -1,6 +1,5 @@
 package main.inventory;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -8,28 +7,37 @@ import javafx.scene.text.Text;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
 
-public class InventoryListing {
-    public static HBox getInfoUI(Inventory inventory) {
-        HBox hBox = new HBox();
+import java.util.ArrayList;
 
-        // Label for Inventory
-        //Text text = new Text("Inventory: ");
+public class InventoryListing {
+    public static ArrayList<Text> getInfoUI(Inventory inventory) {
+        ArrayList<Text> texts = new ArrayList<>();
+
+        Text header = new Text("Inventory:");
+        header.setFill(Color.ANTIQUEWHITE);
+        header.setStyle("-fx-font: 20 chalkduster;");
 
         // Inventory Information
-        Text current = new Text("Current: " + inventory.getStorageSize() + "   ");
-
+        Text current = new Text("Storage: " + inventory.getStorageSize()
+                + "/" + inventory.getStorageLimit());
         current.setFill(Color.YELLOW);
         current.setStyle("-fx-font: 16 chalkduster;");
-        int storageRemain = inventory.getStorageLimit() - inventory.getStorageSize();
-        Text remain = new Text("Remaining: " + storageRemain + "   ");
-        remain.setFill(Color.YELLOW);
-        remain.setStyle("-fx-font: 16 chalkduster;");
-        Text capacity = new Text("Capacity: " + inventory.getStorageLimit());
-        capacity.setFill(Color.YELLOW);
-        capacity.setStyle("-fx-font: 16 chalkduster;");
-        hBox.getChildren().addAll(current, remain, capacity);
-        hBox.setAlignment(Pos.CENTER);
-        return hBox;
+
+        //fertilizer information
+        Text fertilize = new Text("Fertilizer Tank: "
+                + GameManager.getInstance().getInventory().getFertilizer() + "/10");
+        fertilize.setFill(Color.ANTIQUEWHITE);
+        fertilize.setStyle("-fx-font: 16 chalkduster;");
+
+        //pesticide information
+        //PUT THE STUFF HERE @CHRIS
+
+
+        texts.add(header);
+        texts.add(current);
+        texts.add(fertilize);
+        //hBox.setAlignment(Pos.CENTER);
+        return texts;
     }
 
     public static HBox getHeader(String t) {
@@ -58,23 +66,13 @@ public class InventoryListing {
         return hBox;
     }
 
-    public static HBox getProductListingUI(HarvestedCrop crop) {
-        HBox hBox = new HBox();
 
-        Text product = new Text("\t" + crop.getName() + ": " + crop.getSellCost());
-        product.setFill(Color.WHITE);
-        product.setStyle("-fx-font: 16 chalkduster;");
-        hBox.getChildren().add(product);
-
+    public static Button getProductListingUI(HarvestedCrop crop) {
         //ADD BUTTON TO SELL
-        Button sell = new Button("Sell");
-        sell.setTextFill(Color.RED);
-        sell.setOnAction(e -> {
-            GameManager.getInstance().getInventory().sellProduct(crop);
-        });
-        hBox.getChildren().add(sell);
-
-        return hBox;
+        Button sell = new Button(crop.getName() + "\n" + crop.getSellCost());
+        sell.setTextFill(Color.ORANGE);
+        sell.setPrefWidth(63);
+        return sell;
     }
 
     public static HBox getPesticideUI() {

@@ -1,5 +1,6 @@
 package main.market.marketListing;
 
+import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
@@ -15,7 +16,7 @@ public class MarketListing {
         Text text = new Text(listing.getName() + ":");
         text.setFill(Color.WHITE);
         text.setStyle("-fx-font: 16 chalkduster;");
-        Text text1 = new Text("\t$" + listing.getBuyCost() + "\t\t");
+        Text text1 = new Text("   $" + listing.getBuyCost() + "\t");
         text1.setFill(Color.WHITE);
         text1.setStyle("-fx-font: 16 chalkduster;");
 
@@ -53,7 +54,24 @@ public class MarketListing {
             GameManager.getInstance().getInventory().getPesticide();
         });
         hBox.getChildren().add(buy);
-
+        return hBox;
+    }
+    
+    public static HBox getFertilizeUI() {
+        HBox hBox = new HBox();
+        int difficultySupplement = GameManager.getInstance().getDifficulty();
+        int price = 10 + 5 * (difficultySupplement);
+        Text fertilize = new Text("Fertilizer refill: $" + price + "\t");
+        fertilize.setFill(Color.WHITE);
+        fertilize.setStyle("-fx-font: 16 chalkduster;");
+        hBox.getChildren().add(fertilize);
+        Button buy = new Button("Buy");
+        buy.setTextFill(Color.GREEN);
+        buy.setOnAction(e -> {
+            Market.buyFertilizer(price);
+        });
+        hBox.getChildren().addAll(buy);
+        hBox.setPadding(new Insets( 20, 20, 20, 20));
         return hBox;
     }
 }
