@@ -16,7 +16,7 @@ public class MarketListing {
         Text text = new Text(listing.getName() + ":");
         text.setFill(Color.WHITE);
         text.setStyle("-fx-font: 16 chalkduster;");
-        Text text1 = new Text("\t$" + listing.getBuyCost() + "\t\t");
+        Text text1 = new Text("\t$" + listing.getBuyCost() + "\t");
         text1.setFill(Color.WHITE);
         text1.setStyle("-fx-font: 16 chalkduster;");
 
