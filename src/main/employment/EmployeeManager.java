@@ -151,7 +151,7 @@ public class EmployeeManager implements NewDayListener {
             min = 4;
             max = 6;
         }
-        System.out.println(min + " " + max);
+        //System.out.println(min + " " + max);
         return ran.nextInt(max - min + 1) + min;
     }
 
