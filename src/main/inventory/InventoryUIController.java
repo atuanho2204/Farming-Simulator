@@ -38,7 +38,7 @@ public class InventoryUIController implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        //System.out.println("Inventory Controller received changed property");
+        System.out.println("Inventory Controller received changed property");
         setInventoryListings();
     }
 

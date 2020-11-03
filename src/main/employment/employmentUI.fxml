@@ -4,34 +4,46 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
 
+<?import javafx.scene.text.Text?>
 <VBox fx:id="employmentScreen" stylesheets="@../style.css" prefHeight="Infinity"
       xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="main.employment.EmploymentController">
     <!--This holds the information for employment:-->
-    <HBox>
-        <Label style="-fx-font: 20 chalkduster;">Harvester</Label>
-        <Button fx:id="hireHarvestE" mnemonicParsing="false" onAction="#hireHarvestEmployee">
-            Hire
-        </Button>
-        <Button fx:id="fireHarvestE" mnemonicParsing="false"
-                onAction="#fireHarvestEmployee">Fire
-        </Button>
+    <HBox style="-fx-padding:15;">
+        <Label style="-fx-font: 16 chalkduster; -fx-padding: 0 57 0 0;" textFill="aliceblue">Harvester </Label>
+        <HBox style="">
+            <Button fx:id="hireHarvestE" mnemonicParsing="false" onAction="#hireHarvestEmployee"
+                    textFill="darkgreen" alignment="CENTER_RIGHT">
+                Hire
+            </Button>
+            <Button fx:id="fireHarvestE" mnemonicParsing="false"
+                    onAction="#fireHarvestEmployee" textFill="darkred" alignment="CENTER_RIGHT">Fire
+            </Button>
+        </HBox>
     </HBox>
-    <HBox>
-        <Label style="-fx-font: 20 chalkduster;">Product Seller</Label>
-        <Button fx:id="hireSellE" mnemonicParsing="false"
-                onAction="#hireSellEmployee">Hire
-        </Button>
-        <Button fx:id="fireSellE" mnemonicParsing="false"
-                onAction="#fireSellEmployee">Fire
-        </Button>
+    <HBox style="-fx-padding:15;">
+        <Label style="-fx-font: 16 chalkduster; -fx-padding: 0 10 0 0;" textFill="aliceblue">Product Seller </Label>
+        <HBox style="">
+            <Button fx:id="hireSellE" mnemonicParsing="false"
+                    onAction="#hireSellEmployee" textFill="darkgreen" alignment="CENTER_RIGHT">Hire
+            </Button>
+            <Button fx:id="fireSellE" mnemonicParsing="false"
+                    onAction="#fireSellEmployee" textFill="darkred" alignment="CENTER_RIGHT">Fire
+            </Button>
+        </HBox>
     </HBox>
-    <HBox>
-        <Label>Daily Wages: </Label>
+    <VBox style="-fx-padding:15;">
+        <HBox>
+            <Label style="-fx-font: 16 chalkduster;" textFill="aliceblue">Daily Wages: </Label>
+            <Text fx:id="dailyWage"></Text>
+        </HBox>
+        <HBox>
+            <Label style="-fx-font: 16 chalkduster;" textFill="aliceblue">Employees: </Label>
+            <Text fx:id="totalEmployees"></Text>
+        </HBox>
+    </VBox>
+    <VBox fx:id="employmentData" style="-fx-padding: 15;">
 
-    </HBox>
-    <HBox>
-        <Label>Employees: </Label>
 
-    </HBox>
+    </VBox>
 </VBox>

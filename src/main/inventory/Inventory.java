@@ -31,6 +31,10 @@ public class Inventory {
                 seedStorage.put(type, 2);
             }
         }
+        // test for employement
+        products.add(new HarvestedCrop(CropTypes.WHEAT));
+        products.add(new HarvestedCrop(CropTypes.CORN));
+        products.add(new HarvestedCrop(CropTypes.COTTON));
     }
     public void putFertilizer(int amount) throws Exception{
         if (currentFertilizer == fertilizerTank && amount > 0) {
