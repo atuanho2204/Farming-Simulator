@@ -67,22 +67,11 @@ public class InventoryListing {
     }
 
 
-    public static HBox getProductListingUI(HarvestedCrop crop) {
-        HBox hBox = new HBox();
-
-        Text product = new Text("\t" + crop.getName() + ": " + crop.getSellCost());
-        product.setFill(Color.WHITE);
-        product.setStyle("-fx-font: 16 chalkduster;");
-        hBox.getChildren().add(product);
-
+    public static Button getProductListingUI(HarvestedCrop crop) {
         //ADD BUTTON TO SELL
-        Button sell = new Button("Sell");
-        sell.setTextFill(Color.RED);
-        sell.setOnAction(e -> {
-            GameManager.getInstance().getInventory().sellProduct(crop);
-        });
-        hBox.getChildren().add(sell);
-
-        return hBox;
+        Button sell = new Button(crop.getName() + "\n" + crop.getSellCost());
+        sell.setTextFill(Color.ORANGE);
+        sell.setPrefWidth(63);
+        return sell;
     }
 }

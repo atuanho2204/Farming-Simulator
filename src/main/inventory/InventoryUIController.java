@@ -2,7 +2,9 @@ package main.inventory;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -67,7 +69,8 @@ public class InventoryUIController implements PropertyChangeListener {
             ArrayList<HarvestedCrop> products =
                     GameManager.getInstance().getInventory().getProducts();
             TilePane tile = new TilePane();
-            tile.setPrefColumns(2);
+            tile.setAlignment(Pos.BOTTOM_LEFT);
+            tile.setPrefColumns(5);
             tile.setPrefRows(2);
             if (products.size() == 0) {
                 Text emptyProduct = new Text("\nNo products?\n"
@@ -78,7 +81,11 @@ public class InventoryUIController implements PropertyChangeListener {
             } else {
                 newListings.add(InventoryListing.getHeader("Products"));
                 for (HarvestedCrop crop : products) {
-                    tile.getChildren().add(InventoryListing.getProductListingUI(crop));
+                    Button sell = InventoryListing.getProductListingUI(crop);
+                    tile.getChildren().add(sell);
+                    sell.setOnAction(e -> {
+                        GameManager.getInstance().getInventory().sellProduct(crop);
+                    });
                 }
             }
             newListings.add(tile);
