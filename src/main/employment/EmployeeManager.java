@@ -14,102 +14,109 @@ import main.gameManager.GameManager;
 import main.inventory.Inventory;
 import main.inventory.inventoryItems.HarvestedCrop;
 
+import main.util.UIManager;
 import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class EmployeeManager implements NewDayListener {
-    private final int employeeLimit = 3;
+    private final int employeeLimit = 6;
 
-    private final int baseHarvestSalary = 2;
-    private final int baseSellSalary = 4;
-    private int totalHarvestCapacity = 0;
-    private int totalSellCapacity = 0;
+    private int baseHarvestSalary;
+    private int baseSellSalary;
 
+    private ArrayList<Employee> employees;
 
-    private ArrayList<Employee> harvestEmployees;
-    private ArrayList<Employee> sellEmployees;
-
+    //Get employee's name
     private ArrayList<String> commonName;
     private int nameIdx = 0;
 
     public EmployeeManager() {
-        harvestEmployees = new ArrayList<>();
-        sellEmployees = new ArrayList<>();
+        employees = new ArrayList<>();
         generateName();
     }
 
     @Override
     public void handleNewDay(NewDayEvent e) {
 
-        harvestEmployeeWork();
-        sellEmployeeWork();
+        employeesManager();
         payWages();
-        resetEmployeeCapacity();
+        updateDailySalary();
 
         //
         System.out.println(GameManager.getInstance().getMoney());
     }
 
-    public void addHarvestEmployee(int hireDay) throws Exception {
+    public void addHarvester(int hireDay) throws Exception {
         int currentMoney = GameManager.getInstance().getMoney();
-        int workCapacity = generateWorkCapacity();
-        int wage = workCapacity + baseHarvestSalary;
-        if (harvestEmployees.size() < employeeLimit && currentMoney > wage ) {
-            Employee employee = new Employee(workCapacity, hireDay,
-                    EmployeeTypes.HARVEST, commonName.get(nameIdx++ % 7));
-            harvestEmployees.add(employee);
-            System.out.println("You hire " + employee.getEmployeeName());
+        baseHarvestSalary = generateWorkCapacity();
+        if (employees.size() < employeeLimit && currentMoney > baseHarvestSalary) {
+            Employee employee = new Employee(baseHarvestSalary, hireDay,
+                    EmployeeTypes.HARVESTER, commonName.get(nameIdx++ % 7));
+            //System.out.println("A");
+            employees.add(employee);
+            UIManager.getInstance().pushUIUpdate();
+            System.out.println("You hired " + employee.getEmployeeName() + " " + employee.getEmployeeType());
         } else {
             throw new Exception();
         }
     }
 
-    public void addSellEmployee(int hireDay) throws Exception {
+    public void addSeller(int hireDay) throws Exception {
         int currentMoney = GameManager.getInstance().getMoney();
-        int workCapacity = generateWorkCapacity();
-        int wage = workCapacity + baseSellSalary;
-        if (sellEmployees.size() < employeeLimit && currentMoney > wage) {
-            Employee employee = new Employee(workCapacity, hireDay,
-                    EmployeeTypes.SELL, commonName.get(nameIdx++ % 7));
-            sellEmployees.add(employee);
-            System.out.println("You hire " + employee.getEmployeeName());
+        baseSellSalary = generateWorkCapacity();
+        if (employees.size() < employeeLimit && currentMoney > baseSellSalary) {
+            Employee employee = new Employee(baseSellSalary, hireDay,
+                    EmployeeTypes.SELLER, commonName.get(nameIdx++ % 7));
+
+            employees.add(employee);
+
+            UIManager.getInstance().pushUIUpdate();
+            System.out.println("You hired " + employee.getEmployeeName() + " " + employee.getEmployeeType());
         } else {
             throw new Exception();
         }
     }
 
-    public void deleteHarvestEmployee() throws Exception {
+    public void deleteHarvester() throws Exception {
         try {
-            if (harvestEmployees.size() > 0) {
-                Employee e = harvestEmployees.get(0);
-                harvestEmployees.remove(0);
-                System.out.println("You fire " + e.getEmployeeName());
+            if (employees.size() > 0) {
+                for (int i = 0; i < employees.size(); i++) {
+                    if (employees.get(i).getEmployeeType() == EmployeeTypes.HARVESTER) {
+                        employees.remove(i);
+                        System.out.println("You fired " + employees.get(i).getEmployeeName());
+                        UIManager.getInstance().pushUIUpdate();
+                        break;
+                    }
+                }
             }
         } catch (Exception e) {
             System.out.println("You don't have any");
         }
     }
-    public void deleteSellEmployee() throws Exception {
+    public void deleteSeller() throws Exception {
         try {
-            if (sellEmployees.size() > 0) {
-                Employee e = sellEmployees.get(0);
-                sellEmployees.remove(0);
-                System.out.println("You fire " + e.getEmployeeName());
+            if (employees.size() > 0) {
+                for (int i = 0; i < employees.size(); i++) {
+                    if (employees.get(i).getEmployeeType() == EmployeeTypes.SELLER) {
+                        employees.remove(i);
+                        System.out.println("You fired " + employees.get(i).getEmployeeName());
+                        UIManager.getInstance().pushUIUpdate();
+                        break;
+                    }
+                }
             }
         } catch (Exception e) {
             System.out.println("You don't have any");
         }
     }
 
-    public ArrayList<Employee> getHarvestEmployees() {
-        return harvestEmployees;
-    }
-
-    public ArrayList<Employee> getSellEmployees() {
-        return sellEmployees;
+    public ArrayList<Employee> getTotalEmployees() {
+        return employees;
     }
 
     public void generateName() {
@@ -123,52 +130,57 @@ public class EmployeeManager implements NewDayListener {
         commonName.add("Quynh");
     }
 
-    public int getHarvestEmployeeCapacity() {
+    public int getTotalSalary() {
         int total = 0;
-        for (Employee e: harvestEmployees) {
-            total += e.getCapacity();
-        }
-        return total;
-    }
-
-    public int getSellEmployeeCapacity() {
-        int total = 0;
-        for (Employee e: sellEmployees) {
-            total += e.getCapacity();
+        for (Employee e: employees) {
+            total += e.getSalary();
         }
         return total;
     }
 
     private int generateWorkCapacity() {
         Random ran = new Random();
+        int difficulty = GameManager.getInstance().getDifficulty();
+        int min = 0;
+        int max = 0;
 
-        return ran.nextInt(6 - 4 + 1) + 4;
+        if (difficulty == 1) {  // Easy: wage 3-5
+            min = 3;
+            max = 5;
+        } else if (difficulty == 2) {   // Medium: wage 6-8
+            min = 6;
+            max = 8;
+        } else if (difficulty == 3) { // Hard: wage 9-11
+            min = 9;
+            max = 11;
+        } else {
+            min = 4;
+            max = 6;
+        }
+        System.out.println(min + " " + max);
+        return ran.nextInt(max - min + 1) + min;
     }
 
-    private void resetEmployeeCapacity() {
-        this.totalHarvestCapacity = getHarvestEmployeeCapacity();
-        this.totalSellCapacity = getSellEmployeeCapacity();
+    public void updateDailySalary() {
+        for (Employee e: employees) {
+            e.setSalary(generateWorkCapacity());
+        }
     }
 
     public void payWages() {
         //conditionally pays wages if it's the right day of the week
-        int currentMoney = GameManager.getInstance().getMoney();
-        int harvestWageCount = GameManager.getInstance().getEmployees().getHarvestEmployeeCapacity() * 4;
-        int sellWageCount = GameManager.getInstance().getEmployees().getSellEmployeeCapacity() * 6;
-        int dailyWage = harvestWageCount + sellWageCount;
         try {
-            if (currentMoney > (dailyWage)) {
-                GameManager.getInstance().setMoney(currentMoney - dailyWage);
-            } else {
-                if (currentMoney > harvestWageCount) {
-                    GameManager.getInstance().setMoney(currentMoney - harvestWageCount);
+            for (Employee e: employees) {
+                int currentMoney = GameManager.getInstance().getMoney();
+                if (currentMoney > e.getSalary()) {
+                    GameManager.getInstance().setMoney(currentMoney - e.getSalary());
                 } else {
-                    GameManager.getInstance().getEmployees().deleteHarvestEmployee();
-                }
-                if (currentMoney > sellWageCount) {
-                    GameManager.getInstance().setMoney(currentMoney - sellWageCount);
-                } else {
-                    GameManager.getInstance().getEmployees().deleteSellEmployee();
+                    if (e.getEmployeeType() == EmployeeTypes.HARVESTER) {
+                        deleteHarvester();
+                    }
+                    if (e.getEmployeeType() == EmployeeTypes.SELLER) {
+                        deleteSeller();
+                    }
                 }
             }
         } catch (Exception e) {
@@ -176,39 +188,47 @@ public class EmployeeManager implements NewDayListener {
         }
     }
 
-    public void harvestEmployeeWork() {
-        //Platform.runLater(() -> {
-            if (totalHarvestCapacity >= 4) {
-                for (Plot plot: FarmState.getInstance().getPlots()) {
-                    Crop crop = plot.getCurrentCrop();
-                    if (crop != null) {
-                        CropStages stage = crop.getStage();
-                        if (stage == CropStages.MATURE) {
-                            plot.harvestPlot();
-                            totalHarvestCapacity -= 4;
-                        }
-                    }
-                }
+    public void employeesManager() {
+        for (Employee e: employees) {
+            if (e.getEmployeeType() == EmployeeTypes.HARVESTER) {
+                harvesterWork();
             }
-        //});
+            if (e.getEmployeeType() == EmployeeTypes.SELLER) {
+                sellerWork();
+                UIManager.getInstance().pushUIUpdate();
+            }
+        }
     }
 
-    public void sellEmployeeWork() {
+    public void harvesterWork() {
         Platform.runLater(() -> {
-            try {
-                System.out.println(totalSellCapacity);
-                for (HarvestedCrop item : GameManager.getInstance().getInventory().getProducts()) {
-                    System.out.println(item.getName());
-                    if (totalSellCapacity >= 3) {
-                        GameManager.getInstance().getInventory().sellProduct(item);
-                        totalSellCapacity -= 3;
-                        System.out.println("I just sold " + item.getName());
+            for (Plot plot: FarmState.getInstance().getPlots()) {
+                Crop crop = plot.getCurrentCrop();
+                if (crop != null) {
+                    CropStages stage = crop.getStage();
+                    if (stage == CropStages.MATURE) {
+                        plot.harvestPlot();
+                        UIManager.getInstance().pushUIUpdate();
+                        break;
                     }
                 }
-            } catch (Exception e) {
-                //System.out.println("ERROR");
             }
         });
     }
+
+    public void sellerWork() {
+        Platform.runLater(() -> {
+            for (HarvestedCrop item : GameManager.getInstance().getInventory().getProducts()) {
+                System.out.println(item.getName());
+                if (item != null) {
+                    GameManager.getInstance().getInventory().sellProduct(item);
+                    UIManager.getInstance().pushUIUpdate();
+                    System.out.println("I just sold " + item.getName());
+                    break;
+                }
+            }
+        });
+    }
+
 
 }
