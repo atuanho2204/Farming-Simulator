@@ -3,6 +3,7 @@ package main.inventory;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -75,7 +76,11 @@ public class InventoryUIController implements PropertyChangeListener {
             } else {
                 newListings.add(InventoryListing.getHeader("Products"));
                 for (HarvestedCrop crop : products) {
-                    newListings.add(InventoryListing.getProductListingUI(crop));
+                    Button sell = InventoryListing.getProductListingUI(crop);
+                    newListings.add(sell);
+                    sell.setOnAction(e -> {
+                        GameManager.getInstance().getInventory().sellProduct(crop);
+                    });
                 }
             }
             //Platform.runLater(() -> {
