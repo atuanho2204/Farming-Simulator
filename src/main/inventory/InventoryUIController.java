@@ -2,7 +2,10 @@ package main.inventory;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -25,7 +28,7 @@ public class InventoryUIController implements PropertyChangeListener {
 
     public void construct(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        inventoryScreen.setPadding(new Insets(120, 0, 0, 35));
+        inventoryScreen.setPadding(new Insets(5, 0, 0, 5));
 
         //subscribe to the inventory changes
         GameManager.getInstance().getInventory().subscribeToChanges(this);
@@ -44,17 +47,13 @@ public class InventoryUIController implements PropertyChangeListener {
         try {
             inventoryScreen.getChildren().clear();
 
-            newListings.add(InventoryListing.getInfoUI(GameManager.getInstance().getInventory()));
-            //Fertilizer display
-            Text fertilize = new Text("Fertilizer Tank: " + GameManager.getInstance().getInventory().getFertilizer() + "/10");
-            fertilize.setFill(Color.ANTIQUEWHITE);
-            fertilize.setStyle("-fx-font: 16 chalkduster;");
-            newListings.add(fertilize);
+            newListings.addAll(InventoryListing.getInfoUI(GameManager.getInstance().getInventory()));
+
             //go through the seeds
             HashMap<CropTypes, Integer> seeds =
                     GameManager.getInstance().getInventory().getListOfSeedItems();
             if (seeds.keySet().size() == 0) {
-                Text emptySeed = new Text("\nNo seeds?\nHow do you plan to farm??");
+                Text emptySeed = new Text("\nNo seeds? How do you plan to farm??");
                 emptySeed.setFill(Color.ORANGE);
                 emptySeed.setStyle("-fx-font: 16 chalkduster;");
                 newListings.add(emptySeed);
@@ -69,6 +68,10 @@ public class InventoryUIController implements PropertyChangeListener {
             //go through the products
             ArrayList<HarvestedCrop> products =
                     GameManager.getInstance().getInventory().getProducts();
+            TilePane tile = new TilePane();
+            tile.setAlignment(Pos.BOTTOM_LEFT);
+            tile.setPrefColumns(5);
+            tile.setPrefRows(2);
             if (products.size() == 0) {
                 Text emptyProduct = new Text("\nNo products?\n"
                         + "You are a failure at farming! :(");
@@ -78,9 +81,14 @@ public class InventoryUIController implements PropertyChangeListener {
             } else {
                 newListings.add(InventoryListing.getHeader("Products"));
                 for (HarvestedCrop crop : products) {
-                    newListings.add(InventoryListing.getProductListingUI(crop));
+                    Button sell = InventoryListing.getProductListingUI(crop);
+                    tile.getChildren().add(sell);
+                    sell.setOnAction(e -> {
+                        GameManager.getInstance().getInventory().sellProduct(crop);
+                    });
                 }
             }
+            newListings.add(tile);
             //Platform.runLater(() -> {
             inventoryScreen.getChildren().addAll(newListings);
             //});

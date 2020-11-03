@@ -8,30 +8,30 @@
       xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="main.employment.EmploymentController">
     <!--This holds the information for employment:-->
-
-    <Label fx:id="a" styleClass="dataLabel"/>
-    <Label fx:id="b" styleClass="dataLabel"/>
-    <Label fx:id="bc" styleClass="dataLabel"/>
-    <Label fx:id="c" styleClass="dataLabel"/>
-    <Label fx:id="d" styleClass="dataLabel"/>
-    <Label fx:id="e" styleClass="dataLabel"/>
-    <Label fx:id="cd" styleClass="dataLabel"/>
-    <Label fx:id="edfsw" styleClass="dataLabel"/>
-    <Label fx:id="ddsf" styleClass="dataLabel"/>
-    <Label fx:id="dfsde" styleClass="dataLabel"/>
-    <Label fx:id="cdsd" styleClass="dataLabel"/>
-    <Label fx:id="ecdcw" styleClass="dataLabel"/>
-    <Button fx:id="hireHarvestE" mnemonicParsing="false"
-            onAction="#hireHarvestEmployee" text="hire harvest employee"/>
-    <Button fx:id="hireSellE" mnemonicParsing="false"
-            onAction="#hireSellEmployee" text="hire sell employee"/>
-    <Button fx:id="fireHarvestE" mnemonicParsing="false"
-            onAction="#fireHarvestEmployee" text="fire harvest employee"/>
-    <Button fx:id="fireSellE" mnemonicParsing="false"
-            onAction="#fireSellEmployee" text="fire sell employee"/>
-
     <HBox>
-        <Label>Sample Label:</Label>
-        <Button>Sample button</Button>
+        <Label style="-fx-font: 20 chalkduster;">Harvester</Label>
+        <Button fx:id="hireHarvestE" mnemonicParsing="false" onAction="#hireHarvestEmployee">
+            Hire
+        </Button>
+        <Button fx:id="fireHarvestE" mnemonicParsing="false"
+                onAction="#fireHarvestEmployee">Fire
+        </Button>
+    </HBox>
+    <HBox>
+        <Label style="-fx-font: 20 chalkduster;">Product Seller</Label>
+        <Button fx:id="hireSellE" mnemonicParsing="false"
+                onAction="#hireSellEmployee">Hire
+        </Button>
+        <Button fx:id="fireSellE" mnemonicParsing="false"
+                onAction="#fireSellEmployee">Fire
+        </Button>
+    </HBox>
+    <HBox>
+        <Label>Daily Wages: </Label>
+
+    </HBox>
+    <HBox>
+        <Label>Employees: </Label>
+
     </HBox>
 </VBox>

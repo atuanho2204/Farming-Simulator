@@ -43,7 +43,7 @@ public class MarketListing {
         HBox hBox = new HBox();
         int difficultySupplement = GameManager.getInstance().getDifficulty();
         int price = 10 + 5 * (difficultySupplement);
-        Text fertilize = new Text("Fertilizer refill: " + price + "\t");
+        Text fertilize = new Text("Fertilizer refill: $" + price + "\t");
         fertilize.setFill(Color.WHITE);
         fertilize.setStyle("-fx-font: 16 chalkduster;");
         hBox.getChildren().add(fertilize);
