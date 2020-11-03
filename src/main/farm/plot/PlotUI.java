@@ -130,7 +130,7 @@ public class PlotUI {
         return waterBut;
     }
 
-    private static Button handleHarvestPlot(Plot plot, FarmController controller) {
+    public static Button handleHarvestPlot(Plot plot, FarmController controller) {
         Button harvestBut = new Button("harvest");
         harvestBut.setOnAction(actionEvent -> {
             //onButtonClick
