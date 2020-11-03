@@ -83,7 +83,10 @@ public class EmploymentController implements NewDayListener {
         try {
             GameManager.getInstance().getEmployees().addHarvestEmployee(currentDay);
             //
-            System.out.println(GameManager.getInstance().getEmployees().getHarvestEmployees().size() + "A");
+
+            //System.out.println(GameManager.getInstance().getEmployees().getHarvestEmployees().size() + "A");
+            GameManager.getInstance().getEmployees().harvestEmployeeWork();
+
         } catch (Exception e) {
             System.out.println("You don't have enough money or too much employee");
         }
@@ -94,8 +97,10 @@ public class EmploymentController implements NewDayListener {
         try {
             GameManager.getInstance().getEmployees().addSellEmployee(currentDay);
             //
-            System.out.println(GameManager.getInstance().getEmployees().getSellEmployees().size()
-                    + "B");
+
+            //System.out.println(GameManager.getInstance().getEmployees().getSellEmployees().size()
+                    //+ "B");
+
         } catch (Exception e) {
             System.out.println("You don't have enough money or too much employee");
         }

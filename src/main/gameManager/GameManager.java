@@ -1,6 +1,5 @@
 package main.gameManager;
 
-import main.employment.Employee;
 import main.employment.EmployeeManager;
 import main.inventory.Inventory;
 import main.market.Market;

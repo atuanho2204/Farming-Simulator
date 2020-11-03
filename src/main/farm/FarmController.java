@@ -73,7 +73,8 @@ public class FarmController implements PropertyChangeListener {
         GameManager.getInstance().setMarket(market);
         GameManager.getInstance().getTimeAdvancer().addListener(market);
 
-        // create employeeManager
+        // create employee
+
         EmployeeManager employeeManager = new EmployeeManager();
         GameManager.getInstance().setEmployees(employeeManager);
         GameManager.getInstance().getTimeAdvancer().addListener(employeeManager);
