@@ -12,7 +12,7 @@ import main.farm.FarmController;
 import main.farm.crops.CropStages;
 
 public class PlotUI {
-    private static int farmPlotWidth = 680;
+    private static int farmPlotWidth = 575;
     private static int farmPlotHeight = 750;
 
     public static TilePane getPlotHolderUI() {
