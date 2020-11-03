@@ -3,6 +3,7 @@ package main.inventory;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -65,6 +66,9 @@ public class InventoryUIController implements PropertyChangeListener {
             //go through the products
             ArrayList<HarvestedCrop> products =
                     GameManager.getInstance().getInventory().getProducts();
+            TilePane tile = new TilePane();
+            tile.setPrefColumns(2);
+            tile.setPrefRows(2);
             if (products.size() == 0) {
                 Text emptyProduct = new Text("\nNo products?\n"
                         + "You are a failure at farming! :(");
@@ -74,9 +78,10 @@ public class InventoryUIController implements PropertyChangeListener {
             } else {
                 newListings.add(InventoryListing.getHeader("Products"));
                 for (HarvestedCrop crop : products) {
-                    newListings.add(InventoryListing.getProductListingUI(crop));
+                    tile.getChildren().add(InventoryListing.getProductListingUI(crop));
                 }
             }
+            newListings.add(tile);
             //Platform.runLater(() -> {
             inventoryScreen.getChildren().addAll(newListings);
             //});
