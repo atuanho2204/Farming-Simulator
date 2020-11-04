@@ -2,6 +2,7 @@ package main.farm.plot;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
@@ -86,14 +87,14 @@ public class PlotUI {
         Button plantBut = handlePlantCrop(plot, controller);
         buttons.getChildren().add(plantBut);
 
+        //pesticide
+        Button pestBut = handlePesticide(plot, controller);
+        buttons.getChildren().add(pestBut);
+
 
         //water bar
         ProgressBar waterBar = new ProgressBar(plot.getCurrentWater() * 1.0 / plot.getMaxWater());
         waterBar.setStyle("-fx-accent: #00BFFF;"); // blue
-
-        // pesticide
-        Button pestBut = handlePesticidePlot(plot, controller);
-        buttons.getChildren().add(pestBut);
 
         if (plot.getCurrentWater() == plot.getMaxWater()) {
             waterBar.setStyle("-fx-accent: #B22222;"); // red at max
@@ -175,14 +176,14 @@ public class PlotUI {
         return plantBut;
     }
     
-    private static Button handlePesticidePlot(Plot plot, FarmController controller) {
+    private static Button handlePesticide(Plot plot, FarmController controller) {
         Button pestBut = new Button("pesticide");
         pestBut.setOnAction(actionEvent -> {
             //onButtonClick
-            plot.usePesticide();
+            plot.pesticidePlot(10);
             controller.updatePlotUI(plot);
         });
-        pestBut.setStyle("-fx-background-color: #18a734;"
+        pestBut.setStyle("-fx-background-color: #A0522D;"
                 + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
                 + "-fx-font-size: 13px; -fx-min-width: 50px;");
         return pestBut;

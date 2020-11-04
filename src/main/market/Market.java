@@ -106,16 +106,16 @@ public class Market implements NewDayListener {
     public static void buyPesticide(int price) {
         try {
             if (GameManager.getInstance().getMoney() >= price) {
-            //put pesticide into inventory
-            int money = GameManager.getInstance().getMoney() - price;
-            GameManager.getInstance().setMoney(money);
-            UIManager.getInstance().pushUIUpdate();
-    } else {
-            AlertUser.alertUser("Do not have enough money");
+                GameManager.getInstance().getInventory().putPesticide(10);
+                        int money = GameManager.getInstance().getMoney() - price;
+                GameManager.getInstance().setMoney(money);
+                UIManager.getInstance().pushUIUpdate();
+            } else {
+                AlertUser.alertUser("Do not have enough money");
+            }
+        } catch (Exception e) {
+            AlertUser.alertUser("Your pesticide tank is full");
         }
-    } catch (Exception e) {
-        AlertUser.alertUser("Do not have enough money");
-    }
     }
 
     public static void buyFertilizer(int price) {
