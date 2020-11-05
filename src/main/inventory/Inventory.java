@@ -2,6 +2,7 @@ package main.inventory;
 
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
+import main.notifications.NotificationManager;
 import main.util.AlertUser;
 import main.util.UIManager;
 import main.farm.crops.CropTypes;
@@ -110,6 +111,8 @@ public class Inventory {
             int newMoney = GameManager.getInstance().getMoney() + crop.getSellCost();
             GameManager.getInstance().setMoney(newMoney);
             UIManager.getInstance().pushUIUpdate();
+            NotificationManager.getInstance().addNotification("Sold: " + crop.getName()
+                    + " for: $" + crop.getSellCost());
         } catch (Exception e) {
             AlertUser.alertUser("You do not have that product in your inventory");
         }

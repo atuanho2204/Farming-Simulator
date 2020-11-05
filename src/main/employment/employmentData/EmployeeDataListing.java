@@ -3,6 +3,7 @@ package main.employment.employmentData;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import main.employment.Employee;
+import main.employment.EmployeeManager;
 import main.employment.EmployeeTypes;
 
 
@@ -18,7 +19,7 @@ public class EmployeeDataListing {
             t = "Seller";
         }
         text.setText(employee.getEmployeeName() +  ": "
-                + t + " $" + employee.getSalary());
+                + t + " $" + EmployeeManager.getSalaryFromSkillLevel(employee.getSkillLevel()));
 
         text.setStyle("-fx-font: 16 chalkduster;"
                 + "-fx-padding-left: 15;");

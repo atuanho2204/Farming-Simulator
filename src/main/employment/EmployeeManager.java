@@ -7,18 +7,17 @@ import main.farm.crops.Crop;
 import main.farm.crops.CropStages;
 import main.farm.plot.Plot;
 import main.inventory.inventoryItems.HarvestedCrop;
+import main.notifications.NotificationManager;
 import main.util.UIManager;
 import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 public class EmployeeManager implements NewDayListener {
     private final int employeeLimit = 6;
-
-    private int baseHarvestSalary;
-    private int baseSellSalary;
-
+    private static int baseSalary = 2;
     private ArrayList<Employee> employees;
 
     //Get employee's name
@@ -28,6 +27,7 @@ public class EmployeeManager implements NewDayListener {
     public EmployeeManager() {
         employees = new ArrayList<>();
         generateName();
+        baseSalary += GameManager.getInstance().getDifficulty();
     }
 
     @Override
@@ -35,7 +35,6 @@ public class EmployeeManager implements NewDayListener {
 
         employeesManager();
         payWages();
-        updateDailySalary();
 
         //
         System.out.println(GameManager.getInstance().getMoney());
@@ -43,15 +42,17 @@ public class EmployeeManager implements NewDayListener {
 
     public void addHarvester(int hireDay) throws Exception {
         int currentMoney = GameManager.getInstance().getMoney();
-        baseHarvestSalary = generateWorkCapacity();
-        if (employees.size() < employeeLimit && currentMoney > baseHarvestSalary) {
-            Employee employee = new Employee(baseHarvestSalary, hireDay,
+        int skillLevel = getRandomSkillLevel();
+        if (employees.size() < employeeLimit
+                && currentMoney > getSalaryFromSkillLevel(skillLevel)) {
+            Employee employee = new Employee(skillLevel, hireDay,
                     EmployeeTypes.HARVESTER, commonName.get(nameIdx++ % 7));
             //System.out.println("A");
             employees.add(employee);
             UIManager.getInstance().pushUIUpdate();
-            /*System.out.println("You hired " + employee.getEmployeeName()
-                    + " " + employee.getEmployeeType());*/
+            NotificationManager.getInstance().addNotification(
+                    "You hired " + employee.getEmployeeName() + " with skill: "
+                            + employee.getSkillLevel());
         } else {
             throw new Exception();
         }
@@ -59,16 +60,18 @@ public class EmployeeManager implements NewDayListener {
 
     public void addSeller(int hireDay) throws Exception {
         int currentMoney = GameManager.getInstance().getMoney();
-        baseSellSalary = generateWorkCapacity();
-        if (employees.size() < employeeLimit && currentMoney > baseSellSalary) {
-            Employee employee = new Employee(baseSellSalary, hireDay,
+        int skillLevel = getRandomSkillLevel();
+        if (employees.size() < employeeLimit
+                && currentMoney > getSalaryFromSkillLevel(skillLevel)) {
+            Employee employee = new Employee(skillLevel, hireDay,
                     EmployeeTypes.SELLER, commonName.get(nameIdx++ % 7));
 
             employees.add(employee);
 
             UIManager.getInstance().pushUIUpdate();
-            /*System.out.println("You hired " + employee.getEmployeeName()
-                    + " " + employee.getEmployeeType());*/
+            NotificationManager.getInstance().addNotification(
+                    "You hired " + employee.getEmployeeName() + " with skill: "
+                            + employee.getSkillLevel());
         } else {
             throw new Exception();
         }
@@ -91,6 +94,7 @@ public class EmployeeManager implements NewDayListener {
             System.out.println("You don't have any");
         }
     }
+
     public void deleteSeller() throws Exception {
         try {
             if (employees.size() > 0) {
@@ -126,48 +130,29 @@ public class EmployeeManager implements NewDayListener {
 
     public int getTotalSalary() {
         int total = 0;
-        for (Employee e: employees) {
-            total += e.getSalary();
+        for (Employee e : employees) {
+            total += getSalaryFromSkillLevel(e.getSkillLevel());
         }
         return total;
     }
 
-    private int generateWorkCapacity() {
+    private int getRandomSkillLevel() {
         Random ran = new Random();
-        int difficulty = GameManager.getInstance().getDifficulty();
-        int min = 0;
-        int max = 0;
-
-        if (difficulty == 1) {  // Easy: wage 3-5
-            min = 3;
-            max = 5;
-        } else if (difficulty == 2) {   // Medium: wage 6-8
-            min = 6;
-            max = 8;
-        } else if (difficulty == 3) { // Hard: wage 9-11
-            min = 9;
-            max = 11;
-        } else {
-            min = 4;
-            max = 6;
-        }
-        //System.out.println(min + " " + max);
-        return ran.nextInt(max - min + 1) + min;
+        return ran.nextInt(2) + 1;
     }
 
-    public void updateDailySalary() {
-        for (Employee e: employees) {
-            e.setSalary(generateWorkCapacity());
-        }
+    public static int getSalaryFromSkillLevel(int skillLevel) {
+        return skillLevel + baseSalary;
     }
 
     public void payWages() {
         //conditionally pays wages if it's the right day of the week
         try {
-            for (Employee e: employees) {
+            for (Employee e : employees) {
                 int currentMoney = GameManager.getInstance().getMoney();
-                if (currentMoney > e.getSalary()) {
-                    GameManager.getInstance().setMoney(currentMoney - e.getSalary());
+                if (currentMoney > getSalaryFromSkillLevel(e.getSkillLevel())) {
+                    GameManager.getInstance().setMoney(
+                            currentMoney - getSalaryFromSkillLevel(e.getSkillLevel()));
                 } else {
                     if (e.getEmployeeType() == EmployeeTypes.HARVESTER) {
                         deleteHarvester();
@@ -183,7 +168,7 @@ public class EmployeeManager implements NewDayListener {
     }
 
     public void employeesManager() {
-        for (Employee e: employees) {
+        for (Employee e : employees) {
             if (e.getEmployeeType() == EmployeeTypes.HARVESTER) {
                 harvesterWork();
             }
@@ -194,9 +179,9 @@ public class EmployeeManager implements NewDayListener {
         }
     }
 
-    public void harvesterWork() {
+    private void harvesterWork() {
         Platform.runLater(() -> {
-            for (Plot plot: FarmState.getInstance().getPlots()) {
+            for (Plot plot : FarmState.getInstance().getPlots()) {
                 Crop crop = plot.getCurrentCrop();
                 if (crop != null) {
                     CropStages stage = crop.getStage();
@@ -210,7 +195,7 @@ public class EmployeeManager implements NewDayListener {
         });
     }
 
-    public void sellerWork() {
+    private void sellerWork() {
         Platform.runLater(() -> {
             for (HarvestedCrop item : GameManager.getInstance().getInventory().getProducts()) {
                 System.out.println(item.getName());
@@ -223,6 +208,4 @@ public class EmployeeManager implements NewDayListener {
             }
         });
     }
-
-
 }
