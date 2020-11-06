@@ -26,39 +26,37 @@ public class EmployeeManager implements NewDayListener {
 
     public EmployeeManager() {
         employees = new ArrayList<>();
-        generateName();
+        generateNames();
         baseSalary += GameManager.getInstance().getDifficulty();
     }
 
     @Override
     public void handleNewDay(NewDayEvent e) {
-
         employeesManager();
         payWages();
-
-        //
-        System.out.println(GameManager.getInstance().getMoney());
+        //System.out.println(GameManager.getInstance().getMoney());
     }
 
-    public void addHarvester(int hireDay) throws Exception {
+    public void addHarvester(int hireDay) {
         int currentMoney = GameManager.getInstance().getMoney();
         int skillLevel = getRandomSkillLevel();
         if (employees.size() < employeeLimit
                 && currentMoney > getSalaryFromSkillLevel(skillLevel)) {
             Employee employee = new Employee(skillLevel, hireDay,
                     EmployeeTypes.HARVESTER, commonName.get(nameIdx++ % 7));
-            //System.out.println("A");
             employees.add(employee);
             UIManager.getInstance().pushUIUpdate();
             NotificationManager.getInstance().addNotification(
                     "You hired " + employee.getEmployeeName() + " with skill: "
                             + employee.getSkillLevel());
         } else {
-            throw new Exception();
+            NotificationManager.getInstance().addNotification(
+                    "You don't have enough money or too much employee");
+            System.out.println("Not enough money to hire this employee");
         }
     }
 
-    public void addSeller(int hireDay) throws Exception {
+    public void addSeller(int hireDay) {
         int currentMoney = GameManager.getInstance().getMoney();
         int skillLevel = getRandomSkillLevel();
         if (employees.size() < employeeLimit
@@ -73,11 +71,13 @@ public class EmployeeManager implements NewDayListener {
                     "You hired " + employee.getEmployeeName() + " with skill: "
                             + employee.getSkillLevel());
         } else {
-            throw new Exception();
+            NotificationManager.getInstance().addNotification(
+                    "You don't have enough money or too much employee");
+            System.out.println("Not enough money to hire this employee");
         }
     }
 
-    public void deleteHarvester() throws Exception {
+    public void deleteHarvester() {
         try {
             if (employees.size() > 0) {
                 for (int i = 0; i < employees.size(); i++) {
@@ -95,7 +95,7 @@ public class EmployeeManager implements NewDayListener {
         }
     }
 
-    public void deleteSeller() throws Exception {
+    public void deleteSeller() {
         try {
             if (employees.size() > 0) {
                 for (int i = 0; i < employees.size(); i++) {
@@ -113,11 +113,13 @@ public class EmployeeManager implements NewDayListener {
         }
     }
 
-    public ArrayList<Employee> getTotalEmployees() {
+
+
+    public ArrayList<Employee> getEmployees() {
         return employees;
     }
 
-    public void generateName() {
+    private void generateNames() {
         commonName = new ArrayList<>();
         commonName.add("Trump");
         commonName.add("Biden");
@@ -198,14 +200,19 @@ public class EmployeeManager implements NewDayListener {
     private void sellerWork() {
         Platform.runLater(() -> {
             for (HarvestedCrop item : GameManager.getInstance().getInventory().getProducts()) {
-                System.out.println(item.getName());
+                //System.out.println(item.getName());
                 if (item != null) {
                     GameManager.getInstance().getInventory().sellProduct(item);
                     UIManager.getInstance().pushUIUpdate();
-                    System.out.println("I just sold " + item.getName());
+                    //System.out.println("I just sold " + item.getName());
                     break;
                 }
             }
         });
+    }
+
+
+    public int getEmployeeLimit() {
+        return employeeLimit;
     }
 }

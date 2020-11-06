@@ -16,7 +16,7 @@ import java.util.List;
 public class FarmState implements NewDayListener {
     private final int numOfPlots = 12;
     private List<Plot> plots;
-    private static FarmState instance;
+    private static FarmState instance = new FarmState();
     private PropertyChangeSupport changeSupport;
     private int daysEachMonth = 30;
     private int numSunnyDays = 0;
@@ -33,9 +33,6 @@ public class FarmState implements NewDayListener {
     }
 
     public static FarmState getInstance() {
-        if (instance == null) {
-            instance = new FarmState();
-        }
         return instance;
     }
 

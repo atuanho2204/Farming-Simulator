@@ -42,7 +42,7 @@ public class EmploymentDataController implements NewDayListener, ForceUIUpdateLi
     private void setEmploymentData() {
         try {
             ArrayList<Node> newListings = new ArrayList<>();
-            for (Employee e: GameManager.getInstance().getEmployees().getTotalEmployees()) {
+            for (Employee e: GameManager.getInstance().getEmployees().getEmployees()) {
                 newListings.add(EmployeeDataListing.getListingUI(e));
             }
             Platform.runLater(() -> {

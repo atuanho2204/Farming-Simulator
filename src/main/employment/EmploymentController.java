@@ -20,7 +20,6 @@ import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 
 
-
 /**
  * The Controller for the employmentUI fxml screen
  */
@@ -67,7 +66,7 @@ public class EmploymentController implements NewDayListener, ForceUIUpdateListen
     private void employmentUpdate() {
         try {
             int wage = GameManager.getInstance().getEmployees().getTotalSalary();
-            int totalEmp = GameManager.getInstance().getEmployees().getTotalEmployees().size();
+            int totalEmp = GameManager.getInstance().getEmployees().getEmployees().size();
             dailyWage.setText(": $" + wage);
             totalEmployees.setText(": " + totalEmp);
             dailyWage.setStyle("-fx-font: 16 chalkduster;");
@@ -80,11 +79,10 @@ public class EmploymentController implements NewDayListener, ForceUIUpdateListen
         }
     }
 
-    //BEGIN: methods for hiring, firing, displaying the weekly cost, and next pay day, etc:
     @FXML
     private void fireHarvestEmployee(ActionEvent event) {
         try {
-            for (Employee e: GameManager.getInstance().getEmployees().getTotalEmployees()) {
+            for (Employee e : GameManager.getInstance().getEmployees().getEmployees()) {
                 if (e.getEmployeeType() == EmployeeTypes.HARVESTER) {
                     GameManager.getInstance().getEmployees().deleteHarvester();
                     //System.out.println("You fired " + e.getEmployeeName());
@@ -99,7 +97,7 @@ public class EmploymentController implements NewDayListener, ForceUIUpdateListen
     @FXML
     private void fireSellEmployee(ActionEvent event) {
         try {
-            for (Employee e: GameManager.getInstance().getEmployees().getTotalEmployees()) {
+            for (Employee e : GameManager.getInstance().getEmployees().getEmployees()) {
                 if (e.getEmployeeType() == EmployeeTypes.SELLER) {
                     GameManager.getInstance().getEmployees().deleteSeller();
                     //System.out.println("You fired " + e.getEmployeeName());
@@ -114,26 +112,14 @@ public class EmploymentController implements NewDayListener, ForceUIUpdateListen
     @FXML
     private void hireHarvestEmployee(ActionEvent event) {
         int currentDay = GameManager.getInstance().getDay();
-        try {
-            GameManager.getInstance().getEmployees().addHarvester(currentDay);
-        } catch (Exception e) {
-            System.out.println("You don't have enough money or too much employee");
-        }
+        GameManager.getInstance().getEmployees().addHarvester(currentDay);
     }
+
     @FXML
     private void hireSellEmployee(ActionEvent event) {
         int currentDay = GameManager.getInstance().getDay();
-        try {
-            GameManager.getInstance().getEmployees().addSeller(currentDay);
-        } catch (Exception e) {
-            System.out.println("You don't have enough money or too much employee");
-        }
+        GameManager.getInstance().getEmployees().addSeller(currentDay);
     }
-
-    private void displayData(/* parameters */) {
-        //display the data of the employment stuff
-    }
-
 
 
     public void harvestEmployeeWork() {
@@ -157,5 +143,4 @@ public class EmploymentController implements NewDayListener, ForceUIUpdateListen
             AlertUser.alertUser("There was an error loading in the headerUI");
         }
     }
-    //END
 }

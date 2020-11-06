@@ -25,4 +25,7 @@ public class Employee {
         return employeeName;
     }
 
+    public void setSkillLevel(int skillLevel) {
+        this.skillLevel = skillLevel;
+    }
 }
