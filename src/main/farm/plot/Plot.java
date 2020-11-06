@@ -54,6 +54,9 @@ public class Plot {
     public void fertilizePlot(int increment) {
         try {
             if (increment == 10) {
+                if (currentFertilizer == maxFertilizer) {
+                    throw new Exception("This plot's fertilize level is at maximum");
+                }
                 GameManager.getInstance().getInventory().putFertilizer(-1);
             }
             currentFertilizer += increment;
