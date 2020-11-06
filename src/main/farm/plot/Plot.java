@@ -92,13 +92,13 @@ public class Plot {
         }
     }
 
-    public void harvestPlot() {
+    public int harvestPlot() {
         if (currentCrop == null) {
             //the plot is empty
-            return;
+            return 0;
         } else if (currentCrop.getStage() == CropStages.DEAD) {
             currentCrop = null;
-            return;
+            return 0;
         } else if (currentCrop.getStage() == CropStages.MATURE) {
             //try to harvest the mature crop
             try {
@@ -115,11 +115,12 @@ public class Plot {
                         "Harvested " + yieldBonus + " "
                                 + currentCrop.getType().toString().toLowerCase() + "!!");
                 currentCrop = null;
-                return;
+                return yieldBonus;
             } catch (Exception e) {
                 AlertUser.alertUser(e.getMessage());
             }
         }
+        return 0;
         //its not time to harvest yet
     }
 
@@ -168,6 +169,10 @@ public class Plot {
 
     public int getCurrentPesticide() {
         return currentPesticide;
+    }
+
+    public void setCurrentFertilizer(int amount) {
+        this.currentFertilizer = amount;
     }
 
     public void setCurrentWater(int currentWater) {
