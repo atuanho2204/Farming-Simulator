@@ -42,7 +42,7 @@ public class MarketListing {
         // text and button to fill Pesticide tank
         HBox hBox = new HBox();
 
-        Text text = new Text("Pesticide refill:\t$20\t\t");
+        Text text = new Text("Pesticide refill:\t$20\t");
         text.setFill(Color.WHITE);
         text.setStyle("-fx-font: 16 chalkduster;");
         hBox.getChildren().add(text);
