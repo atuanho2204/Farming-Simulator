@@ -211,6 +211,14 @@ public class EmployeeManager implements NewDayListener {
         });
     }
 
+    public void fireEmployee(Employee employee) {
+        for (int i = 0; i < employees.size(); i++) {
+            if (employees.get(i) == employee) {
+                employees.remove(i);
+                UIManager.getInstance().pushUIUpdate();
+            }
+        }
+    }
 
     public int getEmployeeLimit() {
         return employeeLimit;
