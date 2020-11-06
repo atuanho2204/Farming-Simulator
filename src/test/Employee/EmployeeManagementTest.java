@@ -1,11 +1,13 @@
 package test.Employee;
 
+import main.employment.Employee;
 import main.employment.EmployeeManager;
 import main.farm.FarmState;
 import main.farm.crops.CropStages;
 import main.farm.crops.CropTypes;
 import main.farm.plot.Plot;
 import main.gameManager.GameManager;
+import main.inventory.inventoryItems.HarvestedCrop;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +21,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class EmployeeManagementTest {
     private EmployeeManager employeeManager;
-    private List<Plot> plots = new ArrayList<>(4);
+    private List<Plot> plots;
 
     @Before
     public void setup() {
@@ -74,6 +76,7 @@ public class EmployeeManagementTest {
 
     // @Tuan
     // test adding too many employees?
+
     @Test
     public void testHireTooManyEmployee() {
         employeeManager.addHarvester(GameManager.getInstance().getDay());
@@ -97,10 +100,29 @@ public class EmployeeManagementTest {
     }
 
     // test the harvesting/selling
-    @Test
+    @Test (expected = NullPointerException.class)
     public void testHarvesting() {
         employeeManager.addHarvester(GameManager.getInstance().getDay());
 
+        for (int i = 0; i < 4; ++i) {
+            FarmState.getInstance().getPlots().add(new Plot());
+        }
+        plots = FarmState.getInstance().getPlots();
+        plots.get(0).getCurrentCrop().setType(CropTypes.CORN);
+        plots.get(0).getCurrentCrop().setCropStage(CropStages.MATURE);
+        GameManager.getInstance().getEmployees().employeesManager();
+        assertEquals(null, plots.get(0));
+    }
+
+    // test selling
+    @Test (expected = NullPointerException.class)
+    public void testSelling() throws Exception {
+        employeeManager.addSeller(GameManager.getInstance().getDay());
+
+        GameManager.getInstance().getInventory().putProduct(new HarvestedCrop(CropTypes.WHEAT));
+        assertEquals(1, GameManager.getInstance().getInventory().getProducts().size());
+        GameManager.getInstance().getEmployees().employeesManager();
+        assertEquals(0, GameManager.getInstance().getInventory().getProducts().size());
     }
 
 
@@ -124,6 +146,13 @@ public class EmployeeManagementTest {
     @Test
     public void testNoneEmployee() {
         employeeManager.deleteHarvester();
+        employeeManager.deleteHarvester();
+        employeeManager.deleteHarvester();
+        employeeManager.deleteHarvester();
+        employeeManager.deleteSeller();
+        employeeManager.deleteSeller();
+        employeeManager.deleteSeller();
+        employeeManager.deleteSeller();
         employeeManager.deleteSeller();
     }
 }
