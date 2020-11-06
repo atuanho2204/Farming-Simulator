@@ -77,6 +77,11 @@ public class EmployeeManagementTest {
     // @Tuan
     // test adding too many employees?
 
+    /**
+     * Test Component: if player try to add too many employee
+     * Reason: check the limitation number of employee works properly
+     * Method: add multiple employees
+     */
     @Test
     public void testHireTooManyEmployee() {
         employeeManager.addHarvester(GameManager.getInstance().getDay());
@@ -91,6 +96,12 @@ public class EmployeeManagementTest {
     }
 
     // test the payEmployees
+
+    /**
+     * Test Component: test the pay wage funtion
+     * Reason: check the payment works properly
+     * Method: call the paywages method
+     */
     @Test
     public void testPayEmployee() {
         int dailyWage = employeeManager.getTotalSalary();
@@ -100,6 +111,11 @@ public class EmployeeManagementTest {
     }
 
     // test the harvesting/selling
+    /**
+     * Test Component: test the harvesting function of harvester
+     * Reason: check the harvester is enable to harvest the plot
+     * Method: call the employeesManager method.
+     */
     @Test (expected = NullPointerException.class)
     public void testHarvesting() {
         employeeManager.addHarvester(GameManager.getInstance().getDay());
@@ -115,6 +131,11 @@ public class EmployeeManagementTest {
     }
 
     // test selling
+    /**
+     * Test Component: test the selling function of seller
+     * Reason: check the seller is enable to sell the product in inventory
+     * Method: call the employeesManager method.
+     */
     @Test (expected = NullPointerException.class)
     public void testSelling() throws Exception {
         employeeManager.addSeller(GameManager.getInstance().getDay());
@@ -127,6 +148,12 @@ public class EmployeeManagementTest {
 
 
     // test the employees leaving because of no money
+    /**
+     * Test Component: test if player doesn't have enough money
+     * to pay employee and they leave.
+     * Reason: unpaid employee will leave.
+     * Method: call the payWages method.
+     */
     @Test
     public void testLeavingWithoutMoney() {
         employeeManager.addHarvester(GameManager.getInstance().getDay());
@@ -143,6 +170,11 @@ public class EmployeeManagementTest {
         assertEquals(3, employeeManager.getEmployees().size());
     }
     // try deleting a harvestor/seller when there are none
+    /**
+     * Test Component: test if player try to fire the non exist employee
+     * Reason: player are unable to fire non exist employee
+     * Method: call multiple fire methods.
+     */
     @Test
     public void testNoneEmployee() {
         employeeManager.deleteHarvester();
