@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import main.farm.crops.CropCatalog;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
 
@@ -71,9 +72,14 @@ public class InventoryListing {
     }
 
     public static Button getProductListingUI(HarvestedCrop crop) {
+        String productName = crop.getName() + "\n" + crop.getSellCost();
+        if (crop.getSellCost() < CropCatalog.getInstance()
+                .getCropDetails(crop.getType()).getBaseSell() * 2) {
+            productName = "(P)" + productName;
+        }
         //ADD BUTTON TO SELL
-        Button sell = new Button(crop.getName() + "\n" + crop.getSellCost());
-        sell.setTextFill(Color.ORANGE);
+        Button sell = new Button(productName);
+        sell.setTextFill(Color.BLACK);
         sell.setPrefWidth(63);
         return sell;
     }
