@@ -17,6 +17,8 @@ public class Plot {
     private final int maxWater = 10;
     private int currentFertilizer = 0;
     private final int maxFertilizer = 10;
+    private int currentPesticide = 0;
+    private final int maxPesticide = 10;
     public Plot() {
         // random crop, random stage, random water level from 4 to 6
         this(new Crop(CropTypes.values()[(int) (Math.random() * 4)],
@@ -68,6 +70,24 @@ public class Plot {
         }
     }
 
+    public void pesticidePlot(int increment) {
+        try {
+            if (increment == 10) {
+                GameManager.getInstance().getInventory().putPesticide(-1);
+            }
+            currentPesticide += increment;
+            if (currentPesticide >= maxPesticide || currentPesticide <= 0) {
+                if (currentPesticide > maxPesticide) {
+                    currentPesticide = maxPesticide;
+                }
+                if (currentPesticide < 0) {
+                    currentPesticide = 0;
+                }
+            }
+        } catch (Exception e) {
+            AlertUser.alertUser("You don't have enough pesticide");
+        }
+    }
 
     public void harvestPlot() {
         if (currentCrop == null) {
@@ -137,6 +157,14 @@ public class Plot {
 
     public int getCurrentFertilizer() {
         return currentFertilizer;
+    }
+
+    public int getMaxPesticide() {
+        return maxPesticide;
+    }
+
+    public int getCurrentPesticide() {
+        return currentPesticide;
     }
 
     public void setCurrentWater(int currentWater) {

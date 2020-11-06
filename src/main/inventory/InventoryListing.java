@@ -30,12 +30,16 @@ public class InventoryListing {
         fertilize.setStyle("-fx-font: 16 chalkduster;");
 
         //pesticide information
-        //PUT THE STUFF HERE @CHRIS
+        Text pesticide = new Text("Pesticide Tank: "
+                + GameManager.getInstance().getInventory().getPesticide() + "/10");
+        pesticide.setFill(Color.ANTIQUEWHITE);
+        pesticide.setStyle("-fx-font: 16 chalkduster;");
 
 
         texts.add(header);
         texts.add(current);
         texts.add(fertilize);
+        texts.add(pesticide);
         //hBox.setAlignment(Pos.CENTER);
         return texts;
     }
@@ -65,7 +69,6 @@ public class InventoryListing {
 
         return hBox;
     }
-
 
     public static Button getProductListingUI(HarvestedCrop crop) {
         //ADD BUTTON TO SELL

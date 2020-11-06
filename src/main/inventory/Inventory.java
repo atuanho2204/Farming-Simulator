@@ -21,6 +21,8 @@ public class Inventory {
     private final ArrayList<HarvestedCrop> products;
     private int fertilizerTank = 10;
     private int currentFertilizer = 0;
+    private int pesticideTank = 10;
+    private int currentPesticide = 0;
 
 
     public Inventory(boolean storeOriginalSeeds) {
@@ -52,6 +54,25 @@ public class Inventory {
         return currentFertilizer;
     }
 
+    public void putPesticide(int amount) throws Exception {
+        if (currentPesticide == pesticideTank && amount > 0) {
+            throw new Exception("Your fertilizer tank is full");
+        }
+        if (currentPesticide == 0 && amount < 0) {
+            throw new Exception("You don't have enough fertilizer");
+        }
+        if (amount > 0) {
+            currentPesticide = pesticideTank;
+        } else {
+            currentPesticide += amount;
+        }
+        changeSupport.firePropertyChange("Inventory", "", "Pesticide tank changed");
+    }
+
+    public int getPesticide() {
+        return currentPesticide;
+    }
+
     public void putSeed(CropTypes type) throws Exception {
         if (type == null || getStorageSize() == getStorageLimit()) {
             throw new Exception();
@@ -75,7 +96,6 @@ public class Inventory {
                     "Inventory", "", "seed removed");
         }
     }
-
 
     /**
      * Puts the given crop into storage.

@@ -1,5 +1,6 @@
 package main.inventory.inventoryItems;
 
+import main.farm.crops.Crop;
 import main.farm.crops.CropTypes;
 
 public class HarvestedCrop extends InventoryItem {
@@ -9,6 +10,10 @@ public class HarvestedCrop extends InventoryItem {
         super(buyCost, sellCost, name);
         this.type = type;
     }
+
+    /*public HarvestedCrop(Crop crop) {
+        this.pesticide = pesticide;
+    }*/
 
     public HarvestedCrop(CropTypes type) {
         super(type);
