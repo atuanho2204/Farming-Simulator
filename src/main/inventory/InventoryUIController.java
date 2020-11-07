@@ -54,13 +54,12 @@ public class InventoryUIController implements PropertyChangeListener {
             HashMap<CropTypes, Integer> seeds =
                     GameManager.getInstance().getInventory().getListOfSeedItems();
             if (seeds.keySet().size() == 0) {
-                Text emptySeed = new Text("\nNo seeds? How do you plan to farm??");
+                Text emptySeed = new Text("\nNo seeds? How do you plan to farm??\n\n\n");
                 emptySeed.setFill(Color.ORANGE);
                 emptySeed.setStyle("-fx-font: 16 chalkduster;");
                 newListings.add(emptySeed);
-
             } else {
-                newListings.add(InventoryListing.getHeader("Seeds"));
+                newListings.add(InventoryListing.getHeader("SEEDS"));
                 for (CropTypes type : seeds.keySet()) {
                     newListings.add(InventoryListing.getSeedListingUI(
                             type.name().toLowerCase(), seeds.get(type)));
@@ -80,7 +79,7 @@ public class InventoryUIController implements PropertyChangeListener {
                 emptyProduct.setStyle("-fx-font: 16 chalkduster;");
                 newListings.add(emptyProduct);
             } else {
-                newListings.add(InventoryListing.getHeader("Products"));
+                newListings.add(InventoryListing.getHeader("PRODUCTS"));
                 for (HarvestedCrop crop : products) {
                     Button sell = InventoryListing.getProductListingUI(crop);
                     tile.getChildren().add(sell);

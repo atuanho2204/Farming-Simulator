@@ -33,7 +33,6 @@ public class MarketUIController implements NewDayListener {
     public void construct(Stage primaryStage) {
         this.primaryStage = primaryStage;
         GameManager.getInstance().getTimeAdvancer().addListener(this);
-        marketScreen.setPadding(new Insets(20, 0, 0, 20));
         setMarketListings();
     }
 
@@ -51,9 +50,9 @@ public class MarketUIController implements NewDayListener {
                 newListings.add(MarketListing.getListingUI(listing));
                 //System.out.println(listing.getName() + " with price: " + listing.getBuyCost());
             }
-            marketScreen.setPadding(new Insets(100, 0, 0, 40));
             newListings.add(MarketListing.getFertilizeUI());
-            newListings.add(MarketListing.getFillTankUI());
+            newListings.add(MarketListing.getPesticideUI());
+            marketScreen.setPadding(new Insets(100, 0, 0, 20));
             Platform.runLater(() -> {
                 marketScreen.getChildren().clear();
                 marketScreen.getChildren().addAll(newListings);

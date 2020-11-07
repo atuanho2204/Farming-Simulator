@@ -1,7 +1,9 @@
 package main.market.marketListing;
 
 import javafx.geometry.Insets;
-import javafx.scene.layout.HBox;
+import javafx.geometry.Pos;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import main.gameManager.GameManager;
@@ -11,67 +13,90 @@ import main.market.Market;
 import javafx.scene.paint.Color;
 
 public class MarketListing {
-    public static HBox getListingUI(InventoryItem listing) {
-        HBox hBox = new HBox();
-        Text text = new Text(listing.getName() + ":");
-        text.setFill(Color.WHITE);
-        text.setStyle("-fx-font: 16 chalkduster;");
-        Text text1 = new Text("   $" + listing.getBuyCost() + "\t");
-        text1.setFill(Color.WHITE);
-        text1.setStyle("-fx-font: 16 chalkduster;");
+
+    public static GridPane getListingUI(InventoryItem listing) {
+        GridPane grid = new GridPane();
+        grid.getColumnConstraints().add(new ColumnConstraints(140));// column 0
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 1
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 2
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 3
+        grid.setAlignment(Pos.CENTER_LEFT);
+        Text name = new Text(listing.getName() + ":");
+        name.setFill(Color.WHITE);
+        name.setStyle("-fx-font: 16 chalkduster;");
+        grid.add(name, 0, 0);
+        Text cost = new Text("$" + listing.getBuyCost());
+        cost.setFill(Color.WHITE);
+        cost.setStyle("-fx-font: 16 chalkduster;");
 
         Button sell = new Button("Sell");
         sell.setTextFill(Color.RED);
-        hBox.getChildren().add(text);
-        hBox.getChildren().add(text1);
+        grid.add(cost, 1, 0);
 
         Button buy = new Button("Buy");
         buy.setTextFill(Color.GREEN);
         buy.setOnAction(e -> {
             Market.buySeed(((Seed) listing).getType(), listing.getBuyCost());
         });
-        hBox.getChildren().add(buy);
+        grid.add(buy, 2, 0);
         sell.setOnAction(e -> {
             Market.sellSeed(((Seed) listing).getType(), listing.getSellCost());
         });
-        hBox.getChildren().add(sell);
-
-        return hBox;
+        grid.add(sell, 3, 0);
+        grid.setPadding(new Insets(2, 0, 2, 0));
+        return grid;
     }
-    public static HBox getFillTankUI() {
-        // text and button to fill Pesticide tank
-        HBox hBox = new HBox();
 
-        Text text = new Text("Pesticide refill: $20\t");
-        text.setFill(Color.WHITE);
-        text.setStyle("-fx-font: 16 chalkduster;");
-        hBox.getChildren().add(text);
 
+    public static GridPane getPesticideUI() {
+        GridPane grid = new GridPane();
+        grid.getColumnConstraints().add(new ColumnConstraints(140));// column 0
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 1
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 2
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 3
+        Text name = new Text("Pesticide:");
+        name.setFill(Color.WHITE);
+        name.setStyle("-fx-font: 16 chalkduster;");
+        grid.add(name, 0, 0);
+        Text cost = new Text("$20");
+        cost.setFill(Color.WHITE);
+        cost.setStyle("-fx-font: 16 chalkduster;");
+        grid.add(cost, 1, 0);
         Button buy = new Button("Buy");
-        buy.setTextFill(Color.BLUE);
+        buy.setTextFill(Color.GREEN);
         buy.setOnAction(e -> {
             Market.buyPesticide(20);
             GameManager.getInstance().getInventory().getPesticide();
         });
-        hBox.getChildren().add(buy);
-        return hBox;
+        grid.add(buy, 2, 0);
+        grid.setPadding(new Insets(2, 0, 2, 0));
+        return grid;
     }
     
-    public static HBox getFertilizeUI() {
-        HBox hBox = new HBox();
+    public static GridPane getFertilizeUI() {
+        // text and button to fill Pesticide tank
+        GridPane grid = new GridPane();
+        grid.getColumnConstraints().add(new ColumnConstraints(140));// column 0
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 1
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 2
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 3
         int difficultySupplement = GameManager.getInstance().getDifficulty();
         int price = 10 + 5 * (difficultySupplement);
-        Text fertilize = new Text("Fertilizer refill: $" + price + "\t");
-        fertilize.setFill(Color.WHITE);
-        fertilize.setStyle("-fx-font: 16 chalkduster;");
-        hBox.getChildren().add(fertilize);
+        Text name = new Text("Fertilizer:");
+        name.setFill(Color.WHITE);
+        name.setStyle("-fx-font: 16 chalkduster;");
+        grid.add(name, 0, 0);
+        Text cost = new Text("$" + price);
+        cost.setFill(Color.WHITE);
+        cost.setStyle("-fx-font: 16 chalkduster;");
+        grid.add(cost, 1, 0);
         Button buy = new Button("Buy");
         buy.setTextFill(Color.GREEN);
         buy.setOnAction(e -> {
             Market.buyFertilizer(price);
         });
-        hBox.getChildren().addAll(buy);
-        hBox.setPadding(new Insets(20, 20, 20, 20));
-        return hBox;
+        grid.add(buy, 2, 0);
+        grid.setPadding(new Insets(2, 0, 2, 0));
+        return grid;
     }
 }
