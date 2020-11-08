@@ -1,0 +1,5 @@
+As of the completion of M5:
+
+We tested the functionality of the new farming features, as well as updating the tests to account for changes in other areas. The tested components are as follows: 1. random events (including edge cases of pesticide), 2.fertilizing, 3.pesticide (which involves the inventory) 4. employee functionality (hiring, firing, harvesting, etc). These components (in the farm and employment packages) were determined to have all of the new functionality.
+
+Each test goes over a single high-traffic method in our classes (addHarvestor(), fireHarvestor(), triggerRain(), fertilizePlot(), etc), in which some test-cases use normal inputs and expected behavior and others insert abnormal and invalid inputs to test for error handling. Thus, the system of tests guarantees basic functionality of the new implemented features.

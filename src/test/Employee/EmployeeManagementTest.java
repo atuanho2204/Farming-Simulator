@@ -74,9 +74,6 @@ public class EmployeeManagementTest {
         assertEquals(0, employeeManager.getEmployees().size());
     }
 
-    // @Tuan
-    // test adding too many employees?
-
     /**
      * Test Component: if player try to add too many employee
      * Reason: check the limitation number of employee works properly
