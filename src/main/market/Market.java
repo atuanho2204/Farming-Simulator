@@ -37,14 +37,6 @@ public class Market implements NewDayListener {
                     type) //seed type
             );
         }
-        //for (CropTypes type : CropTypes.values()) {
-        //    this.listings.add(new HarvestedCrop(
-        //            getPriceForCrop(type) * 2, //buy price
-        //            getPriceForCrop(type) * 2, //sell price
-        //            "Product-" + type.name().toLowerCase(), //name
-        //            type) //seed type
-        //    );
-        //}
     }
 
     /**

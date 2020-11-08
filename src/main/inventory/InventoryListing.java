@@ -72,15 +72,11 @@ public class InventoryListing {
     }
 
     public static Button getProductListingUI(HarvestedCrop crop) {
-        String productName = crop.getName() + "\n" + crop.getSellCost();
-        if (crop.getSellCost() < CropCatalog.getInstance()
-                .getCropDetails(crop.getType()).getBaseSell() * 2) {
-            productName = "(P)" + productName;
-        }
+        String productName = crop.getName() + "\n$" + crop.getSellCost();
         //ADD BUTTON TO SELL
         Button sell = new Button(productName);
         sell.setTextFill(Color.BLACK);
-        sell.setPrefWidth(63);
+        sell.setPrefWidth(75);
         return sell;
     }
 }

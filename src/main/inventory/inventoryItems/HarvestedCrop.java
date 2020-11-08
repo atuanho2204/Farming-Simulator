@@ -4,7 +4,6 @@ import main.farm.crops.CropTypes;
 
 public class HarvestedCrop extends InventoryItem {
     private final CropTypes type;
-    private boolean pesticide = false;
 
     public HarvestedCrop(int buyCost, int sellCost, String name, CropTypes type) {
         super(buyCost, sellCost, name);
@@ -18,9 +17,5 @@ public class HarvestedCrop extends InventoryItem {
 
     public CropTypes getType() {
         return type;
-    }
-
-    public boolean hasPesticide() {
-        return pesticide;
     }
 }
