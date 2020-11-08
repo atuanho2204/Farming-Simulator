@@ -1,12 +1,9 @@
 package test.FarmFunctionality;
 
 import com.sun.javafx.application.PlatformImpl;
-import main.farm.FarmState;
-import main.farm.crops.CropStages;
 import main.farm.plot.Plot;
 import main.gameManager.GameManager;
 import main.inventory.Inventory;
-import main.farm.crops.CropTypes;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,15 +23,15 @@ public class PesticideTest {
 
     /**
      * Author: Chris
-     * Test Component:
-     * Reason:
-     * Method:
+     * Test Component: Testing the pesticide Btn
+     * Reason: check if plot gets pesticide
+     * Method: Calling pesticidePlot() method
      */
     @Test
     public void testPesticidePlot() {
-        GameManager.getInstance().getInventory().setCurrentPesticide(5);
-        plot.pesticidePlot(5);
-        Assert.assertEquals(5, plot.getCurrentPesticide());
-        Assert.assertEquals(5, GameManager.getInstance().getInventory().getPesticide());
+        GameManager.getInstance().getInventory().setCurrentPesticide(10);
+        plot.pesticidePlot(10);
+        Assert.assertEquals(10, plot.getCurrentPesticide());
+        Assert.assertEquals(9, GameManager.getInstance().getInventory().getPesticide());
     }
 }

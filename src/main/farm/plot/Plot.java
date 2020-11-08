@@ -122,13 +122,6 @@ public class Plot {
             } catch (Exception e) {
                 AlertUser.alertUser(e.getMessage());
             }
-            try {
-                if(currentPesticide > 0) {
-
-                }
-            } catch (Exception e) {
-                AlertUser.alertUser("Price change");
-            }
         }
         return 0;
         //its not time to harvest yet
