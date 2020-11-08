@@ -73,7 +73,7 @@ public class Plot {
     }
 
     public void pesticidePlot() {
-        if (!currentCrop.hasPesticide()) {
+        if (currentCrop != null && !currentCrop.hasPesticide()) {
             try {
                 GameManager.getInstance().getInventory().putPesticide(-1);
                 currentCrop.setPesticide(true);
