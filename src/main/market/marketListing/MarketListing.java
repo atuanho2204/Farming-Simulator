@@ -46,15 +46,6 @@ public class MarketListing {
         grid.setPadding(new Insets(2, 0, 2, 0));
         return grid;
     }
-    /*public static HBox getFillTankUI() {
-        // text and button to fill Pesticide tank
-        HBox hBox = new HBox();
-        int difficultySupplement = GameManager.getInstance().getDifficulty();
-        int price = 10 + 5 * (difficultySupplement);
-        Text text = new Text("Pesticide refill: $" + price + "\t");
-        text.setFill(Color.WHITE);
-        text.setStyle("-fx-font: 16 chalkduster;");
-        hBox.getChildren().add(text);*/
 
     public static GridPane getPesticideUI() {
         GridPane grid = new GridPane();

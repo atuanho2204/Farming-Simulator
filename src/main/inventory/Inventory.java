@@ -18,7 +18,7 @@ public class Inventory {
     private PropertyChangeSupport changeSupport;
     private final int storageLimit = 20;
     private final HashMap<CropTypes, Integer> seedStorage;
-    private final int productLimit = 10;
+    private final int productLimit = 12;
     private final ArrayList<HarvestedCrop> products;
     private int fertilizerTank = 10;
     private int currentFertilizer = 0;

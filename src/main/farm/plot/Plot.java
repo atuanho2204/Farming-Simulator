@@ -1,5 +1,6 @@
 package main.farm.plot;
 
+import main.farm.crops.CropCatalog;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
 import main.notifications.NotificationManager;
@@ -17,8 +18,6 @@ public class Plot {
     private final int maxWater = 10;
     private int currentFertilizer = 0;
     private final int maxFertilizer = 10;
-    private int currentPesticide = 0;
-    private final int maxPesticide = 10;
     public Plot() {
         // random crop, random stage, random water level from 4 to 6
         this(new Crop(CropTypes.values()[(int) (Math.random() * 4)],
@@ -73,25 +72,14 @@ public class Plot {
         }
     }
 
-    public void pesticidePlot(int increment) {
-        try {
-            if (increment == 10) {
-                if (currentPesticide == maxPesticide) {
-                    throw new Exception("This plot's pesticide level is at maximum");
-                }
+    public void pesticidePlot() {
+        if (currentCrop != null && !currentCrop.hasPesticide()) {
+            try {
                 GameManager.getInstance().getInventory().putPesticide(-1);
+                currentCrop.setPesticide(true);
+            } catch (Exception e) {
+                AlertUser.alertUser("You don't have enough pesticide.");
             }
-            currentPesticide += increment;
-            if (currentPesticide >= maxPesticide || currentPesticide <= 0) {
-                if (currentPesticide > maxPesticide) {
-                    currentPesticide = maxPesticide;
-                }
-                if (currentPesticide < 0) {
-                    currentPesticide = 0;
-                }
-            }
-        } catch (Exception e) {
-            AlertUser.alertUser("You don't have enough pesticide");
         }
     }
 
@@ -111,8 +99,17 @@ public class Plot {
                     yieldBonus = random.nextInt(3) + 1;
                 }
                 for (int i = 0; i < yieldBonus; i++) {
-                    GameManager.getInstance().getInventory().putProduct(
-                            new HarvestedCrop(currentCrop.getType()));
+                    if (currentCrop.hasPesticide()) {
+                        int adjustedPrice = CropCatalog.getInstance().getCropDetails(
+                                currentCrop.getType()).getBaseSell() * 2 - 2;
+                        GameManager.getInstance().getInventory().putProduct(
+                                new HarvestedCrop(0, adjustedPrice,
+                                        currentCrop.getType().toString().toLowerCase() + "(P)",
+                                        currentCrop.getType()));
+                    } else {
+                        GameManager.getInstance().getInventory().putProduct(
+                                new HarvestedCrop(currentCrop.getType()));
+                    }
                 }
                 NotificationManager.getInstance().addNotification(
                         "Harvested " + yieldBonus + " "
@@ -164,14 +161,6 @@ public class Plot {
 
     public int getCurrentFertilizer() {
         return currentFertilizer;
-    }
-
-    public int getMaxPesticide() {
-        return maxPesticide;
-    }
-
-    public int getCurrentPesticide() {
-        return currentPesticide;
     }
 
     public void setCurrentFertilizer(int amount) {

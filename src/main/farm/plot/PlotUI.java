@@ -80,7 +80,11 @@ public class PlotUI {
 
         //pesticide
         Button pestBut = handlePesticide(plot, controller);
-        buttons.getChildren().add(pestBut);
+        Button hasPest = new Button();
+        if (plot.getCurrentCrop() != null && plot.getCurrentCrop().hasPesticide()) {
+            hasPest.setText("P");
+        }
+        buttons.getChildren().addAll(pestBut, hasPest);
 
         //water
         HBox water = new HBox();
@@ -177,7 +181,7 @@ public class PlotUI {
     private static Button handlePesticide(Plot plot, FarmController controller) {
         Button pestBut = new Button("pesticide");
         pestBut.setOnAction(actionEvent -> {
-            plot.pesticidePlot(10);
+            plot.pesticidePlot();
             controller.updatePlotUI(plot);
         });
         pestBut.setStyle("-fx-background-color: #A0522D;"
