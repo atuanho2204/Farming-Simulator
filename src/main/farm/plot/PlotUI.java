@@ -2,7 +2,6 @@ package main.farm.plot;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
@@ -30,7 +29,7 @@ public class PlotUI {
     /**
      * The javaFx code for the plot UI
      *
-     * @param plot the plot for this UI to be based on
+     * @param plot       the plot for this UI to be based on
      * @param controller the creator of this plot
      * @return VBox (or whatever it's changed to) with the plot UI
      */
@@ -75,26 +74,22 @@ public class PlotUI {
         buttons.setAlignment(Pos.CENTER);
         buttons.setSpacing(5);
 
-        // water
-        Button waterBut = handleWaterPlot(plot, controller);
-        buttons.getChildren().add(waterBut);
-
-        // harvest
-        Button harvestBut = handleHarvestPlot(plot, controller);
-        buttons.getChildren().add(harvestBut);
-
-        // plant
-        Button plantBut = handlePlantCrop(plot, controller);
-        buttons.getChildren().add(plantBut);
+        // plant and harvest
+        Button button = handlePlantAndHarvest(plot, controller);
+        buttons.getChildren().add(button);
 
         //pesticide
         Button pestBut = handlePesticide(plot, controller);
         buttons.getChildren().add(pestBut);
 
-
-        //water bar
+        //water
+        HBox water = new HBox();
+        Button waterBut = handleWaterPlot(plot, controller);
         ProgressBar waterBar = new ProgressBar(plot.getCurrentWater() * 1.0 / plot.getMaxWater());
         waterBar.setStyle("-fx-accent: #00BFFF;"); // blue
+        water.getChildren().addAll(waterBar, waterBut);
+        water.setAlignment(Pos.CENTER_LEFT);
+        water.setSpacing(5);
 
         if (plot.getCurrentWater() == plot.getMaxWater()) {
             waterBar.setStyle("-fx-accent: #B22222;"); // red at max
@@ -107,19 +102,18 @@ public class PlotUI {
         }
 
         HBox fertilize = new HBox();
-        fertilize.setAlignment(Pos.CENTER);
+        fertilize.setAlignment(Pos.CENTER_LEFT);
         fertilize.setSpacing(5);
 
         Button fertilizeBut = handleFertilize(plot, controller);
 
         //fertilizer
-        ProgressBar fertilizerBar = new ProgressBar(
-                plot.getCurrentFertilizer() * 1.0 / plot.getMaxFertilizer());
+        ProgressBar fertilizerBar = new ProgressBar(plot.getCurrentFertilizer() * 1.0 / plot.getMaxFertilizer());
         fertilizerBar.setStyle("-fx-accent: #00BFFF;"); // blue
 
 
         fertilize.getChildren().addAll(fertilizerBar, fertilizeBut);
-        vBox.getChildren().addAll(buttons, waterBar, fertilize);
+        vBox.getChildren().addAll(buttons, water, fertilize);
         return vBox;
     }
 
@@ -130,57 +124,59 @@ public class PlotUI {
             plot.waterPlot(1);
             controller.updatePlotUI(plot);
         });
-        waterBut.setStyle("-fx-background-color: #00CED1;"
-                + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
-                + "-fx-font-size: 13px; -fx-min-width: 50px;");
+        waterBut.setStyle("-fx-background-color: #00CED1;" + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;" + "-fx-font-size: 13px; -fx-min-width: 80px;");
         return waterBut;
     }
 
-    public static Button handleHarvestPlot(Plot plot, FarmController controller) {
-        Button harvestBut = new Button("harvest");
-        harvestBut.setOnAction(actionEvent -> {
-            //onButtonClick
-            plot.harvestPlot();
-            controller.updatePlotUI(plot);
-        });
-        harvestBut.setStyle("-fx-background-color: #18a734;"
-                + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
-                + "-fx-font-size: 13px; -fx-min-width: 50px;");
-        return harvestBut;
-    }
-
-    private static Button handlePlantCrop(Plot plot, FarmController controller) {
-        Button plantBut = new Button("plant");
-        plantBut.setOnAction(actionEvent -> {
-            //onButtonClick
-            plot.plantSeed();
-            controller.updatePlotUI(plot);
-        });
-        // please do not change the styling below
-        plantBut.setStyle("-fx-background-color: #A0522D;"
-                + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
-                + "-fx-font-size: 13px; -fx-min-width: 50px;");
-        return plantBut;
+    public static Button handlePlantAndHarvest(Plot plot, FarmController controller) {
+        Button button = new Button();
+        if (plot.getCurrentCrop() == null) {
+            button.setText("plant");
+            button.setOnAction(actionEvent -> {
+                plot.plantSeed();
+                controller.updatePlotUI(plot);
+            });
+            button.setStyle("-fx-background-color: #A0522D; -fx-text-align: center;"
+                    + "-fx-text-fill: white; -fx-font-family: Chalkduster;"
+                    + "-fx-font-size: 13px; -fx-min-width: 50px;");
+        } else if (plot.getCurrentCrop().getStage() == CropStages.DEAD
+                || plot.getCurrentCrop().getStage() == CropStages.MATURE) {
+            if (plot.getCurrentCrop().getStage() == CropStages.DEAD) {
+                button.setText("clear");
+            } else {
+                button.setText("harvest");
+            }
+            button.setOnAction(actionEvent -> {
+                plot.harvestPlot();
+                controller.updatePlotUI(plot);
+            });
+            button.setStyle("-fx-background-color: #18a734; -fx-text-align: center;"
+                    + "-fx-text-fill: white; -fx-font-family: Chalkduster;"
+                    + "-fx-font-size: 13px; -fx-min-width: 50px;");
+        } else {
+            button.setText("harvest");
+            button.setStyle("-fx-background-color: #C0C0C0; -fx-text-align: center;"
+                    + "-fx-text-fill: white; -fx-font-family: Chalkduster;"
+                    + "-fx-font-size: 13px; -fx-min-width: 50px;");
+        }
+        return button;
     }
 
     private static Button handleFertilize(Plot plot, FarmController controller) {
         Button plantBut = new Button("fertilize");
         plantBut.setOnAction(actionEvent -> {
-            //onButtonClick
             plot.fertilizePlot(10);
             controller.updatePlotUI(plot);
         });
-        // please do not change the styling below
         plantBut.setStyle("-fx-background-color: #A0522D;"
                 + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
-                + "-fx-font-size: 13px; -fx-min-width: 50px;");
+                + "-fx-font-size: 13px; -fx-min-width: 70px;");
         return plantBut;
     }
     
     private static Button handlePesticide(Plot plot, FarmController controller) {
         Button pestBut = new Button("pesticide");
         pestBut.setOnAction(actionEvent -> {
-            //onButtonClick
             plot.pesticidePlot(10);
             controller.updatePlotUI(plot);
         });

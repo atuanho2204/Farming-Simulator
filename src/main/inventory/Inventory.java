@@ -1,5 +1,6 @@
 package main.inventory;
 
+import javafx.scene.control.Alert;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
 import main.notifications.NotificationManager;
@@ -161,4 +162,16 @@ public class Inventory {
     public void subscribeToChanges(PropertyChangeListener l) {
         changeSupport.addPropertyChangeListener(l);
     }
+
+    public void setCurrentFertilizer(int amount) {
+        try {
+            if (amount < 0 || amount > 10) {
+                throw new Exception("Cannot set over or below the limit");
+            }
+            currentFertilizer = amount;
+        } catch (Exception e) {
+            AlertUser.alertUser(e.getMessage());
+        }
+    }
+
 }

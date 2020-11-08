@@ -1,6 +1,5 @@
 package main.inventory.inventoryItems;
 
-import main.farm.crops.Crop;
 import main.farm.crops.CropTypes;
 
 public class HarvestedCrop extends InventoryItem {
