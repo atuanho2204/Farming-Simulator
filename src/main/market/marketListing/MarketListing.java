@@ -62,11 +62,13 @@ public class MarketListing {
         grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 1
         grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 2
         grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 3
+        int difficultySupplement = GameManager.getInstance().getDifficulty();
+        int price = 10 + 5 * (difficultySupplement);
         Text name = new Text("Pesticide:");
         name.setFill(Color.WHITE);
         name.setStyle("-fx-font: 16 chalkduster;");
         grid.add(name, 0, 0);
-        Text cost = new Text("$20");
+        Text cost = new Text("$"+ price);
         cost.setFill(Color.WHITE);
         cost.setStyle("-fx-font: 16 chalkduster;");
         grid.add(cost, 1, 0);
