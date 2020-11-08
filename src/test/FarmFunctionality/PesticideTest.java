@@ -30,8 +30,7 @@ public class PesticideTest {
     @Test
     public void testPesticidePlot() {
         GameManager.getInstance().getInventory().setCurrentPesticide(10);
-        plot.pesticidePlot(10);
-        Assert.assertEquals(10, plot.getCurrentPesticide());
+        plot.pesticidePlot();
         Assert.assertEquals(9, GameManager.getInstance().getInventory().getPesticide());
     }
 }
