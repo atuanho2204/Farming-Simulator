@@ -41,8 +41,9 @@ public class MarketListing {
     public static HBox getFillTankUI() {
         // text and button to fill Pesticide tank
         HBox hBox = new HBox();
-
-        Text text = new Text("Pesticide refill:\t$20\t");
+        int difficultySupplement = GameManager.getInstance().getDifficulty();
+        int price = 10 + 5 * (difficultySupplement);
+        Text text = new Text("Pesticide refill: $" + price + "\t");
         text.setFill(Color.WHITE);
         text.setStyle("-fx-font: 16 chalkduster;");
         hBox.getChildren().add(text);

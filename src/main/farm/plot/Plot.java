@@ -76,6 +76,9 @@ public class Plot {
     public void pesticidePlot(int increment) {
         try {
             if (increment == 10) {
+                if (currentFertilizer == maxFertilizer) {
+                    throw new Exception("This plot's pesticide level is at maximum");
+                }
                 GameManager.getInstance().getInventory().putPesticide(-1);
             }
             currentPesticide += increment;
@@ -118,6 +121,13 @@ public class Plot {
                 return;
             } catch (Exception e) {
                 AlertUser.alertUser(e.getMessage());
+            }
+            try {
+                if(currentPesticide > 0) {
+
+                }
+            } catch (Exception e) {
+                AlertUser.alertUser("Price change");
             }
         }
         //its not time to harvest yet
