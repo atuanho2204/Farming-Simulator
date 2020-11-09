@@ -22,6 +22,10 @@ public class FertlizeTest {
         GameManager.getInstance().setInventory(new Inventory(true));
     }
 
+    /**
+     * Check if we can apply fertilizer and refill fertilizer on a plot
+     * Author: Duy
+     */
     @Test
     public void testFertizePlot() {
         GameManager.getInstance().getInventory().setCurrentFertilizer(10);
@@ -35,6 +39,10 @@ public class FertlizeTest {
 
     }
 
+    /**
+     * Check the effect of fertilizer on a plot, specifically if it affect growth cycle properly.
+     * Author: Duy
+     */
     @Test
     public void testGrowthCycleFertilizer() {
         plot.getCurrentCrop().setType(CropTypes.COTTON);
@@ -51,6 +59,10 @@ public class FertlizeTest {
         Assert.assertEquals(CropStages.DEAD, plot.getCurrentCrop().getStage());
     }
 
+    /**
+     * Check the effect of fertilizer on a plot if it applies yield bonus properly.
+     * Author: Duy
+     */
     @Test
     public void testYieldBonus() {
         while (true) {
@@ -60,7 +72,7 @@ public class FertlizeTest {
             plot.setCurrentFertilizer(5);
             int products = plot.harvestPlot();
             if (products > 1) {
-                Assert.assertNotEquals(1, products );
+                Assert.assertNotEquals(1, products);
                 break;
             }
         }

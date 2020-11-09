@@ -123,13 +123,13 @@ public class M3DuyTests {
      * Method: Call getStorageSize, putSeed and putProduct, comparing it with calculated size
      *
      */
-    @Test (expected = Exception.class)
+    @Test
     public void testGetStorageSize() throws Exception {
         PlatformImpl.startup(() -> {
         });
         for (int i = 0; i < 20; i++) {
             inventory.putSeed(CropTypes.COTTON);
         }
-        assertEquals(7, inventory.getStorageSize());
+        assertEquals(20, inventory.getStorageSize());
     }
 }
