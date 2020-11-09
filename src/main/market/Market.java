@@ -89,15 +89,11 @@ public class Market implements NewDayListener {
         }
     }
 
-    /**
-     * gets price for pesticide
-     * @param price
-     */
     public static void buyPesticide(int price) {
         try {
             if (GameManager.getInstance().getMoney() >= price) {
                 GameManager.getInstance().getInventory().putPesticide(10);
-                        int money = GameManager.getInstance().getMoney() - price;
+                int money = GameManager.getInstance().getMoney() - price;
                 GameManager.getInstance().setMoney(money);
                 UIManager.getInstance().pushUIUpdate();
             } else {

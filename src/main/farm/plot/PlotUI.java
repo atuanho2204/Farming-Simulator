@@ -89,7 +89,8 @@ public class PlotUI {
         //water
         HBox water = new HBox();
         Button waterBut = handleWaterPlot(plot, controller);
-        ProgressBar waterBar = new ProgressBar(plot.getCurrentWater() * 1.0 / plot.getMaxWater());
+        ProgressBar waterBar = new ProgressBar(
+                plot.getCurrentWater() * 1.0 / plot.getMaxWater());
         waterBar.setStyle("-fx-accent: #00BFFF;"); // blue
         water.getChildren().addAll(waterBar, waterBut);
         water.setAlignment(Pos.CENTER_LEFT);
@@ -112,7 +113,8 @@ public class PlotUI {
         Button fertilizeBut = handleFertilize(plot, controller);
 
         //fertilizer
-        ProgressBar fertilizerBar = new ProgressBar(plot.getCurrentFertilizer() * 1.0 / plot.getMaxFertilizer());
+        ProgressBar fertilizerBar = new ProgressBar(
+                plot.getCurrentFertilizer() * 1.0 / plot.getMaxFertilizer());
         fertilizerBar.setStyle("-fx-accent: #00BFFF;"); // blue
 
 
@@ -128,7 +130,10 @@ public class PlotUI {
             plot.waterPlot(1);
             controller.updatePlotUI(plot);
         });
-        waterBut.setStyle("-fx-background-color: #00CED1;" + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;" + "-fx-font-size: 13px; -fx-min-width: 80px;");
+        waterBut.setStyle("-fx-background-color: #00CED1;"
+                + "-fx-text-align: center; -fx-text-fill: white;"
+                + "-fx-font-family: Chalkduster;"
+                + "-fx-font-size: 13px; -fx-min-width: 80px;");
         return waterBut;
     }
 
@@ -177,7 +182,7 @@ public class PlotUI {
                 + "-fx-font-size: 13px; -fx-min-width: 70px;");
         return plantBut;
     }
-    
+
     private static Button handlePesticide(Plot plot, FarmController controller) {
         Button pestBut = new Button("pesticide");
         pestBut.setOnAction(actionEvent -> {

@@ -1,12 +1,11 @@
 package main.inventory;
 
-import javafx.scene.control.Alert;
+import main.farm.crops.CropTypes;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
 import main.notifications.NotificationManager;
 import main.util.AlertUser;
 import main.util.UIManager;
-import main.farm.crops.CropTypes;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
