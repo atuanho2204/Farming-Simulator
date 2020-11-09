@@ -71,7 +71,7 @@ public class UpdateGrowthCycleTest {
             this.plots.add(new Plot());
         }
 
-        for (int i = 0; i < plots.size(); i++) {
+        for (int i = 0; i < FarmState.getInstance().getPlots().size(); i++) {
             Plot plot = plots.get(i);
             int randomCrop = (int) (Math.random() * 100) % seeds.size();
             int randomStage = (int) (Math.random() * 100) % CropStages.values().length;
