@@ -57,10 +57,10 @@ public class Inventory {
 
     public void putPesticide(int amount) throws Exception {
         if (currentPesticide == pesticideTank && amount > 0) {
-            throw new Exception("Your fertilizer tank is full");
+            throw new Exception("Your pesticide tank is full");
         }
         if (currentPesticide == 0 && amount < 0) {
-            throw new Exception("You don't have enough fertilizer");
+            throw new Exception("You don't have enough pesticide");
         }
         if (amount > 0) {
             currentPesticide = pesticideTank;
@@ -171,6 +171,17 @@ public class Inventory {
             currentFertilizer = amount;
         } catch (Exception e) {
             AlertUser.alertUser(e.getMessage());
+        }
+    }
+
+    public void setCurrentPesticide(int amount) {
+        try {
+            if (amount < 0 || amount > 10) {
+                throw new Exception("Cannot set over or below the limit");
+            }
+            currentPesticide = amount;
+        } catch (Exception e) {
+            AlertUser.alertUser("Not enough");
         }
     }
 

@@ -4,10 +4,9 @@ import com.sun.javafx.application.PlatformImpl;
 import main.farm.plot.Plot;
 import main.gameManager.GameManager;
 import main.inventory.Inventory;
-import main.farm.crops.CropTypes;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.Map;
 
 public class PesticideTest {
     private Plot plot;
@@ -24,12 +23,14 @@ public class PesticideTest {
 
     /**
      * Author: Chris
-     * Test Component:
-     * Reason:
-     * Method:
+     * Test Component: Testing the pesticide Btn
+     * Reason: check if plot gets pesticide
+     * Method: Calling pesticidePlot() method
      */
     @Test
     public void testPesticidePlot() {
-
+        GameManager.getInstance().getInventory().setCurrentPesticide(10);
+        plot.pesticidePlot();
+        Assert.assertEquals(9, GameManager.getInstance().getInventory().getPesticide());
     }
 }
