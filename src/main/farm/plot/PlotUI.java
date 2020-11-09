@@ -134,7 +134,7 @@ public class PlotUI {
         //fertilizer
         ProgressBar fertilizerBar = new ProgressBar(
                 plot.getCurrentFertilizer() * 1.0 / plot.getMaxFertilizer());
-        fertilizerBar.setStyle("-fx-accent: #00BFFF;"); // blue
+        fertilizerBar.setStyle("-fx-accent: PALEVIOLETRED;");
 
 
         fertilize.getChildren().addAll(fertilizerBar, fertilizeBut);
@@ -170,7 +170,7 @@ public class PlotUI {
                 plot.plantSeed();
                 controller.updatePlotUI(plot);
             });
-            button.setStyle("-fx-background-color: #A0522D; -fx-text-align: center;"
+            button.setStyle("-fx-background-color: BURLYWOOD; -fx-text-align: center;"
                     + "-fx-text-fill: white; -fx-font-family: Chalkduster;"
                     + "-fx-font-size: 13px; -fx-min-width: 50px;");
         } else if (plot.getCurrentCrop().getStage() == CropStages.DEAD
@@ -202,7 +202,7 @@ public class PlotUI {
             plot.fertilizePlot(10);
             controller.updatePlotUI(plot);
         });
-        plantBut.setStyle("-fx-background-color: #A0522D;"
+        plantBut.setStyle("-fx-background-color: LIGHTPINK;"
                 + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
                 + "-fx-font-size: 13px; -fx-min-width: 70px;");
         return plantBut;
@@ -214,7 +214,7 @@ public class PlotUI {
             plot.pesticidePlot();
             controller.updatePlotUI(plot);
         });
-        pestBut.setStyle("-fx-background-color: #A0522D;"
+        pestBut.setStyle("-fx-background-color: BURLYWOOD;"
                 + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
                 + "-fx-font-size: 13px; -fx-min-width: 50px;");
         return pestBut;

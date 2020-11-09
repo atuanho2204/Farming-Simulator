@@ -187,7 +187,7 @@ public class EmployeeManager implements NewDayListener {
                 Crop crop = plot.getCurrentCrop();
                 if (crop != null) {
                     CropStages stage = crop.getStage();
-                    if (stage == CropStages.MATURE) {
+                    if (stage == CropStages.MATURE || stage == CropStages.DEAD) {
                         plot.harvestPlot();
                         UIManager.getInstance().pushUIUpdate();
                         break;
