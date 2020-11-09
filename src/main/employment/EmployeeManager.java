@@ -13,6 +13,7 @@ import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class EmployeeManager implements NewDayListener {
@@ -183,12 +184,25 @@ public class EmployeeManager implements NewDayListener {
 
     private void harvesterWork() {
         Platform.runLater(() -> {
+            List<Plot> deadPlots = new ArrayList<>();
             for (Plot plot : FarmState.getInstance().getPlots()) {
                 Crop crop = plot.getCurrentCrop();
                 if (crop != null) {
                     CropStages stage = crop.getStage();
-                    if (stage == CropStages.MATURE || stage == CropStages.DEAD) {
+                    if (stage == CropStages.MATURE) {
                         plot.harvestPlot();
+                        UIManager.getInstance().pushUIUpdate();
+                        break;
+                    }
+                    if (stage == CropStages.DEAD) {
+                        deadPlots.add(plot);
+                    }
+                }
+            }
+            for (Plot deadPlot : deadPlots) {
+                if (deadPlot.getCurrentCrop() != null) {
+                    if (deadPlot.getCurrentCrop().getStage() == CropStages.DEAD) {
+                        deadPlot.harvestPlot();
                         UIManager.getInstance().pushUIUpdate();
                         break;
                     }
