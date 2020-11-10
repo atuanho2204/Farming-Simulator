@@ -17,7 +17,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class UpdateGrowthCycleTest {
-    private List<Plot> plots;
+    private List<Plot> plots = new ArrayList<>(100);
 
     @Before
     public void setUp() {
