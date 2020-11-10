@@ -3,7 +3,10 @@ package main.farm.plot;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -33,42 +36,62 @@ public class PlotUI {
      * @param controller the creator of this plot
      * @return VBox (or whatever it's changed to) with the plot UI
      */
-    public static VBox getPlotUI(Plot plot, FarmController controller) {
+    public static StackPane getPlotUI(Plot plot, FarmController controller) {
         VBox vBox = new VBox();
-        vBox.setStyle("-fx-background-color: #CD853F; -fx-border-color: black;");
+        //vBox.setStyle("-fx-background-color: #CD853F; -fx-border-color: black;");
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(5);
 
-        Text text1 = new Text();
+        Text cropName = new Text();
         if (plot.getCurrentCrop() == null) {
-            text1.setText("empty & lonely..");
-            text1.setFill(Color.BLACK);
-        } else if (plot.getCurrentCrop().getStage() == CropStages.DEAD) {
-            text1.setText("dead");
-            text1.setFill(Color.RED);
-        } else if (plot.getCurrentCrop().getStage() == CropStages.SPROUTING) {
-            text1.setText("sprouting");
-            text1.setFill(Color.ORANGE);
-        } else if (plot.getCurrentCrop().getStage() == CropStages.MATURE) {
-            text1.setText("mature");
-            text1.setFill(Color.GREEN);
-        } else { // CropStages.IMMATURE
-            text1.setText("growing");
-            text1.setFill(Color.ORANGE);
-        }
-
-        Text text2 = new Text();
-        if (plot.getCurrentCrop() == null) {
-            text2.setText("dirt");
-            text2.setFill(Color.BLACK);
+            cropName.setText("dirt");
+            cropName.setFill(Color.BLACK);
         } else {
-            text2.setText(plot.getCurrentCrop().getType().toString());
-            text2.setFill(Color.WHITE);
+            cropName.setText(plot.getCurrentCrop().getType().toString());
+            cropName.setFill(Color.WHITE);
         }
-        text1.setStyle("-fx-font: 16 chalkduster;");
-        text2.setStyle("-fx-font: 20 chalkduster;");
-        vBox.getChildren().add(text2);
-        vBox.getChildren().add(text1);
+        cropName.setStyle("-fx-font: 20 chalkduster;");
+        vBox.getChildren().add(cropName);
+
+        Text stage = new Text();
+        if (plot.getCurrentCrop() == null) {
+            stage.setText("empty & lonely..");
+            stage.setFill(Color.BLACK);
+        } else if (plot.getCurrentCrop().getStage() == CropStages.DEAD) {
+            stage.setText("dead");
+            stage.setFill(Color.RED);
+        } else if (plot.getCurrentCrop().getStage() == CropStages.SPROUTING) {
+            stage.setText("sprouting");
+            stage.setFill(Color.ORANGE);
+        } else if (plot.getCurrentCrop().getStage() == CropStages.MATURE) {
+            stage.setText("mature");
+            stage.setFill(Color.GREEN);
+        } else { // CropStages.IMMATURE
+            stage.setText("growing");
+            stage.setFill(Color.ORANGE);
+        }
+        stage.setStyle("-fx-font: 16 chalkduster;");
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(stage);
+        if (plot.getCurrentCrop() != null
+                && (plot.getCurrentCrop().hasPesticide()
+                || plot.getCurrentCrop().hadLocust())) {
+            Button hasPest = new Button();
+            ImageView iv;
+            if (plot.getCurrentCrop().hasPesticide()) {
+                iv = new ImageView(new Image("/main/images/pesticide.jpg"));
+            } else {
+                iv = new ImageView(new Image("/main/images/locust.png"));
+            }
+            iv.setFitHeight(20);
+            iv.setFitWidth(20);
+            hasPest.setGraphic(iv);
+            hasPest.setStyle("-fx-background-color: white;");
+            hbox.getChildren().addAll(hasPest);
+        }
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(10);
+        vBox.getChildren().add(hbox);
 
         HBox buttons = new HBox();
         buttons.setAlignment(Pos.CENTER);
@@ -80,11 +103,7 @@ public class PlotUI {
 
         //pesticide
         Button pestBut = handlePesticide(plot, controller);
-        Button hasPest = new Button();
-        if (plot.getCurrentCrop() != null && plot.getCurrentCrop().hasPesticide()) {
-            hasPest.setText("P");
-        }
-        buttons.getChildren().addAll(pestBut, hasPest);
+        buttons.getChildren().add(pestBut);
 
         //water
         HBox water = new HBox();
@@ -115,12 +134,18 @@ public class PlotUI {
         //fertilizer
         ProgressBar fertilizerBar = new ProgressBar(
                 plot.getCurrentFertilizer() * 1.0 / plot.getMaxFertilizer());
-        fertilizerBar.setStyle("-fx-accent: #00BFFF;"); // blue
+        fertilizerBar.setStyle("-fx-accent: PALEVIOLETRED;");
 
 
         fertilize.getChildren().addAll(fertilizerBar, fertilizeBut);
         vBox.getChildren().addAll(buttons, water, fertilize);
-        return vBox;
+
+        StackPane sp = new StackPane();
+        ImageView iv = new ImageView(new Image("/main/images/plot_dark.png"));
+        iv.setFitHeight(187.5);
+        iv.setFitWidth(191.5);
+        sp.getChildren().addAll(iv, vBox);
+        return sp;
     }
 
     private static Button handleWaterPlot(Plot plot, FarmController controller) {
@@ -145,7 +170,7 @@ public class PlotUI {
                 plot.plantSeed();
                 controller.updatePlotUI(plot);
             });
-            button.setStyle("-fx-background-color: #A0522D; -fx-text-align: center;"
+            button.setStyle("-fx-background-color: BURLYWOOD; -fx-text-align: center;"
                     + "-fx-text-fill: white; -fx-font-family: Chalkduster;"
                     + "-fx-font-size: 13px; -fx-min-width: 50px;");
         } else if (plot.getCurrentCrop().getStage() == CropStages.DEAD
@@ -177,7 +202,7 @@ public class PlotUI {
             plot.fertilizePlot(10);
             controller.updatePlotUI(plot);
         });
-        plantBut.setStyle("-fx-background-color: #A0522D;"
+        plantBut.setStyle("-fx-background-color: LIGHTPINK;"
                 + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
                 + "-fx-font-size: 13px; -fx-min-width: 70px;");
         return plantBut;
@@ -189,7 +214,7 @@ public class PlotUI {
             plot.pesticidePlot();
             controller.updatePlotUI(plot);
         });
-        pestBut.setStyle("-fx-background-color: #A0522D;"
+        pestBut.setStyle("-fx-background-color: BURLYWOOD;"
                 + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
                 + "-fx-font-size: 13px; -fx-min-width: 50px;");
         return pestBut;

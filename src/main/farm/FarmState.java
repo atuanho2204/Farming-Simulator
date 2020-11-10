@@ -47,8 +47,8 @@ public class FarmState implements NewDayListener {
         reduceWaterLevelsEveryThreeDays(GameManager.getInstance().getDifficulty());
         reduceFertilizer(GameManager.getInstance().getDifficulty());
         updateGrowthCycle();
-        NotificationManager.getInstance().addNotification("~~~~~~~~~~~~~~~~~~~~Day " + e.getNewDay()
-                + "~~~~~~~~~~~~~~~~~~~~");
+        NotificationManager.getInstance().addNotification("~~~~~~~~~~~~~~~~~Day " + e.getNewDay()
+                + "~~~~~~~~~~~~~~~~~");
         forcePlotUpdate("Show new plot water and growth levels");
         updateSeason();
     }
@@ -157,7 +157,7 @@ public class FarmState implements NewDayListener {
                 ++numSunnyDays;
                 //System.out.println("no rain for " + numSunnyDays + " days");
                 // locust
-                double locustRate = 0.2 * numRainyDays;
+                double locustRate = 0.25 * numRainyDays;
                 if (Math.random() < locustRate) {
                     triggerLocustSwarms(difficulty);
                 }
@@ -213,14 +213,16 @@ public class FarmState implements NewDayListener {
         if (plotsWithLivingCrops.size() > 0) {
             Plot unluckyPlot = plotsWithLivingCrops.remove(
                     (int) (Math.random() * plotsWithLivingCrops.size()));
+            unluckyPlot.getCurrentCrop().setLocust(true);
             unluckyPlot.getCurrentCrop().setCropStage(CropStages.DEAD);
             ++numCropsKilled;
         }
 
         if (plotsWithLivingCrops.size() > 0) {
-            double deadChance = 0.15 * difficulty;
+            double deadChance = 0.20 * difficulty;
             for (Plot plot : plotsWithLivingCrops) {
                 if (!plot.getCurrentCrop().hasPesticide() && Math.random() < deadChance) {
+                    plot.getCurrentCrop().setLocust(true);
                     plot.getCurrentCrop().setCropStage(CropStages.DEAD);
                     ++numCropsKilled;
                 }

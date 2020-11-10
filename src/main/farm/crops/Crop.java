@@ -7,6 +7,7 @@ public class Crop {
     private CropStages stage;
     private int plantDay;
     private boolean pesticide = false;
+    private boolean locust = false;
 
     public Crop(CropTypes type) {
         this(type, CropStages.SPROUTING, false);
@@ -17,6 +18,7 @@ public class Crop {
         this.stage = stage;
         this.plantDay = GameManager.getInstance().getDay();
         this.pesticide = false;
+        this.locust = false;
     }
 
     public CropTypes getType() {
@@ -49,5 +51,13 @@ public class Crop {
 
     public void setPesticide(boolean hasPesticide) {
         this.pesticide = hasPesticide;
+    }
+
+    public void setLocust(boolean locust) {
+        this.locust = locust;
+    }
+
+    public boolean hadLocust() {
+        return locust;
     }
 }
