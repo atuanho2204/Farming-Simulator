@@ -4,8 +4,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import main.employment.EmployeeManager;
@@ -205,7 +203,7 @@ public class FarmController implements PropertyChangeListener {
     public TilePane getRandomPlots(List<CropTypes> seeds) {
         TilePane plotGrid = PlotUI.getPlotHolderUI();
         plotGrid.setPrefTileHeight(187.5);
-        plotGrid.setPrefTileWidth(191.5);
+        plotGrid.setPrefTileWidth(191.3);
         for (int i = 0; i < farmState.getPlots().size(); i++) {
             Plot plot = farmState.getPlots().get(i);
             int randomCrop = (int) (Math.random() * 100) % seeds.size();

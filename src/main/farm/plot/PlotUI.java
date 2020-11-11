@@ -143,7 +143,7 @@ public class PlotUI {
         StackPane sp = new StackPane();
         ImageView iv = new ImageView(new Image("/main/images/plot_dark.png"));
         iv.setFitHeight(187.5);
-        iv.setFitWidth(191.5);
+        iv.setFitWidth(191.3);
         sp.getChildren().addAll(iv, vBox);
         return sp;
     }
