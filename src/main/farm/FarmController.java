@@ -202,17 +202,10 @@ public class FarmController implements PropertyChangeListener {
 
     public TilePane getRandomPlots(List<CropTypes> seeds) {
         TilePane plotGrid = PlotUI.getPlotHolderUI();
-<<<<<<< Updated upstream
-        plotGrid.setPrefTileHeight(187.5);
-        plotGrid.setPrefTileWidth(191.3);
-=======
-<<<<<<< Updated upstream
-=======
+
         //these 2 lines caused a UI bug, because this work was already done in the plot class
         //plotGrid.setPrefTileHeight(187.5);
         //plotGrid.setPrefTileWidth(191.3);
->>>>>>> Stashed changes
->>>>>>> Stashed changes
         for (int i = 0; i < farmState.getPlots().size(); i++) {
             Plot plot = farmState.getPlots().get(i);
             int randomCrop = (int) (Math.random() * 100) % seeds.size();

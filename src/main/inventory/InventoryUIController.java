@@ -28,18 +28,9 @@ public class InventoryUIController implements PropertyChangeListener {
 
     public void construct(Stage primaryStage) {
         this.primaryStage = primaryStage;
-<<<<<<< Updated upstream
-        inventoryScreen.setPadding(new Insets(5, 0, 0, 5));
-=======
-<<<<<<< Updated upstream
-        inventoryScreen.setPadding(new Insets(120, 0, 0, 35));
-=======
-
         //please stop moving this line...you can change it...just don't move it
         inventoryScreen.setPadding(new Insets(90, 0, 0, 17));
 
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
         //subscribe to the inventory changes
         GameManager.getInstance().getInventory().subscribeToChanges(this);

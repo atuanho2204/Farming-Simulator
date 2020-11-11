@@ -126,13 +126,6 @@ public class PlotUI {
             waterBar.setStyle("-fx-accent: #FFD700;"); // yellow
         }
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-        vBox.getChildren().addAll(buttons, waterBar);
-        return vBox;
-=======
->>>>>>> Stashed changes
         HBox fertilize = new HBox();
         fertilize.setAlignment(Pos.CENTER_LEFT);
         fertilize.setSpacing(5);
@@ -149,19 +142,11 @@ public class PlotUI {
         vBox.getChildren().addAll(buttons, water, fertilize);
 
         StackPane sp = new StackPane();
-<<<<<<< Updated upstream
-        ImageView iv = new ImageView(new Image("/main/images/plot_dark.png"));
-        iv.setFitHeight(187.5);
-        iv.setFitWidth(191.3);
-        sp.getChildren().addAll(iv, vBox);
-        return sp;
-=======
+
         ImageView iv = new ImageView(new Image("/main/images/plot_dark.png",
                 farmPlotHeight / 4, farmPlotWidth / 3, false, false));
         sp.getChildren().addAll(iv, vBox);
         return sp;
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     }
 
     private static Button handleWaterPlot(Plot plot, FarmController controller) {

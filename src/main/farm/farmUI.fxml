@@ -7,23 +7,9 @@
            stylesheets="@../style.css"
            xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1"
-<<<<<<< Updated upstream
-           fx:controller="main.farm.FarmController"
-           style="-fx-background-color: black">
-=======
-<<<<<<< Updated upstream
-           fx:controller="main.farm.FarmController">
-    <ImageView fx:id="farmImage" fitHeight="800.0" fitWidth="1300.0">
-        <image>
-            <Image url="@../images/farm_background.jpg"/>
-        </image>
-    </ImageView>
-=======
            fx:controller="main.farm.FarmController"
            style="-fx-background-color: black"
            prefHeight="800.0" prefWidth="1200.0">
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     <BorderPane>
         <top>
             <HBox fx:id="headerHolder" prefHeight="50" maxHeight="50" minHeight="50">
@@ -77,17 +63,13 @@
                 <StackPane fx:id="marketHolder" prefHeight="375" prefWidth="325"
                            GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <ImageView fx:id="marketImage" fitHeight="375" fitWidth="325">
-                        <image>
-                            <Image url="@../images/market.jpeg"/>
-                        </image>
+                        <Image url="@../images/market.jpeg"/>
                     </ImageView>
                 </StackPane>
                 <StackPane fx:id="inventoryHolder" prefHeight="375" prefWidth="325"
                            GridPane.columnIndex="0" GridPane.rowIndex="1">
                     <ImageView fx:id="inventoryImage" fitHeight="375" fitWidth="325">
-                        <image>
-                            <Image url="@../images/inventory.jpeg"/>
-                        </image>
+                        <Image url="@../images/inventory.jpeg"/>
                     </ImageView>
                 </StackPane>
             </GridPane>

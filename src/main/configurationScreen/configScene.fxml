@@ -9,9 +9,7 @@
 <StackPane fx:id="csStackPane" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.configurationScreen.ConfigSceneController">
     <ImageView fx:id="image" fitHeight="800.0" fitWidth="1200.0">
-        <image>
-            <Image url="@../images/config_background.png"/>
-        </image>
+        <Image url="@../images/config_background.png"/>
     </ImageView>
     <GridPane prefHeight="800.0" prefWidth="1200.0">
         <columnConstraints>
@@ -28,132 +26,120 @@
             <RowConstraints maxHeight="216.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES"/>
             <RowConstraints maxHeight="229.0" minHeight="10.0" prefHeight="203.0" vgrow="SOMETIMES"/>
         </rowConstraints>
-        <children>
-            <VBox fx:id="seedOptions" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                <children>
-                    <Label fx:id="selectSeeds" text="Select starting seeds:">
-                        <VBox.margin>
-                            <Insets left="150.0"/>
-                        </VBox.margin>
-                    </Label>
-                    <CheckBox fx:id="wheat" mnemonicParsing="false" text="Wheat">
-                        <VBox.margin>
-                            <Insets left="150.0"/>
-                        </VBox.margin>
-                    </CheckBox>
-                    <CheckBox fx:id="corn" mnemonicParsing="false" text="Corn">
-                        <VBox.margin>
-                            <Insets left="150.0"/>
-                        </VBox.margin>
-                    </CheckBox>
-                    <CheckBox fx:id="cotton" mnemonicParsing="false" text="Cotton">
-                        <VBox.margin>
-                            <Insets left="150.0"/>
-                        </VBox.margin>
-                    </CheckBox>
-                    <CheckBox fx:id="lettuce" mnemonicParsing="false" text="Lettuce">
-                        <VBox.margin>
-                            <Insets left="150.0"/>
-                        </VBox.margin>
-                    </CheckBox>
-                </children>
-            </VBox>
-            <VBox fx:id="seasonSelection" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                <children>
-                    <Label fx:id="selectSeason" text="Select starting season:">
-                        <VBox.margin>
-                            <Insets left="100.0"/>
-                        </VBox.margin>
-                    </Label>
-                    <RadioButton fx:id="spring" mnemonicParsing="false" onAction="#getSeason" text="Spring">
-                        <VBox.margin>
-                            <Insets left="100.0"/>
-                        </VBox.margin>
-                        <toggleGroup>
-                            <ToggleGroup fx:id="seasonGroup"/>
-                        </toggleGroup>
-                    </RadioButton>
-                    <RadioButton fx:id="summer" mnemonicParsing="false" onAction="#getSeason" text="Summer"
-                                 toggleGroup="$seasonGroup">
-                        <VBox.margin>
-                            <Insets left="100.0"/>
-                        </VBox.margin>
-                    </RadioButton>
-                    <RadioButton fx:id="fall" mnemonicParsing="false" onAction="#getSeason" text="Fall"
-                                 toggleGroup="$seasonGroup">
-                        <VBox.margin>
-                            <Insets left="100.0"/>
-                        </VBox.margin>
-                    </RadioButton>
-                    <RadioButton fx:id="winter" mnemonicParsing="false" onAction="#getSeason" text="Winter"
-                                 toggleGroup="$seasonGroup">
-                        <VBox.margin>
-                            <Insets left="100.0"/>
-                        </VBox.margin>
-                    </RadioButton>
-                </children>
-            </VBox>
-            <Label fx:id="enterName" text="Enter your name:" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                   GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                <GridPane.margin>
-                    <Insets right="20.0"/>
-                </GridPane.margin>
-                <padding>
-                    <Insets left="5.0"/>
-                </padding>
+        <VBox fx:id="seedOptions" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Label fx:id="selectSeeds" text="Select starting seeds:">
+                <VBox.margin>
+                    <Insets left="150.0"/>
+                </VBox.margin>
             </Label>
-            <TextField fx:id="playerName" GridPane.columnIndex="2" GridPane.rowIndex="1">
-            </TextField>
-            <Label fx:id="selectLevel" text="Select difficulty:" GridPane.columnIndex="1"
-                   GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                <GridPane.margin>
-                    <Insets right="20.0"/>
-                </GridPane.margin>
+            <CheckBox fx:id="wheat" mnemonicParsing="false" text="Wheat">
+                <VBox.margin>
+                    <Insets left="150.0"/>
+                </VBox.margin>
+            </CheckBox>
+            <CheckBox fx:id="corn" mnemonicParsing="false" text="Corn">
+                <VBox.margin>
+                    <Insets left="150.0"/>
+                </VBox.margin>
+            </CheckBox>
+            <CheckBox fx:id="cotton" mnemonicParsing="false" text="Cotton">
+                <VBox.margin>
+                    <Insets left="150.0"/>
+                </VBox.margin>
+            </CheckBox>
+            <CheckBox fx:id="lettuce" mnemonicParsing="false" text="Lettuce">
+                <VBox.margin>
+                    <Insets left="150.0"/>
+                </VBox.margin>
+            </CheckBox>
+        </VBox>
+        <VBox fx:id="seasonSelection" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label fx:id="selectSeason" text="Select starting season:">
+                <VBox.margin>
+                    <Insets left="100.0"/>
+                </VBox.margin>
             </Label>
-            <HBox fx:id="levels" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                <children>
-                    <ToggleButton fx:id="easy" mnemonicParsing="false" text="Easy">
-                        <toggleGroup>
-                            <ToggleGroup fx:id="difficultyGroup"/>
-                        </toggleGroup>
-                        <effect>
-                            <Reflection fraction="0.25" topOpacity="0.25"/>
-                        </effect>
-                    </ToggleButton>
-                    <ToggleButton fx:id="medium" mnemonicParsing="false" text="Medium"
-                                  toggleGroup="$difficultyGroup">
-                        <effect>
-                            <Reflection fraction="0.25" topOpacity="0.25"/>
-                        </effect>
-                    </ToggleButton>
-                    <ToggleButton fx:id="hard" mnemonicParsing="false" text="Hard" toggleGroup="$difficultyGroup">
-                        <effect>
-                            <Reflection fraction="0.25" topOpacity="0.25"/>
-                        </effect>
-                    </ToggleButton>
-                </children>
-            </HBox>
-            <HBox fx:id="configButton1" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                <children>
-                    <Button fx:id="continueButtonCS" mnemonicParsing="false" onAction="#handleContinueButton"
-                            text="Continue">
-                    </Button>
-                </children>
-            </HBox>
-            <HBox fx:id="configButton2" GridPane.columnIndex="2" GridPane.rowIndex="4">
-                <children>
-                    <Button fx:id="quitButtonCS" alignment="CENTER" mnemonicParsing="false"
-                            onAction="#handleConfigQuitButton" text="Quit">
-                    </Button>
-                </children>
-            </HBox>
-            <HBox alignment="TOP_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                <Button fx:id="skipButtonWS" onAction="#handleSkipButton">
-                </Button>
-                <padding>
-                    <Insets top="40.0"/>
-                </padding>
-            </HBox>
-        </children>
+            <RadioButton fx:id="spring" mnemonicParsing="false" onAction="#getSeason" text="Spring">
+                <VBox.margin>
+                    <Insets left="100.0"/>
+                </VBox.margin>
+                <toggleGroup>
+                    <ToggleGroup fx:id="seasonGroup"/>
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="summer" mnemonicParsing="false" onAction="#getSeason" text="Summer"
+                         toggleGroup="$seasonGroup">
+                <VBox.margin>
+                    <Insets left="100.0"/>
+                </VBox.margin>
+            </RadioButton>
+            <RadioButton fx:id="fall" mnemonicParsing="false" onAction="#getSeason" text="Fall"
+                         toggleGroup="$seasonGroup">
+                <VBox.margin>
+                    <Insets left="100.0"/>
+                </VBox.margin>
+            </RadioButton>
+            <RadioButton fx:id="winter" mnemonicParsing="false" onAction="#getSeason" text="Winter"
+                         toggleGroup="$seasonGroup">
+                <VBox.margin>
+                    <Insets left="100.0"/>
+                </VBox.margin>
+            </RadioButton>
+        </VBox>
+        <Label fx:id="enterName" text="Enter your name:" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+               GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+            <padding>
+                <Insets left="5.0"/>
+            </padding>
+        </Label>
+        <TextField fx:id="playerName" GridPane.columnIndex="2" GridPane.rowIndex="1">
+        </TextField>
+        <Label fx:id="selectLevel" text="Select difficulty:" GridPane.columnIndex="1"
+               GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <GridPane.margin>
+                <Insets right="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <HBox fx:id="levels" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <ToggleButton fx:id="easy" mnemonicParsing="false" text="Easy">
+                <toggleGroup>
+                    <ToggleGroup fx:id="difficultyGroup"/>
+                </toggleGroup>
+                <effect>
+                    <Reflection fraction="0.25" topOpacity="0.25"/>
+                </effect>
+            </ToggleButton>
+            <ToggleButton fx:id="medium" mnemonicParsing="false" text="Medium"
+                          toggleGroup="$difficultyGroup">
+                <effect>
+                    <Reflection fraction="0.25" topOpacity="0.25"/>
+                </effect>
+            </ToggleButton>
+            <ToggleButton fx:id="hard" mnemonicParsing="false" text="Hard" toggleGroup="$difficultyGroup">
+                <effect>
+                    <Reflection fraction="0.25" topOpacity="0.25"/>
+                </effect>
+            </ToggleButton>
+        </HBox>
+        <HBox fx:id="configButton1" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Button fx:id="continueButtonCS" mnemonicParsing="false" onAction="#handleContinueButton"
+                    text="Continue">
+            </Button>
+        </HBox>
+        <HBox fx:id="configButton2" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Button fx:id="quitButtonCS" alignment="CENTER" mnemonicParsing="false"
+                    onAction="#handleConfigQuitButton" text="Quit">
+            </Button>
+        </HBox>
+        <HBox alignment="TOP_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="0">
+            <Button fx:id="skipButtonWS" onAction="#handleSkipButton">
+            </Button>
+            <padding>
+                <Insets top="40.0"/>
+            </padding>
+        </HBox>
     </GridPane>
 </StackPane>
