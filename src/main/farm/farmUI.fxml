@@ -7,8 +7,23 @@
            stylesheets="@../style.css"
            xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1"
+<<<<<<< Updated upstream
            fx:controller="main.farm.FarmController"
            style="-fx-background-color: black">
+=======
+<<<<<<< Updated upstream
+           fx:controller="main.farm.FarmController">
+    <ImageView fx:id="farmImage" fitHeight="800.0" fitWidth="1300.0">
+        <image>
+            <Image url="@../images/farm_background.jpg"/>
+        </image>
+    </ImageView>
+=======
+           fx:controller="main.farm.FarmController"
+           style="-fx-background-color: black"
+           prefHeight="800.0" prefWidth="1200.0">
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     <BorderPane>
         <top>
             <HBox fx:id="headerHolder" prefHeight="50" maxHeight="50" minHeight="50">
@@ -43,8 +58,7 @@
                 <rowConstraints>
                     <RowConstraints prefHeight="750.0" vgrow="ALWAYS"/>
                 </rowConstraints>
-                <HBox fx:id="farmPlots" GridPane.columnIndex="0" GridPane.rowIndex="0"
-                      >
+                <HBox fx:id="farmPlots" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <!--farm plots are generated-->
                 </HBox>
             </GridPane>
