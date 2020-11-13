@@ -113,12 +113,16 @@ public class PlotUI {
         buttonHolder.setSpacing(5);
 
         // plant and harvest
-        Button button = handlePlantAndHarvest(plot, controller);
-        buttonHolder.getChildren().add(button);
+        if (crop == null || crop.getStage() == CropStages.MATURE
+                || crop.getStage() == CropStages.DEAD) {
+            Button button = handlePlantAndHarvest(plot, controller);
+            buttonHolder.getChildren().add(button);
+        }
 
 
         //pesticide
-        if (crop != null && crop.getStage() != CropStages.MATURE) {
+        if (crop != null && crop.getStage() != CropStages.MATURE
+                && crop.getStage() != CropStages.DEAD) {
             Button pestBut = handlePesticide(plot, controller);
             buttonHolder.getChildren().add(pestBut);
         }
@@ -126,13 +130,15 @@ public class PlotUI {
 
 
         //water
-        if (crop != null && crop.getStage() != CropStages.MATURE) {
+        if (crop != null && crop.getStage() != CropStages.MATURE
+                && crop.getStage() != CropStages.DEAD) {
             HBox water = getWaterUI(plot, controller);
             vBox.getChildren().add(water);
         }
 
         //fertilize button & bar
-        if (crop != null && crop.getStage() != CropStages.MATURE) {
+        if (crop != null && crop.getStage() != CropStages.MATURE
+                && crop.getStage() != CropStages.DEAD) {
             HBox fertilize = getFertilizeUI(plot, controller);
             vBox.getChildren().add(fertilize);
         }
