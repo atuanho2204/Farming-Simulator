@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import main.farm.FarmState;
 import main.gameManager.GameManager;
 import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
@@ -32,6 +33,9 @@ public class MarketUIController implements NewDayListener {
      */
     public void construct(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        //please don't move this line...we only need to set them once
+        marketScreen.setPadding(new Insets(100, 0, 0, 20));
+
         GameManager.getInstance().getTimeAdvancer().addListener(this);
         setMarketListings();
     }
@@ -45,14 +49,22 @@ public class MarketUIController implements NewDayListener {
     private void setMarketListings() {
         try {
             ArrayList<Node> newListings = new ArrayList<>();
+            //add the seeds from the market listings
             for (InventoryItem listing
                     : GameManager.getInstance().getMarket().getMarketListings()) {
                 newListings.add(MarketListing.getListingUI(listing));
-                //System.out.println(listing.getName() + " with price: " + listing.getBuyCost());
             }
+            //add the fertilizer and pesticide
             newListings.add(MarketListing.getFertilizeUI());
             newListings.add(MarketListing.getPesticideUI());
-            marketScreen.setPadding(new Insets(100, 0, 0, 20));
+
+            //add the tractor and/or irrigation
+            if (!FarmState.getInstance().getFarmEquipment().hasIrrigation()) {
+                newListings.add(MarketListing.getIrrigationUI());
+            }
+            //add your market listing here @chris
+
+
             Platform.runLater(() -> {
                 marketScreen.getChildren().clear();
                 marketScreen.getChildren().addAll(newListings);

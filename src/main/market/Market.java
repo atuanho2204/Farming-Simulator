@@ -1,5 +1,6 @@
 package main.market;
 
+import main.farm.FarmState;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.Seed;
 import main.util.AlertUser;
@@ -7,7 +8,9 @@ import main.util.UIManager;
 import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 import main.inventory.inventoryItems.InventoryItem;
+
 import java.util.ArrayList;
+
 import main.farm.crops.CropCatalog;
 import main.farm.crops.CropDetails;
 import main.farm.crops.CropTypes;
@@ -57,6 +60,7 @@ public class Market implements NewDayListener {
 
     /**
      * Gets the market listings.
+     *
      * @return an arrayList of inventory items
      */
     public ArrayList<InventoryItem> getMarketListings() {
@@ -97,7 +101,8 @@ public class Market implements NewDayListener {
                 GameManager.getInstance().setMoney(money);
                 UIManager.getInstance().pushUIUpdate();
             } else {
-                AlertUser.alertUser("Do not have enough money");
+                AlertUser.alertUser("You need " + (price - GameManager.getInstance().getMoney())
+                        + " more dollars");
             }
         } catch (Exception e) {
             AlertUser.alertUser("Your pesticide tank is full");
@@ -112,7 +117,26 @@ public class Market implements NewDayListener {
                 GameManager.getInstance().setMoney(money);
                 UIManager.getInstance().pushUIUpdate();
             } else {
-                AlertUser.alertUser("Do not have enough money");
+                AlertUser.alertUser("You need " + (price - GameManager.getInstance().getMoney())
+                        + " more dollars");
+            }
+        } catch (Exception e) {
+            AlertUser.alertUser(e.getMessage());
+        }
+    }
+
+    public static void buyIrrigation(int price) {
+        try {
+            if (GameManager.getInstance().getMoney() >= price) {
+                //adds the irrigation on the farmState
+                FarmState.getInstance().getFarmEquipment().addIrrigation();
+
+                int money = GameManager.getInstance().getMoney() - price;
+                GameManager.getInstance().setMoney(money);
+                UIManager.getInstance().pushUIUpdate();
+            } else {
+                AlertUser.alertUser("You need " + (price - GameManager.getInstance().getMoney())
+                        + " more dollars");
             }
         } catch (Exception e) {
             AlertUser.alertUser(e.getMessage());

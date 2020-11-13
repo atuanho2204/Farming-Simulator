@@ -21,6 +21,8 @@ public class FarmState implements NewDayListener {
     private int daysEachMonth = 30;
     private int numSunnyDays = 0;
     private int numRainyDays = 0;
+    private FarmEquipment farmEquipment = new FarmEquipment();
+
 
     private FarmState() {
         this.plots = new ArrayList<>(numOfPlots);
@@ -51,6 +53,7 @@ public class FarmState implements NewDayListener {
                 + "~~~~~~~~~~~~~~~~~");
         forcePlotUpdate("Show new plot water and growth levels");
         updateSeason();
+        resetEquipmentLevels();
     }
 
     public void updateGrowthCycle() {
@@ -83,6 +86,13 @@ public class FarmState implements NewDayListener {
     }
 
 
+
+    private void resetEquipmentLevels() {
+        //set the water level to 0
+        farmEquipment.setCurrentWaterPlots(0);
+
+        //set the harvesting level to 0 @Chris
+    }
 
     /**
      * Method reduceWaterLevelsEveryThreeDays decrements each plot's water level by
@@ -256,5 +266,9 @@ public class FarmState implements NewDayListener {
 
     public void setNumRainyDays(int numDays) {
         this.numRainyDays = numDays;
+    }
+
+    public FarmEquipment getFarmEquipment() {
+        return farmEquipment;
     }
 }

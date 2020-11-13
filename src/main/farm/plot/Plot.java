@@ -1,5 +1,7 @@
 package main.farm.plot;
 
+import main.farm.FarmEquipment;
+import main.farm.FarmState;
 import main.farm.crops.CropCatalog;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
@@ -36,6 +38,12 @@ public class Plot {
 
 
     public void waterPlot(int increment) {
+        //check if we are over the water limit
+        FarmEquipment farmEquipment = FarmState.getInstance().getFarmEquipment();
+        if (farmEquipment.getCurrentWaterPlots() >= farmEquipment.getMaxWaterPlots()) {
+            AlertUser.alertUser("There is no more water left in the tank. You may wait a day or buy irrigation");
+            return;
+        }
         currentWater += increment;
         if (currentWater >= maxWater || currentWater <= 0) {
             if (currentWater > maxWater) {
@@ -48,6 +56,8 @@ public class Plot {
                 currentCrop.setCropStage(CropStages.DEAD);
             }
         }
+        //add 1 to the current farm equipment water level
+        farmEquipment.setCurrentWaterPlots(farmEquipment.getCurrentWaterPlots() + 1);
     }
 
     public void fertilizePlot(int increment) {
