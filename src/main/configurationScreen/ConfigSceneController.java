@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import main.farm.FarmController;
 import main.gameManager.GameManager;
@@ -16,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigSceneController {
-    private Stage stage;
+    private Stage primaryStage;
+    private AudioClip backgroundMusic;
 
     @FXML
     private Button continueButtonCS;
@@ -43,22 +45,29 @@ public class ConfigSceneController {
 
     private String alertMessage = "";
 
-    public void construct(Stage primaryStage) {
+    public void construct(Stage primaryStage, AudioClip backgroundMusic) {
         construct(primaryStage, 1, "",
-                new ArrayList<CropTypes>(), Seasons.FALL);
+                new ArrayList<CropTypes>(), Seasons.FALL, backgroundMusic);
     }
 
     public void construct(Stage primaryStage, Integer difficulty, String name,
-                          List<CropTypes> seeds, Seasons season) {
-        this.stage = primaryStage;
+                          List<CropTypes> seeds, Seasons season,
+                            AudioClip backgroundMusic) {
+        this.primaryStage = primaryStage;
         GameManager.getInstance().setDifficulty(difficulty);
         GameManager.getInstance().setSeason(season);
         GameManager.getInstance().setSeeds(seeds);
         GameManager.getInstance().setName(name);
+        this.backgroundMusic = backgroundMusic;
+        java.net.URL resource = getClass().getResource(
+                "/main/soundtrack/ukulele.mp3");
+        this.backgroundMusic = new AudioClip(resource.toExternalForm());
+        this.backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
+        this.backgroundMusic.play();
     }
 
     public void handleContinueButton() {
-        stage = (Stage) continueButtonCS.getScene().getWindow();
+        primaryStage = (Stage) continueButtonCS.getScene().getWindow();
         boolean dataIsGood = validateData();
         if (dataIsGood) {
             loadNextScene("../farm/farmUI.fxml");
@@ -68,8 +77,8 @@ public class ConfigSceneController {
     }
 
     public void handleConfigQuitButton() {
-        stage = (Stage) quitButtonCS.getScene().getWindow();
-        stage.close();
+        primaryStage = (Stage) quitButtonCS.getScene().getWindow();
+        primaryStage.close();
     }
 
     public boolean validateData() {
@@ -153,10 +162,10 @@ public class ConfigSceneController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent parent = loader.load();
             FarmController controller = loader.getController();
-            controller.construct(stage);
-
-            stage.setTitle("FarmUI");
-            stage.setScene(new Scene(parent));
+            backgroundMusic.stop();
+            controller.construct(primaryStage, backgroundMusic);
+            primaryStage.setTitle("FarmUI");
+            primaryStage.setScene(new Scene(parent));
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -197,7 +206,7 @@ public class ConfigSceneController {
     }
 
     public void handleSkipButton() {
-        stage = (Stage) skipButtonWS.getScene().getWindow();
+        primaryStage = (Stage) skipButtonWS.getScene().getWindow();
         // set name
         GameManager.getInstance().setName("Super Farmer");
         // set difficulty

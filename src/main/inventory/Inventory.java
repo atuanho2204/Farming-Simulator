@@ -184,4 +184,8 @@ public class Inventory {
         }
     }
 
+    public HashMap<CropTypes, Integer> getSeedStorage() {
+        return seedStorage;
+    }
+
 }

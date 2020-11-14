@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+
+<StackPane stylesheets="@../style.css"
+           xmlns="http://javafx.com/javafx/11.0.1"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="main.endingScreen.GameOverSceneController"
+           style="-fx-background-color: white;"
+           prefHeight="800" prefWidth="1200">
+    <children>
+        <HBox fx:id="welcomeButtons" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <children>
+                <Button fx:id="startButtonWS" mnemonicParsing="false"
+                        onAction="#handleRestartButton" text="Restart">
+                </Button>
+                <Button fx:id="quitButtonWS" mnemonicParsing="false" onAction="#handleQuitButton" text="Quit">
+                </Button>
+            </children>
+        </HBox>
+    </children>
+</StackPane>
