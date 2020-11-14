@@ -19,7 +19,6 @@ import main.farm.crops.CropTypes;
 public class Market implements NewDayListener {
     private ArrayList<InventoryItem> listings;
     private final int priceModifier = 1;
-    private final int minBuyPrice = 7;
 
     public Market() {
         this.listings = new ArrayList<>();
@@ -54,9 +53,9 @@ public class Market implements NewDayListener {
         CropDetails details = CropCatalog.getInstance().getCropDetails(type);
         //int randomSupplment = (int) Math.round((Math.random() * 2 - 1));
         int difficultySupplement = GameManager.getInstance().getDifficulty();
-        return Math.max(minBuyPrice, priceModifier * (int) (details.getBaseSell()
+        return priceModifier * (int) (details.getBaseSell()
                 + Math.round(2 * Math.sin(GameManager.getInstance().getDay()))
-                + difficultySupplement));
+                + difficultySupplement);
     }
 
     /**
@@ -160,9 +159,5 @@ public class Market implements NewDayListener {
         } catch (Exception e) {
 
         }
-    }
-
-    public int getMinBuyPrice() {
-        return minBuyPrice;
     }
 }

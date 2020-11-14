@@ -254,13 +254,14 @@
 }
 
 #topBar {
-    -fx-background-color: #545454;
+    -fx-background-color: white;
     -fx-font-size: 20px;
-    -fx-text-align: center;
 }
 
 .dataLabel {
-    -fx-text-fill: white;
+    -fx-text-fill: #18a734;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 18px;
 }
 
 

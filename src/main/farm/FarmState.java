@@ -51,7 +51,7 @@ public class FarmState implements NewDayListener {
         randomizeEvents();
         reduceWaterLevelsEveryThreeDays(GameManager.getInstance().getDifficulty());
         reduceFertilizer(GameManager.getInstance().getDifficulty());
-        updateGrowthCycle();
+        updateGrowthCycle(false);
         NotificationManager.getInstance().addNotification("~~~~~~~~~~~~~~~~~Day " + e.getNewDay()
                 + "~~~~~~~~~~~~~~~~~");
         forcePlotUpdate("Show new plot water and growth levels");
@@ -59,7 +59,7 @@ public class FarmState implements NewDayListener {
         resetEquipmentLevels();
     }
 
-    public void updateGrowthCycle() {
+    public void updateGrowthCycle(boolean isTesting) {
         boolean areEmptyPlots = true;
         for (Plot plot: plots) {
             if (plot.getCurrentCrop() == null) {
@@ -90,12 +90,14 @@ public class FarmState implements NewDayListener {
                 areEmptyPlots = false;
             }
         }
-        int lowestCropPrice = GameManager.getInstance().getMarket().getMinBuyPrice();
-        if (areEmptyPlots
+        int lowestCropPrice = CropCatalog.getInstance().getMinBuyPrice();
+        if (!isTesting && areEmptyPlots
                 && GameManager.getInstance().getMoney() < lowestCropPrice
                 && GameManager.getInstance().getInventory().getProducts().size() == 0
                 && GameManager.getInstance().getInventory().getSeedStorage().size() == 0) {
-           farmController.endGame();
+            if (farmController != null) {
+                farmController.endGame();
+            }
         }
     }
 

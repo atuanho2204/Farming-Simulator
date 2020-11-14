@@ -22,7 +22,7 @@ public class WelcomeSceneController {
                 "/main/soundtrack/buddy.mp3");
         backgroundMusic = new AudioClip(resource.toExternalForm());
         backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
-        backgroundMusic.setVolume(0.3);
+        backgroundMusic.setVolume(0.2);
         backgroundMusic.play();
     }
 
