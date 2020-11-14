@@ -37,7 +37,7 @@
                     <ColumnConstraints hgrow="NEVER" prefWidth="575" />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints prefHeight="750.0" vgrow="ALWAYS" />
+                    <RowConstraints prefHeight="750.0" vgrow="NEVER" />
                 </rowConstraints>
                 <HBox fx:id="farmPlots" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <!--farm plots are generated-->

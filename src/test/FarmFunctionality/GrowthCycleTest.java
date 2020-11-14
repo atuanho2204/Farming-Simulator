@@ -61,7 +61,7 @@ public class GrowthCycleTest {
 
 
         GameManager.getInstance().setDay(1);
-        FarmState.getInstance().updateGrowthCycle();
+        FarmState.getInstance().updateGrowthCycle(true);
         List<Plot> plots = FarmState.getInstance().getPlots();
 
         Assert.assertEquals(CropStages.MATURE, plots.get(0).getCurrentCrop().getStage());
@@ -70,7 +70,7 @@ public class GrowthCycleTest {
         Assert.assertEquals(CropStages.IMMATURE, plots.get(3).getCurrentCrop().getStage());
 
         GameManager.getInstance().setDay(2);
-        FarmState.getInstance().updateGrowthCycle();
+        FarmState.getInstance().updateGrowthCycle(true);
 
         Assert.assertEquals(CropStages.MATURE, plots.get(0).getCurrentCrop().getStage());
         Assert.assertEquals(CropStages.SPROUTING, plots.get(1).getCurrentCrop().getStage());
@@ -78,7 +78,7 @@ public class GrowthCycleTest {
         Assert.assertEquals(CropStages.MATURE, plots.get(3).getCurrentCrop().getStage());
 
         GameManager.getInstance().setDay(3);
-        FarmState.getInstance().updateGrowthCycle();
+        FarmState.getInstance().updateGrowthCycle(true);
 
         Assert.assertEquals(CropStages.MATURE, plots.get(0).getCurrentCrop().getStage());
         Assert.assertEquals(CropStages.IMMATURE, plots.get(1).getCurrentCrop().getStage());
@@ -86,7 +86,7 @@ public class GrowthCycleTest {
         Assert.assertEquals(CropStages.MATURE, plots.get(3).getCurrentCrop().getStage());
 
         GameManager.getInstance().setDay(4);
-        FarmState.getInstance().updateGrowthCycle();
+        FarmState.getInstance().updateGrowthCycle(true);
 
         Assert.assertEquals(CropStages.MATURE, plots.get(0).getCurrentCrop().getStage());
         Assert.assertEquals(CropStages.IMMATURE, plots.get(1).getCurrentCrop().getStage());

@@ -76,8 +76,8 @@ public class MarketListing {
         });
         grid.add(buy, ++col, 0);
         // Secret button to kill all crops for testing purposes
-        Button kill = new Button("Kill");
-        kill.setTextFill(Color.DARKRED);
+        Button kill = new Button();
+        kill.setStyle("-fx-background-color: transparent");
         kill.setOnAction(e -> {
             for (Plot plot : FarmState.getInstance().getPlots()) {
                 if (plot.getCurrentCrop() != null) {

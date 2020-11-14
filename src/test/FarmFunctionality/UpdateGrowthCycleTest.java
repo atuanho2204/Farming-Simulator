@@ -59,7 +59,7 @@ public class UpdateGrowthCycleTest {
         }
 
         GameManager.getInstance().setDay(8);
-        FarmState.getInstance().updateGrowthCycle();
+        FarmState.getInstance().updateGrowthCycle(true);
 
         for (int i = 0; i < plots.size(); i++) {
             assertEquals(stage.get(i), plots.get(i).getCurrentCrop().getStage());
