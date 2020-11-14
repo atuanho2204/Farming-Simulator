@@ -6,6 +6,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import main.farm.FarmState;
+import main.farm.crops.CropStages;
+import main.farm.plot.Plot;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.InventoryItem;
 import main.inventory.inventoryItems.Seed;
@@ -72,6 +75,18 @@ public class MarketListing {
             GameManager.getInstance().getInventory().getPesticide();
         });
         grid.add(buy, ++col, 0);
+        // Secret button to kill all crops for testing purposes
+        Button kill = new Button("Kill");
+        kill.setTextFill(Color.DARKRED);
+        kill.setOnAction(e -> {
+            for (Plot plot : FarmState.getInstance().getPlots()) {
+                if (plot.getCurrentCrop() != null) {
+                    plot.getCurrentCrop().setCropStage(CropStages.DEAD);
+                    FarmState.getInstance().forcePlotUpdate("Test game over.");
+                }
+            }
+        });
+        grid.add(kill, ++col, 0);
         grid.setPadding(new Insets(2, 0, 2, 0));
         return grid;
     }
