@@ -1,6 +1,9 @@
 package main.farm;
 
-import main.farm.crops.*;
+import main.farm.crops.CropCatalog;
+import main.farm.crops.CropDetails;
+import main.farm.crops.CropStages;
+import main.farm.crops.CropTypes;
 import main.farm.plot.Plot;
 import main.gameManager.GameManager;
 import main.notifications.NotificationManager;
@@ -21,6 +24,7 @@ public class FarmState implements NewDayListener {
     private int daysEachMonth = 30;
     private int numSunnyDays = 0;
     private int numRainyDays = 0;
+    private FarmController farmController;
 
     private FarmState() {
         this.plots = new ArrayList<>(numOfPlots);
@@ -54,6 +58,7 @@ public class FarmState implements NewDayListener {
     }
 
     public void updateGrowthCycle() {
+        boolean areEmptyPlots = true;
         for (Plot plot: plots) {
             if (plot.getCurrentCrop() == null) {
                 continue;
@@ -79,9 +84,18 @@ public class FarmState implements NewDayListener {
                     plot.getCurrentCrop().setCropStage(CropStages.DEAD);
                 }
             }
+            if (plot.getCurrentCrop().getStage() != CropStages.DEAD) {
+                areEmptyPlots = false;
+            }
+        }
+        int lowestCropPrice = GameManager.getInstance().getMarket().getMinBuyPrice();
+        if (areEmptyPlots
+                && GameManager.getInstance().getMoney() < lowestCropPrice
+                && GameManager.getInstance().getInventory().getProducts().size() == 0
+                && GameManager.getInstance().getInventory().getSeedStorage().size() == 0) {
+           farmController.endGame();
         }
     }
-
 
 
     /**
@@ -239,7 +253,6 @@ public class FarmState implements NewDayListener {
         }
     }
 
-
     // Getters and Setters
 
     public int getNumOfPlots() {
@@ -256,5 +269,9 @@ public class FarmState implements NewDayListener {
 
     public void setNumRainyDays(int numDays) {
         this.numRainyDays = numDays;
+    }
+
+    public void setFarmController(FarmController controller) {
+        this.farmController = controller;
     }
 }

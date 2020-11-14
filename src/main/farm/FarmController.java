@@ -4,10 +4,13 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import main.employment.EmployeeManager;
 import main.employment.EmploymentController;
+import main.endingScreen.GameOverSceneController;
 import main.farm.header.FarmHeaderController;
 import main.farm.plot.Plot;
 import main.farm.plot.PlotUI;
@@ -30,6 +33,7 @@ import java.util.List;
  */
 public class FarmController implements PropertyChangeListener {
     private Stage primaryStage;
+    private AudioClip backgroundMusic;
     private HashMap<Plot, Integer> plotsToUIIndex = new HashMap<>();
     private TilePane plotHolder;
     private FarmState farmState;
@@ -53,8 +57,9 @@ public class FarmController implements PropertyChangeListener {
      *
      * @param primaryStage ...
      */
-    public void construct(Stage primaryStage) {
+    public void construct(Stage primaryStage, AudioClip backgroundMusic) {
         this.primaryStage = primaryStage;
+        this.backgroundMusic = backgroundMusic;
 
         if (GameManager.getInstance().getName().equals("Super Farmer")) {
             GameManager.getInstance().setMoney((1000));
@@ -64,6 +69,7 @@ public class FarmController implements PropertyChangeListener {
         //listen to the farmState
         farmState = FarmState.getInstance();
         farmState.subscribeToChanges(this);
+        FarmState.getInstance().setFarmController(this);
 
         //create inventory
         GameManager.getInstance().setInventory(new Inventory(true));
@@ -105,6 +111,11 @@ public class FarmController implements PropertyChangeListener {
 
     private void setHeaderUI() {
         try {
+            java.net.URL resource = getClass().getResource(
+                    "/main/soundtrack/jazzyfrenchy.mp3");
+            backgroundMusic = new AudioClip(resource.toExternalForm());
+            backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
+            backgroundMusic.play();
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
                             "../farm/header/farmHeader.fxml"
@@ -112,7 +123,7 @@ public class FarmController implements PropertyChangeListener {
             );
             Parent parent = loader.load();
             FarmHeaderController controller = loader.getController();
-            controller.construct(primaryStage);
+            controller.construct(primaryStage, backgroundMusic);
             headerHolder.getChildren().add(new Pane(parent));
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -202,10 +213,6 @@ public class FarmController implements PropertyChangeListener {
 
     public TilePane getRandomPlots(List<CropTypes> seeds) {
         TilePane plotGrid = PlotUI.getPlotHolderUI();
-
-        //these 2 lines caused a UI bug, because this work was already done in the plot class
-        //plotGrid.setPrefTileHeight(187.5);
-        //plotGrid.setPrefTileWidth(191.3);
         for (int i = 0; i < farmState.getPlots().size(); i++) {
             Plot plot = farmState.getPlots().get(i);
             int randomCrop = (int) (Math.random() * 100) % seeds.size();
@@ -230,5 +237,26 @@ public class FarmController implements PropertyChangeListener {
         Platform.runLater(() -> {
             plotHolder.getChildren().set(index, PlotUI.getPlotUI(plot, this));
         });
+    }
+
+    public void endGame() {
+        try {
+            GameManager.getInstance().getTimeAdvancer().pauseTime();
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "../endingScreen/GameOverScene.fxml"
+                    )
+            );
+            Parent parent = loader.load();
+            backgroundMusic.stop();
+            GameOverSceneController controller = loader.getController();
+            controller.construct(primaryStage);
+            Platform.runLater(() -> {
+                primaryStage.setTitle("Game Over");
+                primaryStage.setScene(new Scene(parent));
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
