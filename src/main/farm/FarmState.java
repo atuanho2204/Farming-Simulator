@@ -272,14 +272,6 @@ public class FarmState implements NewDayListener {
         return plots;
     }
 
-    public void setNumSunnyDays(int numDays) {
-        this.numSunnyDays = numDays;
-    }
-
-    public void setNumRainyDays(int numDays) {
-        this.numRainyDays = numDays;
-    }
-
 
     public FarmEquipment getFarmEquipment() {
         return farmEquipment;
