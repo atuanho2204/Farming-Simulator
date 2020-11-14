@@ -29,23 +29,26 @@ public class GameOverSceneController {
     public void handleRestartButton() throws IOException {
         //restartApplication();
         restart();
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "../configurationScreen/configScene.fxml"
-                )
-        );
-        Parent parent = loader.load();
-        ConfigSceneController controller = loader.getController();
-
-        controller.construct(primaryStage, backgroundMusic);
-        primaryStage.setTitle("Welcome!");
-        primaryStage.setScene(new Scene(parent));
-
     }
 
     public void restart() {
         GameManager.getInstance().clear();
         FarmState.clearFarmStateDangerous();
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "../configurationScreen/configScene.fxml"
+                )
+        );
+        try {
+            Parent parent = loader.load();
+            ConfigSceneController controller = loader.getController();
+
+            controller.construct(primaryStage, backgroundMusic);
+            primaryStage.setTitle("Welcome!");
+            primaryStage.setScene(new Scene(parent));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
