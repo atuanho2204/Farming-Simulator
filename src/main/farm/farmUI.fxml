@@ -8,6 +8,21 @@
            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="main.farm.FarmController">
     <BorderPane>
+        <!-- move this up to hide the excess portion over topBar-->
+        <center>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="NEVER" prefWidth="575" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints prefHeight="750.0" vgrow="NEVER" />
+                </rowConstraints>
+                <HBox fx:id="farmPlots" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <!--farm plots are generated-->
+                </HBox>
+            </GridPane>
+        </center>
+
         <top>
             <HBox fx:id="headerHolder" maxHeight="50" minHeight="50" prefHeight="50">
                 <!-- holds the header-->
@@ -30,20 +45,6 @@
                 </StackPane>
             </GridPane>
         </left>
-
-        <center>
-            <GridPane>
-                <columnConstraints>
-                    <ColumnConstraints hgrow="NEVER" prefWidth="575" />
-                </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints prefHeight="750.0" vgrow="NEVER" />
-                </rowConstraints>
-                <HBox fx:id="farmPlots" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <!--farm plots are generated-->
-                </HBox>
-            </GridPane>
-        </center>
 
         <right>
             <GridPane>
