@@ -2,7 +2,14 @@ package main.endingScreen;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
+import main.configurationScreen.ConfigSceneController;
+import main.farm.FarmState;
+import main.gameManager.GameManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,14 +18,37 @@ import java.util.List;
 
 public class GameOverSceneController {
     private Stage primaryStage;
+    private AudioClip backgroundMusic;
 
-    public void construct(Stage primaryStage) {
+    public void construct(Stage primaryStage, AudioClip backgroundMusic) {
         this.primaryStage = primaryStage;
+        this.backgroundMusic = backgroundMusic;
     }
 
     @FXML
     public void handleRestartButton() throws IOException {
-        restartApplication();
+        //restartApplication();
+        restart();
+    }
+
+    public void restart() {
+        GameManager.getInstance().clear();
+        FarmState.clearFarmStateDangerous();
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "../configurationScreen/configScene.fxml"
+                )
+        );
+        try {
+            Parent parent = loader.load();
+            ConfigSceneController controller = loader.getController();
+
+            controller.construct(primaryStage, backgroundMusic);
+            primaryStage.setTitle("Welcome!");
+            primaryStage.setScene(new Scene(parent));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

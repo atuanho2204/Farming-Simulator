@@ -12,8 +12,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import main.farm.FarmController;
+import main.farm.FarmEquipment;
+import main.farm.FarmState;
 import main.farm.crops.Crop;
 import main.farm.crops.CropStages;
+import main.util.AlertUser;
 
 public class PlotUI {
     private static int farmPlotWidth = 575;
@@ -153,8 +156,16 @@ public class PlotUI {
         Button waterBut = new Button("water");
         waterBut.setOnAction(actionEvent -> {
             //onButtonClick
+            //check if we are over the water limit
+            FarmEquipment farmEquipment = FarmState.getInstance().getFarmEquipment();
+            if (farmEquipment.getCurrentWaterPlots() >= farmEquipment.getMaxWaterPlots()) {
+                AlertUser.alertUser("There is no more water left in the tank. You may wait a day or buy irrigation");
+                return;
+            }
             plot.waterPlot(1);
             controller.updatePlotUI(plot);
+            //add 1 to the current farm equipment water level
+            farmEquipment.setCurrentWaterPlots(farmEquipment.getCurrentWaterPlots() + 1);
         });
         waterBut.setStyle("-fx-background-color: #00CED1;"
                 + "-fx-text-align: center; -fx-text-fill: white;"
