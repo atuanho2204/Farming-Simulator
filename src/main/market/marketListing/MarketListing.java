@@ -132,4 +132,33 @@ public class MarketListing {
         grid.setPadding(new Insets(2, 0, 2, 0));
         return grid;
     }
+
+    public static GridPane getTractorUI() {
+        // text and button to buy Tractor
+        GridPane grid = new GridPane();
+        grid.getColumnConstraints().add(new ColumnConstraints(140)); // column 0
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 1
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 2
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 3
+        int col = 0;
+        int price = 40 + 10 * (GameManager.getInstance().getDifficulty());
+        Text name = new Text("Tractor:");
+        name.setFill(Color.WHITE);
+        name.setStyle("-fx-font: 16 chalkduster;");
+        grid.add(name, col, 0);
+        Text cost = new Text("$" + price);
+        cost.setFill(Color.WHITE);
+        cost.setStyle("-fx-font: 16 chalkduster;");
+        grid.add(cost, ++col, 0);
+        Button buy = new Button("Buy");
+        buy.setTextFill(Color.BLUE);
+
+
+        buy.setOnAction(e -> {
+            Market.buyTractor(price);
+        });
+        grid.add(buy, ++col, 0);
+        grid.setPadding(new Insets(2, 0, 2, 0));
+        return grid;
+    }
 }

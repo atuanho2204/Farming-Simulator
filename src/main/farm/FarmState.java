@@ -92,6 +92,7 @@ public class FarmState implements NewDayListener {
         farmEquipment.setCurrentWaterPlots(0);
 
         //set the harvesting level to 0 @Chris
+        farmEquipment.setCurrentHarvestPlots(0);
     }
 
     /**

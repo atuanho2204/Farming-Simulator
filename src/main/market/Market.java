@@ -142,4 +142,22 @@ public class Market implements NewDayListener {
             AlertUser.alertUser(e.getMessage());
         }
     }
+
+    public static void buyTractor(int price) {
+        try {
+            if (GameManager.getInstance().getMoney() >= price) {
+                //adds the irrigation on the farmState
+                FarmState.getInstance().getFarmEquipment().addTractor();
+
+                int money = GameManager.getInstance().getMoney() - price;
+                GameManager.getInstance().setMoney(money);
+                UIManager.getInstance().pushUIUpdate();
+            } else {
+                AlertUser.alertUser("You need " + (price - GameManager.getInstance().getMoney())
+                        + " more dollars");
+            }
+        } catch (Exception e) {
+
+        }
+    }
 }

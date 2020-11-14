@@ -63,8 +63,9 @@ public class MarketUIController implements NewDayListener {
                 newListings.add(MarketListing.getIrrigationUI());
             }
             //add your market listing here @chris
-
-
+            if (!FarmState.getInstance().getFarmEquipment().hasTractor()) {
+                newListings.add(MarketListing.getTractorUI());
+            }
             Platform.runLater(() -> {
                 marketScreen.getChildren().clear();
                 marketScreen.getChildren().addAll(newListings);
