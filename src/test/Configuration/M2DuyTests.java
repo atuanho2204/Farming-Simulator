@@ -66,7 +66,8 @@ public class M2DuyTests {
         seeds.add(CropTypes.LETTUCE);
         seeds.add(CropTypes.CORN);
         ConfigSceneController controller = new ConfigSceneController();
-        controller.construct(null, 2, "Duy", seeds, Seasons.SPRING);
+        controller.construct(null, 2, "Duy",
+                seeds, Seasons.SPRING, null);
         assertEquals("Duy", controller.getNameForTest());
         assertEquals(2, controller.getDifficultyForTest());
         assertEquals(Seasons.SPRING, GameManager.getInstance().getSeason());

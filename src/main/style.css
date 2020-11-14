@@ -36,7 +36,6 @@
 #skipButtonWS {
     -fx-pref-width: 130;
     -fx-pref-height: 70;
-    -fx-background-color: #18a734;
     -fx-opacity: 0;
 }
 
@@ -298,4 +297,10 @@
     -fx-text-fill: white;
     -fx-font-family: Chalkduster;
     -fx-font-size: 14px;
+}
+
+#muteButton {
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+    -fx-background-color: transparent;
 }

@@ -3,16 +3,13 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="FarmUIVBox"
-           stylesheets="@../style.css"
-           xmlns="http://javafx.com/javafx/11.0.1"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="main.farm.FarmController"
-           style="-fx-background-color: black"
-           prefHeight="800.0" prefWidth="1200.0">
+<StackPane fx:id="FarmUIVBox" prefHeight="800.0" prefWidth="1200.0"
+           style="-fx-background-color: black" stylesheets="@../style.css"
+           xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="main.farm.FarmController">
     <BorderPane>
         <top>
-            <HBox fx:id="headerHolder" prefHeight="50" maxHeight="50" minHeight="50">
+            <HBox fx:id="headerHolder" maxHeight="50" minHeight="50" prefHeight="50">
                 <!-- holds the header-->
             </HBox>
         </top>
@@ -20,18 +17,16 @@
         <left>
             <GridPane>
                 <columnConstraints>
-                    <ColumnConstraints hgrow="ALWAYS"/>
-                    <ColumnConstraints hgrow="ALWAYS"/>
+                    <ColumnConstraints hgrow="ALWAYS" />
+                    <ColumnConstraints hgrow="ALWAYS" />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints vgrow="ALWAYS"/>
-                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS" />
+                    <RowConstraints vgrow="ALWAYS" />
                 </rowConstraints>
-                <StackPane fx:id="employmentHolder" prefHeight="325" prefWidth="300"
-                           GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-background-color: blue">
+                <StackPane fx:id="employmentHolder" prefHeight="325" prefWidth="300" style="-fx-background-color: blue" GridPane.columnIndex="0" GridPane.rowIndex="0">
                 </StackPane>
-                <StackPane fx:id="notificationHolder" prefHeight="325" prefWidth="300"
-                           GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-background-color: green">
+                <StackPane fx:id="notificationHolder" prefHeight="325" prefWidth="300" style="-fx-background-color: green" GridPane.columnIndex="0" GridPane.rowIndex="1">
                 </StackPane>
             </GridPane>
         </left>
@@ -39,10 +34,10 @@
         <center>
             <GridPane>
                 <columnConstraints>
-                    <ColumnConstraints hgrow="NEVER" prefWidth="575"/>
+                    <ColumnConstraints hgrow="NEVER" prefWidth="575" />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints prefHeight="750.0" vgrow="ALWAYS"/>
+                    <RowConstraints prefHeight="750.0" vgrow="ALWAYS" />
                 </rowConstraints>
                 <HBox fx:id="farmPlots" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <!--farm plots are generated-->
@@ -53,23 +48,21 @@
         <right>
             <GridPane>
                 <columnConstraints>
-                    <ColumnConstraints hgrow="ALWAYS"/>
-                    <ColumnConstraints hgrow="ALWAYS"/>
+                    <ColumnConstraints hgrow="ALWAYS" />
+                    <ColumnConstraints hgrow="ALWAYS" />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints vgrow="ALWAYS"/>
-                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS" />
+                    <RowConstraints vgrow="ALWAYS" />
                 </rowConstraints>
-                <StackPane fx:id="marketHolder" prefHeight="375" prefWidth="325"
-                           GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <StackPane fx:id="marketHolder" prefHeight="375" prefWidth="325" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <ImageView fx:id="marketImage" fitHeight="375" fitWidth="325">
-                        <Image url="@../images/market.jpeg"/>
+                        <Image url="@../images/market.jpeg" />
                     </ImageView>
                 </StackPane>
-                <StackPane fx:id="inventoryHolder" prefHeight="375" prefWidth="325"
-                           GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <StackPane fx:id="inventoryHolder" prefHeight="375" prefWidth="325" GridPane.columnIndex="0" GridPane.rowIndex="1">
                     <ImageView fx:id="inventoryImage" fitHeight="375" fitWidth="325">
-                        <Image url="@../images/inventory.jpeg"/>
+                        <Image url="@../images/inventory.jpeg" />
                     </ImageView>
                 </StackPane>
             </GridPane>
