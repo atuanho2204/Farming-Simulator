@@ -115,6 +115,7 @@ public class FarmController implements PropertyChangeListener {
                     "/main/soundtrack/jazzyfrenchy.mp3");
             backgroundMusic = new AudioClip(resource.toExternalForm());
             backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
+            backgroundMusic.setVolume(0.3);
             backgroundMusic.play();
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
@@ -250,7 +251,8 @@ public class FarmController implements PropertyChangeListener {
             Parent parent = loader.load();
             backgroundMusic.stop();
             GameOverSceneController controller = loader.getController();
-            controller.construct(primaryStage);
+            //controller.construct(primaryStage);
+            controller.construct(primaryStage, backgroundMusic);
             Platform.runLater(() -> {
                 primaryStage.setTitle("Game Over");
                 primaryStage.setScene(new Scene(parent));

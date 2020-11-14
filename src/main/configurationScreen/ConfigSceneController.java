@@ -63,6 +63,7 @@ public class ConfigSceneController {
                 "/main/soundtrack/ukulele.mp3");
         this.backgroundMusic = new AudioClip(resource.toExternalForm());
         this.backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
+        this.backgroundMusic.setVolume(0.3);
         this.backgroundMusic.play();
     }
 

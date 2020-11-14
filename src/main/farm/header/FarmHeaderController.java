@@ -94,7 +94,7 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
                 backgroundMusic.setVolume(0);
 
             } else {
-                backgroundMusic.setVolume(1);
+                backgroundMusic.setVolume(0.3);
             }
             backgroundMusic.stop();
             backgroundMusic.play();

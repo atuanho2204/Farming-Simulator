@@ -1,6 +1,5 @@
 package main.welcomeScreen;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import main.configurationScreen.ConfigSceneController;
 import java.io.IOException;
-
 
 public class WelcomeSceneController {
     private Stage primaryStage;
@@ -24,6 +22,7 @@ public class WelcomeSceneController {
                 "/main/soundtrack/buddy.mp3");
         backgroundMusic = new AudioClip(resource.toExternalForm());
         backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
+        backgroundMusic.setVolume(0.3);
         backgroundMusic.play();
     }
 
