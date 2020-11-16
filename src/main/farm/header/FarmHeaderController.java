@@ -2,7 +2,9 @@ package main.farm.header;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
@@ -30,6 +32,8 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
     private Label currentDate;
     @FXML
     private Label farmerName;
+    @FXML
+    private Label badges;
 
 
     /**
@@ -59,6 +63,7 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
     private void setHeaderData() {
         try {
             Platform.runLater(() -> {
+                badges.setText("<Badges Holder>");
                 if (farmerName != null) {
                     farmerName.setText("Name: " + GameManager.getInstance().getName());
                 }
@@ -94,7 +99,7 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
                 backgroundMusic.setVolume(0);
 
             } else {
-                backgroundMusic.setVolume(0.3);
+                backgroundMusic.setVolume(0.2);
             }
             backgroundMusic.stop();
             backgroundMusic.play();

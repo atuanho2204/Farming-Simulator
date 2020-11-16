@@ -27,7 +27,7 @@ public class WelcomeSceneController extends UIController {
                 "/main/soundtrack/buddy.mp3");
         this.backgroundMusic = new AudioClip(resource.toExternalForm());
         this.backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
-        this.backgroundMusic.setVolume(0.3);
+        this.backgroundMusic.setVolume(0.2);
         this.backgroundMusic.play();
     }
 

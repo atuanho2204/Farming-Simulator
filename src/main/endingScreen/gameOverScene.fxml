@@ -12,16 +12,14 @@
                 <Image url="@../images/game-over.jpeg" />
             </image>
         </ImageView>
-        <VBox fx:id="welcomeButtons" GridPane.columnIndex="2" GridPane.rowIndex="4" StackPane.alignment="TOP_LEFT">
+        <VBox fx:id="welcomeButtons"
+              style="-fx-alignment: CENTER_LEFT; -fx-padding: 0 0 50 150;">
             <children>
                 <Button fx:id="startButtonWS" mnemonicParsing="false" onAction="#handleRestartButton" text="Restart">
                 </Button>
                 <Button fx:id="quitButtonWS" mnemonicParsing="false" onAction="#handleQuitButton" text="Quit">
                 </Button>
             </children>
-         <padding>
-            <Insets top="-20.0" />
-         </padding>
         </VBox>
     </children>
 </StackPane>

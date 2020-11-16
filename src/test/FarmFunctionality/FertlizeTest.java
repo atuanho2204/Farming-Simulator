@@ -52,10 +52,10 @@ public class FertlizeTest {
         plot.fertilizePlot(10);
         FarmState.getInstance().getPlots().add(plot);
         GameManager.getInstance().setDay(1);
-        FarmState.getInstance().updateGrowthCycle();
+        FarmState.getInstance().updateGrowthCycle(true);
         Assert.assertEquals(CropStages.MATURE, plot.getCurrentCrop().getStage());
         GameManager.getInstance().setDay(2);
-        FarmState.getInstance().updateGrowthCycle();
+        FarmState.getInstance().updateGrowthCycle(true);
         Assert.assertEquals(CropStages.DEAD, plot.getCurrentCrop().getStage());
     }
 

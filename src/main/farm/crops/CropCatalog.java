@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class CropCatalog {
     private HashMap<CropTypes, CropDetails> cropsToDetails;
     private static CropCatalog instance;
+    private final int minBuyPrice = 8;
 
     private CropCatalog() {
         setCatalogs();
@@ -33,5 +34,9 @@ public class CropCatalog {
 
     public CropDetails getCropDetails(CropTypes type) {
         return new CropDetails(cropsToDetails.get(type));
+    }
+
+    public int getMinBuyPrice() {
+        return minBuyPrice;
     }
 }
