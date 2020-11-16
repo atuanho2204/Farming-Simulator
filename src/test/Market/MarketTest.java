@@ -82,8 +82,8 @@ public class MarketTest {
     @Test
     public void testSellSeed() throws Exception {
         int price = 0;
-        GameManager.getInstance().getInventory().putSeed(CropTypes.CORN);
-        Market.sellSeed(CropTypes.CORN, price);
+        GameManager.getInstance().getInventory().putSeed(CropTypes.CARROT);
+        Market.sellSeed(CropTypes.CARROT, price);
         assertEquals(0, GameManager.getInstance().getInventory().getStorageSize());
     }
 
@@ -99,9 +99,9 @@ public class MarketTest {
         int price = 10;
         GameManager.getInstance().setMoney(0);
         //GameManager.getInstance().setInventory(inventory);
-        GameManager.getInstance().getInventory().putSeed(CropTypes.CORN);
+        GameManager.getInstance().getInventory().putSeed(CropTypes.CARROT);
         Market.sellSeed(CropTypes.COTTON, price);
-        GameManager.getInstance().getInventory().putSeed(CropTypes.CORN);
+        GameManager.getInstance().getInventory().putSeed(CropTypes.CARROT);
         Market.sellSeed(CropTypes.COTTON, price);
         assertEquals(0, GameManager.getInstance().getMoney().intValue());
     }

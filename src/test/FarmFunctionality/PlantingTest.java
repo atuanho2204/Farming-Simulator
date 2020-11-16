@@ -33,7 +33,7 @@ public class PlantingTest {
         Map<CropTypes, Integer> seedItems = GameManager.getInstance()
                 .getInventory().getListOfSeedItems();
         seedItems.put(CropTypes.WHEAT, 1);
-        seedItems.put(CropTypes.CORN, 1);
+        seedItems.put(CropTypes.CARROT, 1);
         seedItems.put(CropTypes.COTTON, 2);
         seedItems.put(CropTypes.LETTUCE, 3);
         CropTypes type = seedItems.entrySet().iterator().next().getKey();

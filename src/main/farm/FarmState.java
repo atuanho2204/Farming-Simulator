@@ -52,7 +52,7 @@ public class FarmState implements NewDayListener {
         reduceWaterLevelsEveryThreeDays(GameManager.getInstance().getDifficulty());
         reduceFertilizer(GameManager.getInstance().getDifficulty());
         updateGrowthCycle(false);
-        NotificationManager.getInstance().addNotification("~~~~~~~~~~~~~~~~~Day " + e.getNewDay()
+        NotificationManager.getInstance().addNotification("~~~~~~~~~~~~~~~~Day " + e.getNewDay()
                 + "~~~~~~~~~~~~~~~~~");
         forcePlotUpdate("Show new plot water and growth levels");
         updateSeason();
@@ -199,7 +199,7 @@ public class FarmState implements NewDayListener {
         for (Plot plot : plots) {
             plot.waterPlot(increment);
         }
-        NotificationManager.getInstance().addNotification("ALERT!! It's raining!!!\n"
+        NotificationManager.getInstance().addNotification("ALERT!!\nIt's raining!!!\n"
                 + "Water level of each plot is incremented by " + increment);
     }
 
@@ -211,7 +211,7 @@ public class FarmState implements NewDayListener {
         for (Plot plot : plots) {
             plot.waterPlot(decrement);
         }
-        NotificationManager.getInstance().addNotification("ALERT!! There was a drought--"
+        NotificationManager.getInstance().addNotification("ALERT!!\nThere was a drought--"
                 + "no rain for 5 days straight!!!\nWater level of each plot "
                 + "is decremented by " + (decrement * -1));
     }
@@ -259,7 +259,7 @@ public class FarmState implements NewDayListener {
 
         if (numCropsKilled != 0) {
             System.out.println(numCropsKilled);
-            NotificationManager.getInstance().addNotification("ALERT!! Locusts killed "
+            NotificationManager.getInstance().addNotification("ALERT!!\nLocusts killed "
                     + numCropsKilled + " of your crops :( :( :(");
         }
     }

@@ -27,7 +27,7 @@ public class UpdateGrowthCycleTest {
         GameManager.getInstance().clear();
         FarmState.clearFarmStateDangerous();
         List<CropTypes> seed = new ArrayList<>();
-        seed.add(CropTypes.CORN);
+        seed.add(CropTypes.CARROT);
         GameManager.getInstance().setSeeds(seed);
         setPlotsForTest(seed);
         plots = FarmState.getInstance().getPlots();

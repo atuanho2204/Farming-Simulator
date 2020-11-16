@@ -30,7 +30,7 @@ public class GrowthCycleTest {
             plots.add(new Plot());
 
         }
-        plots.get(0).getCurrentCrop().setType(CropTypes.CORN);
+        plots.get(0).getCurrentCrop().setType(CropTypes.CARROT);
         plots.get(0).getCurrentCrop().setCropStage(CropStages.MATURE);
         plots.get(0).getCurrentCrop().setPlantDay(0);
         plots.get(1).getCurrentCrop().setType(CropTypes.WHEAT);

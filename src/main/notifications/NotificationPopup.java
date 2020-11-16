@@ -12,7 +12,7 @@ public class NotificationPopup {
         if (s.contains("~")) {
             t.setFill(Color.WHITE);
             t.setTextAlignment(TextAlignment.CENTER);
-        } else if (s.contains("ALERT!! ")) {
+        } else if (s.contains("ALERT!!")) {
             t.setFill(Color.DARKRED);
             t.setStyle("-fx-font-weight: bold;");
         } else {

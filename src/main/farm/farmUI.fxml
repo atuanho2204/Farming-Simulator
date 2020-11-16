@@ -22,13 +22,6 @@
                 </HBox>
             </GridPane>
         </center>
-
-        <top>
-            <HBox fx:id="headerHolder" maxHeight="50" minHeight="50" prefHeight="50">
-                <!-- holds the header-->
-            </HBox>
-        </top>
-
         <left>
             <GridPane>
                 <columnConstraints>
@@ -68,6 +61,11 @@
                 </StackPane>
             </GridPane>
         </right>
+        <top>
+            <HBox fx:id="headerHolder" maxHeight="50" minHeight="50" prefHeight="50">
+                <!-- holds the header-->
+            </HBox>
+        </top>
 
         <bottom>
         </bottom>

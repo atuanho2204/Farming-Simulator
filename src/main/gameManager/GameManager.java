@@ -10,7 +10,9 @@ import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The Manager of the the Totally-accurate-farm-simulator
@@ -27,12 +29,16 @@ public class GameManager implements NewDayListener {
     private Market market;
     private Inventory inventory;
     private EmployeeManager employees;
+    private int[] badgeBookkeeping = new int[3];
 
     private GameManager() {
         this.day = 0;
         this.difficulty = 1;
         this.timeAdvancer = new TimeAdvancer(0);
         this.timeAdvancer.addListener(this);
+        badgeBookkeeping[0] = 0; // carrot badge
+        badgeBookkeeping[1] = 0; // organic badge
+        badgeBookkeeping[2] = 0; // organic badge
     }
 
     public static GameManager getInstance() {
@@ -128,5 +134,9 @@ public class GameManager implements NewDayListener {
     public void clear() {
         System.out.println("CLEARING GAMEMANAGER...ONLY TO BE DONE IN TESTS!!");
         GameManager.instance = new GameManager();
+    }
+
+    public int[] getBadgeBookkeeping() {
+        return badgeBookkeeping;
     }
 }

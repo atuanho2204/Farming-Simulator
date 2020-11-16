@@ -49,7 +49,6 @@ public class PlotUI {
                         farmPlotHeight / 4, farmPlotWidth / 3, false, false));
         sp.getChildren().add(backgroundImage);
         VBox vBox = new VBox();
-        //vBox.setStyle("-fx-background-color: #CD853F; -fx-border-color: black;");
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(5);
 

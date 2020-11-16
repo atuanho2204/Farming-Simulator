@@ -34,7 +34,7 @@ public class ConfigSceneController extends UIController {
     @FXML
     private CheckBox wheat;
     @FXML
-    private CheckBox corn;
+    private CheckBox carrot;
     @FXML
     private CheckBox cotton;
     @FXML
@@ -93,14 +93,14 @@ public class ConfigSceneController extends UIController {
 
     @FXML
     public boolean validSeed() {
-        if (wheat.isSelected() || corn.isSelected()
+        if (wheat.isSelected() || carrot.isSelected()
                 || cotton.isSelected() || lettuce.isSelected()) {
             GameManager.getInstance().getSeeds().clear();
             if (wheat.isSelected()) {
                 GameManager.getInstance().getSeeds().add(CropTypes.WHEAT);
             }
-            if (corn.isSelected()) {
-                GameManager.getInstance().getSeeds().add(CropTypes.CORN);
+            if (carrot.isSelected()) {
+                GameManager.getInstance().getSeeds().add(CropTypes.CARROT);
             }
             if (cotton.isSelected()) {
                 GameManager.getInstance().getSeeds().add(CropTypes.COTTON);
@@ -199,9 +199,9 @@ public class ConfigSceneController extends UIController {
         // set season
         GameManager.getInstance().setSeason(Seasons.FALL);
         // set seeds
-        GameManager.getInstance().getSeeds().add(CropTypes.WHEAT);
-        GameManager.getInstance().getSeeds().add(CropTypes.COTTON);
-        GameManager.getInstance().getSeeds().add(CropTypes.LETTUCE);
+        GameManager.getInstance().getSeeds().add(CropTypes.values()[0]);
+        GameManager.getInstance().getSeeds().add(CropTypes.values()[1]);
+        GameManager.getInstance().getSeeds().add(CropTypes.values()[2]);
         //
         SceneLoader.loadScene("../farm/farmUI.fxml", primaryStage,
                 backgroundMusic, "FarmUI");

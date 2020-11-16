@@ -20,7 +20,12 @@
         <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
     </rowConstraints>
     <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
-        <Label fx:id="badges" styleClass="dataLabel" />
+        <Button fx:id="carrotB" text="??" onAction="#handleCarrotB">
+        </Button>
+        <Button fx:id="organicB" text="??" onAction="#handleOrganicB">
+        </Button>
+        <Button fx:id="harvestB" text="??" onAction="#handleHarvestB">
+        </Button>
     </HBox>
     <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
         <Label fx:id="difficultyLevel" styleClass="dataLabel" />
@@ -32,13 +37,14 @@
         <Label fx:id="startingMoney" styleClass="dataLabel" />
     </HBox>
     <HBox alignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="0">
-        <Label fx:id="currentSeason" styleClass="dataLabel" />
+        <ImageView fx:id="currentSeason" fitHeight="45" fitWidth="45">
+        </ImageView>
     </HBox>
     <HBox alignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="0">
         <Label fx:id="currentDate" styleClass="dataLabel" />
     </HBox>
     <HBox alignment="CENTER" GridPane.columnIndex="6" GridPane.rowIndex="0">
-        <Button id="musicPlayerButtons" fx:id="muteButton" mnemonicParsing="false" onAction="#handleMuteButton" style="-fx-background-color: transparent;">
+        <Button fx:id="muteButton" mnemonicParsing="false" onAction="#handleMuteButton" style="-fx-background-color: transparent;">
             <graphic>
                 <ImageView fx:id="muteImg" fitHeight="30" fitWidth="30">
                     <image>

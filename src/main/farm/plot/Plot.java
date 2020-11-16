@@ -1,7 +1,5 @@
 package main.farm.plot;
 
-import main.farm.FarmEquipment;
-import main.farm.FarmState;
 import main.farm.crops.CropCatalog;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
@@ -111,8 +109,16 @@ public class Plot {
                     } else {
                         GameManager.getInstance().getInventory().putProduct(
                                 new HarvestedCrop(currentCrop.getType()));
+                        GameManager.getInstance().getBadgeBookkeeping()[1] =
+                                GameManager.getInstance().getBadgeBookkeeping()[1] + 1;
                     }
                 }
+                if (currentCrop.getType() == CropTypes.CARROT) {
+                    GameManager.getInstance().getBadgeBookkeeping()[0] =
+                            GameManager.getInstance().getBadgeBookkeeping()[0] + 1;
+                }
+                GameManager.getInstance().getBadgeBookkeeping()[2] =
+                        GameManager.getInstance().getBadgeBookkeeping()[2] + 1;
                 NotificationManager.getInstance().addNotification(
                         "Harvested " + yieldBonus + " "
                                 + currentCrop.getType().toString().toLowerCase() + "!!");
