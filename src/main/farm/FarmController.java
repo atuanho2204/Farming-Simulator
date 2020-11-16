@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -22,6 +23,7 @@ import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
 
+import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
@@ -41,6 +43,8 @@ public class FarmController implements PropertyChangeListener {
     @FXML
     private HBox farmPlots;
     @FXML
+    private HBox farmPlots2;
+    @FXML
     private Pane marketHolder;
     @FXML
     private Pane inventoryHolder;
@@ -49,7 +53,8 @@ public class FarmController implements PropertyChangeListener {
     @FXML
     private Pane notificationHolder;
 
-
+    @FXML
+    private Button next;
     /**
      * Constructs the Farm Scene.
      *
@@ -230,5 +235,9 @@ public class FarmController implements PropertyChangeListener {
         Platform.runLater(() -> {
             plotHolder.getChildren().set(index, PlotUI.getPlotUI(plot, this));
         });
+    }
+
+    public void changeField(ActionEvent e) {
+
     }
 }

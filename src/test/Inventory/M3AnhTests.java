@@ -148,6 +148,6 @@ public class M3AnhTests {
         inventory.putSeed(CropTypes.CORN);
         inventory.putSeed(CropTypes.WHEAT);
         inventory.putProduct(new HarvestedCrop(CropTypes.LETTUCE));
-        assertEquals(4, inventory.getStorageSize());
+        assertEquals(2, inventory.getStorageSize());
     }
 }
