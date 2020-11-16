@@ -22,6 +22,7 @@ import main.farm.crops.*;
 import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
+import main.util.UIController;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -31,7 +32,7 @@ import java.util.List;
 /**
  * The Controller for the FarmUI fxml screen
  */
-public class FarmController implements PropertyChangeListener {
+public class FarmController extends UIController implements PropertyChangeListener {
     private Stage primaryStage;
     private AudioClip backgroundMusic;
     private HashMap<Plot, Integer> plotsToUIIndex = new HashMap<>();
@@ -52,11 +53,7 @@ public class FarmController implements PropertyChangeListener {
     private Pane notificationHolder;
 
 
-    /**
-     * Constructs the Farm Scene.
-     *
-     * @param primaryStage ...
-     */
+    @Override
     public void construct(Stage primaryStage, AudioClip backgroundMusic) {
         this.primaryStage = primaryStage;
         this.backgroundMusic = backgroundMusic;
@@ -80,7 +77,6 @@ public class FarmController implements PropertyChangeListener {
         GameManager.getInstance().getTimeAdvancer().addListener(market);
 
         // create employee
-
         EmployeeManager employeeManager = new EmployeeManager();
         GameManager.getInstance().setEmployees(employeeManager);
         GameManager.getInstance().getTimeAdvancer().addListener(employeeManager);

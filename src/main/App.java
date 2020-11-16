@@ -1,17 +1,12 @@
 package main;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
-import main.welcomeScreen.WelcomeSceneController;
+import main.util.AlertUser;
+import main.util.SceneLoader;
 
 public class App extends Application {
-    public static final int PREF_WIDTH = 1200;
-    public static final int PREF_HEIGHT = 800;
-
     /**
      * main method to help launch the program
      *
@@ -29,24 +24,16 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(
-                            "welcomeScreen/welcomeScene.fxml"
-                    )
-            );
-            Parent parent = loader.load();
-            WelcomeSceneController controller = loader.getController();
-            controller.construct(primaryStage);
+            java.net.URL resource = getClass().getResource(
+                    "/main/soundtrack/buddy.mp3");
+            AudioClip backgroundMusic = new AudioClip(resource.toExternalForm());
+
             primaryStage.setResizable(false);
-            primaryStage.setTitle("Welcome");
-            primaryStage.setScene(new Scene(parent, PREF_WIDTH, PREF_HEIGHT));
+            SceneLoader.loadScene("../welcomeScreen/welcomeScene.fxml", primaryStage,
+                    backgroundMusic, "Welcome");
             primaryStage.show();
         } catch (Exception e) {
-            Alert a = new Alert(Alert.AlertType.NONE);
-            a.setAlertType(Alert.AlertType.INFORMATION);
-            a.setContentText("Welcome Screen not found");
-            // show the dialog
-            a.show();
+            AlertUser.alertUser("Welcome Screen not found");
         }
     }
 }
