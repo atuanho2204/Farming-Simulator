@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import main.farm.crops.CropCatalog;
 import main.farm.crops.CropDetails;
 import main.farm.crops.CropTypes;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 
 public class Market implements NewDayListener {

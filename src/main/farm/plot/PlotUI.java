@@ -2,7 +2,7 @@ package main.farm.plot;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;
@@ -54,12 +54,12 @@ public class PlotUI {
         String cropStage = "";
         StringBuilder cropImgPath = new StringBuilder("/main/images/crops/");
         if (crop == null) {
-            cropImgPath.append("empty.jpg");//
+            cropImgPath.append("empty.jpg"); //
         } else {
             cropName = crop.getType().toString().toLowerCase();
             cropStage = plot.getCurrentCrop().getStage().toString().toLowerCase();
-            cropImgPath.append(cropName);//
-            cropImgPath.append(cropStage);//
+            cropImgPath.append(cropName); //
+            cropImgPath.append(cropStage); //
             cropImgPath.append(".jpg");
         }
         cropImage = new ImageView(new Image(cropImgPath.toString(),
@@ -140,7 +140,8 @@ public class PlotUI {
             //check if we are over the water limit
             FarmEquipment farmEquipment = FarmState.getInstance().getFarmEquipment();
             if (farmEquipment.getCurrentWaterPlots() >= farmEquipment.getMaxWaterPlots()) {
-                AlertUser.alertUser("There is no more water left in the tank. You may wait a day or buy irrigation");
+                AlertUser.alertUser("There is no more water left in the tank. "
+                        + "You may wait a day or buy irrigation");
                 return;
             }
             plot.waterPlot(1);
@@ -184,7 +185,7 @@ public class PlotUI {
                 button.setOnAction(actionEvent -> {
                     int currentMoney = GameManager.getInstance().getMoney();
                     int count = FarmState.getInstance().getPlotCount();
-                    if (currentMoney >= price && plot.getOpenIdx() == count ) {
+                    if (currentMoney >= price && plot.getOpenIdx() == count) {
                         plot.setPurchased(true);
                         GameManager.getInstance().setMoney(currentMoney - price);
                         FarmState.getInstance().increasePlotCount();
@@ -222,7 +223,8 @@ public class PlotUI {
             button.setOnAction(actionEvent -> {
                 FarmEquipment farmEquipment = FarmState.getInstance().getFarmEquipment();
                 if (farmEquipment.getCurrentHarvestPlots() >= farmEquipment.getMaxHarvestPlots()) {
-                    AlertUser.alertUser("There is no more plots left to harvest. You may wait a day or buy a tractor");
+                    AlertUser.alertUser("There is no more plots left to harvest. "
+                            + "You may wait a day or buy a tractor");
                     return;
                 }
                 plot.harvestPlot();

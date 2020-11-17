@@ -141,7 +141,7 @@ public class Plot {
     }
 
     public void plantSeed() {
-        if (currentCrop != null || purchased == false) {
+        if (currentCrop != null || !purchased) {
             //the plot is not ready to plant
             return;
         } else {

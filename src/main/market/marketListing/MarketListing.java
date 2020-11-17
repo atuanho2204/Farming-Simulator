@@ -14,7 +14,7 @@ import main.inventory.inventoryItems.InventoryItem;
 import main.inventory.inventoryItems.Seed;
 import main.market.Market;
 import javafx.scene.paint.Color;
-import main.util.UIManager;
+
 
 
 public class MarketListing {

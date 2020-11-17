@@ -10,9 +10,9 @@ import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * The Manager of the the Totally-accurate-farm-simulator

@@ -49,6 +49,7 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
      * Constructs the Header Scene.
      *
      * @param primaryStage the stage
+     * @param backgroundMusic sdfd
      */
     public void construct(Stage primaryStage, AudioClip backgroundMusic) {
         this.primaryStage = primaryStage;
@@ -111,7 +112,7 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
                     carrotB.setGraphic(view);
                     carrotB.setStyle("-fx-background-color: transparent;");
                 }
-                if (GameManager.getInstance().getBadgeBookkeeping()[1] >=5) { // organic badge
+                if (GameManager.getInstance().getBadgeBookkeeping()[1] >= 5) { // organic badge
                     if (GameManager.getInstance().getBadgeBookkeeping()[1] == 5) {
                         NotificationManager.getInstance().addNotification(
                                 "You earned the ORGANIC-ALIC badge!");
@@ -124,7 +125,7 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
                     organicB.setGraphic(view);
                     organicB.setStyle("-fx-background-color: transparent;");
                 }
-                if (GameManager.getInstance().getBadgeBookkeeping()[2] >=10) { // harvest badge
+                if (GameManager.getInstance().getBadgeBookkeeping()[2] >= 10) { // harvest badge
                     if (GameManager.getInstance().getBadgeBookkeeping()[2] == 10) {
                         NotificationManager.getInstance().addNotification(
                                 "You earned the HARVEST-FRENZY badge!");
@@ -181,11 +182,11 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
 
     @FXML
     public void handleOrganicB() {
-//        System.out.println("badge 2");
+        //System.out.println("badge 2");
     }
 
     @FXML
     public void handleHarvestB() {
-//        System.out.println("badge 3");
+        //System.out.println("badge 3");
     }
 }
