@@ -37,12 +37,12 @@
                     <Insets left="150.0"/>
                 </VBox.margin>
             </CheckBox>
-            <CheckBox fx:id="corn" mnemonicParsing="false" text="Corn">
+            <CheckBox fx:id="carrot" mnemonicParsing="false" text="Carrot">
                 <VBox.margin>
                     <Insets left="150.0"/>
                 </VBox.margin>
             </CheckBox>
-            <CheckBox fx:id="cotton" mnemonicParsing="false" text="Cotton">
+            <CheckBox fx:id="tomato" mnemonicParsing="false" text="Cotton">
                 <VBox.margin>
                     <Insets left="150.0"/>
                 </VBox.margin>

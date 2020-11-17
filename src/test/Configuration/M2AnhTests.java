@@ -32,8 +32,8 @@ public class M2AnhTests {
     @Test
     public void testConstructor() {
         List<CropTypes> seeds = new ArrayList<>();
-        seeds.add(CropTypes.COTTON);
-        seeds.add(CropTypes.CORN);
+        seeds.add(CropTypes.TOMATO);
+        seeds.add(CropTypes.CARROT);
         ConfigSceneController controller = new ConfigSceneController();
         controller.construct(null, 1, "Anh Ho",
                 seeds, Seasons.FALL, null);
@@ -54,7 +54,7 @@ public class M2AnhTests {
     @Test(expected = NullPointerException.class)
     public void testDifficulty() {
         List<CropTypes> seeds = new ArrayList<>();
-        seeds.add(CropTypes.CORN);
+        seeds.add(CropTypes.CARROT);
         ConfigSceneController controller2 = new ConfigSceneController();
         controller2.construct(null, 1, "Anh",
                 seeds, Seasons.FALL, null);
@@ -72,7 +72,7 @@ public class M2AnhTests {
     @Test(expected = NullPointerException.class)
     public void testLongName() {
         List<CropTypes> seeds = new ArrayList<>();
-        seeds.add(CropTypes.CORN);
+        seeds.add(CropTypes.CARROT);
         String name = "di fhdsifkdsfsdkfnaskdjfnaskgnaoeribnaoenbadfobkndfkbldfvnifv";
         ConfigSceneController controller2 = new ConfigSceneController();
         controller2.construct(null, 2, name, seeds,

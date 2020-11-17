@@ -2,43 +2,35 @@ package main.welcomeScreen;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
-import main.configurationScreen.ConfigSceneController;
+import main.util.SceneLoader;
+import main.util.MainController;
+
 import java.io.IOException;
 
-public class WelcomeSceneController {
+public class WelcomeSceneController extends MainController {
     private Stage primaryStage;
     private AudioClip backgroundMusic;
 
-    public void construct(Stage primaryStage) {
+    @Override
+    public void construct(Stage primaryStage, AudioClip backgroundMusic) {
         this.primaryStage = primaryStage;
+        this.backgroundMusic = backgroundMusic;
 
         java.net.URL resource = getClass().getResource(
                 "/main/soundtrack/buddy.mp3");
-        backgroundMusic = new AudioClip(resource.toExternalForm());
-        backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
-        backgroundMusic.setVolume(0.2);
-        backgroundMusic.play();
+        this.backgroundMusic = new AudioClip(resource.toExternalForm());
+        this.backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
+        this.backgroundMusic.setVolume(0.2);
+        this.backgroundMusic.play();
     }
 
     @FXML
     public void handleStartButton(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "../configurationScreen/configScene.fxml"
-                )
-        );
-        Parent parent = loader.load();
-        ConfigSceneController controller = loader.getController();
-        backgroundMusic.stop();
-        controller.construct(primaryStage, backgroundMusic);
-        primaryStage.setTitle("Welcome!");
-        primaryStage.setScene(new Scene(parent));
+        SceneLoader.loadScene("../configurationScreen/configScene.fxml",
+                primaryStage, backgroundMusic, "Welcome!");
     }
 
     @FXML

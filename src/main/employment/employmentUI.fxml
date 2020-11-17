@@ -13,11 +13,13 @@
         <Label style="-fx-font: 16 chalkduster; -fx-padding: 0 57 0 0;" textFill="aliceblue">Harvester </Label>
         <HBox style="">
             <Button fx:id="hireHarvestE" mnemonicParsing="false" onAction="#hireHarvestEmployee"
-                    textFill="darkgreen" alignment="CENTER_RIGHT">
+                    style="-fx-font: 11 chalkduster; -fx-text-fill: GREEN;" alignment="CENTER_RIGHT">
                 Hire
             </Button>
             <Button fx:id="fireHarvestE" mnemonicParsing="false"
-                    onAction="#fireHarvestEmployee" textFill="darkred" alignment="CENTER_RIGHT">Fire
+                    style="-fx-font: 11 chalkduster; -fx-text-fill: RED;"
+                    onAction="#fireHarvestEmployee" textFill="darkred" alignment="CENTER_RIGHT">
+                Fire
             </Button>
         </HBox>
     </HBox>
@@ -25,10 +27,14 @@
         <Label style="-fx-font: 16 chalkduster; -fx-padding: 0 10 0 0;" textFill="aliceblue">Product Seller </Label>
         <HBox style="">
             <Button fx:id="hireSellE" mnemonicParsing="false"
-                    onAction="#hireSellEmployee" textFill="darkgreen" alignment="CENTER_RIGHT">Hire
+                    style="-fx-font: 11 chalkduster; -fx-text-fill: GREEN;"
+                    onAction="#hireSellEmployee" textFill="darkgreen" alignment="CENTER_RIGHT">
+                Hire
             </Button>
             <Button fx:id="fireSellE" mnemonicParsing="false"
-                    onAction="#fireSellEmployee" textFill="darkred" alignment="CENTER_RIGHT">Fire
+                    style="-fx-font: 11 chalkduster; -fx-text-fill: RED;"
+                    onAction="#fireSellEmployee" textFill="darkred" alignment="CENTER_RIGHT">
+                Fire
             </Button>
         </HBox>
     </HBox>

@@ -58,6 +58,7 @@ public class MarketUIController implements NewDayListener {
             newListings.add(MarketListing.getFertilizeUI());
             newListings.add(MarketListing.getPesticideUI());
 
+
             //add the tractor and/or irrigation
             if (!FarmState.getInstance().getFarmEquipment().hasIrrigation()) {
                 newListings.add(MarketListing.getIrrigationUI());
@@ -66,6 +67,7 @@ public class MarketUIController implements NewDayListener {
             if (!FarmState.getInstance().getFarmEquipment().hasTractor()) {
                 newListings.add(MarketListing.getTractorUI());
             }
+
             Platform.runLater(() -> {
                 marketScreen.getChildren().clear();
                 marketScreen.getChildren().addAll(newListings);

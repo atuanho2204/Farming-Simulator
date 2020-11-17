@@ -9,25 +9,35 @@ import main.util.customEvents.NewDayEvent;
 import main.util.customEvents.NewDayListener;
 import main.inventory.inventoryItems.InventoryItem;
 
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 import main.farm.crops.CropCatalog;
 import main.farm.crops.CropDetails;
 import main.farm.crops.CropTypes;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 
 public class Market implements NewDayListener {
+    private static PropertyChangeSupport changeSupport;
     private ArrayList<InventoryItem> listings;
     private final int priceModifier = 1;
+    private static int plotPrice = 100;
 
     public Market() {
         this.listings = new ArrayList<>();
+        this.changeSupport = new PropertyChangeSupport(this);
         loadListingsIntoMarket();
     }
 
     @Override
     public void handleNewDay(NewDayEvent e) {
         loadListingsIntoMarket();
+    }
+
+    public int getPlotPrice() {
+        return plotPrice;
     }
 
     private void loadListingsIntoMarket() {
@@ -160,4 +170,6 @@ public class Market implements NewDayListener {
 
         }
     }
+
+
 }

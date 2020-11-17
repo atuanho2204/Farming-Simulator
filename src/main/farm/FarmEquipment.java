@@ -5,7 +5,7 @@ public class FarmEquipment {
     private int maxWaterPlots = 6;
     private int currentWaterPlots = 0;
     private boolean hasTractor = false;
-    private int maxHarvestPlots = 6;
+    private int maxHarvestPlots = 4;
     private int currentHarvestPlots = 0;
 
 
@@ -49,7 +49,7 @@ public class FarmEquipment {
     }
 
     public void addTractor() {
-        maxHarvestPlots *= 2;
+        maxHarvestPlots *= 3;
         this.hasTractor = true;
     }
 

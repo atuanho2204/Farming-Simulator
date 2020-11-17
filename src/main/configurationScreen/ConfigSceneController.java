@@ -1,24 +1,21 @@
 package main.configurationScreen;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
-import main.farm.FarmController;
 import main.gameManager.GameManager;
 import main.util.AlertUser;
 import main.farm.crops.CropTypes;
+import main.util.SceneLoader;
 import main.util.Seasons;
+import main.util.MainController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfigSceneController {
-    private Stage primaryStage;
-    private AudioClip backgroundMusic;
+public class ConfigSceneController extends MainController {
+
 
     @FXML
     private Button continueButtonCS;
@@ -37,7 +34,7 @@ public class ConfigSceneController {
     @FXML
     private CheckBox wheat;
     @FXML
-    private CheckBox corn;
+    private CheckBox carrot;
     @FXML
     private CheckBox cotton;
     @FXML
@@ -45,6 +42,7 @@ public class ConfigSceneController {
 
     private String alertMessage = "";
 
+    @Override
     public void construct(Stage primaryStage, AudioClip backgroundMusic) {
         construct(primaryStage, 1, "",
                 new ArrayList<CropTypes>(), Seasons.FALL, backgroundMusic);
@@ -58,6 +56,7 @@ public class ConfigSceneController {
         GameManager.getInstance().setSeason(season);
         GameManager.getInstance().setSeeds(seeds);
         GameManager.getInstance().setName(name);
+
         this.backgroundMusic = backgroundMusic;
         java.net.URL resource = getClass().getResource(
                 "/main/soundtrack/ukulele.mp3");
@@ -71,7 +70,8 @@ public class ConfigSceneController {
         primaryStage = (Stage) continueButtonCS.getScene().getWindow();
         boolean dataIsGood = validateData();
         if (dataIsGood) {
-            loadNextScene("../farm/farmUI.fxml");
+            SceneLoader.loadScene("../farm/farmUI.fxml", primaryStage,
+                    backgroundMusic, "FarmUI");
         } else {
             AlertUser.alertUser(alertMessage);
         }
@@ -93,17 +93,17 @@ public class ConfigSceneController {
 
     @FXML
     public boolean validSeed() {
-        if (wheat.isSelected() || corn.isSelected()
+        if (wheat.isSelected() || carrot.isSelected()
                 || cotton.isSelected() || lettuce.isSelected()) {
             GameManager.getInstance().getSeeds().clear();
             if (wheat.isSelected()) {
                 GameManager.getInstance().getSeeds().add(CropTypes.WHEAT);
             }
-            if (corn.isSelected()) {
-                GameManager.getInstance().getSeeds().add(CropTypes.CORN);
+            if (carrot.isSelected()) {
+                GameManager.getInstance().getSeeds().add(CropTypes.CARROT);
             }
             if (cotton.isSelected()) {
-                GameManager.getInstance().getSeeds().add(CropTypes.COTTON);
+                GameManager.getInstance().getSeeds().add(CropTypes.TOMATO);
             }
             if (lettuce.isSelected()) {
                 GameManager.getInstance().getSeeds().add(CropTypes.LETTUCE);
@@ -158,22 +158,6 @@ public class ConfigSceneController {
         return false;
     }
 
-    public void loadNextScene(String path) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-            Parent parent = loader.load();
-            FarmController controller = loader.getController();
-            backgroundMusic.stop();
-            controller.construct(primaryStage, backgroundMusic);
-            primaryStage.setTitle("FarmUI");
-            primaryStage.setScene(new Scene(parent));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            AlertUser.alertUser("FarmUI not found");
-        }
-    }
-
     @FXML
     public void getDifficulty() {
         ToggleButton selectedDifficulty = (ToggleButton) difficultyGroup.getSelectedToggle();
@@ -215,10 +199,11 @@ public class ConfigSceneController {
         // set season
         GameManager.getInstance().setSeason(Seasons.FALL);
         // set seeds
-        GameManager.getInstance().getSeeds().add(CropTypes.WHEAT);
-        GameManager.getInstance().getSeeds().add(CropTypes.COTTON);
-        GameManager.getInstance().getSeeds().add(CropTypes.LETTUCE);
+        GameManager.getInstance().getSeeds().add(CropTypes.values()[0]);
+        GameManager.getInstance().getSeeds().add(CropTypes.values()[1]);
+        GameManager.getInstance().getSeeds().add(CropTypes.values()[2]);
         //
-        loadNextScene("../farm/farmUI.fxml");
+        SceneLoader.loadScene("../farm/farmUI.fxml", primaryStage,
+                backgroundMusic, "FarmUI");
     }
 }

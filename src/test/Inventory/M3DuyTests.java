@@ -32,11 +32,11 @@ public class M3DuyTests {
         PlatformImpl.startup(() -> {
         });
         HashMap<CropTypes, Integer> seeds = new HashMap<>();
-        seeds.put(CropTypes.CORN, 2);
-        seeds.put(CropTypes.COTTON, 1);
-        inventory.putSeed(CropTypes.CORN);
-        inventory.putSeed(CropTypes.CORN);
-        inventory.putSeed(CropTypes.COTTON);
+        seeds.put(CropTypes.CARROT, 2);
+        seeds.put(CropTypes.TOMATO, 1);
+        inventory.putSeed(CropTypes.CARROT);
+        inventory.putSeed(CropTypes.CARROT);
+        inventory.putSeed(CropTypes.TOMATO);
         for (CropTypes key : seeds.keySet()) {
             assertEquals(seeds.get(key), inventory.getListOfSeedItems().get(key));
         }
@@ -54,7 +54,7 @@ public class M3DuyTests {
         PlatformImpl.startup(() -> {
         });
         HashMap<CropTypes, Integer> products = new HashMap<>();
-        products.put(CropTypes.CORN, 2);
+        products.put(CropTypes.CARROT, 2);
         products.put(CropTypes.WHEAT, 3);
         //IMPLEMENTATION CHANGED IN M5
         //inventory.putProduct(CropTypes.CORN);
@@ -79,13 +79,13 @@ public class M3DuyTests {
         PlatformImpl.startup(() -> {
         });
         HashMap<CropTypes, Integer> seeds = new HashMap<>();
-        seeds.put(CropTypes.CORN, 2);
-        seeds.put(CropTypes.COTTON, 1);
-        inventory.putSeed(CropTypes.CORN);
-        inventory.putSeed(CropTypes.CORN);
-        inventory.putSeed(CropTypes.COTTON);
-        inventory.putSeed(CropTypes.COTTON);
-        inventory.removeSeed(CropTypes.COTTON);
+        seeds.put(CropTypes.CARROT, 2);
+        seeds.put(CropTypes.TOMATO, 1);
+        inventory.putSeed(CropTypes.CARROT);
+        inventory.putSeed(CropTypes.CARROT);
+        inventory.putSeed(CropTypes.TOMATO);
+        inventory.putSeed(CropTypes.TOMATO);
+        inventory.removeSeed(CropTypes.TOMATO);
         for (CropTypes key : seeds.keySet()) {
             assertEquals(seeds.get(key), inventory.getListOfSeedItems().get(key));
         }
@@ -103,7 +103,7 @@ public class M3DuyTests {
         PlatformImpl.startup(() -> {
         });
         HashMap<CropTypes, Integer> products = new HashMap<>();
-        products.put(CropTypes.CORN, 1);
+        products.put(CropTypes.CARROT, 1);
         products.put(CropTypes.WHEAT, 3);
         //inventory.putProduct(CropTypes.CORN);
         //inventory.putProduct(CropTypes.CORN);
@@ -128,7 +128,7 @@ public class M3DuyTests {
         PlatformImpl.startup(() -> {
         });
         for (int i = 0; i < 20; i++) {
-            inventory.putSeed(CropTypes.COTTON);
+            inventory.putSeed(CropTypes.TOMATO);
         }
         assertEquals(20, inventory.getStorageSize());
     }

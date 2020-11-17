@@ -119,7 +119,7 @@ public class EmployeeManagementTest {
             FarmState.getInstance().getPlots().add(new Plot());
         }
         plots = FarmState.getInstance().getPlots();
-        plots.get(0).getCurrentCrop().setType(CropTypes.CORN);
+        plots.get(0).getCurrentCrop().setType(CropTypes.CARROT);
         plots.get(0).getCurrentCrop().setCropStage(CropStages.MATURE);
         GameManager.getInstance().getEmployees().employeesManager();
         assertEquals(null, plots.get(0));

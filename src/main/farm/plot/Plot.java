@@ -1,7 +1,5 @@
 package main.farm.plot;
 
-import main.farm.FarmEquipment;
-import main.farm.FarmState;
 import main.farm.crops.CropCatalog;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
@@ -20,6 +18,10 @@ public class Plot {
     private final int maxWater = 10;
     private int currentFertilizer = 0;
     private final int maxFertilizer = 10;
+    private boolean purchased = false;
+    private int price = 0;
+    private int openIdx = 0;
+
     public Plot() {
         // random crop, random stage, random water level from 4 to 6
         this(new Crop(CropTypes.values()[(int) (Math.random() * 4)],
@@ -30,12 +32,16 @@ public class Plot {
     public Plot(Crop currentCrop, int currentWater) {
         this.currentCrop = currentCrop;
         this.currentWater = currentWater;
+        this.purchased = false;
     }
 
     public Crop getCurrentCrop() {
         return currentCrop;
     }
 
+    public void setCurrentCrop(Crop crop) {
+        this.currentCrop = crop;
+    }
 
     public void waterPlot(int increment) {
         currentWater += increment;
@@ -111,8 +117,16 @@ public class Plot {
                     } else {
                         GameManager.getInstance().getInventory().putProduct(
                                 new HarvestedCrop(currentCrop.getType()));
+                        GameManager.getInstance().getBadgeBookkeeping()[1] =
+                                GameManager.getInstance().getBadgeBookkeeping()[1] + 1;
                     }
                 }
+                if (currentCrop.getType() == CropTypes.CARROT) {
+                    GameManager.getInstance().getBadgeBookkeeping()[0] =
+                            GameManager.getInstance().getBadgeBookkeeping()[0] + 1;
+                }
+                GameManager.getInstance().getBadgeBookkeeping()[2] =
+                        GameManager.getInstance().getBadgeBookkeeping()[2] + 1;
                 NotificationManager.getInstance().addNotification(
                         "Harvested " + yieldBonus + " "
                                 + currentCrop.getType().toString().toLowerCase() + "!!");
@@ -127,7 +141,7 @@ public class Plot {
     }
 
     public void plantSeed() {
-        if (currentCrop != null) {
+        if (currentCrop != null || purchased == false) {
             //the plot is not ready to plant
             return;
         } else {
@@ -172,4 +186,29 @@ public class Plot {
     public void setCurrentWater(int currentWater) {
         this.currentWater = currentWater;
     }
+
+    public void setPurchased(boolean value) {
+        this.purchased = value;
+    }
+
+    public boolean getPurchased() {
+        return purchased;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setOpenIdx(int index) {
+        this.openIdx = index;
+    }
+
+    public int getOpenIdx() {
+        return openIdx;
+    }
+
 }

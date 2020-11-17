@@ -5,7 +5,7 @@
 
 <?import javafx.scene.control.Button?>
 <StackPane fx:id="FarmUIVBox" prefHeight="800.0" prefWidth="1200.0"
-           style="-fx-background-color: black" stylesheets="@../style.css"
+           style="-fx-background-color: #F6F6F6" stylesheets="@../style.css"
            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="main.farm.FarmController">
     <BorderPane>
@@ -25,15 +25,6 @@
                 </HBox>
             </GridPane>
         </center>
-
-        <top>
-            <HBox fx:id="headerHolder" maxHeight="50" minHeight="50" prefHeight="50">
-                <!-- holds the header-->
-                <Button fx:id="changeField" mnemonicParsing="false"
-                        onAction="#changeField" textFill="darkred" alignment="CENTER_RIGHT">Next
-                </Button>
-            </HBox>
-        </top>
 
         <left>
             <GridPane>
@@ -74,6 +65,11 @@
                 </StackPane>
             </GridPane>
         </right>
+        <top>
+            <HBox fx:id="headerHolder" maxHeight="50" minHeight="50" prefHeight="50">
+                <!-- holds the header-->
+            </HBox>
+        </top>
 
         <bottom>
         </bottom>

@@ -30,7 +30,7 @@ public class GrowthCycleTest {
             plots.add(new Plot());
 
         }
-        plots.get(0).getCurrentCrop().setType(CropTypes.CORN);
+        plots.get(0).getCurrentCrop().setType(CropTypes.CARROT);
         plots.get(0).getCurrentCrop().setCropStage(CropStages.MATURE);
         plots.get(0).getCurrentCrop().setPlantDay(0);
         plots.get(1).getCurrentCrop().setType(CropTypes.WHEAT);
@@ -39,7 +39,7 @@ public class GrowthCycleTest {
         plots.get(2).getCurrentCrop().setType(CropTypes.LETTUCE);
         plots.get(2).getCurrentCrop().setCropStage(CropStages.IMMATURE);
         plots.get(2).getCurrentCrop().setPlantDay(0);
-        plots.get(3).getCurrentCrop().setType(CropTypes.COTTON);
+        plots.get(3).getCurrentCrop().setType(CropTypes.TOMATO);
         plots.get(3).getCurrentCrop().setCropStage(CropStages.IMMATURE);
         plots.get(3).getCurrentCrop().setPlantDay(0);
 

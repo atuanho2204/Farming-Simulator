@@ -24,6 +24,7 @@ import main.farm.crops.*;
 import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
+import main.util.MainController;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -33,7 +34,7 @@ import java.util.List;
 /**
  * The Controller for the FarmUI fxml screen
  */
-public class FarmController implements PropertyChangeListener {
+public class FarmController extends MainController implements PropertyChangeListener {
     private Stage primaryStage;
     private AudioClip backgroundMusic;
     private HashMap<Plot, Integer> plotsToUIIndex = new HashMap<>();
@@ -55,11 +56,7 @@ public class FarmController implements PropertyChangeListener {
     @FXML
     private Button changeField;
 
-    /**
-     * Constructs the Farm Scene.
-     *
-     * @param primaryStage ...
-     */
+    @Override
     public void construct(Stage primaryStage, AudioClip backgroundMusic) {
         this.primaryStage = primaryStage;
         this.backgroundMusic = backgroundMusic;
@@ -83,7 +80,6 @@ public class FarmController implements PropertyChangeListener {
         GameManager.getInstance().getTimeAdvancer().addListener(market);
 
         // create employee
-
         EmployeeManager employeeManager = new EmployeeManager();
         GameManager.getInstance().setEmployees(employeeManager);
         GameManager.getInstance().getTimeAdvancer().addListener(employeeManager);
@@ -97,6 +93,8 @@ public class FarmController implements PropertyChangeListener {
 
         initializeFarmState();
         initializePlots();
+        openFirstSixPlots();
+
 
         //BEGIN GAME
         GameManager.getInstance().getTimeAdvancer().startTime();
@@ -206,6 +204,13 @@ public class FarmController implements PropertyChangeListener {
         for (int i = 0; i < farmState.getNumOfPlots(); ++i) {
             farmState.getPlots().add(new Plot());
         }
+        int initPrice = 100;
+        for (int i = 6; i < 12; i++) {
+            farmState.getPlots().get(i).setPrice(initPrice);
+            farmState.getPlots().get(i).setOpenIdx(i);
+            initPrice += 100;
+        }
+        openFirstSixPlots();
     }
     public void initializePlots() {
         try {
@@ -220,12 +225,18 @@ public class FarmController implements PropertyChangeListener {
 
     public TilePane getRandomPlots(List<CropTypes> seeds) {
         TilePane plotGrid = PlotUI.getPlotHolderUI();
+
         for (int i = 0; i < 12; i++) {
             Plot plot = farmState.getPlots().get(i);
-            int randomCrop = (int) (Math.random() * 100) % seeds.size();
-            int randomStage = (int) (Math.random() * 100) % CropStages.values().length;
-            plot.getCurrentCrop().setType(seeds.get(randomCrop));
-            plot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
+            if (plot.getPurchased()) {
+                int randomCrop = (int) (Math.random() * 100) % seeds.size();
+                int randomStage = (int) (Math.random() * 100) % CropStages.values().length;
+                plot.getCurrentCrop().setType(seeds.get(randomCrop));
+                plot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
+            } else {
+                plot.setCurrentCrop(null);
+            }
+
 
             StackPane uiComponent = PlotUI.getPlotUI(plot, this);
             plotGrid.getChildren().add(uiComponent);
@@ -269,22 +280,11 @@ public class FarmController implements PropertyChangeListener {
         }
     }
 
-    public void changeField(ActionEvent actionEvent) {
-        try {
-            TilePane plotGrid = PlotUI.getPlotHolderUI();
-            for (int i = 12; i < 24; i++) {
-                Plot plot = farmState.getPlots().get(i);
-                StackPane uiComponent = PlotUI.getPlotUI(plot, this);
-                plotGrid.getChildren().add(uiComponent);
-                //now we add it to the hashMap as well
-                //plotsToUIIndex.put(plot, i);
 
-            }
-            farmPlots.getChildren().clear();
-            farmPlots.getChildren().add(plotGrid);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+
+    public void openFirstSixPlots() {
+        for (int i = 0; i < 6; i++) {
+            farmState.getPlots().get(i).setPurchased(true);
         }
     }
 }
