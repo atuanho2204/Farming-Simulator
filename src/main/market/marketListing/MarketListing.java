@@ -34,11 +34,11 @@ public class MarketListing {
         cost.setStyle("-fx-font: 16 chalkduster;");
 
         Button sell = new Button("Sell");
-        sell.setTextFill(Color.RED);
+        sell.setStyle("-fx-font: 11 chalkduster; -fx-text-fill: RED;");
         grid.add(cost, ++col, 0);
 
         Button buy = new Button("Buy");
-        buy.setTextFill(Color.GREEN);
+        buy.setStyle("-fx-font: 11 chalkduster; -fx-text-fill: GREEN;");
         buy.setOnAction(e -> {
             Market.buySeed(((Seed) listing).getType(), listing.getBuyCost());
         });
@@ -69,7 +69,7 @@ public class MarketListing {
         cost.setStyle("-fx-font: 16 chalkduster;");
         grid.add(cost, ++col, 0);
         Button buy = new Button("Buy");
-        buy.setTextFill(Color.GREEN);
+        buy.setStyle("-fx-font: 11 chalkduster; -fx-text-fill: GREEN;");
         buy.setOnAction(e -> {
             Market.buyPesticide(20);
             GameManager.getInstance().getInventory().getPesticide();
@@ -110,7 +110,7 @@ public class MarketListing {
         cost.setStyle("-fx-font: 16 chalkduster;");
         grid.add(cost, ++col, 0);
         Button buy = new Button("Buy");
-        buy.setTextFill(Color.GREEN);
+        buy.setStyle("-fx-font: 11 chalkduster; -fx-text-fill: GREEN;");
         buy.setOnAction(e -> {
             Market.buyFertilizer(price);
         });
@@ -137,9 +137,7 @@ public class MarketListing {
         cost.setStyle("-fx-font: 16 chalkduster;");
         grid.add(cost, ++col, 0);
         Button buy = new Button("Buy");
-        buy.setTextFill(Color.BLUE);
-
-
+        buy.setStyle("-fx-font: 11 chalkduster; -fx-text-fill: GREEN;");
         buy.setOnAction(e -> {
             Market.buyIrrigation(price);
         });
@@ -166,9 +164,7 @@ public class MarketListing {
         cost.setStyle("-fx-font: 16 chalkduster;");
         grid.add(cost, ++col, 0);
         Button buy = new Button("Buy");
-        buy.setTextFill(Color.BLUE);
-
-
+        buy.setStyle("-fx-font: 11 chalkduster; -fx-text-fill: GREEN;");
         buy.setOnAction(e -> {
             Market.buyTractor(price);
         });

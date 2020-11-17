@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <StackPane fx:id="FarmUIVBox" prefHeight="800.0" prefWidth="1200.0"
-           style="-fx-background-color: black" stylesheets="@../style.css"
+           style="-fx-background-color: #F6F6F6" stylesheets="@../style.css"
            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="main.farm.FarmController">
     <BorderPane>

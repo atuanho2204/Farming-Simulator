@@ -45,7 +45,7 @@ public class FertlizeTest {
      */
     @Test
     public void testGrowthCycleFertilizer() {
-        plot.getCurrentCrop().setType(CropTypes.COTTON);
+        plot.getCurrentCrop().setType(CropTypes.TOMATO);
         plot.getCurrentCrop().setCropStage(CropStages.IMMATURE);
         plot.getCurrentCrop().setPlantDay(0);
         GameManager.getInstance().getInventory().setCurrentFertilizer(10);
@@ -67,7 +67,7 @@ public class FertlizeTest {
     public void testYieldBonus() {
         while (true) {
             plot = new Plot();
-            plot.getCurrentCrop().setType(CropTypes.COTTON);
+            plot.getCurrentCrop().setType(CropTypes.TOMATO);
             plot.getCurrentCrop().setCropStage(CropStages.MATURE);
             plot.setCurrentFertilizer(5);
             int products = plot.harvestPlot();
