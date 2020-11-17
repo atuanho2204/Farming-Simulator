@@ -18,13 +18,13 @@ import java.util.List;
 
 public class FarmState implements NewDayListener {
     private final int numOfPlots = 12;
-    private List<Plot> plots;
+    private final List<Plot> plots;
     private static FarmState instance = new FarmState();
-    private PropertyChangeSupport changeSupport;
-    private int daysEachMonth = 30;
+    private final PropertyChangeSupport changeSupport;
+    private final int daysEachMonth = 30;
     private int numSunnyDays = 0;
     private int numRainyDays = 0;
-    private FarmEquipment farmEquipment = new FarmEquipment();
+    private final FarmEquipment farmEquipment = new FarmEquipment();
     private FarmController farmController;
 
     private FarmState() {

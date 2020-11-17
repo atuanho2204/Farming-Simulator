@@ -2,19 +2,15 @@ package main.welcomeScreen;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
-import main.configurationScreen.ConfigSceneController;
 import main.util.SceneLoader;
-import main.util.UIController;
+import main.util.MainController;
 
 import java.io.IOException;
 
-public class WelcomeSceneController extends UIController {
+public class WelcomeSceneController extends MainController {
     private Stage primaryStage;
     private AudioClip backgroundMusic;
 

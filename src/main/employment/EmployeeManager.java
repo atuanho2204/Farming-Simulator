@@ -35,7 +35,6 @@ public class EmployeeManager implements NewDayListener {
     public void handleNewDay(NewDayEvent e) {
         employeesManager();
         payWages();
-        //System.out.println(GameManager.getInstance().getMoney());
     }
 
     public void addHarvester(int hireDay) {
