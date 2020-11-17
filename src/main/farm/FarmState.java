@@ -27,7 +27,7 @@ public class FarmState implements NewDayListener {
     private final FarmEquipment farmEquipment = new FarmEquipment();
     private FarmController farmController;
 
-    private int plotCount = 6;
+    private int plotCount = 10;
 
     private FarmState() {
         this.plots = new ArrayList<>(numOfPlots);
