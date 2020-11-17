@@ -26,8 +26,6 @@ import main.util.customEvents.NewDayListener;
 public class EmploymentController implements NewDayListener, ForceUIUpdateListener {
     private Stage primaryStage;
 
-    private final int salary = 5;
-
     @FXML
     private VBox employmentData;
 
@@ -119,11 +117,6 @@ public class EmploymentController implements NewDayListener, ForceUIUpdateListen
     private void hireSellEmployee(ActionEvent event) {
         int currentDay = GameManager.getInstance().getDay();
         GameManager.getInstance().getEmployees().addSeller(currentDay);
-    }
-
-
-    public void harvestEmployeeWork() {
-        //ArrayList<Plot> plots = GameManager.getInstance().get
     }
 
     private void setEmploymentDataUI() {

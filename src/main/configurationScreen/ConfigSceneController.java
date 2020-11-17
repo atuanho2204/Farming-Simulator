@@ -9,12 +9,12 @@ import main.util.AlertUser;
 import main.farm.crops.CropTypes;
 import main.util.SceneLoader;
 import main.util.Seasons;
-import main.util.UIController;
+import main.util.MainController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfigSceneController extends UIController {
+public class ConfigSceneController extends MainController {
 
 
     @FXML

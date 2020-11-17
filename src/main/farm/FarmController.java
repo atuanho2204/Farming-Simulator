@@ -22,7 +22,7 @@ import main.farm.crops.*;
 import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
-import main.util.UIController;
+import main.util.MainController;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * The Controller for the FarmUI fxml screen
  */
-public class FarmController extends UIController implements PropertyChangeListener {
+public class FarmController extends MainController implements PropertyChangeListener {
     private Stage primaryStage;
     private AudioClip backgroundMusic;
     private HashMap<Plot, Integer> plotsToUIIndex = new HashMap<>();
