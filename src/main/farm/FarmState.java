@@ -1,6 +1,9 @@
 package main.farm;
 
-import main.farm.crops.*;
+import main.farm.crops.CropCatalog;
+import main.farm.crops.CropDetails;
+import main.farm.crops.CropStages;
+import main.farm.crops.CropTypes;
 import main.farm.plot.Plot;
 import main.gameManager.GameManager;
 import main.notifications.NotificationManager;
@@ -21,6 +24,8 @@ public class FarmState implements NewDayListener {
     private int daysEachMonth = 30;
     private int numSunnyDays = 0;
     private int numRainyDays = 0;
+    private FarmEquipment farmEquipment = new FarmEquipment();
+    private FarmController farmController;
 
     private FarmState() {
         this.plots = new ArrayList<>(numOfPlots);
@@ -46,14 +51,16 @@ public class FarmState implements NewDayListener {
         randomizeEvents();
         reduceWaterLevelsEveryThreeDays(GameManager.getInstance().getDifficulty());
         reduceFertilizer(GameManager.getInstance().getDifficulty());
-        updateGrowthCycle();
-        NotificationManager.getInstance().addNotification("~~~~~~~~~~~~~~~~~~~~Day " + e.getNewDay()
-                + "~~~~~~~~~~~~~~~~~~~~");
+        updateGrowthCycle(false);
+        NotificationManager.getInstance().addNotification("~~~~~~~~~~~~~~~~~Day " + e.getNewDay()
+                + "~~~~~~~~~~~~~~~~~");
         forcePlotUpdate("Show new plot water and growth levels");
         updateSeason();
+        resetEquipmentLevels();
     }
 
-    public void updateGrowthCycle() {
+    public void updateGrowthCycle(boolean isTesting) {
+        boolean areEmptyPlots = true;
         for (Plot plot: plots) {
             if (plot.getCurrentCrop() == null) {
                 continue;
@@ -79,10 +86,28 @@ public class FarmState implements NewDayListener {
                     plot.getCurrentCrop().setCropStage(CropStages.DEAD);
                 }
             }
+            if (plot.getCurrentCrop().getStage() != CropStages.DEAD) {
+                areEmptyPlots = false;
+            }
+        }
+        int lowestCropPrice = CropCatalog.getInstance().getMinBuyPrice();
+        if (!isTesting && areEmptyPlots
+                && GameManager.getInstance().getMoney() < lowestCropPrice
+                && GameManager.getInstance().getInventory().getProducts().size() == 0
+                && GameManager.getInstance().getInventory().getSeedStorage().size() == 0) {
+            if (farmController != null) {
+                farmController.endGame();
+            }
         }
     }
 
+    private void resetEquipmentLevels() {
+        //set the water level to 0
+        farmEquipment.setCurrentWaterPlots(0);
 
+        //set the harvesting level to 0 @Chris
+        farmEquipment.setCurrentHarvestPlots(0);
+    }
 
     /**
      * Method reduceWaterLevelsEveryThreeDays decrements each plot's water level by
@@ -157,7 +182,7 @@ public class FarmState implements NewDayListener {
                 ++numSunnyDays;
                 //System.out.println("no rain for " + numSunnyDays + " days");
                 // locust
-                double locustRate = 0.2 * numRainyDays;
+                double locustRate = 0.25 * numRainyDays;
                 if (Math.random() < locustRate) {
                     triggerLocustSwarms(difficulty);
                 }
@@ -213,14 +238,16 @@ public class FarmState implements NewDayListener {
         if (plotsWithLivingCrops.size() > 0) {
             Plot unluckyPlot = plotsWithLivingCrops.remove(
                     (int) (Math.random() * plotsWithLivingCrops.size()));
+            unluckyPlot.getCurrentCrop().setLocust(true);
             unluckyPlot.getCurrentCrop().setCropStage(CropStages.DEAD);
             ++numCropsKilled;
         }
 
         if (plotsWithLivingCrops.size() > 0) {
-            double deadChance = 0.15 * difficulty;
+            double deadChance = 0.20 * difficulty;
             for (Plot plot : plotsWithLivingCrops) {
                 if (!plot.getCurrentCrop().hasPesticide() && Math.random() < deadChance) {
+                    plot.getCurrentCrop().setLocust(true);
                     plot.getCurrentCrop().setCropStage(CropStages.DEAD);
                     ++numCropsKilled;
                 }
@@ -237,7 +264,6 @@ public class FarmState implements NewDayListener {
         }
     }
 
-
     // Getters and Setters
 
     public int getNumOfPlots() {
@@ -248,11 +274,13 @@ public class FarmState implements NewDayListener {
         return plots;
     }
 
-    public void setNumSunnyDays(int numDays) {
-        this.numSunnyDays = numDays;
+
+    public FarmEquipment getFarmEquipment() {
+        return farmEquipment;
     }
 
-    public void setNumRainyDays(int numDays) {
-        this.numRainyDays = numDays;
+    public void setFarmController(FarmController controller) {
+        this.farmController = controller;
+
     }
 }

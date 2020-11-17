@@ -1,5 +1,7 @@
 package main.farm.plot;
 
+import main.farm.FarmEquipment;
+import main.farm.FarmState;
 import main.farm.crops.CropCatalog;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;

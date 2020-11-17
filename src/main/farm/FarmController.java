@@ -1,13 +1,18 @@
 package main.farm;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import main.employment.EmployeeManager;
 import main.employment.EmploymentController;
+import main.endingScreen.GameOverSceneController;
 import main.farm.header.FarmHeaderController;
 import main.farm.plot.Plot;
 import main.farm.plot.PlotUI;
@@ -30,6 +35,7 @@ import java.util.List;
  */
 public class FarmController implements PropertyChangeListener {
     private Stage primaryStage;
+    private AudioClip backgroundMusic;
     private HashMap<Plot, Integer> plotsToUIIndex = new HashMap<>();
     private TilePane plotHolder;
     private FarmState farmState;
@@ -46,15 +52,17 @@ public class FarmController implements PropertyChangeListener {
     private Pane employmentHolder;
     @FXML
     private Pane notificationHolder;
-
+    @FXML
+    private Button changeField;
 
     /**
      * Constructs the Farm Scene.
      *
      * @param primaryStage ...
      */
-    public void construct(Stage primaryStage) {
+    public void construct(Stage primaryStage, AudioClip backgroundMusic) {
         this.primaryStage = primaryStage;
+        this.backgroundMusic = backgroundMusic;
 
         if (GameManager.getInstance().getName().equals("Super Farmer")) {
             GameManager.getInstance().setMoney((1000));
@@ -64,6 +72,7 @@ public class FarmController implements PropertyChangeListener {
         //listen to the farmState
         farmState = FarmState.getInstance();
         farmState.subscribeToChanges(this);
+        FarmState.getInstance().setFarmController(this);
 
         //create inventory
         GameManager.getInstance().setInventory(new Inventory(true));
@@ -86,6 +95,7 @@ public class FarmController implements PropertyChangeListener {
         setEmployeeUI();
         setNotificationUI();
 
+        initializeFarmState();
         initializePlots();
 
         //BEGIN GAME
@@ -105,6 +115,12 @@ public class FarmController implements PropertyChangeListener {
 
     private void setHeaderUI() {
         try {
+            java.net.URL resource = getClass().getResource(
+                    "/main/soundtrack/jazzyfrenchy.mp3");
+            backgroundMusic = new AudioClip(resource.toExternalForm());
+            backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
+            backgroundMusic.setVolume(0.2);
+            backgroundMusic.play();
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
                             "../farm/header/farmHeader.fxml"
@@ -112,7 +128,7 @@ public class FarmController implements PropertyChangeListener {
             );
             Parent parent = loader.load();
             FarmHeaderController controller = loader.getController();
-            controller.construct(primaryStage);
+            controller.construct(primaryStage, backgroundMusic);
             headerHolder.getChildren().add(new Pane(parent));
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -186,12 +202,14 @@ public class FarmController implements PropertyChangeListener {
         }
     }
 
-
-    public void initializePlots() {
+    public void initializeFarmState() {
         for (int i = 0; i < farmState.getNumOfPlots(); ++i) {
             farmState.getPlots().add(new Plot());
         }
+    }
+    public void initializePlots() {
         try {
+            farmPlots.getChildren().clear();
             plotHolder = getRandomPlots(GameManager.getInstance().getSeeds());
             farmPlots.getChildren().add(plotHolder);
         } catch (Exception e) {
@@ -202,16 +220,14 @@ public class FarmController implements PropertyChangeListener {
 
     public TilePane getRandomPlots(List<CropTypes> seeds) {
         TilePane plotGrid = PlotUI.getPlotHolderUI();
-        for (int i = 0; i < farmState.getPlots().size(); i++) {
+        for (int i = 0; i < 12; i++) {
             Plot plot = farmState.getPlots().get(i);
             int randomCrop = (int) (Math.random() * 100) % seeds.size();
             int randomStage = (int) (Math.random() * 100) % CropStages.values().length;
             plot.getCurrentCrop().setType(seeds.get(randomCrop));
             plot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
 
-
-            VBox uiComponent = PlotUI.getPlotUI(plot, this);
-
+            StackPane uiComponent = PlotUI.getPlotUI(plot, this);
             plotGrid.getChildren().add(uiComponent);
             //now we add it to the hashMap as well
             plotsToUIIndex.put(plot, i);
@@ -228,5 +244,47 @@ public class FarmController implements PropertyChangeListener {
         Platform.runLater(() -> {
             plotHolder.getChildren().set(index, PlotUI.getPlotUI(plot, this));
         });
+    }
+
+
+    public void endGame() {
+        try {
+            GameManager.getInstance().getTimeAdvancer().pauseTime();
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "../endingScreen/GameOverScene.fxml"
+                    )
+            );
+            Parent parent = loader.load();
+            backgroundMusic.stop();
+            GameOverSceneController controller = loader.getController();
+            //controller.construct(primaryStage);
+            controller.construct(primaryStage, backgroundMusic);
+            Platform.runLater(() -> {
+                primaryStage.setTitle("Game Over");
+                primaryStage.setScene(new Scene(parent));
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeField(ActionEvent actionEvent) {
+        try {
+            TilePane plotGrid = PlotUI.getPlotHolderUI();
+            for (int i = 12; i < 24; i++) {
+                Plot plot = farmState.getPlots().get(i);
+                StackPane uiComponent = PlotUI.getPlotUI(plot, this);
+                plotGrid.getChildren().add(uiComponent);
+                //now we add it to the hashMap as well
+                //plotsToUIIndex.put(plot, i);
+
+            }
+            farmPlots.getChildren().clear();
+            farmPlots.getChildren().add(plotGrid);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

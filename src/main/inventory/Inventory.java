@@ -17,7 +17,7 @@ public class Inventory {
     private PropertyChangeSupport changeSupport;
     private final int storageLimit = 20;
     private final HashMap<CropTypes, Integer> seedStorage;
-    private final int productLimit = 12;
+    private final int productLimit = 8;
     private final ArrayList<HarvestedCrop> products;
     private int fertilizerTank = 10;
     private int currentFertilizer = 0;
@@ -182,6 +182,10 @@ public class Inventory {
         } catch (Exception e) {
             AlertUser.alertUser("Not enough");
         }
+    }
+
+    public HashMap<CropTypes, Integer> getSeedStorage() {
+        return seedStorage;
     }
 
 }

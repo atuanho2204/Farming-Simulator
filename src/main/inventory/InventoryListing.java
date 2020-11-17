@@ -13,9 +13,9 @@ public class InventoryListing {
     public static ArrayList<Text> getInfoUI(Inventory inventory) {
         ArrayList<Text> texts = new ArrayList<>();
 
-        Text header = new Text("Inventory:");
+        /*Text header = new Text("Inventory:");
         header.setFill(Color.ANTIQUEWHITE);
-        header.setStyle("-fx-font: 20 chalkduster;");
+        header.setStyle("-fx-font: 20 chalkduster;");*/
 
         // Inventory Information
         Text current = new Text("Storage: " + inventory.getStorageSize()
@@ -36,7 +36,7 @@ public class InventoryListing {
         pesticide.setStyle("-fx-font: 16 chalkduster;");
 
 
-        texts.add(header);
+        //texts.add(header);
         texts.add(current);
         texts.add(fertilize);
         texts.add(pesticide);
@@ -47,7 +47,7 @@ public class InventoryListing {
     public static HBox getHeader(String t) {
         HBox hBox = new HBox();
 
-        Text text = new Text("\n" + t + ": ");
+        Text text = new Text(t + ": ");
         text.setFill(Color.LIGHTSKYBLUE);
         text.setStyle("-fx-font: 16 chalkduster;");
         hBox.getChildren().addAll(text);
@@ -74,8 +74,8 @@ public class InventoryListing {
         String productName = crop.getName() + "\n$" + crop.getSellCost();
         //ADD BUTTON TO SELL
         Button sell = new Button(productName);
-        sell.setTextFill(Color.BLACK);
-        sell.setPrefWidth(75);
+        sell.setTextFill(Color.DARKORANGE);
+        sell.setPrefWidth(72);
         return sell;
     }
 }

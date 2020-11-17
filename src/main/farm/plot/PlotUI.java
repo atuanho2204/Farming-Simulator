@@ -3,13 +3,20 @@ package main.farm.plot;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import main.farm.FarmController;
+import main.farm.FarmEquipment;
+import main.farm.FarmState;
+import main.farm.crops.Crop;
 import main.farm.crops.CropStages;
+import main.util.AlertUser;
 
 public class PlotUI {
     private static int farmPlotWidth = 575;
@@ -20,6 +27,7 @@ public class PlotUI {
         TilePane plotGrid = new TilePane();
         plotGrid.setPrefWidth(farmPlotWidth);
         plotGrid.setPrefHeight(farmPlotHeight);
+
         plotGrid.setPrefTileHeight(farmPlotHeight / 4);
         plotGrid.setPrefTileWidth(farmPlotWidth / 3);
 
@@ -33,69 +41,141 @@ public class PlotUI {
      * @param controller the creator of this plot
      * @return VBox (or whatever it's changed to) with the plot UI
      */
-    public static VBox getPlotUI(Plot plot, FarmController controller) {
+    public static StackPane getPlotUI(Plot plot, FarmController controller) {
+        Crop crop = plot.getCurrentCrop();
+        StackPane sp = new StackPane();
+        ImageView backgroundImage = new ImageView(
+                new Image("/main/images/plot_dark.png",
+                        farmPlotHeight / 4, farmPlotWidth / 3, false, false));
+        sp.getChildren().add(backgroundImage);
         VBox vBox = new VBox();
-        vBox.setStyle("-fx-background-color: #CD853F; -fx-border-color: black;");
+        //vBox.setStyle("-fx-background-color: #CD853F; -fx-border-color: black;");
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(5);
 
-        Text text1 = new Text();
-        if (plot.getCurrentCrop() == null) {
-            text1.setText("empty & lonely..");
-            text1.setFill(Color.BLACK);
-        } else if (plot.getCurrentCrop().getStage() == CropStages.DEAD) {
-            text1.setText("dead");
-            text1.setFill(Color.RED);
-        } else if (plot.getCurrentCrop().getStage() == CropStages.SPROUTING) {
-            text1.setText("sprouting");
-            text1.setFill(Color.ORANGE);
-        } else if (plot.getCurrentCrop().getStage() == CropStages.MATURE) {
-            text1.setText("mature");
-            text1.setFill(Color.GREEN);
-        } else { // CropStages.IMMATURE
-            text1.setText("growing");
-            text1.setFill(Color.ORANGE);
-        }
+        HBox hbox = new HBox();
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(10);
+        vBox.getChildren().add(hbox);
+        sp.getChildren().add(vBox);
 
-        Text text2 = new Text();
+
+        Text cropName = new Text();
         if (plot.getCurrentCrop() == null) {
-            text2.setText("dirt");
-            text2.setFill(Color.BLACK);
+            cropName.setText("Dirt");
+            cropName.setFill(Color.BLACK);
         } else {
-            text2.setText(plot.getCurrentCrop().getType().toString());
-            text2.setFill(Color.WHITE);
+            String name = plot.getCurrentCrop().getType().toString();
+            cropName.setText(name.charAt(0)
+                    + name.substring(1, name.length()).toLowerCase()
+            );
+            cropName.setFill(Color.WHITE);
         }
-        text1.setStyle("-fx-font: 16 chalkduster;");
-        text2.setStyle("-fx-font: 20 chalkduster;");
-        vBox.getChildren().add(text2);
-        vBox.getChildren().add(text1);
+        cropName.setStyle("-fx-font: 20 chalkduster;");
+        vBox.getChildren().add(0, cropName);
 
-        HBox buttons = new HBox();
-        buttons.setAlignment(Pos.CENTER);
-        buttons.setSpacing(5);
+        Text cropStage = new Text();
+        cropStage.setStyle("-fx-font: 16 chalkduster;");
+        if (crop == null) {
+            cropStage.setText("Empty");
+            cropStage.setFill(Color.BLACK);
+        } else {
+            if (crop.getStage() == CropStages.DEAD) {
+                cropStage.setFill(Color.RED);
+            } else if (crop.getStage() == CropStages.SPROUTING) {
+                cropStage.setFill(Color.ORANGE);
+            } else if (crop.getStage() == CropStages.MATURE) {
+                cropStage.setFill(Color.GREEN);
+            } else { // CropStages.IMMATURE
+                cropStage.setFill(Color.ORANGE);
+            }
+            cropStage.setText(crop.getStage().toString().toLowerCase());
+        }
+        hbox.getChildren().add(cropStage);
+
+
+        //locust check
+        if (crop != null && (crop.hasPesticide() || crop.hadLocust())) {
+            Button hasPest = new Button();
+            ImageView iv;
+            if (plot.getCurrentCrop().hasPesticide()) {
+                iv = new ImageView(new Image("/main/images/pesticide.jpg"));
+            } else {
+                iv = new ImageView(new Image("/main/images/locust.png"));
+            }
+            iv.setFitHeight(20);
+            iv.setFitWidth(20);
+            hasPest.setGraphic(iv);
+            hasPest.setStyle("-fx-background-color: white;");
+            hbox.getChildren().addAll(hasPest);
+        }
+
+
+        HBox buttonHolder = new HBox();
+        buttonHolder.setAlignment(Pos.CENTER);
+        buttonHolder.setSpacing(5);
 
         // plant and harvest
-        Button button = handlePlantAndHarvest(plot, controller);
-        buttons.getChildren().add(button);
+        if (crop == null || crop.getStage() == CropStages.MATURE
+                || crop.getStage() == CropStages.DEAD) {
+            Button button = handlePlantAndHarvest(plot, controller);
+            buttonHolder.getChildren().add(button);
+        }
+
 
         //pesticide
-        Button pestBut = handlePesticide(plot, controller);
-        Button hasPest = new Button();
-        if (plot.getCurrentCrop() != null && plot.getCurrentCrop().hasPesticide()) {
-            hasPest.setText("P");
+        if (crop != null && crop.getStage() != CropStages.MATURE
+                && crop.getStage() != CropStages.DEAD) {
+            Button pestBut = handlePesticide(plot, controller);
+            buttonHolder.getChildren().add(pestBut);
         }
-        buttons.getChildren().addAll(pestBut, hasPest);
+        vBox.getChildren().add(buttonHolder);
+
 
         //water
+        if (crop != null && crop.getStage() != CropStages.MATURE
+                && crop.getStage() != CropStages.DEAD) {
+            HBox water = getWaterUI(plot, controller);
+            vBox.getChildren().add(water);
+        }
+
+        //fertilize button & bar
+        if (crop != null && crop.getStage() != CropStages.MATURE
+                && crop.getStage() != CropStages.DEAD) {
+            HBox fertilize = getFertilizeUI(plot, controller);
+            vBox.getChildren().add(fertilize);
+        }
+
+        return sp;
+    }
+
+    private static HBox getWaterUI(Plot plot, FarmController controller) {
         HBox water = new HBox();
-        Button waterBut = handleWaterPlot(plot, controller);
+
+        //button
+        Button waterBut = new Button("water");
+        waterBut.setOnAction(actionEvent -> {
+            //onButtonClick
+            //check if we are over the water limit
+            FarmEquipment farmEquipment = FarmState.getInstance().getFarmEquipment();
+            if (farmEquipment.getCurrentWaterPlots() >= farmEquipment.getMaxWaterPlots()) {
+                AlertUser.alertUser("There is no more water left in the tank. You may wait a day or buy irrigation");
+                return;
+            }
+            plot.waterPlot(1);
+            controller.updatePlotUI(plot);
+            //add 1 to the current farm equipment water level
+            farmEquipment.setCurrentWaterPlots(farmEquipment.getCurrentWaterPlots() + 1);
+        });
+        waterBut.setStyle("-fx-background-color: #00CED1;"
+                + "-fx-text-align: center; -fx-text-fill: white;"
+                + "-fx-font-family: Chalkduster;"
+                + "-fx-font-size: 13px; -fx-min-width: 80px;");
+
+
+        //progress bar
         ProgressBar waterBar = new ProgressBar(
                 plot.getCurrentWater() * 1.0 / plot.getMaxWater());
-        waterBar.setStyle("-fx-accent: #00BFFF;"); // blue
-        water.getChildren().addAll(waterBar, waterBut);
-        water.setAlignment(Pos.CENTER_LEFT);
-        water.setSpacing(5);
-
         if (plot.getCurrentWater() == plot.getMaxWater()) {
             waterBar.setStyle("-fx-accent: #B22222;"); // red at max
         } else if (plot.getCurrentWater() == plot.getMaxWater() - 1) {
@@ -106,35 +186,12 @@ public class PlotUI {
             waterBar.setStyle("-fx-accent: #FFD700;"); // yellow
         }
 
-        HBox fertilize = new HBox();
-        fertilize.setAlignment(Pos.CENTER_LEFT);
-        fertilize.setSpacing(5);
 
-        Button fertilizeBut = handleFertilize(plot, controller);
+        water.getChildren().addAll(waterBar, waterBut);
+        water.setAlignment(Pos.CENTER_LEFT);
+        water.setSpacing(5);
 
-        //fertilizer
-        ProgressBar fertilizerBar = new ProgressBar(
-                plot.getCurrentFertilizer() * 1.0 / plot.getMaxFertilizer());
-        fertilizerBar.setStyle("-fx-accent: #00BFFF;"); // blue
-
-
-        fertilize.getChildren().addAll(fertilizerBar, fertilizeBut);
-        vBox.getChildren().addAll(buttons, water, fertilize);
-        return vBox;
-    }
-
-    private static Button handleWaterPlot(Plot plot, FarmController controller) {
-        Button waterBut = new Button("water");
-        waterBut.setOnAction(actionEvent -> {
-            //onButtonClick
-            plot.waterPlot(1);
-            controller.updatePlotUI(plot);
-        });
-        waterBut.setStyle("-fx-background-color: #00CED1;"
-                + "-fx-text-align: center; -fx-text-fill: white;"
-                + "-fx-font-family: Chalkduster;"
-                + "-fx-font-size: 13px; -fx-min-width: 80px;");
-        return waterBut;
+        return water;
     }
 
     public static Button handlePlantAndHarvest(Plot plot, FarmController controller) {
@@ -145,7 +202,7 @@ public class PlotUI {
                 plot.plantSeed();
                 controller.updatePlotUI(plot);
             });
-            button.setStyle("-fx-background-color: #A0522D; -fx-text-align: center;"
+            button.setStyle("-fx-background-color: BURLYWOOD; -fx-text-align: center;"
                     + "-fx-text-fill: white; -fx-font-family: Chalkduster;"
                     + "-fx-font-size: 13px; -fx-min-width: 50px;");
         } else if (plot.getCurrentCrop().getStage() == CropStages.DEAD
@@ -171,16 +228,29 @@ public class PlotUI {
         return button;
     }
 
-    private static Button handleFertilize(Plot plot, FarmController controller) {
-        Button plantBut = new Button("fertilize");
-        plantBut.setOnAction(actionEvent -> {
+    private static HBox getFertilizeUI(Plot plot, FarmController controller) {
+        HBox fertilize = new HBox();
+        fertilize.setAlignment(Pos.CENTER_LEFT);
+        fertilize.setSpacing(5);
+
+        //the "fertilize" button
+        Button fertilizeBut = new Button("fertilize");
+        fertilizeBut.setOnAction(actionEvent -> {
             plot.fertilizePlot(10);
             controller.updatePlotUI(plot);
         });
-        plantBut.setStyle("-fx-background-color: #A0522D;"
+        fertilizeBut.setStyle("-fx-background-color: LIGHTPINK;"
                 + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
                 + "-fx-font-size: 13px; -fx-min-width: 70px;");
-        return plantBut;
+
+        //the progressBar
+        ProgressBar fertilizerBar = new ProgressBar(
+                plot.getCurrentFertilizer() * 1.0 / plot.getMaxFertilizer());
+        fertilizerBar.setStyle("-fx-accent: PALEVIOLETRED;");
+
+
+        fertilize.getChildren().addAll(fertilizerBar, fertilizeBut);
+        return fertilize;
     }
 
     private static Button handlePesticide(Plot plot, FarmController controller) {
@@ -189,7 +259,7 @@ public class PlotUI {
             plot.pesticidePlot();
             controller.updatePlotUI(plot);
         });
-        pestBut.setStyle("-fx-background-color: #A0522D;"
+        pestBut.setStyle("-fx-background-color: BURLYWOOD;"
                 + "-fx-text-align: center; -fx-text-fill: white; -fx-font-family: Chalkduster;"
                 + "-fx-font-size: 13px; -fx-min-width: 50px;");
         return pestBut;

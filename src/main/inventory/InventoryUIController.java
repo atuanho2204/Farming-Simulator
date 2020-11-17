@@ -28,7 +28,9 @@ public class InventoryUIController implements PropertyChangeListener {
 
     public void construct(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        inventoryScreen.setPadding(new Insets(5, 0, 0, 5));
+        //please stop moving this line...you can change it...just don't move it
+        inventoryScreen.setPadding(new Insets(90, 0, 0, 17));
+
 
         //subscribe to the inventory changes
         GameManager.getInstance().getInventory().subscribeToChanges(this);
@@ -54,7 +56,7 @@ public class InventoryUIController implements PropertyChangeListener {
             HashMap<CropTypes, Integer> seeds =
                     GameManager.getInstance().getInventory().getListOfSeedItems();
             if (seeds.keySet().size() == 0) {
-                Text emptySeed = new Text("\nNo seeds? How do you plan to farm??");
+                Text emptySeed = new Text("No seeds?\nHow do you plan to farm??");
                 emptySeed.setFill(Color.ORANGE);
                 emptySeed.setStyle("-fx-font: 16 chalkduster;");
                 newListings.add(emptySeed);
@@ -73,7 +75,7 @@ public class InventoryUIController implements PropertyChangeListener {
             tile.setPrefColumns(4);
             tile.setPrefRows(3);
             if (products.size() == 0) {
-                Text emptyProduct = new Text("\nNo products?\n"
+                Text emptyProduct = new Text("No products?\n"
                         + "You are a failure at farming! :(");
                 emptyProduct.setFill(Color.ORANGE);
                 emptyProduct.setStyle("-fx-font: 16 chalkduster;");
@@ -90,6 +92,7 @@ public class InventoryUIController implements PropertyChangeListener {
             }
             newListings.add(tile);
             //Platform.runLater(() -> {
+            inventoryScreen.setPadding(new Insets(90, 0, 0, 17));
             inventoryScreen.getChildren().addAll(newListings);
             //});
         } catch (Exception e) {

@@ -36,7 +36,6 @@
 #skipButtonWS {
     -fx-pref-width: 130;
     -fx-pref-height: 70;
-    -fx-background-color: #18a734;
     -fx-opacity: 0;
 }
 
@@ -255,13 +254,14 @@
 }
 
 #topBar {
-    -fx-background-color: #545454;
+    -fx-background-color: white;
     -fx-font-size: 20px;
-    -fx-text-align: center;
 }
 
 .dataLabel {
-    -fx-text-fill: white;
+    -fx-text-fill: #18a734;
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 18px;
 }
 
 
@@ -298,4 +298,10 @@
     -fx-text-fill: white;
     -fx-font-family: Chalkduster;
     -fx-font-size: 14px;
+}
+
+#muteButton {
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+    -fx-background-color: transparent;
 }

@@ -2,7 +2,10 @@ package main.farm.header;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.util.UIManager;
@@ -17,6 +20,7 @@ import main.util.customEvents.NewDayListener;
  */
 public class FarmHeaderController implements NewDayListener, ForceUIUpdateListener {
     private Stage primaryStage;
+    private AudioClip backgroundMusic;
 
     @FXML
     private Label currentSeason;
@@ -28,6 +32,8 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
     private Label currentDate;
     @FXML
     private Label farmerName;
+    @FXML
+    private Label badges;
 
 
     /**
@@ -35,8 +41,9 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
      *
      * @param primaryStage the stage
      */
-    public void construct(Stage primaryStage) {
+    public void construct(Stage primaryStage, AudioClip backgroundMusic) {
         this.primaryStage = primaryStage;
+        this.backgroundMusic = backgroundMusic;
         //listen to the time
         GameManager.getInstance().getTimeAdvancer().addListener(this);
         UIManager.getInstance().addListener(this);
@@ -56,6 +63,7 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
     private void setHeaderData() {
         try {
             Platform.runLater(() -> {
+                badges.setText("<Badges Holder>");
                 if (farmerName != null) {
                     farmerName.setText("Name: " + GameManager.getInstance().getName());
                 }
@@ -78,15 +86,25 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
         }
     }
 
-
-    @FXML
-    public void handlePauseButton() {
-        GameManager.getInstance().getTimeAdvancer().pauseTime();
-    }
-
     @FXML
     public void handleQuitButton() {
         primaryStage.close();
         GameManager.getInstance().getTimeAdvancer().pauseTime();
+    }
+
+    @FXML
+    public void handleMuteButton() {
+        try {
+            if (backgroundMusic.getVolume() != 0) {
+                backgroundMusic.setVolume(0);
+
+            } else {
+                backgroundMusic.setVolume(0.2);
+            }
+            backgroundMusic.stop();
+            backgroundMusic.play();
+        } catch (NullPointerException e) {
+            System.out.println("backgroundMusic is null.");
+        }
     }
 }

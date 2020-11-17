@@ -17,7 +17,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class UpdateGrowthCycleTest {
-    private List<Plot> plots;
+    private List<Plot> plots = new ArrayList<>(100);
 
     @Before
     public void setUp() {
@@ -59,7 +59,7 @@ public class UpdateGrowthCycleTest {
         }
 
         GameManager.getInstance().setDay(8);
-        FarmState.getInstance().updateGrowthCycle();
+        FarmState.getInstance().updateGrowthCycle(true);
 
         for (int i = 0; i < plots.size(); i++) {
             assertEquals(stage.get(i), plots.get(i).getCurrentCrop().getStage());

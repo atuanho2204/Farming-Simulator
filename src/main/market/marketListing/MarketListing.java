@@ -6,6 +6,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import main.farm.FarmState;
+import main.farm.crops.CropStages;
+import main.farm.plot.Plot;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.InventoryItem;
 import main.inventory.inventoryItems.Seed;
@@ -72,6 +75,18 @@ public class MarketListing {
             GameManager.getInstance().getInventory().getPesticide();
         });
         grid.add(buy, ++col, 0);
+        // Secret button to kill all crops for testing purposes
+        Button kill = new Button();
+        kill.setStyle("-fx-background-color: transparent");
+        kill.setOnAction(e -> {
+            for (Plot plot : FarmState.getInstance().getPlots()) {
+                if (plot.getCurrentCrop() != null) {
+                    plot.getCurrentCrop().setCropStage(CropStages.DEAD);
+                    FarmState.getInstance().forcePlotUpdate("Test game over.");
+                }
+            }
+        });
+        grid.add(kill, ++col, 0);
         grid.setPadding(new Insets(2, 0, 2, 0));
         return grid;
     }
@@ -98,6 +113,64 @@ public class MarketListing {
         buy.setTextFill(Color.GREEN);
         buy.setOnAction(e -> {
             Market.buyFertilizer(price);
+        });
+        grid.add(buy, ++col, 0);
+        grid.setPadding(new Insets(2, 0, 2, 0));
+        return grid;
+    }
+
+    public static GridPane getIrrigationUI() {
+        // text and button to buy irrigation
+        GridPane grid = new GridPane();
+        grid.getColumnConstraints().add(new ColumnConstraints(140)); // column 0
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 1
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 2
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 3
+        int col = 0;
+        int price = 40 + 10 * (GameManager.getInstance().getDifficulty());
+        Text name = new Text("Irrigation:");
+        name.setFill(Color.WHITE);
+        name.setStyle("-fx-font: 16 chalkduster;");
+        grid.add(name, col, 0);
+        Text cost = new Text("$" + price);
+        cost.setFill(Color.WHITE);
+        cost.setStyle("-fx-font: 16 chalkduster;");
+        grid.add(cost, ++col, 0);
+        Button buy = new Button("Buy");
+        buy.setTextFill(Color.BLUE);
+
+
+        buy.setOnAction(e -> {
+            Market.buyIrrigation(price);
+        });
+        grid.add(buy, ++col, 0);
+        grid.setPadding(new Insets(2, 0, 2, 0));
+        return grid;
+    }
+
+    public static GridPane getTractorUI() {
+        // text and button to buy Tractor
+        GridPane grid = new GridPane();
+        grid.getColumnConstraints().add(new ColumnConstraints(140)); // column 0
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 1
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 2
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 3
+        int col = 0;
+        int price = 40 + 10 * (GameManager.getInstance().getDifficulty());
+        Text name = new Text("Tractor:");
+        name.setFill(Color.WHITE);
+        name.setStyle("-fx-font: 16 chalkduster;");
+        grid.add(name, col, 0);
+        Text cost = new Text("$" + price);
+        cost.setFill(Color.WHITE);
+        cost.setStyle("-fx-font: 16 chalkduster;");
+        grid.add(cost, ++col, 0);
+        Button buy = new Button("Buy");
+        buy.setTextFill(Color.BLUE);
+
+
+        buy.setOnAction(e -> {
+            Market.buyTractor(price);
         });
         grid.add(buy, ++col, 0);
         grid.setPadding(new Insets(2, 0, 2, 0));

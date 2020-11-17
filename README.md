@@ -1,3 +1,6 @@
+# Modules for VM option
+javafx.controls,javafx.fxml,javafx.graphics,javafx.media
+
 # Totally-accurate-farming-simulator
 
 Trello Board: https://trello.com/b/PYJPMLIU/cs2340-project

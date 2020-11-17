@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane stylesheets="@../style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.endingScreen.GameOverSceneController">
+    <children>
+        <ImageView fx:id="image" fitHeight="800.0" fitWidth="1200.0">
+            <image>
+                <Image url="@../images/game-over.jpeg" />
+            </image>
+        </ImageView>
+        <VBox fx:id="welcomeButtons"
+              style="-fx-alignment: CENTER_LEFT; -fx-padding: 0 0 50 150;">
+            <children>
+                <Button fx:id="startButtonWS" mnemonicParsing="false" onAction="#handleRestartButton" text="Restart">
+                </Button>
+                <Button fx:id="quitButtonWS" mnemonicParsing="false" onAction="#handleQuitButton" text="Quit">
+                </Button>
+            </children>
+        </VBox>
+    </children>
+</StackPane>
