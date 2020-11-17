@@ -99,7 +99,7 @@ public class FarmController extends MainController implements PropertyChangeList
 
         initializeFarmState();
         initializePlots();
-        openFirstTenPlots();
+        openFirstSixPlots();
 
 
         //BEGIN GAME
@@ -211,12 +211,12 @@ public class FarmController extends MainController implements PropertyChangeList
             farmState.getPlots().add(new Plot());
         }
         int initPrice = 100;
-        for (int i = 10; i < 12; i++) {
+        for (int i = 6; i < 12; i++) {
             farmState.getPlots().get(i).setPrice(initPrice);
             farmState.getPlots().get(i).setOpenIdx(i);
             initPrice += 100;
         }
-        openFirstTenPlots();
+        openFirstSixPlots();
     }
     public void initializePlots() {
         try {
@@ -288,8 +288,8 @@ public class FarmController extends MainController implements PropertyChangeList
 
 
 
-    public void openFirstTenPlots() {
-        for (int i = 0; i < 10; i++) {
+    public void openFirstSixPlots() {
+        for (int i = 0; i < 6; i++) {
             farmState.getPlots().get(i).setPurchased(true);
         }
     }
