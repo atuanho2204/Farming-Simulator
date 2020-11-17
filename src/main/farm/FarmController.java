@@ -5,8 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+
 import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
@@ -25,6 +27,7 @@ import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
 import main.util.MainController;
+
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -46,6 +49,8 @@ public class FarmController extends MainController implements PropertyChangeList
     @FXML
     private HBox farmPlots;
     @FXML
+    private HBox farmPlots2;
+    @FXML
     private Pane marketHolder;
     @FXML
     private Pane inventoryHolder;
@@ -58,6 +63,7 @@ public class FarmController extends MainController implements PropertyChangeList
 
     @Override
     public void construct(Stage primaryStage, AudioClip backgroundMusic) {
+
         this.primaryStage = primaryStage;
         this.backgroundMusic = backgroundMusic;
 

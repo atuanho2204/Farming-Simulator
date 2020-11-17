@@ -144,10 +144,12 @@ public class M3AnhTests {
     public void testStorageSize() throws Exception {
         PlatformImpl.startup(() -> {
         });
+
         inventory.putProduct(new HarvestedCrop(CropTypes.TOMATO));
         inventory.putSeed(CropTypes.CARROT);
         inventory.putSeed(CropTypes.MELON);
         inventory.putProduct(new HarvestedCrop(CropTypes.EGGPLANT));
+
         assertEquals(2, inventory.getStorageSize());
     }
 }

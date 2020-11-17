@@ -47,7 +47,9 @@
                     </ImageView>
                 </StackPane>
             </GridPane>
+
         </left>
+
 
         <right>
             <GridPane>
