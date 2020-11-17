@@ -191,7 +191,7 @@ public class PlotUI {
                         UIManager.getInstance().pushUIUpdate();
                         controller.updatePlotUI(plot);
                     } else if (plot.getOpenIdx() != count) {
-                        AlertUser.alertUser("You can't buy this");
+                        AlertUser.alertUser("You can't buy this plot");
                     } else {
                         AlertUser.alertUser("You don't have enough money");
                     }

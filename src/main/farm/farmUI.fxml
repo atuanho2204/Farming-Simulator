@@ -37,8 +37,14 @@
                     <RowConstraints vgrow="ALWAYS" />
                 </rowConstraints>
                 <StackPane fx:id="employmentHolder" prefHeight="325" prefWidth="300" style="-fx-background-color: blue" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <ImageView fx:id="employmentBoard" fitHeight="375" fitWidth="300">
+                        <Image url="@../images/employment-board.jpg" />
+                    </ImageView>
                 </StackPane>
                 <StackPane fx:id="notificationHolder" prefHeight="325" prefWidth="300" style="-fx-background-color: green" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <ImageView fx:id="notiBoard" fitHeight="375" fitWidth="300">
+                        <Image url="@../images/noti-board.jpg" />
+                    </ImageView>
                 </StackPane>
             </GridPane>
         </left>

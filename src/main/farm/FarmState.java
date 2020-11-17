@@ -55,8 +55,8 @@ public class FarmState implements NewDayListener {
         reduceFertilizer(GameManager.getInstance().getDifficulty());
         updateGrowthCycle(false);
         String day = (e.getNewDay() < 10) ? ("0" + e.getNewDay()) : e.getNewDay().toString();
-        NotificationManager.getInstance().addNotification("~~~~~~~~~~~~~~~~Day " + day
-                + "~~~~~~~~~~~~~~~~~");
+        NotificationManager.getInstance().addNotification("~~~~~~~~~~~~~~~Day " + day
+                + "~~~~~~~~~~~~~~~");
         forcePlotUpdate("Show new plot water and growth levels");
         updateSeason();
         resetEquipmentLevels();
@@ -202,8 +202,9 @@ public class FarmState implements NewDayListener {
         for (Plot plot : plots) {
             plot.waterPlot(increment);
         }
-        NotificationManager.getInstance().addNotification("ALERT!!\nIt's raining!!!\n"
-                + "Water level of each plot is incremented by " + increment);
+        NotificationManager.getInstance().addNotification("ALERT!!\n   It's raining!!!\n"
+                + "   Water level of each plot is incremented"
+                + "\n   by " + increment);
     }
 
     /**
@@ -214,9 +215,9 @@ public class FarmState implements NewDayListener {
         for (Plot plot : plots) {
             plot.waterPlot(decrement);
         }
-        NotificationManager.getInstance().addNotification("ALERT!!\nThere was a drought--"
-                + "no rain for 5 days straight!!!\nWater level of each plot "
-                + "is decremented by " + (decrement * -1));
+        NotificationManager.getInstance().addNotification("ALERT!! There was a drought--\n"
+                + "   no rain for 5 days straight!!!\n   Water level of each plot is decremented"
+                + "\n   by " + (decrement * -1));
     }
 
     /**
@@ -262,8 +263,8 @@ public class FarmState implements NewDayListener {
 
         if (numCropsKilled != 0) {
             System.out.println(numCropsKilled);
-            NotificationManager.getInstance().addNotification("ALERT!!\nLocusts killed "
-                    + numCropsKilled + " of your crops :( :( :(");
+            NotificationManager.getInstance().addNotification("ALERT!!\n   Locusts killed "
+                    + numCropsKilled + " of your crops :(");
         }
     }
 
