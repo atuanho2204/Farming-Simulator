@@ -198,14 +198,8 @@ public class PlotUI {
         if (plot.getCurrentCrop() == null) {
             button.setText("plant");
             button.setOnAction(actionEvent -> {
-                FarmEquipment farmEquipment = FarmState.getInstance().getFarmEquipment();
-                if (farmEquipment.getCurrentHarvestPlots() >= farmEquipment.getMaxHarvestPlots()) {
-                    AlertUser.alertUser("There is no more plots left to harvest. You may wait a day or buy a tractor");
-                    return;
-                }
                 plot.plantSeed();
                 controller.updatePlotUI(plot);
-                farmEquipment.setCurrentHarvestPlots(farmEquipment.getCurrentWaterPlots() + 1);
             });
             button.setStyle("-fx-background-color: BURLYWOOD; -fx-text-align: center;"
                     + "-fx-text-fill: white; -fx-font-family: Chalkduster;"
@@ -218,8 +212,14 @@ public class PlotUI {
                 button.setText("harvest");
             }
             button.setOnAction(actionEvent -> {
+                FarmEquipment farmEquipment = FarmState.getInstance().getFarmEquipment();
+                if (farmEquipment.getCurrentHarvestPlots() >= farmEquipment.getMaxHarvestPlots()) {
+                    AlertUser.alertUser("There is no more plots left to harvest. You may wait a day or buy a tractor");
+                    return;
+                }
                 plot.harvestPlot();
                 controller.updatePlotUI(plot);
+                farmEquipment.setCurrentHarvestPlots(farmEquipment.getMaxHarvestPlots() + 1);
             });
             button.setStyle("-fx-background-color: #18a734; -fx-text-align: center;"
                     + "-fx-text-fill: white; -fx-font-family: Chalkduster;"
