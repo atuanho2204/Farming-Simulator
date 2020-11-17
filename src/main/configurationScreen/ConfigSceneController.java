@@ -32,13 +32,13 @@ public class ConfigSceneController extends MainController {
     private ToggleGroup seasonGroup;
 
     @FXML
-    private CheckBox wheat;
+    private CheckBox melon;
     @FXML
     private CheckBox carrot;
     @FXML
-    private CheckBox cotton;
+    private CheckBox tomato;
     @FXML
-    private CheckBox lettuce;
+    private CheckBox eggplant;
 
     private String alertMessage = "";
 
@@ -93,20 +93,20 @@ public class ConfigSceneController extends MainController {
 
     @FXML
     public boolean validSeed() {
-        if (wheat.isSelected() || carrot.isSelected()
-                || cotton.isSelected() || lettuce.isSelected()) {
+        if (melon.isSelected() || carrot.isSelected()
+                || tomato.isSelected() || eggplant.isSelected()) {
             GameManager.getInstance().getSeeds().clear();
-            if (wheat.isSelected()) {
-                GameManager.getInstance().getSeeds().add(CropTypes.WHEAT);
+            if (melon.isSelected()) {
+                GameManager.getInstance().getSeeds().add(CropTypes.MELON);
             }
             if (carrot.isSelected()) {
                 GameManager.getInstance().getSeeds().add(CropTypes.CARROT);
             }
-            if (cotton.isSelected()) {
+            if (tomato.isSelected()) {
                 GameManager.getInstance().getSeeds().add(CropTypes.TOMATO);
             }
-            if (lettuce.isSelected()) {
-                GameManager.getInstance().getSeeds().add(CropTypes.LETTUCE);
+            if (eggplant.isSelected()) {
+                GameManager.getInstance().getSeeds().add(CropTypes.EGGPLANT);
             }
             if (GameManager.getInstance().getSeeds().size() != 3) {
                 alertMessage += "* You must select three seed types. \n";

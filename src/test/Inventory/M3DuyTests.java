@@ -55,7 +55,7 @@ public class M3DuyTests {
         });
         HashMap<CropTypes, Integer> products = new HashMap<>();
         products.put(CropTypes.CARROT, 2);
-        products.put(CropTypes.WHEAT, 3);
+        products.put(CropTypes.MELON, 3);
         //IMPLEMENTATION CHANGED IN M5
         //inventory.putProduct(CropTypes.CORN);
         //inventory.putProduct(CropTypes.CORN);
@@ -104,7 +104,7 @@ public class M3DuyTests {
         });
         HashMap<CropTypes, Integer> products = new HashMap<>();
         products.put(CropTypes.CARROT, 1);
-        products.put(CropTypes.WHEAT, 3);
+        products.put(CropTypes.MELON, 3);
         //inventory.putProduct(CropTypes.CORN);
         //inventory.putProduct(CropTypes.CORN);
         //inventory.putProduct(CropTypes.WHEAT);

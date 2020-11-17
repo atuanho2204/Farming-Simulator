@@ -46,12 +46,12 @@ public class MarketTest {
         //Go through the listings to find price of corn
         for (InventoryItem item : listings) {
             if (item instanceof Seed) {
-                if (((Seed) item).getType() == CropTypes.WHEAT) {
+                if (((Seed) item).getType() == CropTypes.MELON) {
                     price = item.getBuyCost();
                 }
             }
         }
-        Market.buySeed(CropTypes.WHEAT, price);
+        Market.buySeed(CropTypes.MELON, price);
         assertEquals(100 - price, GameManager.getInstance().getMoney().intValue());
     }
 

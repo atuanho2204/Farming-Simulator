@@ -135,7 +135,7 @@ public class EmployeeManagementTest {
     public void testSelling() throws Exception {
         employeeManager.addSeller(GameManager.getInstance().getDay());
 
-        GameManager.getInstance().getInventory().putProduct(new HarvestedCrop(CropTypes.WHEAT));
+        GameManager.getInstance().getInventory().putProduct(new HarvestedCrop(CropTypes.MELON));
         assertEquals(1, GameManager.getInstance().getInventory().getProducts().size());
         GameManager.getInstance().getEmployees().employeesManager();
         assertEquals(0, GameManager.getInstance().getInventory().getProducts().size());

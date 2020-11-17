@@ -44,12 +44,12 @@ public class M3AnhTests {
         });
         inventory.putSeed(CropTypes.CARROT);
         inventory.putSeed(CropTypes.CARROT);
-        inventory.putSeed(CropTypes.WHEAT);
-        inventory.putSeed(CropTypes.LETTUCE);
+        inventory.putSeed(CropTypes.MELON);
+        inventory.putSeed(CropTypes.EGGPLANT);
         HashMap<CropTypes, Integer> test2 = new HashMap<>();
         test2.put(CropTypes.CARROT, 2);
-        test2.put(CropTypes.WHEAT, 1);
-        test2.put(CropTypes.LETTUCE, 1);
+        test2.put(CropTypes.MELON, 1);
+        test2.put(CropTypes.EGGPLANT, 1);
         for (CropTypes type: test2.keySet()) {
             assertEquals(test2.get(type), inventory.getListOfSeedItems().get(type));
         }
@@ -97,11 +97,11 @@ public class M3AnhTests {
     public void testRemoveSeedStorge() throws Exception {
         PlatformImpl.startup(() -> {
         });
-        inventory.putSeed(CropTypes.LETTUCE);
-        inventory.putSeed(CropTypes.LETTUCE);
+        inventory.putSeed(CropTypes.EGGPLANT);
+        inventory.putSeed(CropTypes.EGGPLANT);
         assertEquals(2, inventory.getStorageSize());
         inventory.removeSeed(CropTypes.TOMATO);
-        inventory.removeSeed(CropTypes.LETTUCE);
+        inventory.removeSeed(CropTypes.EGGPLANT);
         assertEquals(1, inventory.getStorageSize());
     }
 
@@ -146,8 +146,8 @@ public class M3AnhTests {
         });
         inventory.putProduct(new HarvestedCrop(CropTypes.TOMATO));
         inventory.putSeed(CropTypes.CARROT);
-        inventory.putSeed(CropTypes.WHEAT);
-        inventory.putProduct(new HarvestedCrop(CropTypes.LETTUCE));
+        inventory.putSeed(CropTypes.MELON);
+        inventory.putProduct(new HarvestedCrop(CropTypes.EGGPLANT));
         assertEquals(2, inventory.getStorageSize());
     }
 }

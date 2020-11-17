@@ -1,21 +1,16 @@
 package main.farm.header;
 
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.notifications.NotificationManager;
-import main.util.AlertUser;
 import main.util.UIManager;
 import main.util.customEvents.ForceUIUpdate;
 import main.util.customEvents.ForceUIUpdateListener;
@@ -94,7 +89,14 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
                     startingMoney.setText("Money: " + GameManager.getInstance().getMoney());
                 }
                 if (difficultyLevel != null) {
-                    difficultyLevel.setText("Level: " + GameManager.getInstance().getDifficulty());
+                    int level =  GameManager.getInstance().getDifficulty();
+                    if (level == 1) {
+                        difficultyLevel.setText("Level: Easy");
+                    } else if (level == 2) {
+                        difficultyLevel.setText("Level: Medium");
+                    } else {
+                        difficultyLevel.setText("Level: Hard");
+                    }
                 }
                 if (GameManager.getInstance().getBadgeBookkeeping()[0] >= 5) { // carrot badge
                     if (GameManager.getInstance().getBadgeBookkeeping()[0] == 5) {

@@ -63,7 +63,7 @@ public class M2DuyTests {
     @Test
     public void testConstructor() {
         List<CropTypes> seeds = new ArrayList<>();
-        seeds.add(CropTypes.LETTUCE);
+        seeds.add(CropTypes.EGGPLANT);
         seeds.add(CropTypes.CARROT);
         ConfigSceneController controller = new ConfigSceneController();
         controller.construct(null, 2, "Duy",
