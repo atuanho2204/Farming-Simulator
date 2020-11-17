@@ -33,10 +33,10 @@ public class M3DuyTests {
         });
         HashMap<CropTypes, Integer> seeds = new HashMap<>();
         seeds.put(CropTypes.CARROT, 2);
-        seeds.put(CropTypes.COTTON, 1);
+        seeds.put(CropTypes.TOMATO, 1);
         inventory.putSeed(CropTypes.CARROT);
         inventory.putSeed(CropTypes.CARROT);
-        inventory.putSeed(CropTypes.COTTON);
+        inventory.putSeed(CropTypes.TOMATO);
         for (CropTypes key : seeds.keySet()) {
             assertEquals(seeds.get(key), inventory.getListOfSeedItems().get(key));
         }
@@ -80,12 +80,12 @@ public class M3DuyTests {
         });
         HashMap<CropTypes, Integer> seeds = new HashMap<>();
         seeds.put(CropTypes.CARROT, 2);
-        seeds.put(CropTypes.COTTON, 1);
+        seeds.put(CropTypes.TOMATO, 1);
         inventory.putSeed(CropTypes.CARROT);
         inventory.putSeed(CropTypes.CARROT);
-        inventory.putSeed(CropTypes.COTTON);
-        inventory.putSeed(CropTypes.COTTON);
-        inventory.removeSeed(CropTypes.COTTON);
+        inventory.putSeed(CropTypes.TOMATO);
+        inventory.putSeed(CropTypes.TOMATO);
+        inventory.removeSeed(CropTypes.TOMATO);
         for (CropTypes key : seeds.keySet()) {
             assertEquals(seeds.get(key), inventory.getListOfSeedItems().get(key));
         }
@@ -128,7 +128,7 @@ public class M3DuyTests {
         PlatformImpl.startup(() -> {
         });
         for (int i = 0; i < 20; i++) {
-            inventory.putSeed(CropTypes.COTTON);
+            inventory.putSeed(CropTypes.TOMATO);
         }
         assertEquals(20, inventory.getStorageSize());
     }

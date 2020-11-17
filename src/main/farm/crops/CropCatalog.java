@@ -29,7 +29,7 @@ public class CropCatalog {
         cropsToDetails.put(CropTypes.CARROT, new CropDetails(10, 20, 5));
         cropsToDetails.put(CropTypes.WHEAT, new CropDetails(5, 10, 3));
         cropsToDetails.put(CropTypes.LETTUCE, new CropDetails(10, 15, 4));
-        cropsToDetails.put(CropTypes.COTTON, new CropDetails(3, 7, 2));
+        cropsToDetails.put(CropTypes.TOMATO, new CropDetails(3, 7, 2));
     }
 
     public CropDetails getCropDetails(CropTypes type) {

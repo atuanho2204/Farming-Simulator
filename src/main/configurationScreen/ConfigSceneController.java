@@ -103,7 +103,7 @@ public class ConfigSceneController extends UIController {
                 GameManager.getInstance().getSeeds().add(CropTypes.CARROT);
             }
             if (cotton.isSelected()) {
-                GameManager.getInstance().getSeeds().add(CropTypes.COTTON);
+                GameManager.getInstance().getSeeds().add(CropTypes.TOMATO);
             }
             if (lettuce.isSelected()) {
                 GameManager.getInstance().getSeeds().add(CropTypes.LETTUCE);

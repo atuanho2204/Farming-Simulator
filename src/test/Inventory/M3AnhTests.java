@@ -100,7 +100,7 @@ public class M3AnhTests {
         inventory.putSeed(CropTypes.LETTUCE);
         inventory.putSeed(CropTypes.LETTUCE);
         assertEquals(2, inventory.getStorageSize());
-        inventory.removeSeed(CropTypes.COTTON);
+        inventory.removeSeed(CropTypes.TOMATO);
         inventory.removeSeed(CropTypes.LETTUCE);
         assertEquals(1, inventory.getStorageSize());
     }
@@ -144,7 +144,7 @@ public class M3AnhTests {
     public void testStorageSize() throws Exception {
         PlatformImpl.startup(() -> {
         });
-        inventory.putProduct(new HarvestedCrop(CropTypes.COTTON));
+        inventory.putProduct(new HarvestedCrop(CropTypes.TOMATO));
         inventory.putSeed(CropTypes.CARROT);
         inventory.putSeed(CropTypes.WHEAT);
         inventory.putProduct(new HarvestedCrop(CropTypes.LETTUCE));

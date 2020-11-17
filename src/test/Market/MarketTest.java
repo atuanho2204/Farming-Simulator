@@ -100,9 +100,9 @@ public class MarketTest {
         GameManager.getInstance().setMoney(0);
         //GameManager.getInstance().setInventory(inventory);
         GameManager.getInstance().getInventory().putSeed(CropTypes.CARROT);
-        Market.sellSeed(CropTypes.COTTON, price);
+        Market.sellSeed(CropTypes.TOMATO, price);
         GameManager.getInstance().getInventory().putSeed(CropTypes.CARROT);
-        Market.sellSeed(CropTypes.COTTON, price);
+        Market.sellSeed(CropTypes.TOMATO, price);
         assertEquals(0, GameManager.getInstance().getMoney().intValue());
     }
 

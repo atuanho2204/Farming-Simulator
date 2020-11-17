@@ -52,7 +52,8 @@ public class FarmState implements NewDayListener {
         reduceWaterLevelsEveryThreeDays(GameManager.getInstance().getDifficulty());
         reduceFertilizer(GameManager.getInstance().getDifficulty());
         updateGrowthCycle(false);
-        NotificationManager.getInstance().addNotification("~~~~~~~~~~~~~~~~Day " + e.getNewDay()
+        String day = (e.getNewDay() < 10) ? ("0" + e.getNewDay()) : e.getNewDay().toString();
+        NotificationManager.getInstance().addNotification("~~~~~~~~~~~~~~~~Day " + day
                 + "~~~~~~~~~~~~~~~~~");
         forcePlotUpdate("Show new plot water and growth levels");
         updateSeason();
