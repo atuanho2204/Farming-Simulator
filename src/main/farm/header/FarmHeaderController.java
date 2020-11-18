@@ -2,15 +2,14 @@ package main.farm.header;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
 import main.notifications.NotificationManager;
+import main.util.AlertUser;
 import main.util.UIManager;
 import main.util.customEvents.ForceUIUpdate;
 import main.util.customEvents.ForceUIUpdateListener;
@@ -35,8 +34,6 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
     private Label currentDate;
     @FXML
     private Label farmerName;
-    @FXML
-    private Button season;
     @FXML
     private Button carrotB;
     @FXML
@@ -72,7 +69,6 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
     private void setHeaderData() {
         try {
             Platform.runLater(() -> {
-
                 if (farmerName != null) {
                     farmerName.setText("Name: " + GameManager.getInstance().getName());
                 }
@@ -98,54 +94,28 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
                         difficultyLevel.setText("Level: Hard");
                     }
                 }
-                if (GameManager.getInstance().getBadgeBookkeeping()[0] >= 5) { // carrot badge
-                    if (GameManager.getInstance().getBadgeBookkeeping()[0] == 5) {
-                        NotificationManager.getInstance().addNotification(
-                                "You earned the CARROTTING-FRENZY badge!");
-                    }
-                    carrotB.setText("");
-                    Image img = new Image("/main/images/carrotB.png");
-                    ImageView view = new ImageView(img);
-                    view.setFitHeight(40);
-                    view.setFitWidth(40);
-                    carrotB.setGraphic(view);
-                    carrotB.setStyle("-fx-background-color: transparent;");
+                // badges
+                if (GameManager.getInstance().getBadgeBookkeeping()[0] == 5) {
+                    setBadge("carrotB");
                 }
-                if (GameManager.getInstance().getBadgeBookkeeping()[1] >=5) { // organic badge
-                    if (GameManager.getInstance().getBadgeBookkeeping()[1] == 5) {
-                        NotificationManager.getInstance().addNotification(
-                                "You earned the ORGANIC-ALIC badge!");
-                    }
-                    organicB.setText("");
-                    Image img = new Image("/main/images/organicB.png");
-                    ImageView view = new ImageView(img);
-                    view.setFitHeight(40);
-                    view.setFitWidth(40);
-                    organicB.setGraphic(view);
-                    organicB.setStyle("-fx-background-color: transparent;");
+                if (GameManager.getInstance().getBadgeBookkeeping()[1] == 5) {
+                    setBadge("organicB");
                 }
-                if (GameManager.getInstance().getBadgeBookkeeping()[2] >=10) { // harvest badge
-                    if (GameManager.getInstance().getBadgeBookkeeping()[2] == 10) {
-                        NotificationManager.getInstance().addNotification(
-                                "You earned the HARVEST-FRENZY badge!");
-                    }
-                    harvestB.setText("");
-                    Image img = new Image("/main/images/harvestB.png");
-                    ImageView view = new ImageView(img);
-                    view.setFitHeight(40);
-                    view.setFitWidth(40);
-                    harvestB.setGraphic(view);
-                    harvestB.setStyle("-fx-background-color: transparent;");
+                if (GameManager.getInstance().getBadgeBookkeeping()[2] == 10) {
+                    setBadge("harvestB");
                 }
-                carrotB.setTooltip(new Tooltip("CARROTTING-FRENZY: Harvest 5 "
+                carrotB.setTooltip(new Tooltip("CARROT-FRENZY: Harvest 5 "
                         + "carrots to earn this good-looking badge!"
-                        + "\nCurrent: " + GameManager.getInstance().getBadgeBookkeeping()[0]));
+                        + "\nCurrent: "
+                        + Math.min(GameManager.getInstance().getBadgeBookkeeping()[0], 5)));
                 organicB.setTooltip(new Tooltip("ORGANIC-ALIC: Harvest 5 crops with "
                         + "neither fertilizer nor pesticide (:"
-                        + "\nCurrent: " + GameManager.getInstance().getBadgeBookkeeping()[1]));
+                        + "\nCurrent: "
+                        + Math.min(GameManager.getInstance().getBadgeBookkeeping()[1], 5)));
                 harvestB.setTooltip(new Tooltip("HARVEST-FRENZY: Harvest a total "
                         + "of 10 crops. Let's go!"
-                        + "\nCurrent: " + GameManager.getInstance().getBadgeBookkeeping()[2]));
+                        + "\nCurrent: "
+                        + Math.min(GameManager.getInstance().getBadgeBookkeeping()[2], 10)));
             });
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -174,18 +144,36 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
         }
     }
 
-    @FXML
-    public void handleCarrotB() {
-        //        System.out.println("badge 1");
-    }
-
-    @FXML
-    public void handleOrganicB() {
-//        System.out.println("badge 2");
-    }
-
-    @FXML
-    public void handleHarvestB() {
-//        System.out.println("badge 3");
+    private void setBadge(String badge) {
+        if (badge.equals("carrotB")) {
+            /*NotificationManager.getInstance().addNotification(
+                    "You earned the CARROT-FRENZY badge!");*/
+            carrotB.setText("");
+            ImageView view = new ImageView(new Image("/main/images/carrotB.png"));
+            view.setFitHeight(40);
+            view.setFitWidth(40);
+            carrotB.setGraphic(view);
+            carrotB.setStyle("-fx-background-color: transparent;");
+        }
+        if (badge.equals("organicB")) { // organic badge
+            /*NotificationManager.getInstance().addNotification(
+                    "You earned the ORGANIC-ALIC badge!");*/
+            organicB.setText("");
+            ImageView view = new ImageView(new Image("/main/images/organicB.png"));
+            view.setFitHeight(40);
+            view.setFitWidth(40);
+            organicB.setGraphic(view);
+            organicB.setStyle("-fx-background-color: transparent;");
+        }
+        if (badge.equals("harvestB")) { // harvest badge
+            /*NotificationManager.getInstance().addNotification(
+                    "You earned the HARVEST-FRENZY badge!");*/
+            harvestB.setText("");
+            ImageView view = new ImageView(new Image("/main/images/harvestB.png"));
+            view.setFitHeight(40);
+            view.setFitWidth(40);
+            harvestB.setGraphic(view);
+            harvestB.setStyle("-fx-background-color: transparent;");
+        }
     }
 }

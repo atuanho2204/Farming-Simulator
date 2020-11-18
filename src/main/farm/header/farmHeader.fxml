@@ -20,11 +20,11 @@
         <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
     </rowConstraints>
     <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
-        <Button fx:id="carrotB" text="??" onAction="#handleCarrotB">
+        <Button fx:id="carrotB" text="??">
         </Button>
-        <Button fx:id="organicB" text="??" onAction="#handleOrganicB">
+        <Button fx:id="organicB" text="??">
         </Button>
-        <Button fx:id="harvestB" text="??" onAction="#handleHarvestB">
+        <Button fx:id="harvestB" text="??">
         </Button>
     </HBox>
     <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">

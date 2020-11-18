@@ -2,7 +2,6 @@ package main.farm.plot;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;
@@ -18,6 +17,7 @@ import main.farm.FarmEquipment;
 import main.farm.FarmState;
 import main.farm.crops.Crop;
 import main.farm.crops.CropStages;
+import main.farm.crops.CropTypes;
 import main.gameManager.GameManager;
 import main.util.AlertUser;
 import main.util.UIManager;
@@ -225,6 +225,7 @@ public class PlotUI {
                     AlertUser.alertUser("There is no more plots left to harvest. You may wait a day or buy a tractor");
                     return;
                 }
+                // add points for badges
                 plot.harvestPlot();
                 controller.updatePlotUI(plot);
                 farmEquipment.setCurrentHarvestPlots(farmEquipment.getMaxHarvestPlots() + 1);

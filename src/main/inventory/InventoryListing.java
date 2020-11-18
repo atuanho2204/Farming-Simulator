@@ -71,11 +71,13 @@ public class InventoryListing {
     }
 
     public static Button getProductListingUI(HarvestedCrop crop) {
-        String productName = crop.getName() + "\n$" + crop.getSellCost();
+        String productName = crop.getName() + " $" + crop.getSellCost();
         //ADD BUTTON TO SELL
         Button sell = new Button(productName);
-        sell.setTextFill(Color.DARKORANGE);
-        sell.setPrefWidth(72);
+        sell.setTextFill(Color.DARKGREEN);
+        sell.setStyle("-fx-font: 10 chalkduster;"
+                + "-fx-font-weight: bold; -fx-background-color: BURLYWOOD;");
+        sell.setPrefWidth(144);
         return sell;
     }
 }

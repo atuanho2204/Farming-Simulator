@@ -1,5 +1,8 @@
 package main.farm.plot;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.image.ImageView;
 import main.farm.crops.CropCatalog;
 import main.gameManager.GameManager;
 import main.inventory.inventoryItems.HarvestedCrop;
@@ -112,21 +115,14 @@ public class Plot {
                                 currentCrop.getType()).getBaseSell() * 2 - 2;
                         GameManager.getInstance().getInventory().putProduct(
                                 new HarvestedCrop(0, adjustedPrice,
-                                        currentCrop.getType().toString().toLowerCase() + "(P)",
-                                        currentCrop.getType()));
+                                        currentCrop.getType().toString().toLowerCase()
+                                                + "(P)", currentCrop.getType()));
                     } else {
                         GameManager.getInstance().getInventory().putProduct(
                                 new HarvestedCrop(currentCrop.getType()));
-                        GameManager.getInstance().getBadgeBookkeeping()[1] =
-                                GameManager.getInstance().getBadgeBookkeeping()[1] + 1;
                     }
                 }
-                if (currentCrop.getType() == CropTypes.CARROT) {
-                    GameManager.getInstance().getBadgeBookkeeping()[0] =
-                            GameManager.getInstance().getBadgeBookkeeping()[0] + 1;
-                }
-                GameManager.getInstance().getBadgeBookkeeping()[2] =
-                        GameManager.getInstance().getBadgeBookkeeping()[2] + 1;
+                addPoints();
                 NotificationManager.getInstance().addNotification(
                         "Harvested " + yieldBonus + " "
                                 + currentCrop.getType().toString().toLowerCase() + "!!");
@@ -160,6 +156,35 @@ public class Plot {
             } catch (Exception e) {
                 AlertUser.alertUser("Seed not available");
             }
+        }
+    }
+
+    private void addPoints () {
+        if (currentCrop.getType() == CropTypes.CARROT) {
+            GameManager.getInstance().getBadgeBookkeeping()[0] =
+                    GameManager.getInstance().getBadgeBookkeeping()[0] + 1;
+        }
+        if (!currentCrop.hasPesticide()) {
+            GameManager.getInstance().getBadgeBookkeeping()[1] =
+                    GameManager.getInstance().getBadgeBookkeeping()[1] + 1;
+        }
+        GameManager.getInstance().getBadgeBookkeeping()[2] =
+                GameManager.getInstance().getBadgeBookkeeping()[2] + 1;
+
+        if (!GameManager.getInstance().isGotAllBadges()
+                && GameManager.getInstance().getBadgeBookkeeping()[0] >= 5
+                && GameManager.getInstance().getBadgeBookkeeping()[1] >= 5
+                && GameManager.getInstance().getBadgeBookkeeping()[2] >= 10) {
+            GameManager.getInstance().setGotAllBadges(true);
+            GameManager.getInstance().setMoney(1000 + GameManager.getInstance().getMoney());
+            ImageView iv = new ImageView("/main/images/win.png");
+            iv.setFitWidth(300);
+            iv.setFitHeight(200);
+            Alert a = new Alert(Alert.AlertType.INFORMATION,
+                    "You have just earned all of our prestigious badges"
+                            + " and $1000!!!", ButtonType.OK);
+            a.setGraphic(iv);
+            a.show();
         }
     }
 
