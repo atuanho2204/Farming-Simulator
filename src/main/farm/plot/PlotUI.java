@@ -229,7 +229,7 @@ public class PlotUI {
                 }
                 plot.harvestPlot();
                 controller.updatePlotUI(plot);
-                farmEquipment.setCurrentHarvestPlots(farmEquipment.getMaxHarvestPlots() + 1);
+                farmEquipment.setCurrentHarvestPlots(farmEquipment.getCurrentHarvestPlots() + 1);
             });
         }
         return button;
