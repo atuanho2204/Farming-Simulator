@@ -227,6 +227,7 @@ public class PlotUI {
                             + "You may wait a day or buy a tractor");
                     return;
                 }
+                // add points for badges
                 plot.harvestPlot();
                 controller.updatePlotUI(plot);
                 farmEquipment.setCurrentHarvestPlots(farmEquipment.getMaxHarvestPlots() + 1);

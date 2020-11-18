@@ -29,7 +29,8 @@ public class GameManager implements NewDayListener {
     private Market market;
     private Inventory inventory;
     private EmployeeManager employees;
-    private int[] badgeBookkeeping = new int[3];
+    private int[] badgeBookkeeping = new int[3]; // carrotB - organicB - harvestB
+    private boolean gotAllBadges = false;
 
     private GameManager() {
         this.day = 0;
@@ -38,7 +39,7 @@ public class GameManager implements NewDayListener {
         this.timeAdvancer.addListener(this);
         badgeBookkeeping[0] = 0; // carrot badge
         badgeBookkeeping[1] = 0; // organic badge
-        badgeBookkeeping[2] = 0; // organic badge
+        badgeBookkeeping[2] = 0; // harvest badge
     }
 
     public static GameManager getInstance() {
@@ -138,5 +139,13 @@ public class GameManager implements NewDayListener {
 
     public int[] getBadgeBookkeeping() {
         return badgeBookkeeping;
+    }
+
+    public boolean isGotAllBadges() {
+        return gotAllBadges;
+    }
+
+    public void setGotAllBadges(boolean gotAllBadges) {
+        this.gotAllBadges = gotAllBadges;
     }
 }

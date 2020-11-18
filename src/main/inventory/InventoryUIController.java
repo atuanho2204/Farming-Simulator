@@ -72,8 +72,8 @@ public class InventoryUIController implements PropertyChangeListener {
                     GameManager.getInstance().getInventory().getProducts();
             TilePane tile = new TilePane();
             tile.setAlignment(Pos.BOTTOM_LEFT);
-            tile.setPrefColumns(4);
-            tile.setPrefRows(3);
+            tile.setPrefColumns(2);
+            tile.setPrefRows(4);
             if (products.size() == 0) {
                 Text emptyProduct = new Text("No products?\n"
                         + "You are a failure at farming! :(");
