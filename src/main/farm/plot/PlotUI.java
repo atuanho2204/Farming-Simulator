@@ -230,7 +230,7 @@ public class PlotUI {
                 // add points for badges
                 plot.harvestPlot();
                 controller.updatePlotUI(plot);
-                farmEquipment.setCurrentHarvestPlots(farmEquipment.getMaxHarvestPlots() + 1);
+                farmEquipment.setCurrentHarvestPlots(farmEquipment.getCurrentHarvestPlots() + 1);
             });
         }
         return button;
