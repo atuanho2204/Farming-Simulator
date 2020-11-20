@@ -18,6 +18,8 @@ public class Plot {
     private final int maxWater = 10;
     private int currentFertilizer = 0;
     private final int maxFertilizer = 10;
+    private final boolean purchased = true;
+
     public Plot() {
         // random crop, random stage, random water level from 4 to 6
         this(new Crop(CropTypes.values()[(int) (Math.random() * 4)],
