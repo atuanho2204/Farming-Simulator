@@ -1,9 +1,9 @@
 package main.farm.crops;
 
 public enum CropTypes {
-    WHEAT,
+    MELON,
     TOMATO,
-    LETTUCE,
+    EGGPLANT,
     CARROT
 }
 

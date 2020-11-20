@@ -2,6 +2,7 @@ package main.farm.plot;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;
@@ -11,12 +12,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import main.farm.FarmController;
 import main.farm.FarmEquipment;
 import main.farm.FarmState;
 import main.farm.crops.Crop;
 import main.farm.crops.CropStages;
+import main.gameManager.GameManager;
 import main.util.AlertUser;
+import main.util.UIManager;
 
 public class PlotUI {
     private static int farmPlotWidth = 575;
@@ -50,12 +54,12 @@ public class PlotUI {
         String cropStage = "";
         StringBuilder cropImgPath = new StringBuilder("/main/images/crops/");
         if (crop == null) {
-            cropImgPath.append("empty.jpg");//
+            cropImgPath.append("empty.jpg"); //
         } else {
             cropName = crop.getType().toString().toLowerCase();
             cropStage = plot.getCurrentCrop().getStage().toString().toLowerCase();
-            cropImgPath.append(cropName);//
-            cropImgPath.append(cropStage);//
+            cropImgPath.append(cropName); //
+            cropImgPath.append(cropStage); //
             cropImgPath.append(".jpg");
         }
         cropImage = new ImageView(new Image(cropImgPath.toString(),
@@ -136,7 +140,8 @@ public class PlotUI {
             //check if we are over the water limit
             FarmEquipment farmEquipment = FarmState.getInstance().getFarmEquipment();
             if (farmEquipment.getCurrentWaterPlots() >= farmEquipment.getMaxWaterPlots()) {
-                AlertUser.alertUser("There is no more water left in the tank. You may wait a day or buy irrigation");
+                AlertUser.alertUser("There is no more water left in the tank. "
+                        + "You may wait a day or buy irrigation");
                 return;
             }
             plot.waterPlot(1);
@@ -169,14 +174,39 @@ public class PlotUI {
     public static Button handlePlantAndHarvest(Plot plot, FarmController controller) {
         Button button = new Button();
         if (plot.getCurrentCrop() == null) {
-            button.setText("plant");
-            button.setOnAction(actionEvent -> {
-                plot.plantSeed();
-                controller.updatePlotUI(plot);
-            });
-            button.setStyle("-fx-background-color: BROWN; -fx-text-align: center;"
-                    + "-fx-text-fill: white; -fx-font-family: Chalkduster;"
-                    + "-fx-font-size: 10px; -fx-min-width: 50px;");
+            if (!plot.getPurchased()) {
+                int price = plot.getPrice();
+                Text text = new Text();
+                text.setText("$" + price);
+                button.setText("Buy $" + price);
+                button.setStyle("-fx-background-color: GREY; -fx-text-align: center;"
+                        + "-fx-text-fill: white; -fx-font-family: Chalkduster;"
+                        + "-fx-font-size: 10px; -fx-min-width: 50px;");
+                button.setOnAction(actionEvent -> {
+                    int currentMoney = GameManager.getInstance().getMoney();
+                    int count = FarmState.getInstance().getPlotCount();
+                    if (currentMoney >= price && plot.getOpenIdx() == count) {
+                        plot.setPurchased(true);
+                        GameManager.getInstance().setMoney(currentMoney - price);
+                        FarmState.getInstance().increasePlotCount();
+                        UIManager.getInstance().pushUIUpdate();
+                        controller.updatePlotUI(plot);
+                    } else if (plot.getOpenIdx() != count) {
+                        AlertUser.alertUser("You can't buy this plot");
+                    } else {
+                        AlertUser.alertUser("You don't have enough money");
+                    }
+                });
+            } else {
+                button.setText("plant");
+                button.setOnAction(actionEvent -> {
+                    plot.plantSeed();
+                    controller.updatePlotUI(plot);
+                });
+                button.setStyle("-fx-background-color: BROWN; -fx-text-align: center;"
+                        + "-fx-text-fill: white; -fx-font-family: Chalkduster;"
+                        + "-fx-font-size: 10px; -fx-min-width: 50px;");
+            }
         } else if (plot.getCurrentCrop().getStage() == CropStages.DEAD
                 || plot.getCurrentCrop().getStage() == CropStages.MATURE) {
             if (plot.getCurrentCrop().getStage() == CropStages.DEAD) {
@@ -193,12 +223,14 @@ public class PlotUI {
             button.setOnAction(actionEvent -> {
                 FarmEquipment farmEquipment = FarmState.getInstance().getFarmEquipment();
                 if (farmEquipment.getCurrentHarvestPlots() >= farmEquipment.getMaxHarvestPlots()) {
-                    AlertUser.alertUser("There is no more plots left to harvest. You may wait a day or buy a tractor");
+                    AlertUser.alertUser("There is no more plots left to harvest. "
+                            + "You may wait a day or buy a tractor");
                     return;
                 }
+                // add points for badges
                 plot.harvestPlot();
                 controller.updatePlotUI(plot);
-                farmEquipment.setCurrentHarvestPlots(farmEquipment.getMaxHarvestPlots() + 1);
+                farmEquipment.setCurrentHarvestPlots(farmEquipment.getCurrentHarvestPlots() + 1);
             });
         }
         return button;

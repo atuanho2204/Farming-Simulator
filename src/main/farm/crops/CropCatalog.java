@@ -27,8 +27,8 @@ public class CropCatalog {
     private void setCatalogs() {
         cropsToDetails = new HashMap<>();
         cropsToDetails.put(CropTypes.CARROT, new CropDetails(10, 20, 5));
-        cropsToDetails.put(CropTypes.WHEAT, new CropDetails(5, 10, 3));
-        cropsToDetails.put(CropTypes.LETTUCE, new CropDetails(10, 15, 4));
+        cropsToDetails.put(CropTypes.MELON, new CropDetails(5, 10, 3));
+        cropsToDetails.put(CropTypes.EGGPLANT, new CropDetails(10, 15, 4));
         cropsToDetails.put(CropTypes.TOMATO, new CropDetails(3, 7, 2));
     }
 

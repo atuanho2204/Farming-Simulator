@@ -64,7 +64,7 @@ public class GameOverSceneController {
 
     /**
      * Restart the current Java application
-     * @throws IOException
+     * @throws IOException jnk
      */
     public void restartApplication(/*Runnable runBeforeRestart*/) throws IOException {
         System.out.println("...");

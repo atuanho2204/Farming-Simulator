@@ -34,7 +34,9 @@ public class FarmEquipment {
         return hasIrrigation;
     }
 
-    public int getMaxHarvestPlots() { return maxHarvestPlots;}
+    public int getMaxHarvestPlots() {
+        return maxHarvestPlots;
+    }
 
     public void setMaxHarvestPlots(int maxHarvestPlots) {
         this.maxHarvestPlots = maxHarvestPlots;

@@ -15,8 +15,11 @@ import main.inventory.inventoryItems.Seed;
 import main.market.Market;
 import javafx.scene.paint.Color;
 
+
+
 public class MarketListing {
 
+    private static int plotPrice = 40 + 10 * (GameManager.getInstance().getDifficulty());
     public static GridPane getListingUI(InventoryItem listing) {
         GridPane grid = new GridPane();
         grid.getColumnConstraints().add(new ColumnConstraints(140)); // column 0
@@ -167,6 +170,33 @@ public class MarketListing {
         buy.setStyle("-fx-font: 11 chalkduster; -fx-text-fill: GREEN;");
         buy.setOnAction(e -> {
             Market.buyTractor(price);
+        });
+        grid.add(buy, ++col, 0);
+        grid.setPadding(new Insets(2, 0, 2, 0));
+        return grid;
+    }
+
+    public static GridPane getPlotUI(int price) {
+        // text and button to buy Plot
+        GridPane grid = new GridPane();
+        grid.getColumnConstraints().add(new ColumnConstraints(140)); // column 0
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 1
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 2
+        grid.getColumnConstraints().add(new ColumnConstraints(50)); // column 3
+        int col = 0;
+        //int price = 40 + 10 * (GameManager.getInstance().getDifficulty());
+        Text name = new Text("New Plot:");
+        name.setFill(Color.WHITE);
+        name.setStyle("-fx-font: 16 chalkduster;");
+        grid.add(name, col, 0);
+        Text cost = new Text("$" + price);
+        cost.setFill(Color.WHITE);
+        cost.setStyle("-fx-font: 16 chalkduster;");
+        grid.add(cost, ++col, 0);
+        Button buy = new Button("Buy");
+        buy.setStyle("-fx-font: 11 chalkduster; -fx-text-fill: GREEN;");
+        buy.setOnAction(e -> {
+            //Market.buyPlot(price);
         });
         grid.add(buy, ++col, 0);
         grid.setPadding(new Insets(2, 0, 2, 0));

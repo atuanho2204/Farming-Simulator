@@ -1,10 +1,14 @@
 package main.farm;
 
 import javafx.application.Platform;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+
 import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
@@ -23,6 +27,7 @@ import main.inventory.Inventory;
 import main.inventory.InventoryUIController;
 import main.market.MarketUIController;
 import main.util.MainController;
+
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -44,6 +49,8 @@ public class FarmController extends MainController implements PropertyChangeList
     @FXML
     private HBox farmPlots;
     @FXML
+    private HBox farmPlots2;
+    @FXML
     private Pane marketHolder;
     @FXML
     private Pane inventoryHolder;
@@ -51,10 +58,12 @@ public class FarmController extends MainController implements PropertyChangeList
     private Pane employmentHolder;
     @FXML
     private Pane notificationHolder;
-
+    @FXML
+    private Button changeField;
 
     @Override
     public void construct(Stage primaryStage, AudioClip backgroundMusic) {
+
         this.primaryStage = primaryStage;
         this.backgroundMusic = backgroundMusic;
 
@@ -88,7 +97,10 @@ public class FarmController extends MainController implements PropertyChangeList
         setEmployeeUI();
         setNotificationUI();
 
+        initializeFarmState();
         initializePlots();
+        openFirstSixPlots();
+
 
         //BEGIN GAME
         GameManager.getInstance().getTimeAdvancer().startTime();
@@ -194,12 +206,21 @@ public class FarmController extends MainController implements PropertyChangeList
         }
     }
 
-
-    public void initializePlots() {
+    public void initializeFarmState() {
         for (int i = 0; i < farmState.getNumOfPlots(); ++i) {
             farmState.getPlots().add(new Plot());
         }
+        int initPrice = 100;
+        for (int i = 6; i < 12; i++) {
+            farmState.getPlots().get(i).setPrice(initPrice);
+            farmState.getPlots().get(i).setOpenIdx(i);
+            initPrice += 100;
+        }
+        openFirstSixPlots();
+    }
+    public void initializePlots() {
         try {
+            farmPlots.getChildren().clear();
             plotHolder = getRandomPlots(GameManager.getInstance().getSeeds());
             farmPlots.getChildren().add(plotHolder);
         } catch (Exception e) {
@@ -210,12 +231,18 @@ public class FarmController extends MainController implements PropertyChangeList
 
     public TilePane getRandomPlots(List<CropTypes> seeds) {
         TilePane plotGrid = PlotUI.getPlotHolderUI();
-        for (int i = 0; i < farmState.getPlots().size(); i++) {
+
+        for (int i = 0; i < 12; i++) {
             Plot plot = farmState.getPlots().get(i);
-            int randomCrop = (int) (Math.random() * 100) % seeds.size();
-            int randomStage = (int) (Math.random() * 100) % CropStages.values().length;
-            plot.getCurrentCrop().setType(seeds.get(randomCrop));
-            plot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
+            if (plot.getPurchased()) {
+                int randomCrop = (int) (Math.random() * 100) % seeds.size();
+                int randomStage = (int) (Math.random() * 100) % CropStages.values().length;
+                plot.getCurrentCrop().setType(seeds.get(randomCrop));
+                plot.getCurrentCrop().setCropStage(CropStages.values()[randomStage]);
+            } else {
+                plot.setCurrentCrop(null);
+            }
+
 
             StackPane uiComponent = PlotUI.getPlotUI(plot, this);
             plotGrid.getChildren().add(uiComponent);
@@ -236,6 +263,7 @@ public class FarmController extends MainController implements PropertyChangeList
         });
     }
 
+
     public void endGame() {
         try {
             GameManager.getInstance().getTimeAdvancer().pauseTime();
@@ -255,6 +283,14 @@ public class FarmController extends MainController implements PropertyChangeList
             });
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+
+
+    public void openFirstSixPlots() {
+        for (int i = 0; i < 6; i++) {
+            farmState.getPlots().get(i).setPurchased(true);
         }
     }
 }

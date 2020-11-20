@@ -32,7 +32,7 @@
                     <Insets left="150.0"/>
                 </VBox.margin>
             </Label>
-            <CheckBox fx:id="wheat" mnemonicParsing="false" text="Wheat">
+            <CheckBox fx:id="melon" mnemonicParsing="false" text="Melon">
                 <VBox.margin>
                     <Insets left="150.0"/>
                 </VBox.margin>
@@ -42,12 +42,12 @@
                     <Insets left="150.0"/>
                 </VBox.margin>
             </CheckBox>
-            <CheckBox fx:id="tomato" mnemonicParsing="false" text="Cotton">
+            <CheckBox fx:id="tomato" mnemonicParsing="false" text="Tomato">
                 <VBox.margin>
                     <Insets left="150.0"/>
                 </VBox.margin>
             </CheckBox>
-            <CheckBox fx:id="lettuce" mnemonicParsing="false" text="Lettuce">
+            <CheckBox fx:id="eggplant" mnemonicParsing="false" text="Eggplant">
                 <VBox.margin>
                     <Insets left="150.0"/>
                 </VBox.margin>

@@ -33,10 +33,10 @@ public class GrowthCycleTest {
         plots.get(0).getCurrentCrop().setType(CropTypes.CARROT);
         plots.get(0).getCurrentCrop().setCropStage(CropStages.MATURE);
         plots.get(0).getCurrentCrop().setPlantDay(0);
-        plots.get(1).getCurrentCrop().setType(CropTypes.WHEAT);
+        plots.get(1).getCurrentCrop().setType(CropTypes.MELON);
         plots.get(1).getCurrentCrop().setCropStage(CropStages.SPROUTING);
         plots.get(1).getCurrentCrop().setPlantDay(0);
-        plots.get(2).getCurrentCrop().setType(CropTypes.LETTUCE);
+        plots.get(2).getCurrentCrop().setType(CropTypes.EGGPLANT);
         plots.get(2).getCurrentCrop().setCropStage(CropStages.IMMATURE);
         plots.get(2).getCurrentCrop().setPlantDay(0);
         plots.get(3).getCurrentCrop().setType(CropTypes.TOMATO);

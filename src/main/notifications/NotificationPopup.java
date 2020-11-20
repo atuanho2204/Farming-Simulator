@@ -8,13 +8,14 @@ import javafx.scene.text.TextAlignment;
 public class NotificationPopup {
     public static HBox getNotificationPopupUI(String s) {
         HBox hbox = new HBox();
-        Text t = new Text(s);
+        Text t = new Text("\n   " + s);
+        t.setStyle("-fx-font: 11 Chalkduster;");
         if (s.contains("~")) {
             t.setFill(Color.WHITE);
             t.setTextAlignment(TextAlignment.CENTER);
         } else if (s.contains("ALERT!!")) {
             t.setFill(Color.DARKRED);
-            t.setStyle("-fx-font-weight: bold;");
+            t.setStyle("-fx-font: 11 Chalkduster; -fx-font-weight: bold;");
         } else {
             // other styling for other stuff?
             // Below is just a placeholder for the sake of checkstyle
