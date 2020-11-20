@@ -27,6 +27,13 @@ public class UpdateBadgesTest {
         controller = new FarmController();
     }
 
+    /**
+     *
+     * On 12 plots of mature carrots, test points for carrotB checking if they are
+     * incremented by 1 each time a carrot is harvested
+     * --Quynh--
+     *
+     */
     @Test
     public void testIncrementPointsAfterHarvestingCarrot() {
         for (Plot plot : farm.getPlots()) {
@@ -40,6 +47,14 @@ public class UpdateBadgesTest {
         }
     }
 
+    /**
+     *
+     * On 12 plots of mature crops sprayed with pesticide, test points for organicB
+     * checking whether they are incremented by 1 each time such a crop is harvested,
+     * which they should not be.
+     * --Quynh--
+     *
+     */
     @Test
     public void testNotIncrementPointsAfterHarvestingCropsWithPesticide() {
         Random random = new Random();
@@ -56,6 +71,14 @@ public class UpdateBadgesTest {
         }
     }
 
+    /**
+     *
+     * On 12 plots of mature crops with/without pesticide, test points for harvestB
+     * checking whether they are incremented by 1 each time such a crop is harvested,
+     * which they should be.
+     * --Quynh--
+     *
+     */
     @Test
     public void testIncrementPointsAfterHarvestingCropsWithOrWithoutPesticide() {
         Random random = new Random();
