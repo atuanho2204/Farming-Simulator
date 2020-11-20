@@ -159,7 +159,7 @@ public class Plot {
         }
     }
 
-    private void addPoints () {
+    private void addPoints() {
         if (currentCrop.getType() == CropTypes.CARROT) {
             GameManager.getInstance().getBadgeBookkeeping()[0] =
                     GameManager.getInstance().getBadgeBookkeeping()[0] + 1;

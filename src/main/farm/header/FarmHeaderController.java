@@ -2,14 +2,14 @@ package main.farm.header;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import main.gameManager.GameManager;
-import main.notifications.NotificationManager;
-import main.util.AlertUser;
 import main.util.UIManager;
 import main.util.customEvents.ForceUIUpdate;
 import main.util.customEvents.ForceUIUpdateListener;
@@ -46,6 +46,7 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
      * Constructs the Header Scene.
      *
      * @param primaryStage the stage
+     * @param backgroundMusic current background music for farm scene
      */
     public void construct(Stage primaryStage, AudioClip backgroundMusic) {
         this.primaryStage = primaryStage;
