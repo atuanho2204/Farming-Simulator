@@ -1,5 +1,9 @@
 package main.farm;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.image.ImageView;
+import main.farm.crops.Crop;
 import main.farm.crops.CropCatalog;
 import main.farm.crops.CropDetails;
 import main.farm.crops.CropStages;
@@ -265,6 +269,36 @@ public class FarmState implements NewDayListener {
             System.out.println(numCropsKilled);
             NotificationManager.getInstance().addNotification("ALERT!!\n   Locusts killed "
                     + numCropsKilled + " of your crops :(");
+        }
+    }
+
+    public void addPoints(Plot plot) {
+        Crop crop = plot.getCurrentCrop();
+        if (crop.getType() == CropTypes.CARROT) {
+            GameManager.getInstance().getBadgeBookkeeping()[0] =
+                    GameManager.getInstance().getBadgeBookkeeping()[0] + 1;
+        }
+        if (!crop.hasPesticide()) {
+            GameManager.getInstance().getBadgeBookkeeping()[1] =
+                    GameManager.getInstance().getBadgeBookkeeping()[1] + 1;
+        }
+        GameManager.getInstance().getBadgeBookkeeping()[2] =
+                GameManager.getInstance().getBadgeBookkeeping()[2] + 1;
+
+        if (!GameManager.getInstance().isGotAllBadges()
+                && GameManager.getInstance().getBadgeBookkeeping()[0] >= 5
+                && GameManager.getInstance().getBadgeBookkeeping()[1] >= 5
+                && GameManager.getInstance().getBadgeBookkeeping()[2] >= 10) {
+            GameManager.getInstance().setGotAllBadges(true);
+            GameManager.getInstance().setMoney(1000 + GameManager.getInstance().getMoney());
+            ImageView iv = new ImageView("/main/images/win.png");
+            iv.setFitWidth(300);
+            iv.setFitHeight(200);
+            Alert a = new Alert(Alert.AlertType.INFORMATION,
+                    "You have just earned all of our prestigious badges"
+                            + " and $1000!!!", ButtonType.OK);
+            a.setGraphic(iv);
+            a.show();
         }
     }
 

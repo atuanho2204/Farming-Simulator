@@ -96,13 +96,13 @@ public class FarmHeaderController implements NewDayListener, ForceUIUpdateListen
                     }
                 }
                 // badges
-                if (GameManager.getInstance().getBadgeBookkeeping()[0] == 5) {
+                if (GameManager.getInstance().getBadgeBookkeeping()[0] >= 5) {
                     setBadge("carrotB");
                 }
-                if (GameManager.getInstance().getBadgeBookkeeping()[1] == 5) {
+                if (GameManager.getInstance().getBadgeBookkeeping()[1] >= 5) {
                     setBadge("organicB");
                 }
-                if (GameManager.getInstance().getBadgeBookkeeping()[2] == 10) {
+                if (GameManager.getInstance().getBadgeBookkeeping()[2] >= 10) {
                     setBadge("harvestB");
                 }
                 carrotB.setTooltip(new Tooltip("CARROT-FRENZY: Harvest 5 "
