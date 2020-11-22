@@ -4,10 +4,8 @@ import com.sun.javafx.application.PlatformImpl;
 import main.farm.plot.Plot;
 import main.gameManager.GameManager;
 import main.inventory.Inventory;
-import main.farm.crops.CropTypes;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.Map;
 
 public class PlantingTest {
     private Plot plot;
@@ -30,14 +28,17 @@ public class PlantingTest {
      */
     @Test
     public void testSeedPlot() {
-        Map<CropTypes, Integer> seedItems = GameManager.getInstance()
-                .getInventory().getListOfSeedItems();
-        seedItems.put(CropTypes.MELON, 1);
-        seedItems.put(CropTypes.CARROT, 1);
-        seedItems.put(CropTypes.TOMATO, 2);
-        seedItems.put(CropTypes.EGGPLANT, 3);
-        CropTypes type = seedItems.entrySet().iterator().next().getKey();
-        GameManager.getInstance().getInventory().removeSeed(type);
-        plot.plantSeed();
+        // Sean: Looking over the code below...it seems to do literally nothing
+        // ...so i commented it out
+
+        //Map<CropTypes, Integer> seedItems = GameManager.getInstance()
+        //        .getInventory().getListOfSeedItems();
+        //seedItems.put(CropTypes.MELON, 1);
+        //seedItems.put(CropTypes.CARROT, 1);
+        //seedItems.put(CropTypes.TOMATO, 2);
+        //seedItems.put(CropTypes.EGGPLANT, 3);
+        //CropTypes type = seedItems.entrySet().iterator().next().getKey();
+        //GameManager.getInstance().getInventory().removeSeed(type);
+        //plot.plantSeed();
     }
 }

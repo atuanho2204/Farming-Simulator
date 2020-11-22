@@ -86,7 +86,7 @@ public class UpdateBadgesTest {
             int rand = random.nextInt(4);
             Crop crop = new Crop(CropTypes.values()[rand],
                     CropStages.MATURE,
-                    (rand % 2 == 0) ? true : false);
+                    rand % 2 == 0);
             plot = new Plot(crop, 5);
         }
         for (Plot plot : farm.getPlots()) {

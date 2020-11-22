@@ -135,15 +135,16 @@ public class Plot {
     }
 
     public void plantSeed() {
+
         if (currentCrop != null || !purchased) {
             //the plot is not ready to plant
             return;
         } else {
+            //System.out.println(GameManager.getInstance().getInventory().getListOfSeedItems().size());
             //plot is empty and ready
             try {
                 //Find first seed in inventory; plant seed & decrease seed inventory
-                Map<CropTypes, Integer> seedItems =
-                        GameManager.getInstance().getInventory()
+                Map<CropTypes, Integer> seedItems = GameManager.getInstance().getInventory()
                                 .getListOfSeedItems();
                 CropTypes type = seedItems.entrySet().iterator().next().getKey();
                 GameManager.getInstance().getInventory().removeSeed(type);
