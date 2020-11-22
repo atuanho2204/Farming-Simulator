@@ -19,6 +19,7 @@ public class TractorTest {
             //fix TOOLKIT NOT INITIALIZED
         });
         farmEquipment = FarmState.getInstance().getFarmEquipment();
+        FarmState.clearFarmStateDangerous();
         GameManager.getInstance().clear();
         GameManager.getInstance().setInventory(new Inventory(true));
     }
