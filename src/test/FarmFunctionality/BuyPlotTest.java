@@ -1,11 +1,8 @@
 package test.FarmFunctionality;
 
 import main.farm.FarmState;
-import main.farm.crops.CropStages;
-import main.farm.plot.Plot;
 import main.gameManager.GameManager;
 import main.inventory.Inventory;
-import main.farm.crops.CropTypes;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +21,7 @@ public class BuyPlotTest {
      * Author: Duy
      */
     @Test
-    public void testFertizePlot() {
+    public void testBuyPlot() {
         Assert.assertEquals(6, FarmState.getInstance().getPlotCount());
         FarmState.getInstance().increasePlotCount();
         FarmState.getInstance().increasePlotCount();
