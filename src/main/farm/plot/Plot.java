@@ -140,7 +140,6 @@ public class Plot {
             //the plot is not ready to plant
             return;
         } else {
-            //System.out.println(GameManager.getInstance().getInventory().getListOfSeedItems().size());
             //plot is empty and ready
             try {
                 //Find first seed in inventory; plant seed & decrease seed inventory
