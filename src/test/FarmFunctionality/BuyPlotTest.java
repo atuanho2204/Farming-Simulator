@@ -21,7 +21,7 @@ public class BuyPlotTest {
      * Author: Duy
      */
     @Test
-    public void testFertizePlot() {
+    public void testBuyPlot() {
         Assert.assertEquals(6, FarmState.getInstance().getPlotCount());
         FarmState.getInstance().increasePlotCount();
         FarmState.getInstance().increasePlotCount();
