@@ -8,6 +8,10 @@ Each test goes over a single high-traffic method in our classes (addHarvestor(),
 
 As of the completion of M6:
 
-We tested the functionality of the new farming limitations/rules, as well as the endgame scenarios. The tested components are as follows: 1. harvesting/watering with/without irrigation and the tractor, 2.buying new plots, 3.getting new badges (which leads to the "win" scenario). These combined areas were determined to have all of the new functionality.
+We tested the functionality of the new farming limitations/rules, as well as the endgame scenarios. The tested components are as follows:
+1. harvesting/watering with/without irrigation and the tractor
+2. buying new plots (expanding the farm)
+3. getting new badges (which leads to the "win" scenario).
+These combined areas were determined to have all of the new functionality.
 
-Each test goes over a single high-traffic method in our classes (increasePlotCount(), harvestPlot(), triggerRain(), fertilizePlot(), etc), in which some test-cases use normal inputs and expected behavior and others insert abnormal and invalid inputs to test for error handling. Thus, the system of tests guarantees basic functionality of the new implemented features.
+Each test goes over a single high-traffic method in our classes (increasePlotCount(), harvestPlot(), getBadgeBookkeeping(), etc), in which some test-cases use normal inputs and expected behavior and others insert abnormal and invalid inputs to test for error handling. Thus, the system of tests guarantees basic functionality of the new implemented features.
