@@ -14,7 +14,8 @@ public class BuyRandomPlotTest {
     @Before
     public void setUp() {
         game = GameManager.getInstance();
-
+        FarmState.clearFarmStateDangerous();
+        GameManager.getInstance().clear();
         controller = new FarmController();
     }
 
@@ -29,8 +30,7 @@ public class BuyRandomPlotTest {
         FarmState.getInstance().increasePlotCount();
         FarmState.getInstance().increasePlotCount();
         FarmState.getInstance().increasePlotCount();
-        FarmState.getInstance().increasePlotCount();
-        FarmState.getInstance().increasePlotCount();
-        Assert.assertEquals(12, FarmState.getInstance().getPlotCount());
+
+        Assert.assertEquals(10, FarmState.getInstance().getPlotCount());
     }
 }
