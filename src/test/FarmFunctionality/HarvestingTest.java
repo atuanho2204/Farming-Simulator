@@ -1,6 +1,5 @@
 package test.FarmFunctionality;
 
-import com.sun.javafx.application.PlatformImpl;
 import main.farm.FarmState;
 import main.farm.crops.Crop;
 import main.farm.crops.CropStages;
@@ -14,6 +13,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class HarvestingTest {
 
@@ -55,10 +55,10 @@ public class HarvestingTest {
         harvestPlot(2);
         harvestPlot(3);
 
-        assertEquals(null, getCrop(0));
-        assertEquals(null, getCrop(1));
-        assertEquals(null, getCrop(2));
-        assertEquals(null, getCrop(3));
+        assertNull(getCrop(0));
+        assertNull(getCrop(1));
+        assertNull(getCrop(2));
+        assertNull(getCrop(3));
     }
 
     private void harvestPlot(int index) {
