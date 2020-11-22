@@ -18,6 +18,7 @@ public class RandomEventsTest {
      */
     @Before
     public void setUp() {
+        FarmState.getInstance().clearFarmStateDangerous();
         plots = FarmState.getInstance().getPlots();
         numOfPlots = FarmState.getInstance().getNumOfPlots();
         for (int i  = 0; i < numOfPlots; ++i) {
